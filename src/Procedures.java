@@ -1,4 +1,4 @@
 
-public class Procedures {
+public class Procedures implements Programme{
 
 }
