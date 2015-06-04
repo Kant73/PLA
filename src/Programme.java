@@ -5,4 +5,5 @@ public interface Programme {
 	public int nbMaxAction;
 	public String nom;
 	/* ---- Ensemble d'actions*/
+	
 }

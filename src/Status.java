@@ -8,6 +8,6 @@ public enum Status {
 	JAUNE;
 	
 	private List Cases; 
-	private boolean visitée;
+	private boolean visitee;
 	
 }
