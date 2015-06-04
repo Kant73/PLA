@@ -1,10 +1,17 @@
 
 public abstract class Personnage {
 
+	private enum  Pcardinaux{
+		NORTH,
+		SOUTH,
+		EAST,
+		WEST;
+	};
+	
 	private int currentX;
 	private int currentY;
-	private String Orientation; /* A changer en type enum N,S,E,O*/
-	private Programme prog;
-	
+	private Pcardinaux orientation; 
+	private Programme prog;	
 	
 }
+
