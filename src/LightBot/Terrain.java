@@ -11,6 +11,7 @@ public class Terrain {
 	private int score;
 	private int nbActionsPossible;
 	private int xInit, yInit;
+	
 	private Case ensembleDeCase [] [];
 	private Pcardinaux orientationInitiale;
 	
