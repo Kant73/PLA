@@ -1,6 +1,5 @@
 import java.awt.List;
 
-
 public enum Status {
 	
 	BLANC, 
