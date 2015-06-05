@@ -1,25 +1,27 @@
 package LightBot.actions;
 
-import LightBot.Terrain;
 import LightBot.personnage.Pcardinaux;
 import LightBot.personnage.Personnage;
 
-public class TournerGauche implements Actions {
+public class TournerGauche extends Actions {
+
+	TournerGauche(Personnage p) {
+		super(p);
+	}
 
 	@Override
-	public void Agir(Personnage P) {
-		// TODO Auto-generated method stub
-		if (P.getOrientation() == Pcardinaux.EAST){
-			P.setOrientation(Pcardinaux.NORTH);
+	public void agir() {
+		if (this.perso.getOrientation() == Pcardinaux.EAST){
+			this.perso.setOrientation(Pcardinaux.NORTH);
 		}
-		else if (P.getOrientation() == Pcardinaux.NORTH){
-			P.setOrientation(Pcardinaux.WEST);
+		else if (this.perso.getOrientation() == Pcardinaux.NORTH){
+			this.perso.setOrientation(Pcardinaux.WEST);
 		}
-		else if (P.getOrientation() == Pcardinaux.WEST){
-			P.setOrientation(Pcardinaux.SOUTH);
+		else if (this.perso.getOrientation() == Pcardinaux.WEST){
+			this.perso.setOrientation(Pcardinaux.SOUTH);
 		}
 		else {
-			P.setOrientation(Pcardinaux.EAST);
+			this.perso.setOrientation(Pcardinaux.EAST);
 		}
 	}
 

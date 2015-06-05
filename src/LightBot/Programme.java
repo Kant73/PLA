@@ -25,5 +25,11 @@ public class Programme {
 			else if (obj instanceof Actions)this.listActions.set(index, (Actions)obj);		
 	}
 	
+	public void execute(){
+		for(Object obj:this.listActions){
+			if(obj instanceof Actions) ((Actions)obj).agir();
+			else if(obj instanceof Programme)((Programme)obj).execute();
+		}
+	}
 	
 }

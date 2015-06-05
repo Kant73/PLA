@@ -1,11 +1,16 @@
 package LightBot.actions;
 
-import LightBot.Terrain;
 import LightBot.personnage.Personnage;
 
 
-public interface Actions {
+public abstract class Actions {
+
+	protected Personnage perso;
 	
-	void Agir(Personnage P);
+	Actions(Personnage p){
+		this.perso=p;
+	}
+	
+	public void agir(){}
 	
 }

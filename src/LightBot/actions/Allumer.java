@@ -6,12 +6,15 @@ import LightBot.cases.Lampe;
 import LightBot.personnage.Personnage;
 
 
-public class Allumer implements Actions {
+public class Allumer extends Actions {
+
+	Allumer(Personnage p) {
+		super(p);
+	}
 
 	@Override
-	public void Agir(Personnage P) {
-		// TODO Auto-generated method stub
-		Case C = P.getTerrain().getEnsembleDeCase()[P.getPositionX()][P.getPositionY()];
+	public void agir() {
+		Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()];
 		if (C instanceof Lampe){
 			switch(C.getColor()){
 			case Bleu:

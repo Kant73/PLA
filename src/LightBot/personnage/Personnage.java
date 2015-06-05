@@ -8,7 +8,7 @@ public class Personnage {
 	
 	private int[] positionInitial=new int[2];
 	private int currentX;			//Position sur X du personnage.
-	private int currentY;			//Position Y sur Y du personnage.
+	private int currentY;			//Position sur Y du personnage.
 	private Pcardinaux orientation; 	//Orientation du personnage.
 	private Programme prog;			//Programme associé au personnage.
 	private Terrain terrain;		
@@ -68,6 +68,10 @@ public class Personnage {
 	public void setCurrentToOriginPostion(){			//Initialiser la position initiale du personnage.
 		this.currentX = positionInitial[0];
 		this.currentY = positionInitial[1];
+	}
+	
+	public void run(){
+		this.prog.execute();
 	}
 	
 	public void printTerm(){}
