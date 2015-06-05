@@ -1,5 +1,6 @@
 package LightBot;
 
+import LightBot.cases.Case;
 import LightBot.personnage.Pcardinaux;
 
 
@@ -10,7 +11,7 @@ public class Terrain {
 	private int score;
 	private int nbActionsPossible;
 	private int xInit, yInit;
-	private int ensembleDeCase [] [];
+	private Case ensembleDeCase [] [];
 	private Pcardinaux orientationInitiale;
 	
 	public Terrain init() {
@@ -68,11 +69,11 @@ public class Terrain {
 		this.yInit = yInit;
 	}
 
-	public int[][] getEnsembleDeCase() {
+	public Case[][] getEnsembleDeCase() {
 		return ensembleDeCase;
 	}
 
-	public void setEnsembleDeCase(int ensembleDeCase[][]) {
+	public void setEnsembleDeCase(Case ensembleDeCase[][]) {
 		this.ensembleDeCase = ensembleDeCase;
 	}
 
