@@ -1,4 +1,4 @@
-package personnage;
+package LightBot.personnage;
 
 public enum  Pcardinaux{
 		NORTH,

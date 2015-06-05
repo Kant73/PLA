@@ -1,6 +1,8 @@
+package LightBot;
+
 import java.util.ArrayList;
 
-import personnage.Personnage;
+import LightBot.personnage.Personnage;
 
 
 public class Niveau {

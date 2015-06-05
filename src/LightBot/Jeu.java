@@ -1,3 +1,5 @@
+package LightBot;
+
 
 public class Jeu {
 

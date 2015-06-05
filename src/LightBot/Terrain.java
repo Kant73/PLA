@@ -1,4 +1,6 @@
-import personnage.Pcardinaux;
+package LightBot;
+
+import LightBot.personnage.Pcardinaux;
 
 
 public class Terrain {

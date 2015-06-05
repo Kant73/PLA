@@ -1,4 +1,7 @@
-package actions;
+package LightBot.actions;
+
+import LightBot.Terrain;
+import LightBot.personnage.Personnage;
 
 public class TournerGauche implements Actions {
 

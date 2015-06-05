@@ -1,4 +1,4 @@
-package cases;
+package LightBot.cases;
 
 public enum Couleur{
 	Bleu, /* A allumer*/

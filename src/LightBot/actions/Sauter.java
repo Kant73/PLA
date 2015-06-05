@@ -1,6 +1,7 @@
-package actions;
+package LightBot.actions;
 
-import personnage.Personnage;
+import LightBot.Terrain;
+import LightBot.personnage.Personnage;
 
 public class Sauter implements Actions {
 

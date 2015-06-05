@@ -1,5 +1,6 @@
+package LightBot;
 
-public abstract class Programme {
+public class Programme {
 
 	public int selection;
 	public int nbMaxAction;
