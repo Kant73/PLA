@@ -7,4 +7,12 @@ public abstract class Allumable extends Case{
 		super(h,c);
 		this.allume=allume;
 	}
+	
+	public void setAllume(boolean allume){
+		this.allume=allume;
+	}
+	
+	public boolean isAllume(){
+		return this.allume;
+	}
 }
