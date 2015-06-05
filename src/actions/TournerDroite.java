@@ -1,3 +1,6 @@
+package actions;
+
+import personnage.Personnage;
 
 public class TournerDroite implements Actions {
 

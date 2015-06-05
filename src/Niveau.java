@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 
+import personnage.Personnage;
+
 
 public class Niveau {
 	
 	private ArrayList<Personnage> Personnages;
 	private Terrain Terrain;
 	private ArrayList<Programme> Programmes;
-	private ArrayList<Actions> Actions;
 	
 
 	public ArrayList<Personnage> getPersonnages() {
@@ -31,14 +32,6 @@ public class Niveau {
 
 	public void setProgrammes(ArrayList<Programme> programmes) {
 		Programmes = programmes;
-	}
-
-	public ArrayList<Actions> getActions() {
-		return Actions;
-	}
-
-	public void setActions(ArrayList<Actions> actions) {
-		Actions = actions;
 	}
 	
 }

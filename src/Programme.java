@@ -1,5 +1,5 @@
 
-abstract class Programme {
+public abstract class Programme {
 
 	public int selection;
 	public int nbMaxAction;
@@ -7,21 +7,10 @@ abstract class Programme {
 	/* ---- Ensemble d'actions */
 	
 	/* Gestion des actions */
-	public void AjouterAction(Actions a){}
 	
-	public void DeplacerAction(Actions a){}
+	public void supprimerAction(Object o){}
 	
-	public void SupprimerAction(Actions a){}
+	public void inserer(Object o){}
 	
-	public void InsererAction(Actions a){}
-	
-	/* Gestion des procedures */
-	public void AjouterProcedure(Procedures a){}
-	
-	public void DeplacerProcedure(Procedures a){}
-	
-	public void SupprimerProcedure(Procedures a){}
-	
-	public void InsererProcedure(Procedures a){}
 	
 }

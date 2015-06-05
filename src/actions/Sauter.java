@@ -1,5 +1,8 @@
+package actions;
 
-public class Allumer implements Actions {
+import personnage.Personnage;
+
+public class Sauter implements Actions {
 
 	@Override
 	public Actions Agir(Personnage P, Terrain T) {

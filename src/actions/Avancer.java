@@ -1,5 +1,8 @@
+package actions;
 
-public class TournerGauche implements Actions {
+import personnage.Personnage;
+
+public class Avancer implements Actions {
 
 	@Override
 	public Actions Agir(Personnage P, Terrain T) {

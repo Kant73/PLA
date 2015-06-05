@@ -1,10 +1,12 @@
+package personnage;
+
 
 public abstract class Personnage {
 	
 	private int currentX;			//Position sur X du personnage.
 	private int currentY;			//Position Y sur Y du personnage.
 	private Pcardinaux orientation; 	//Orientation du personnage.
-	private Programme prog;			//Programme associÃ© au personnage.
+	private Programme prog;			//Programme associé au personnage.
 	private Terrain terrain;		
 	
 	/************************************** ACCESSEURS ****************************************/

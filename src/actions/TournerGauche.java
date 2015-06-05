@@ -1,5 +1,6 @@
+package actions;
 
-public class Sauter implements Actions {
+public class TournerGauche implements Actions {
 
 	@Override
 	public Actions Agir(Personnage P, Terrain T) {

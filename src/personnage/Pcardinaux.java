@@ -1,3 +1,4 @@
+package personnage;
 
 public enum  Pcardinaux{
 		NORTH,

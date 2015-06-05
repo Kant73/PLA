@@ -1,3 +1,5 @@
+import personnage.Pcardinaux;
+
 
 public class Terrain {
 

@@ -1,3 +1,7 @@
+package actions;
+
+import personnage.Personnage;
+
 
 public interface Actions {
 	
