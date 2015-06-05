@@ -5,9 +5,9 @@ public class Terrain {
 	private int longueur;
 	private int score;
 	private int nbActionsPossible;
-	private int positionInitiale [] [];
+	private int xInit, yInit;
 	private int ensembleDeCase [] [];
-	private String orientationInitiale;
+	private Pcardinaux orientationInitiale;
 	
 	public Terrain init() {
 		return null;
