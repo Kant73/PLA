@@ -1,19 +1,67 @@
 
 public abstract class Personnage {
 	
-	private int currentX;
-	private int currentY;
-	private Pcardinaux orientation; 
-	private Programme prog;	
+	private int currentX;			//Position sur X du personnage.
+	private int currentY;			//Position Y sur Y du personnage.
+	private Pcardinaux orientation; 	//Orientation du personnage.
+	private Programme prog;			//Programme associé au personnage.
+	private Terrain terrain;		
 	
-	Personnage(int x, int y){
-		init(x,y);
+	/************************************** ACCESSEURS ****************************************/
+	
+	public int getPositionX() {
+		return currentX;
 	}
 	
-	public void init(int x, int y){}
+	public int getPositionY() {
+		return currentY;
+	}
+	
+	public Pcardinaux getOrientation () {
+		return orientation;
+	}
+	
+	public Programme getProgramme() {
+		return prog;
+	}
+	
+	public Terrain getTerrain() {
+		return terrain;
+	}
+	
+	/************************************* MUTATEURS ******************************************/
+	
+	
+	public void setPositionX(int pPositionX) {
+		currentX = pPositionX;
+	}
+	
+	public void setPositionY(int pPositionY) {
+		currentY = pPositionY;
+	}
+	
+	public void setOrientation( Pcardinaux pOrientation) {
+		orientation = pOrientation;
+	}
+	
+	public void setProg(Programme pProg) {
+		prog = pProg;
+	}
+	
+	public void setTerrain(Terrain pTerrain) {
+		terrain = pTerrain;
+	}
+	
+	Personnage(int x, int y){
+		initPosition(x,y);
+	}
+	
+	public void initPosition(int x, int y){			//Initialiser la position initiale du personnage.
+		this.currentX = 0;
+		this.currentY = 0;
+	}
 	
 	public void printTerm(){}
-	
-	public void execute(Programme p, Terrain t){}
+
 }
 
