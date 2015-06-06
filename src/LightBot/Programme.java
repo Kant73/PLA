@@ -9,7 +9,7 @@ public class Programme {
 	private int nbMaxAction;
 	private Vector<Object> listActions;
 	
-	Programme(int taille){
+	public Programme(int taille){
 		this.nbMaxAction= taille;	
 		this.listActions=new Vector<Object>();
 		this.listActions.setSize(this.nbMaxAction);
@@ -26,9 +26,13 @@ public class Programme {
 	}
 	
 	public void execute(){
-		for(Object obj:this.listActions){
-			if(obj instanceof Actions) ((Actions)obj).agir();
-			else if(obj instanceof Programme)((Programme)obj).execute();
+		try{
+			for(Object obj:this.listActions){
+				if(obj instanceof Actions) System.out.println(((Actions)obj).toString());
+				else if(obj instanceof Programme)((Programme)obj).execute();			
+			}
+		}catch(StackOverflowError e){
+			e.printStackTrace();
 		}
 	}
 	

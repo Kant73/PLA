@@ -6,8 +6,12 @@ import LightBot.personnage.Personnage;
 
 public class Avancer extends Actions {
 
-	Avancer(Personnage p) {
+	public Avancer(Personnage p) {
 		super(p);
+	}
+	
+	public String toString(){
+		return "Avancer";
 	}
 
 	@Override

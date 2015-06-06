@@ -6,8 +6,12 @@ import LightBot.personnage.Personnage;
 
 public class Sauter extends Actions {
 
-	Sauter(Personnage p) {
+	public Sauter(Personnage p) {
 		super(p);
+	}
+	
+	public String toString(){
+		return "Sauter";
 	}
 
 	@Override

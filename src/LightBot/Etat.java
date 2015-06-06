@@ -1,9 +1,6 @@
 package LightBot;
-s
-public enum Etat {
 
+public enum Etat {
 	GAGNE,
-	PERDU;
-	
-	
+	PERDU;	
 }

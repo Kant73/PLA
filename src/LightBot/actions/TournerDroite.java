@@ -5,8 +5,12 @@ import LightBot.personnage.Personnage;
 
 public class TournerDroite extends Actions {
 
-	TournerDroite(Personnage p) {
+	public TournerDroite(Personnage p) {
 		super(p);
+	}
+	
+	public String toString(){
+		return "TournerDroite";
 	}
 
 	@Override

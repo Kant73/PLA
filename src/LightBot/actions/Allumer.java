@@ -8,8 +8,12 @@ import LightBot.personnage.Personnage;
 
 public class Allumer extends Actions {
 
-	Allumer(Personnage p) {
+	public Allumer(Personnage p) {
 		super(p);
+	}
+	
+	public String toString(){
+		return "Allumer";
 	}
 
 	@Override

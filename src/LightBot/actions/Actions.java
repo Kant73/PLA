@@ -7,10 +7,11 @@ public abstract class Actions {
 
 	protected Personnage perso;
 	
-	Actions(Personnage p){
+	public Actions(Personnage p){
 		this.perso=p;
 	}
 	
 	public void agir(){}
+	
 	
 }

@@ -5,10 +5,14 @@ import LightBot.personnage.Personnage;
 
 public class TournerGauche extends Actions {
 
-	TournerGauche(Personnage p) {
+	public TournerGauche(Personnage p) {
 		super(p);
 	}
 
+	public String toString(){
+		return "TournerGauche";
+	}
+	
 	@Override
 	public void agir() {
 		if (this.perso.getOrientation() == Pcardinaux.EAST){

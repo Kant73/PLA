@@ -5,7 +5,7 @@ public abstract class Case {
 	private Couleur color;
 	private int hauteur;
 	
-	Case(int h, Couleur c){
+	public Case(int h, Couleur c){
 		this.setColor(c);
 		this.setHauteur(h);		
 	}

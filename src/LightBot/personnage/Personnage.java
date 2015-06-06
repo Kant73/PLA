@@ -13,11 +13,11 @@ public class Personnage {
 	private Programme prog;			//Programme associé au personnage.
 	private Terrain terrain;		
 	
-	Personnage(int x, int y, Pcardinaux sens){
+	public Personnage(int x, int y, Pcardinaux sens){
 		this.positionInitial[0]=x;
 		this.positionInitial[1]=y;
 		this.orientation=sens;
-		setCurrentToOriginPostion();
+		setCurrentToOriginPosition();
 	}
 	
 	public int getPositionX() {
@@ -65,7 +65,7 @@ public class Personnage {
 		this.terrain = pTerrain;
 	}
 	
-	public void setCurrentToOriginPostion(){			//Initialiser la position initiale du personnage.
+	public void setCurrentToOriginPosition(){			//Initialiser la position initiale du personnage.
 		this.currentX = positionInitial[0];
 		this.currentY = positionInitial[1];
 	}
