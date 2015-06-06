@@ -28,7 +28,7 @@ public class Avancer extends Actions {
 			}
 		}
 		else if (o == Pcardinaux.SOUTH){
-			if (h == T.getEnsembleDeCase()[x][y-1].getHauteur()){
+			if (h == T.getEnsembleDeCase()[x][y+1].getHauteur()){
 				this.perso.setPositionY(y+1);
 			}
 		}
@@ -38,8 +38,8 @@ public class Avancer extends Actions {
 			}
 		}
 		else {
-			if (h == T.getEnsembleDeCase()[x][y+1].getHauteur()){
-				this.perso.setPositionY(y+1);
+			if (h == T.getEnsembleDeCase()[x][y-1].getHauteur()){
+				this.perso.setPositionY(y-1);
 			}
 		}
 	}

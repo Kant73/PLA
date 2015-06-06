@@ -28,7 +28,7 @@ public class Programme {
 	public void execute(){
 		try{
 			for(Object obj:this.listActions){
-				if(obj instanceof Actions) System.out.println(((Actions)obj).toString());
+				if(obj instanceof Actions) ((Actions)obj).agir();//System.out.println(((Actions)obj).toString());
 				else if(obj instanceof Programme)((Programme)obj).execute();			
 			}
 		}catch(StackOverflowError e){
