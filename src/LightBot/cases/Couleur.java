@@ -2,7 +2,7 @@ package LightBot.cases;
 
 public enum Couleur{
 	Bleu, /* A allumer*/
-	Jaune, /* Case allum�e*/
+	Jaune, /* Case allumee*/
 	Blanc,/*Normal*/
 	Vert, /* Téléportation*/
 	Orange, /*Case finale*/

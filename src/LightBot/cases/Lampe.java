@@ -2,8 +2,13 @@ package LightBot.cases;
 
 public class Lampe extends Allumable {
 
-	public Lampe(int hauteur,boolean allume){
-		super(hauteur,Couleur.Bleu,allume);
-		if (allume)setColor(Couleur.Jaune);
+/********************************************* METHODES D'INSTANCE *********************************************/
+	
+	//Constructeur de l'objet Lampe
+	public Lampe(int pHauteur,boolean pAllumee){
+		super(Couleur.Bleu,pHauteur,pAllumee);
+		if (pAllumee) {
+			setColor(Couleur.Jaune);
+		}	
 	}
 }

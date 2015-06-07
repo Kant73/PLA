@@ -1,18 +1,29 @@
 package LightBot.cases;
 
 public abstract class Allumable extends Case{
-	private boolean allume;
 	
-	public Allumable(int h, Couleur c, boolean allume){
-		super(h,c);
-		this.allume=allume;
+/********************************************* ATTRIBUTS *********************************************/
+	
+	private boolean allumee;
+	
+/********************************************* ACCESSEURS *********************************************/
+	
+	public boolean getAllumee() {
+		return allumee;
 	}
 	
-	public void setAllume(boolean allume){
-		this.allume=allume;
+/********************************************* MUTATEURS *********************************************/
+	
+	public void setAllumee(boolean pAllumee){
+		allumee = pAllumee;
 	}
 	
-	public boolean isAllume(){
-		return this.allume;
+/********************************************* METHODES D'INSTANCE *********************************************/
+
+	//Constructeur de l'objet Allumable
+	public Allumable(Couleur pColor, int pHauteur, boolean pAllumee){
+		super(pColor, pHauteur);
+		setAllumee(pAllumee);
 	}
+	
 }

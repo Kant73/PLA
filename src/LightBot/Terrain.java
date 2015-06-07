@@ -5,85 +5,69 @@ import LightBot.personnage.Pcardinaux;
 
 
 public class Terrain {
+	
+/********************************************* ATTRIBUTS *********************************************/
 
 	private int largeur;
 	private int longueur;
-	private int score;
 	private int nbActionsPossible;
-	private int xInit, yInit;
+	private Case[][] ensembleDeCase;			//Tableau à 2 dimensions de cases représentant le terrain
+	private Pcardinaux orientationInitiale;		//Orientation Initiale du Personnage
 	
-	private Case ensembleDeCase [] [];
-	private Pcardinaux orientationInitiale;
+/********************************************* ACCESSEURS *********************************************/
 	
-	public Terrain init() {
-		return null;
-	}
-	
-	public void detruire() {
-	}
-
 	public int getLargeur() {
 		return largeur;
 	}
-
-	public void setLargeur(int largeur) {
-		this.largeur = largeur;
-	}
-
+	
 	public int getLongueur() {
 		return longueur;
-	}
-
-	public void setLongueur(int longueur) {
-		this.longueur = longueur;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
 	}
 
 	public int getNbActionsPossible() {
 		return nbActionsPossible;
 	}
-
-	public void setNbActionsPossible(int nbActionsPossible) {
-		this.nbActionsPossible = nbActionsPossible;
-	}
-
-	public int getxInit() {
-		return xInit;
-	}
-
-	public void setxInit(int xInit) {
-		this.xInit = xInit;
-	}
-
-	public int getyInit() {
-		return yInit;
-	}
-
-	public void setyInit(int yInit) {
-		this.yInit = yInit;
-	}
-
+	
 	public Case[][] getEnsembleDeCase() {
 		return ensembleDeCase;
 	}
-
-	public void setEnsembleDeCase(Case ensembleDeCase[][]) {
-		this.ensembleDeCase = ensembleDeCase;
-	}
-
+	
 	public Pcardinaux getOrientationInitiale() {
 		return orientationInitiale;
 	}
+	
+/********************************************* MUTATEURS *********************************************/
 
-	public void setOrientationInitiale(Pcardinaux orientationInitiale) {
-		this.orientationInitiale = orientationInitiale;
+	public void setLargeur(int pLargeur) {
+		this.largeur = pLargeur;
+	}
+
+	public void setLongueur(int pLongueur) {
+		this.longueur = pLongueur;
+	}
+
+	public void setNbActionsPossible(int pNbActionsPossible) {
+		this.nbActionsPossible = pNbActionsPossible;
+	}
+
+	public void setEnsembleDeCase(Case[][] pEnsembleDeCase) {
+		this.ensembleDeCase = pEnsembleDeCase;
+	}
+
+	public void setOrientationInitiale(Pcardinaux pOrientationInitiale) {
+		this.orientationInitiale = pOrientationInitiale;
 	}
 	
+/********************************************* METHODES D'INSTANCE *********************************************/
+	
+	//Constructeur de l'objet Terrain
+	public Terrain(int pLargeur, int pLongueur, int pScore, int pNbActionsPossible, Case[][] pEnsembleDeCase, Pcardinaux pOrientationInitiale){
+		largeur = pLargeur;
+		longueur = pLongueur;
+		score = pScore;
+		nbActionsPossible = pNbActionsPossible;
+		ensembleDeCase = pEnsembleDeCase;
+		orientationInitiale = pOrientationInitiale;
+	}
+
 }

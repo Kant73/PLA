@@ -2,8 +2,11 @@ package LightBot.cases;
 
 public class NonAllumable extends Case{
 	
-	public NonAllumable(int h, Couleur c){
-		super(h,c);
+/********************************************* METHODES D'INSTANCE *********************************************/
+	
+	//Constructeur de l'objet NonAllumable
+	public NonAllumable(Couleur pColor, int pHauteur){
+		super(pColor, pHauteur);
 	}
 
 }
