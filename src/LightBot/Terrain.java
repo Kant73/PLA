@@ -10,7 +10,9 @@ public class Terrain {
 
 	private int largeur;
 	private int longueur;
+	private int score;
 	private int nbActionsPossible;
+	private int xInit, yInit;
 	private Case[][] ensembleDeCase;			//Tableau à 2 dimensions de cases représentant le terrain
 	private Pcardinaux orientationInitiale;		//Orientation Initiale du Personnage
 	
@@ -36,6 +38,18 @@ public class Terrain {
 		return orientationInitiale;
 	}
 	
+	public int getScore() {
+		return score;
+	}
+	
+	public int getxInit() {
+		return xInit;
+	}
+	
+	public int getyInit() {
+		return yInit;
+	}
+	
 /********************************************* MUTATEURS *********************************************/
 
 	public void setLargeur(int pLargeur) {
@@ -58,6 +72,28 @@ public class Terrain {
 		this.orientationInitiale = pOrientationInitiale;
 	}
 	
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	public void setxInit(int xInit) {
+		this.xInit = xInit;
+	}
+	
+	public void setyInit(int yInit) {
+		this.yInit = yInit;
+	}
+	
+	public void affiche(){
+		for(int y=0;y<largeur;y++){
+			for(int x=0;x<longueur;x++)
+				/*if(this.ensembleDeCase[x][y]==null)System.out.print("null ");
+				else System.out.print(this.ensembleDeCase[x][y].getColor()+" ");*/
+				if(this.ensembleDeCase[x][y]!=null) System.out.print("("+x+","+y+")"+this.ensembleDeCase[x][y].getColor()+" ");
+			System.out.println("");
+		}
+	}
+	
 /********************************************* METHODES D'INSTANCE *********************************************/
 	
 	//Constructeur de l'objet Terrain
@@ -68,6 +104,12 @@ public class Terrain {
 		nbActionsPossible = pNbActionsPossible;
 		ensembleDeCase = pEnsembleDeCase;
 		orientationInitiale = pOrientationInitiale;
+	}
+	
+	public Terrain(int largeur, int longueur){
+		this.longueur=longueur;
+		this.largeur=largeur;
+		this.ensembleDeCase=new Case[largeur][longueur];
 	}
 
 }

@@ -8,9 +8,11 @@ public class Programme {
 
 	private int nbMaxAction;
 	private Vector<Object> listActions;
+	private String nom;
 	
-	public Programme(int taille){
+	public Programme(String nom, int taille){
 		this.nbMaxAction= taille;	
+		this.nom=nom;
 		this.listActions=new Vector<Object>();
 		this.listActions.setSize(this.nbMaxAction);
 	}
@@ -28,12 +30,28 @@ public class Programme {
 	public void execute(){
 		try{
 			for(Object obj:this.listActions){
-				if(obj instanceof Actions) ((Actions)obj).agir();//System.out.println(((Actions)obj).toString());
+				if(obj instanceof Actions)((Actions)obj).agir();
 				else if(obj instanceof Programme)((Programme)obj).execute();			
 			}
 		}catch(StackOverflowError e){
 			e.printStackTrace();
+		}catch(Exception ex){
+			ex.printStackTrace();
 		}
+	}
+	
+	public String toString(){
+		String str="";
+		str+=this.nom+" : ";
+		for(Object obj:this.listActions){
+			if(obj instanceof Actions) str+=((Actions)obj).toString()+" ";
+			else if(obj instanceof Programme)str+=((Programme)obj).getNom()+" ";			
+		}		
+		return str;
+	}
+	
+	public String getNom(){
+		return this.nom;
 	}
 	
 }

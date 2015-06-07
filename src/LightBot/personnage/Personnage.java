@@ -2,6 +2,7 @@ package LightBot.personnage;
 
 import LightBot.Programme;
 import LightBot.Terrain;
+import LightBot.cases.Couleur;
 
 
 public class Personnage {
@@ -11,13 +12,19 @@ public class Personnage {
 	private int currentY;			//Position sur Y du personnage.
 	private Pcardinaux orientation; 	//Orientation du personnage.
 	private Programme prog;			//Programme associé au personnage.
-	private Terrain terrain;		
+	private Terrain terrain;
+	private Couleur couleur;
 	
 	public Personnage(int x, int y, Pcardinaux sens){
 		this.positionInitial[0]=x;
 		this.positionInitial[1]=y;
 		this.orientation=sens;
+		this.couleur=Couleur.Blanc;
 		setCurrentToOriginPosition();
+	}
+	
+	public Couleur getCouleur(){
+		return this.couleur;
 	}
 	
 	public int getPositionX() {
@@ -39,6 +46,10 @@ public class Personnage {
 	public Terrain getTerrain() {
 		return this.terrain;
 	}	
+	
+	public void setCouleur(Couleur c){
+		this.couleur=c;
+	}
 	
 	public void setPositionX(int pPositionX) {
 		this.currentX = pPositionX;

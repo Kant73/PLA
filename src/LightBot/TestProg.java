@@ -11,7 +11,7 @@ public class TestProg {
 	}
 	
 	public TestProg(){
-		Programme[] progs={new Programme(5),new Programme (3),null};
+		Programme[] progs={new Programme("main",5),new Programme ("Proc1",3),null};
 		Personnage robot=new Personnage(0, 0, Pcardinaux.NORTH);
 		
 		progs[0].inserer(progs[1], 0);

@@ -7,33 +7,38 @@ import LightBot.personnage.Personnage;
 
 public class Niveau {
 	
-	private ArrayList<Personnage> Personnages;
-	private Terrain Terrain;
-	private ArrayList<Programme> Programmes;
+	private ArrayList<Personnage> personnages;
+	private Terrain terrain;
+	private ArrayList<Programme> programmes;
+	
+	public Niveau(){
+		this.personnages=new ArrayList<Personnage>();
+		this.programmes=new ArrayList<Programme>();
+	}
 	
 
 	public ArrayList<Personnage> getPersonnages() {
-		return Personnages;
+		return this.personnages;
 	}
 
 	public void setPersonnages(ArrayList<Personnage> personnages) {
-		Personnages = personnages;
+		this.personnages = personnages;
 	}
 
 	public Terrain getTerrain() {
-		return Terrain;
+		return this.terrain;
 	}
 
 	public void setTerrain(Terrain terrain) {
-		Terrain = terrain;
+		this.terrain = terrain;
 	}
 
 	public ArrayList<Programme> getProgrammes() {
-		return Programmes;
+		return this.programmes;
 	}
 
 	public void setProgrammes(ArrayList<Programme> programmes) {
-		Programmes = programmes;
+		this.programmes = programmes;
 	}
 	
 }
