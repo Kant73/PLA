@@ -10,11 +10,8 @@ public class Terrain {
 
 	private int largeur;
 	private int longueur;
-	private int score;
 	private int nbActionsPossible;
-	private int xInit, yInit;
 	private Case[][] ensembleDeCase;			//Tableau à 2 dimensions de cases représentant le terrain
-	private Pcardinaux orientationInitiale;		//Orientation Initiale du Personnage
 	
 /********************************************* ACCESSEURS *********************************************/
 	
@@ -34,22 +31,6 @@ public class Terrain {
 		return ensembleDeCase;
 	}
 	
-	public Pcardinaux getOrientationInitiale() {
-		return orientationInitiale;
-	}
-	
-	public int getScore() {
-		return score;
-	}
-	
-	public int getxInit() {
-		return xInit;
-	}
-	
-	public int getyInit() {
-		return yInit;
-	}
-	
 /********************************************* MUTATEURS *********************************************/
 
 	public void setLargeur(int pLargeur) {
@@ -67,22 +48,6 @@ public class Terrain {
 	public void setEnsembleDeCase(Case[][] pEnsembleDeCase) {
 		this.ensembleDeCase = pEnsembleDeCase;
 	}
-
-	public void setOrientationInitiale(Pcardinaux pOrientationInitiale) {
-		this.orientationInitiale = pOrientationInitiale;
-	}
-	
-	public void setScore(int score) {
-		this.score = score;
-	}
-	
-	public void setxInit(int xInit) {
-		this.xInit = xInit;
-	}
-	
-	public void setyInit(int yInit) {
-		this.yInit = yInit;
-	}
 	
 	public void affiche(){
 		for(int y=0;y<largeur;y++){
@@ -97,13 +62,11 @@ public class Terrain {
 /********************************************* METHODES D'INSTANCE *********************************************/
 	
 	//Constructeur de l'objet Terrain
-	public Terrain(int pLargeur, int pLongueur, int pScore, int pNbActionsPossible, Case[][] pEnsembleDeCase, Pcardinaux pOrientationInitiale){
+	public Terrain(int pLargeur, int pLongueur, int pNbActionsPossible, Case[][] pEnsembleDeCase){
 		largeur = pLargeur;
 		longueur = pLongueur;
-		score = pScore;
 		nbActionsPossible = pNbActionsPossible;
 		ensembleDeCase = pEnsembleDeCase;
-		orientationInitiale = pOrientationInitiale;
 	}
 	
 	public Terrain(int largeur, int longueur){
