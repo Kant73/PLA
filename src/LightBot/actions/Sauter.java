@@ -35,7 +35,7 @@ public class Sauter extends Actions {
 				}
 			}
 			else if (o == Pcardinaux.SOUTH){
-				if (h == T.getEnsembleDeCase()[x][y-1].getHauteur()-1 || h == T.getEnsembleDeCase()[x][y-1].getHauteur()+1){
+				if (h == T.getEnsembleDeCase()[x][y+1].getHauteur()-1 || h == T.getEnsembleDeCase()[x][y+1].getHauteur()+1){
 					this.perso.setPositionY(y+1);
 				}
 			}
@@ -45,9 +45,12 @@ public class Sauter extends Actions {
 				}
 			}
 			else {
-				if (h == T.getEnsembleDeCase()[x][y+1].getHauteur()-1 || h == T.getEnsembleDeCase()[x][y+1].getHauteur()+1){
-					this.perso.setPositionY(y+1);
+				if (h == T.getEnsembleDeCase()[x][y-1].getHauteur()-1 || h == T.getEnsembleDeCase()[x][y-1].getHauteur()+1){
+					this.perso.setPositionY(y-1);
 				}
+			}
+			if(T.getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()].getHauteur()==0){
+				System.out.println("t'es mort enculé!!");
 			}
 		}
 	}

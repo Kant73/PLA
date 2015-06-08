@@ -30,21 +30,17 @@ public class Allumer extends Actions {
 				switch(C.getColor()){
 				case Bleu:
 					C.setColor(Couleur.Jaune);
-					((Lampe) C).setAllumee(true);
 					break;
 				case Jaune:
 					C.setColor(Couleur.Bleu);
-					((Lampe) C).setAllumee(false);
 					break;
 				default:break;
 				}
 			}else if(C instanceof Condition){
-				if(((Condition)C).isAllume() && this.perso.getCouleur()!=Couleur.Blanc){
+				if(this.perso.getCouleur()!=Couleur.Blanc){
 					this.perso.setCouleur(Couleur.Blanc);
-					((Condition)C).setAllumee(false);
-				}else if(!((Condition)C).isAllume() && this.perso.getCouleur()==Couleur.Blanc){
+				}else if(this.perso.getCouleur()==Couleur.Blanc){
 					this.perso.setCouleur(Couleur.Violet);
-					((Condition)C).setAllumee(true);
 				}
 			}
 		}

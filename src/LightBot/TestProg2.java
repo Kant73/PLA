@@ -24,7 +24,7 @@ public class TestProg2 extends Niveau{
 		cases[1][0]=new Normal(2);
 		cases[1][1]=new Normal(2);
 		cases[1][2]=new Normal(2);
-		cases[2][2]=new Lampe(2,false);			
+		cases[2][2]=new Lampe(2);			
 		
 		this.getTerrain().setEnsembleDeCase(cases);
 		

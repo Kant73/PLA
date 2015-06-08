@@ -2,6 +2,7 @@ package LightBot;
 
 import LightBot.actions.Allumer;
 import LightBot.actions.Avancer;
+import LightBot.actions.Sauter;
 import LightBot.actions.TournerGauche;
 import LightBot.cases.Case;
 import LightBot.cases.Condition;
@@ -27,7 +28,7 @@ public class TestProg3 extends Niveau{
 		cases[1][1]=new Normal(2);
 		cases[1][2]=new Normal(2);
 		cases[1][3]=new Condition(2);
-		cases[2][3]=new Lampe(2,false);			
+		cases[2][3]=new Lampe(2);			
 		
 		this.getTerrain().setEnsembleDeCase(cases);
 		

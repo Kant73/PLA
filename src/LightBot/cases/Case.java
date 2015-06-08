@@ -5,8 +5,8 @@ public abstract class Case {
 	
 /********************************************* ATTRIBUTS *********************************************/
 	
-	private Couleur color;
-	private int hauteur;
+	protected Couleur color;
+	protected int hauteur;
 	
 /********************************************* ACCESSEURS *********************************************/
 	
