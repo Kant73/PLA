@@ -12,7 +12,7 @@ public class TestProg {
 	
 	public TestProg(){
 		Programme[] progs={new Programme("main",5),new Programme ("Proc1",3),null};
-		Personnage robot=new Personnage(0, 0, Pcardinaux.NORTH);
+		Personnage robot=new Personnage("Robot", 0, 0, Pcardinaux.NORTH);
 		
 		progs[0].inserer(progs[1], 0);
 		progs[0].inserer(new TournerGauche(robot), 1);

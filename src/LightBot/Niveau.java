@@ -26,6 +26,13 @@ public class Niveau {
 	public ArrayList<Personnage> getPersonnages() {
 		return this.personnages;
 	}
+	
+	public Personnage getPersonnageByName(String nom){
+		for(Personnage p:this.personnages){
+			if(p.getNom()==nom)return p;
+		}
+		return null;
+	}
 
 	public void setPersonnages(ArrayList<Personnage> personnages) {
 		this.personnages = personnages;

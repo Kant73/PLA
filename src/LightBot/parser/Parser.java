@@ -18,6 +18,7 @@ import LightBot.Niveau;
 import LightBot.Programme;
 import LightBot.Terrain;
 import LightBot.cases.*;
+import LightBot.actions.*;
 import LightBot.personnage.Pcardinaux;
 import LightBot.personnage.Personnage;
 
@@ -32,6 +33,8 @@ public class Parser {
 		p.getNiveau().getTerrain().affiche();
 		System.out.println("Nombre de personnages : "+p.getNiveau().getPersonnages().toArray().length);
 		System.out.println("Nombre de programmes : "+p.getNiveau().getProgrammes().toArray().length);
+		System.out.print("Liste des actions :");
+		for(Actions action:p.getNiveau().getActions())System.out.print(" "+action.toString());
 	}
 	
 	/* 
@@ -109,7 +112,8 @@ public class Parser {
 					int x=getIntNodeAttribute(noeudPers, "x");
 					int y=getIntNodeAttribute(noeudPers, "y");
 					String oStr=getNodeAttribute(noeudPers, "o");
-					Personnage pers=new Personnage(x,y,Pcardinaux.valueOf(oStr));
+					String nom=getNodeAttribute(noeudPers, "name");
+					Personnage pers=new Personnage(nom,x,y,Pcardinaux.valueOf(oStr));
 					pers.setTerrain(this.n.getTerrain());
 					this.n.getPersonnages().add(pers);
 				}
@@ -125,6 +129,19 @@ public class Parser {
 				break;
 			case "actions" :
 				System.out.println("Nous sommes dans actions");
+				for(Node noeudAction:getChildren(noeud)){
+					String nomPers=getNodeAttribute(noeudAction, "p");
+					Personnage pers=this.n.getPersonnageByName(nomPers);
+					switch(getNodeAttribute(noeudAction, "name")){
+					case "Avancer" : 
+						this.n.getActions().add(new Avancer(pers));
+						break;
+					case "Allumer" : 
+						this.n.getActions().add(new Allumer(pers));
+						break;
+					default : break;
+					}
+				}
 				break;
 			default :
 				System.out.println("Nous sommes dans default");

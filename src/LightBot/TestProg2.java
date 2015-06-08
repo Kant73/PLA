@@ -28,7 +28,7 @@ public class TestProg2 extends Niveau{
 		
 		this.getTerrain().setEnsembleDeCase(cases);
 		
-		Personnage robot=new Personnage(1, 0, Pcardinaux.SOUTH);
+		Personnage robot=new Personnage("Robot",1, 0, Pcardinaux.SOUTH);
 		robot.setTerrain(this.getTerrain());
 		this.getPersonnages().add(robot);
 		

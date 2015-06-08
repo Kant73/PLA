@@ -14,13 +14,19 @@ public class Personnage {
 	private Programme prog;			//Programme associé au personnage.
 	private Terrain terrain;
 	private Couleur couleur;
+	private String nom;
 	
-	public Personnage(int x, int y, Pcardinaux sens){
+	public Personnage(String nom, int x, int y, Pcardinaux sens){
+		this.nom=nom;
 		this.positionInitial[0]=x;
 		this.positionInitial[1]=y;
 		this.orientation=sens;
 		this.couleur=Couleur.Blanc;
 		setCurrentToOriginPosition();
+	}
+	
+	public String getNom(){
+		return this.nom;
 	}
 	
 	public Couleur getCouleur(){
