@@ -15,16 +15,18 @@ import org.xml.sax.SAXException;
 
 import LightBot.Niveau;
 import LightBot.Terrain;
+import LightBot.cases.*;
 
 public class Parser {
+	
+	private Document doc;
+	private Niveau n;
 	
 	public static void main(String[] args) {
 		Parser p = new Parser("src/LightBot/levels/Niveau.xml");
 		p.lire();
+		p.getNiveau().getTerrain().affiche();
 	}
-	
-	private Document doc;
-	private Niveau n;
 	
 	/* 
 	 * créer le document à partir du nom du fichier
@@ -73,16 +75,54 @@ public class Parser {
 	    			for(int j=0; j<childTerrain.getLength(); j++){
 	    				noeud = childTerrain.item(j);
 	    		    	if(noeud.getNodeType() == Node.ELEMENT_NODE) {
-	    		    		System.out.println(childTerrain.item(j).getNodeName());
+	    		    		System.out.println("Sous-noeud : "+childTerrain.item(j).getNodeName());
+	    		    		switch(noeud.getNodeName()){
+	    		    		case "nbActionsPossible" :
+	    		    			System.out.println("Actions possibles = "+noeud.getTextContent());
+	    		    			t.setNbActionsPossible(Integer.parseInt(noeud.getTextContent()));
+	    		    			break;
+	    		    		case "ensembleDeCase" :
+	    		    			NodeList caseList = noeud.getChildNodes();
+	    		    			System.out.println(caseList.getLength());
+	    		    			Case[][] tableau = new Case[lar][lon];
+	    		    			for(int k=0; k<caseList.getLength(); k++){
+	    		    				noeud = caseList.item(k);
+	    		    		    	if(noeud.getNodeType() == Node.ELEMENT_NODE) {
+	    		    		    		System.out.println("Sous-Sous-Noeuds : "+noeud.getNodeName());
+	    		    		    		elt = (Element)noeud;
+	    		    		    		int x = Integer.parseInt(elt.getAttribute("x"));
+    		    		    			int y = Integer.parseInt(elt.getAttribute("y"));
+    		    		    			int h = Integer.parseInt(elt.getAttribute("h"));
+	    		    		    		switch(elt.getAttribute("type")){
+	    		    		    		case "normal":
+	    		    		    			tableau[x][y] = new Normal(h);
+	    		    		    			break;
+	    		    		    		case "lampe" :
+	    		    		    			tableau[x][y] = new Lampe(h);
+	    		    		    			break;
+	    		    		    		default :
+	    		    		    			break;
+	    		    		    		}
+	    		    		    	}
+	    		    			}
+	    		    			t.setEnsembleDeCase(tableau);
+	    		    			n.setTerrain(t);
+	    		    			break;
+	    		    		default :
+	    		    			break;
+	    		    		}
 	    		    	}
 	    			}
 	    			this.n.setTerrain(t);
 	    			break;
 	    		case "personnes" :
+	    			System.out.println("Nous sommes dans personnes");
 	    			break;
 	    		case "programmes" :
+	    			System.out.println("Nous sommes dans programmes");
 	    			break;
 	    		case "actions" :
+	    			System.out.println("Nous sommes dans actions");
 	    			break;
 	    		default :
 	    			System.out.println("Nous sommes dans default");
