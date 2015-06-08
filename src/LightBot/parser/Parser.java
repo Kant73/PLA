@@ -17,6 +17,8 @@ import org.xml.sax.SAXException;
 import LightBot.Niveau;
 import LightBot.Terrain;
 import LightBot.cases.*;
+import LightBot.personnage.Pcardinaux;
+import LightBot.personnage.Personnage;
 
 public class Parser {
 	
@@ -27,6 +29,7 @@ public class Parser {
 		Parser p = new Parser("src/LightBot/levels/Niveau.xml");
 		p.lire();
 		p.getNiveau().getTerrain().affiche();
+		System.out.println("Nombre de personnage : "+p.getNiveau().getPersonnages().toArray().length);
 	}
 	
 	/* 
@@ -100,6 +103,14 @@ public class Parser {
 				break;
 			case "personnes" :
 				System.out.println("Nous sommes dans personnes");
+				for(Node noeudPers:getChildren(noeud)){	
+					int x=getIntNodeAttribute(noeudPers, "x");
+					int y=getIntNodeAttribute(noeudPers, "y");
+					String oStr=getNodeAttribute(noeudPers, "o");
+					Personnage pers=new Personnage(x,y,Pcardinaux.valueOf(oStr));
+					pers.setTerrain(this.n.getTerrain());
+					this.n.getPersonnages().add(pers);
+				}
 				break;
 			case "programmes" :
 				System.out.println("Nous sommes dans programmes");
