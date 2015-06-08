@@ -49,10 +49,8 @@ public class Parser {
 		}catch (final ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -87,16 +85,8 @@ public class Parser {
 	    		    		int x = getIntNodeAttribute(noeudCase, "x");
     		    			int y = getIntNodeAttribute(noeudCase, "y");
     		    			int h = getIntNodeAttribute(noeudCase, "h");
-	    		    		switch(getNodeAttribute(noeudCase,"type")){
-	    		    		case "normal":
-	    		    			tableau[x][y] = new Normal(h);
-	    		    			break;
-	    		    		case "lampe" :
-	    		    			tableau[x][y] = new Lampe(h);
-	    		    			break;
-	    		    		default :
-	    		    			break;
-	    		    		}
+    		    			String nomFonction=getNodeAttribute(noeudCase,"type");
+    		    			tableau[x][y] = newInstanceCase( nomFonction,h);
 		    			}
 		    			t.setEnsembleDeCase(tableau);
 		    			n.setTerrain(t);
@@ -128,19 +118,12 @@ public class Parser {
 				}
 				break;
 			case "actions" :
-				System.out.println("Nous sommes dans actions");
+				System.out.println("Nous sommes dans actions");		
 				for(Node noeudAction:getChildren(noeud)){
 					String nomPers=getNodeAttribute(noeudAction, "p");
 					Personnage pers=this.n.getPersonnageByName(nomPers);
-					switch(getNodeAttribute(noeudAction, "name")){
-					case "Avancer" : 
-						this.n.getActions().add(new Avancer(pers));
-						break;
-					case "Allumer" : 
-						this.n.getActions().add(new Allumer(pers));
-						break;
-					default : break;
-					}
+					String nomFonction=getNodeAttribute(noeudAction, "name");
+					this.n.getActions().add(newInstanceAction(nomFonction,pers));
 				}
 				break;
 			default :
@@ -183,6 +166,28 @@ public class Parser {
 	    		nodes.add(children.item(i));
 		}
 	    return nodes;
+	}
+	
+	private Case newInstanceCase(String type, int hauteur){
+		try{
+			String classPath = "LightBot.cases."+type;
+			Class<?> classe = Class.forName (classPath);
+			return (Case)classe.getConstructor(int.class).newInstance(hauteur);
+		}catch (Exception e){
+	    	e.printStackTrace();
+	    }
+		return null;
+	}
+	
+	private Actions newInstanceAction(String type, Personnage p){
+		try{
+			String classPath = "LightBot.actions."+type;
+			Class<?> classe = Class.forName (classPath);
+			return (Actions)classe.getConstructor(Personnage.class).newInstance(p);
+		}catch (Exception e){
+	    	e.printStackTrace();
+	    }
+		return null;
 	}
 
 }
