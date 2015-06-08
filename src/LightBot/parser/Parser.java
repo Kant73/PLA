@@ -2,6 +2,7 @@ package LightBot.parser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -55,81 +56,62 @@ public class Parser {
 	    System.out.println("\n*************RACINE************");
 	    System.out.println(racine.getNodeName());
 		
-	    final NodeList racineNoeuds = racine.getChildNodes(); // récupération des personnes
-	    final int nbRacineNoeuds = racineNoeuds.getLength();
-		
-	    System.out.println("NB = "+nbRacineNoeuds);
 	    
-	    for (int i = 0; i<nbRacineNoeuds; i++) {
-	    	Node noeud = racineNoeuds.item(i);
-	    	if(noeud.getNodeType() == Node.ELEMENT_NODE) {
-	    		System.out.println("Noeuds : "+noeud.getNodeName());
-	    		switch(noeud.getNodeName()){
-	    		case "terrain" :
-	    			System.out.println("Nous sommes dans terrain");
-	    			Element elt = (Element)noeud;
-	    			int lar = Integer.parseInt(elt.getAttribute("largeur"));
-	    			int lon = Integer.parseInt(elt.getAttribute("longueur"));
-	    			Terrain t = new Terrain(lar, lon);
-	    			NodeList childTerrain = noeud.getChildNodes();
-	    			for(int j=0; j<childTerrain.getLength(); j++){
-	    				noeud = childTerrain.item(j);
-	    		    	if(noeud.getNodeType() == Node.ELEMENT_NODE) {
-	    		    		System.out.println("Sous-noeud : "+childTerrain.item(j).getNodeName());
-	    		    		switch(noeud.getNodeName()){
-	    		    		case "nbActionsPossible" :
-	    		    			System.out.println("Actions possibles = "+noeud.getTextContent());
-	    		    			t.setNbActionsPossible(Integer.parseInt(noeud.getTextContent()));
+	    for (Node noeud: getChildren(racine)){
+			System.out.println("Noeuds : "+noeud.getNodeName());
+			switch(noeud.getNodeName()){
+			case "terrain" :
+				System.out.println("Nous sommes dans terrain");
+				int lar = getIntNodeAttribute(noeud, "largeur");
+				int lon = getIntNodeAttribute(noeud, "longueur");
+				Terrain t = new Terrain(lar, lon);
+				for(Node childTerrain : getChildren(noeud)){
+		    		System.out.println("Sous-noeud : "+childTerrain.getNodeName());
+		    		switch(childTerrain.getNodeName()){
+		    		case "nbActionsPossible" :
+		    			System.out.println("Actions possibles = "+childTerrain.getTextContent());
+		    			t.setNbActionsPossible( getNodeTextToInt(childTerrain));
+		    			break;
+		    		case "ensembleDeCase" :
+		    			Case[][] tableau = new Case[lar][lon];
+		    			for(Node noeudCase:getChildren(childTerrain)){
+	    		    		System.out.println("Sous-Sous-Noeuds : "+noeudCase.getNodeName());
+	    		    		int x = getIntNodeAttribute(noeudCase, "x");
+    		    			int y = getIntNodeAttribute(noeudCase, "y");
+    		    			int h = getIntNodeAttribute(noeudCase, "h");
+	    		    		switch(getNodeAttribute(noeudCase,"type")){
+	    		    		case "normal":
+	    		    			tableau[x][y] = new Normal(h);
 	    		    			break;
-	    		    		case "ensembleDeCase" :
-	    		    			NodeList caseList = noeud.getChildNodes();
-	    		    			System.out.println(caseList.getLength());
-	    		    			Case[][] tableau = new Case[lar][lon];
-	    		    			for(int k=0; k<caseList.getLength(); k++){
-	    		    				noeud = caseList.item(k);
-	    		    		    	if(noeud.getNodeType() == Node.ELEMENT_NODE) {
-	    		    		    		System.out.println("Sous-Sous-Noeuds : "+noeud.getNodeName());
-	    		    		    		elt = (Element)noeud;
-	    		    		    		int x = Integer.parseInt(elt.getAttribute("x"));
-    		    		    			int y = Integer.parseInt(elt.getAttribute("y"));
-    		    		    			int h = Integer.parseInt(elt.getAttribute("h"));
-	    		    		    		switch(elt.getAttribute("type")){
-	    		    		    		case "normal":
-	    		    		    			tableau[x][y] = new Normal(h);
-	    		    		    			break;
-	    		    		    		case "lampe" :
-	    		    		    			tableau[x][y] = new Lampe(h);
-	    		    		    			break;
-	    		    		    		default :
-	    		    		    			break;
-	    		    		    		}
-	    		    		    	}
-	    		    			}
-	    		    			t.setEnsembleDeCase(tableau);
-	    		    			n.setTerrain(t);
+	    		    		case "lampe" :
+	    		    			tableau[x][y] = new Lampe(h);
 	    		    			break;
 	    		    		default :
 	    		    			break;
 	    		    		}
-	    		    	}
-	    			}
-	    			this.n.setTerrain(t);
-	    			break;
-	    		case "personnes" :
-	    			System.out.println("Nous sommes dans personnes");
-	    			break;
-	    		case "programmes" :
-	    			System.out.println("Nous sommes dans programmes");
-	    			break;
-	    		case "actions" :
-	    			System.out.println("Nous sommes dans actions");
-	    			break;
-	    		default :
-	    			System.out.println("Nous sommes dans default");
-	    			break;
-	    		}
-	        }
-	    }	    
+		    			}
+		    			t.setEnsembleDeCase(tableau);
+		    			n.setTerrain(t);
+		    			break;
+		    		default : break;
+		    		}
+				}
+				this.n.setTerrain(t);
+				break;
+			case "personnes" :
+				System.out.println("Nous sommes dans personnes");
+				break;
+			case "programmes" :
+				System.out.println("Nous sommes dans programmes");
+				break;
+			case "actions" :
+				System.out.println("Nous sommes dans actions");
+				break;
+			default :
+				System.out.println("Nous sommes dans default");
+				break;
+			}	
+	    }
 	}
 	
 	public void ecrire(){
@@ -138,6 +120,33 @@ public class Parser {
 	
 	public Niveau getNiveau(){
 		return this.n;
+	}
+	
+	private int getIntNodeAttribute(Node noeud, String attr){
+		try{
+			return Integer.parseInt(getNodeAttribute(noeud, attr));
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}		
+	}
+	
+	private String getNodeAttribute(Node noeud, String attr){
+		return ((Element)noeud).getAttribute(attr);
+	}
+	
+	private int getNodeTextToInt(Node noeud){
+		return Integer.parseInt(noeud.getTextContent());
+	}
+	
+	private ArrayList<Node> getChildren(Node noeud){
+		ArrayList<Node> nodes=new ArrayList<Node>();
+		NodeList children=noeud.getChildNodes();
+		for (int i = 0; i<children.getLength(); i++) {
+	    	if(children.item(i).getNodeType() == Node.ELEMENT_NODE) 
+	    		nodes.add(children.item(i));
+		}
+	    return nodes;
 	}
 
 }
