@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <niveau>
-	<terrain largeur=3 longueur=3 >
-		<nbActionsPossible>3</nbActionsPossibles>
+	<terrain largeur="3" longueur="3" >
+		<nbActionsPossible>3</nbActionsPossible>
 		<ensembleDeCase>
-			<case type=normal x=0 y=0 h=1 ></case>
-			<case type=normal x=1 y=0 h=1 ></case>
-			<case type=normal x=2 y=0 h=1 ></case>
-			<case type=lampe x=0 y=1 h=1 ></case>
-			<case type=normal x=1 y=1 h=1 ></case>
-			<case type=normal x=2 y=1 h=1 ></case>
-			<case type=normal x=0 y=2 h=1 ></case>
-			<case type=normal x=1 y=2 h=1 ></case>
-			<case type=normal x=2 y=2 h=1 ></case>
+			<case type="normal" x="0" y="0" h="1" ></case>
+			<case type="normal" x="1" y="0" h="1" ></case>
+			<case type="normal" x="2" y="0" h="1" ></case>
+			<case type="lampe"  x="0" y="1" h="1" ></case>
+			<case type="normal" x="1" y="1" h="1" ></case>
+			<case type="normal" x="2" y="1" h="1" ></case>
+			<case type="normal" x="0" y="2" h="1" ></case>
+			<case type="normal" x="1" y="2" h="1" ></case>
+			<case type="normal" x="2" y="2" h="1" ></case>
 		</ensembleDeCase>
 	</terrain>
 	<personnes>
-		<personne name="Robot" x=2 y=1 o=West></personne>
+		<personne name="Robot" x="2" y="1" o="West"></personne>
 	</personnes>
 	<programmes>
-		<programme name="main" t=3></programme>
+		<programme name="main" t="3"></programme>
 	</programmes>
 	<actions>
 		<action name="Avancer" p="Robot"></action>
