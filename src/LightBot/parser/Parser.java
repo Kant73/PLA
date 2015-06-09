@@ -88,8 +88,11 @@ public class Parser {
 	    		    		int x = getIntNodeAttribute(noeudCase, "x");
     		    			int y = getIntNodeAttribute(noeudCase, "y");
     		    			int h = getIntNodeAttribute(noeudCase, "h");
+    		    			String couleur=getNodeAttribute(noeudCase, "couleur");
+    		    			System.out.println("Couleur : "+couleur);
     		    			String nomFonction=getNodeAttribute(noeudCase,"type");
     		    			tableau[x][y] = newInstanceCase( nomFonction,h);
+    		    			if(!couleur.equals(""))tableau[x][y].setColor(Couleur.valueOf(couleur));
 		    			}
 		    			t.setEnsembleDeCase(tableau);
 		    			n.setTerrain(t);

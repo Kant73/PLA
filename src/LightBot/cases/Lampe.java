@@ -9,9 +9,7 @@ public class Lampe extends Allumable {
 		super(Couleur.Bleu,pHauteur);	
 	}
 	
-	@Override
 	public void setColor(Couleur c){
 		if(c==Couleur.Bleu || c==Couleur.Jaune)this.color=c;
-		else System.out.println("(Lampe) Mauvaise couleur");
 	}
 }
