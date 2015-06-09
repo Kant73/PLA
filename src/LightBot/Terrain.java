@@ -42,6 +42,19 @@ public class Terrain {
 		return this.maxAllumee;
 	}
 	
+	public int getHauteurMax(){
+		int max = 0;
+		for(int i = 0 ; i < this.largeur ; i++){
+			for(int j = 0; j < this.longueur ; j++){
+				int h = this.ensembleDeCase[i][j].getHauteur();
+				if(h > max){
+					max = h;
+				}
+			}
+		}
+		return max;
+	}
+	
 	
 /********************************************* MUTATEURS *********************************************/
 
