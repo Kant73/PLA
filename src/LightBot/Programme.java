@@ -3,6 +3,7 @@ package LightBot;
 import java.util.Vector;
 
 import LightBot.actions.Actions;
+import LightBot.actions.Break;
 
 public class Programme {
 
@@ -30,7 +31,12 @@ public class Programme {
 	public void execute(){
 		try{
 			for(Object obj:this.listActions){
-				if(obj instanceof Actions)((Actions)obj).agir();
+			    if(obj instanceof Break && ((Break)obj).getCouleur()==((Break)obj).getPersonnage().getCouleur())return;
+				else if(obj instanceof Actions){
+					int nbLampeAllumee=((Actions)obj).getPersonnage().getTerrain().getNbLampeAllumee();
+					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() || ((Actions)obj).getPersonnage().isMort())return;
+					else((Actions)obj).agir();
+				}
 				else if(obj instanceof Programme)((Programme)obj).execute();			
 			}
 		}catch(StackOverflowError e){

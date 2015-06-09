@@ -1,6 +1,7 @@
 package LightBot;
 
 import LightBot.cases.Case;
+import LightBot.cases.Lampe;
 import LightBot.personnage.Pcardinaux;
 
 
@@ -11,6 +12,8 @@ public class Terrain {
 	private int largeur;
 	private int longueur;
 	private int nbActionsPossible;
+	private int nbLampeAllumee=0;
+	private int maxAllumee;
 	private Case[][] ensembleDeCase;			//Tableau à 2 dimensions de cases représentant le terrain
 	
 /********************************************* ACCESSEURS *********************************************/
@@ -31,6 +34,15 @@ public class Terrain {
 		return ensembleDeCase;
 	}
 	
+	public int getNbLampeAllumee(){
+		return this.nbLampeAllumee;
+	}
+	
+	public int getMaxLampe(){
+		return this.maxAllumee;
+	}
+	
+	
 /********************************************* MUTATEURS *********************************************/
 
 	public void setLargeur(int pLargeur) {
@@ -47,14 +59,30 @@ public class Terrain {
 
 	public void setEnsembleDeCase(Case[][] pEnsembleDeCase) {
 		this.ensembleDeCase = pEnsembleDeCase;
+		this.setMaxLampe();
+	}
+	
+	public void setMaxAllumee(int i){
+		if(this.maxAllumee!=i)this.maxAllumee=i;
+	}
+	
+	private void setMaxLampe(){
+		this.maxAllumee=0;
+		for(int i=0;i<largeur;i++)
+			for(int j=0;j<longueur;j++)
+				if(this.ensembleDeCase[i][j] instanceof Lampe)this.maxAllumee++;
+	}
+	
+	public void setNbLampeAllumee(int i){
+		this.nbLampeAllumee=i;
 	}
 	
 	public void affiche(){
 		for(int y=0;y<largeur;y++){
 			for(int x=0;x<longueur;x++)
-				/*if(this.ensembleDeCase[x][y]==null)System.out.print("null ");
-				else System.out.print(this.ensembleDeCase[x][y].getColor()+" ");*/
-				if(this.ensembleDeCase[x][y]!=null) System.out.print("("+x+","+y+")"+this.ensembleDeCase[x][y].getColor()+" ");
+				if(this.ensembleDeCase[x][y]==null)System.out.print("null ");
+				else System.out.print(this.ensembleDeCase[x][y].getColor()+" ");
+				//if(this.ensembleDeCase[x][y]!=null) System.out.print("("+x+","+y+")"+this.ensembleDeCase[x][y].getColor()+" ");
 			System.out.println("");
 		}
 	}

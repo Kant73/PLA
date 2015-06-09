@@ -25,4 +25,8 @@ public abstract class Actions {
 		return this.perso;
 	}
 	
+	public Couleur getCouleur(){
+		return this.couleurCondition;
+	}
+	
 }
