@@ -15,7 +15,7 @@ public abstract class Case {
 	}
 	
 	public int getHauteur() {
-		return hauteur;
+		return hauteur-1;
 	}
 	
 /********************************************* MUTATEURS *********************************************/
@@ -36,7 +36,10 @@ public abstract class Case {
 		this.setHauteur(pHauteur);
 	}
 	
-	public void printTerm() {
+	public void printTerm(){
+		System.out.print(color.getCode());
+		System.out.print(this.hauteur);
+		System.out.print("\033[0m");
 	}
 
 

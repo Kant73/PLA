@@ -100,6 +100,23 @@ public class Terrain {
 		}
 	}
 	
+	public void printTerm(){
+		System.out.print("\n");
+		String ligne = "";
+		for(int i=0; i<(this.largeur*2)+1 ; i++){
+			ligne = ligne+"–";
+		}
+		System.out.println(ligne);
+		for(int i=0 ; i<largeur ; i++){
+			for(int j=0 ; j<longueur ; j++){
+				System.out.print("|");
+				ensembleDeCase[j][i].printTerm();
+			}
+			System.out.print("|\n");
+		}
+		System.out.println(ligne);
+	}
+	
 /********************************************* METHODES D'INSTANCE *********************************************/
 	
 	//Constructeur de l'objet Terrain

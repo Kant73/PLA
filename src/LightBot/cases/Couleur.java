@@ -1,14 +1,24 @@
 package LightBot.cases;
 
 public enum Couleur{
-	Bleu, /* A allumer*/
-	Jaune, /* Case allumee*/
-	Blanc,/*Normal*/
-	Vert, /* Téléportation*/
-	Orange, /*Case finale*/
-	Noir, /*Case qui disparait*/
-	Violet, /*Case condition if*/
-	Incolore, /*Transparent*/
-	Rouge; /*Case memoire*/
+	Bleu("\033[34m"), /* A allumer*/
+	Jaune("\033[33m"), /* Case allumee*/
+	Blanc("\033[0m"),/*Normal*/
+	Vert("\033[32m"), /* Téléportation*/
+	Orange("\033[36m"), /*Case finale*/
+	Noir("\033[30m"), /*Case qui disparait*/
+	Violet("\033[35m"), /*Case condition if*/
+	Incolore("\033[5m"), /*Transparent*/
+	Rouge("\033[31m"); /*Case memoire*/
+	
+	private String codeCouleur;
+	
+	Couleur(String s){
+		this.codeCouleur = s;
+	}
+	
+	public String getCode(){
+		return this.codeCouleur;
+	}
 	
 }
