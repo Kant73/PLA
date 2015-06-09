@@ -24,6 +24,7 @@ import LightBot.Terrain;
 import LightBot.cases.Couleur;
 import LightBot.cases.Lampe;
 import LightBot.parser.Parser;
+import LightBot.personnage.Pcardinaux;
 
 public class Mon_test {
 	
@@ -114,6 +115,130 @@ public class Mon_test {
 					,SpriteCases[i][j][monTerrain.getEnsembleDeCase()[i][j].getHauteur()].getPosition().y +reScale*SpriteCases[i][j][monTerrain.getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y );
 			
 	}
+	/*
+	void avancer()
+	{
+		Niveau monNiveau ;
+		Pcardinaux orient = monNiveau.getPersonnages().get(0).getOrientation();
+		int newX,newY;
+		newX=xRobot;
+		newY=yRobot;
+		float deplX=0,deplY = 0,deplSaut=0;
+		float coeff = 2;
+		
+		if(orient==Pcardinaux.NORTH)//HAUT
+		{
+			spriteRobot.setTexture(Textures.TexRobotNW);
+			if(yRobot+1<NB_CASE_Y && monTerrain.getEnsembleDeCase()[xRobot][yRobot+1].getHauteur()>=0)
+			{
+				newY=yRobot+1;	
+				deplX=-1;
+				deplY=-0.5f;
+			}
+		}
+		if(orient==Pcardinaux.SOUTH)//BAS
+		{
+			spriteRobot.setTexture(Textures.TexRobotSE);
+			if(yRobot-1>=0 && monTerrain.getEnsembleDeCase()[xRobot][yRobot-1].getHauteur()>=0)
+			{
+				newY=yRobot-1;	
+				deplX=1;
+				deplY=0.5f;
+			}
+		}
+		if(orient==Pcardinaux.WEST )// GAUCHE
+		{
+			spriteRobot.setTexture(Textures.TexRobotSW);
+			if(xRobot-1>=0 && monTerrain.getEnsembleDeCase()[xRobot-1][yRobot].getHauteur()>=0)
+			{
+				newX=xRobot-1;	
+				deplX=-1;
+				deplY=0.5f;
+			}
+		}
+		if(orient==Pcardinaux.EAST)// DROITE
+		{
+			spriteRobot.setTexture(Textures.TexRobotNE);
+			if(xRobot+1<NB_CASE_X && monTerrain.getEnsembleDeCase()[xRobot+1][yRobot].getHauteur()>=0)
+			{
+				newX=xRobot+1;
+				deplX=1;
+				deplY=-0.5f;
+			}
+		}
+	
+		deplX=deplX*coeff;
+		deplY=deplY*coeff;
+		if(yRobot!=newY || xRobot != newX)
+		{
+			nextXRobot=newX;
+			nextYRobot=newY;
+			Vector2f posFinale,posInit;
+		
+			posFinale = new Vector2f(SpriteCases[newX][newY][monTerrain.getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x + reScale*SpriteCases[newX][newY][monTerrain.getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteRobot.getTexture().getSize().x/2, 
+				SpriteCases[newX][newY][monTerrain.getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y +reScale*SpriteCases[newX][newY][monTerrain.getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y);
+			posInit = new Vector2f(spriteRobot.getPosition().x,spriteRobot.getPosition().y);
+		
+			while( (posInit.x>=posFinale.x && posInit.y>=posFinale.y 
+					  && spriteRobot.getPosition().x >= posFinale.x 
+					  && spriteRobot.getPosition().y >= posFinale.y)
+					  	  || 
+				  (posInit.x<=posFinale.x && posInit.y>=posFinale.y 
+						  && spriteRobot.getPosition().x <= posFinale.x 
+						  && spriteRobot.getPosition().y >= posFinale.y)
+						  || 
+				  (posInit.x>=posFinale.x && posInit.y<=posFinale.y 
+						  && spriteRobot.getPosition().x >= posFinale.x 
+						  && spriteRobot.getPosition().y <= posFinale.y)
+						  || 
+				  (posInit.x<=posFinale.x && posInit.y<=posFinale.y 
+						  && spriteRobot.getPosition().x <= posFinale.x 
+						  && spriteRobot.getPosition().y <= posFinale.y)						  
+				  )
+			{
+				spriteRobot.setPosition(spriteRobot.getPosition().x+deplX,spriteRobot.getPosition().y+deplY);
+				afficher_carte();
+			}
+		
+			initPlaceRobot(newX,newY);
+			set_pos_robot();
+			afficher_carte();
+		}
+		this.avancer();
+	}
+	
+	void sauter()
+	{
+		int newX,newY;
+		newX=xRobot;
+		newY=yRobot;
+		float deplX=0,deplY = 0,deplSaut=0;
+		float coeff = 2;
+		Vector2f posFinale,posInit;
+		
+		posFinale = new Vector2f(SpriteCases[newX][newY][monTerrain.getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x + reScale*SpriteCases[newX][newY][monTerrain.getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteRobot.getTexture().getSize().x/2, 
+				SpriteCases[newX][newY][monTerrain.getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y +reScale*SpriteCases[newX][newY][monTerrain.getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y);
+		posInit = new Vector2f(spriteRobot.getPosition().x,spriteRobot.getPosition().y);
+		
+		
+		if(monTerrain.getEnsembleDeCase()[xRobot][yRobot].getHauteur()!=monTerrain.getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur())
+		{	
+			deplSaut=-3*coeff;
+		
+			boolean b =  newX>xRobot || newY>yRobot ;
+
+			while (
+					(b && spriteRobot.getPosition().y + reScaleRobot*spriteRobot.getTexture().getSize().y > SpriteCases[nextXRobot][nextYRobot][monTerrain.getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur()].getPosition().y+reScale*SpriteCases[newX][newY][monTerrain.getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*2)
+					||(!b  && monTerrain.getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur()>monTerrain.getEnsembleDeCase()[xRobot][yRobot].getHauteur() && spriteRobot.getPosition().y + reScaleRobot*spriteRobot.getTexture().getSize().y > posInit.y+reScaleRobot*spriteRobot.getTexture().getSize().y -reScale*SpriteCases[newX][newY][monTerrain.getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*(monTerrain.getEnsembleDeCase()[newX][newY].getHauteur()-monTerrain.getEnsembleDeCase()[xRobot][yRobot].getHauteur()))
+					)
+			{
+				spriteRobot.setPosition(spriteRobot.getPosition().x,spriteRobot.getPosition().y+deplSaut);
+				afficher_carte();	
+			}
+		}
+	}
+	
+	*/
 	
 	void deplacement_robot(int Orientation)
 	{
@@ -305,6 +430,7 @@ public class Mon_test {
 		reScale=Scale;
 		reScaleRobot=Scale/3;
 		SetSprites();
+		
 		initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
 	}
 	
