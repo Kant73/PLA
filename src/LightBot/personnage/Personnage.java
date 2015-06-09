@@ -15,6 +15,7 @@ public class Personnage {
 	private Terrain terrain;
 	private Couleur couleur;
 	private String nom;
+	private boolean mort=false;
 	
 	public Personnage(String nom, int x, int y, Pcardinaux sens){
 		this.nom=nom;
@@ -92,6 +93,14 @@ public class Personnage {
 	}
 	
 	public void printTerm(){}
+
+	public boolean isMort() {
+		return mort;
+	}
+
+	public void setMort(boolean mort) {
+		this.mort = mort;
+	}
 
 }
 

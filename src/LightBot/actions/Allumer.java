@@ -26,22 +26,22 @@ public class Allumer extends Actions {
 	public void agir() {
 		if(this.couleurCondition==this.perso.getCouleur() || this.perso.getCouleur()==Couleur.Violet){
 			Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()];
+			int nbLampeAllumee=this.perso.getTerrain().getNbLampeAllumee();
 			if (C instanceof Lampe){
 				switch(C.getColor()){
 				case Bleu:
 					C.setColor(Couleur.Jaune);
+					this.perso.getTerrain().setNbLampeAllumee(nbLampeAllumee+1);
 					break;
 				case Jaune:
 					C.setColor(Couleur.Bleu);
+					this.perso.getTerrain().setNbLampeAllumee(nbLampeAllumee-1);
 					break;
 				default:break;
 				}
 			}else if(C instanceof Condition){
-				if(this.perso.getCouleur()!=Couleur.Blanc){
-					this.perso.setCouleur(Couleur.Blanc);
-				}else if(this.perso.getCouleur()==Couleur.Blanc){
-					this.perso.setCouleur(Couleur.Violet);
-				}
+				if(this.perso.getCouleur()!=Couleur.Blanc)this.perso.setCouleur(Couleur.Blanc);
+				else if(this.perso.getCouleur()==Couleur.Blanc)this.perso.setCouleur(Couleur.Violet);
 			}
 		}
 	}

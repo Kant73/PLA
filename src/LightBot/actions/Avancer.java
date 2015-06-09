@@ -29,28 +29,28 @@ public class Avancer extends Actions {
 			int y = this.perso.getPositionY();
 			int h = T.getEnsembleDeCase()[x][y].getHauteur();
 			
-			if (o == Pcardinaux.EAST){
-				if (h == T.getEnsembleDeCase()[x+1][y].getHauteur() && (x+1)<T.getLargeur()){
-					this.perso.setPositionX(x+1);
-				}
-			}
-			else if (o == Pcardinaux.SOUTH){
-				if (h == T.getEnsembleDeCase()[x][y+1].getHauteur() && (y+1)<T.getLongueur()){
-					this.perso.setPositionY(y+1);
-				}
-			}
-			else if (o == Pcardinaux.WEST){
-				if (h == T.getEnsembleDeCase()[x-1][y].getHauteur() && (x-1)<0){
-					this.perso.setPositionX(x-1);
-				}
-			}
-			else {
-				if (h == T.getEnsembleDeCase()[x][y-1].getHauteur() && (y-1)<0 ){
-					this.perso.setPositionY(y-1);
-				}
-			}
-			if(T.getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()].getHauteur()==0){
-				System.out.println("t'es mort enculé!!");
+			switch(o){
+				case EAST :
+					if ((x+1)<T.getLargeur()){
+						if(h == T.getEnsembleDeCase()[x+1][y].getHauteur())this.perso.setPositionX(x+1);
+					}else {this.perso.setMort(true);}
+					break;
+				case SOUTH :
+					if ((y+1)<T.getLongueur()){
+						if(h == T.getEnsembleDeCase()[x][y+1].getHauteur())this.perso.setPositionY(y+1);
+					}else{this.perso.setMort(true);}
+					break;
+				case WEST : 
+					if ((x-1)<0){
+						if(h == T.getEnsembleDeCase()[x-1][y].getHauteur())this.perso.setPositionX(x-1);
+					}else{this.perso.setMort(true);}
+					break;
+				case NORTH :
+					if ((y-1)<0 ){
+						if(h == T.getEnsembleDeCase()[x][y-1].getHauteur())this.perso.setPositionY(y-1);
+					}else{this.perso.setMort(true);}
+					break;
+				default:break;
 			}
 		}
 	}
