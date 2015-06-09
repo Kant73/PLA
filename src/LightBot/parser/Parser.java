@@ -28,13 +28,16 @@ public class Parser {
 	private Niveau n;
 	
 	public static void main(String[] args) {
-		Parser p = new Parser("src/LightBot/levels/Niveau.xml");
+		// Parser p = new Parser(args[0]); // pour utiliser le terminal en utilisant un jar
+		Parser p = new Parser("src/LightBot/levels/Niveau.xml"); // pour utiliser le terminal
 		p.lire();
 		p.getNiveau().getTerrain().affiche();
 		System.out.println("Nombre de personnages : "+p.getNiveau().getPersonnages().toArray().length);
 		System.out.println("Nombre de programmes : "+p.getNiveau().getProgrammes().toArray().length);
 		System.out.print("Liste des actions :");
-		for(Actions action:p.getNiveau().getActions())System.out.print(" "+action.toString());
+		for(Actions action:p.getNiveau().getActions()) System.out.print(" "+action.toString());
+		System.out.println();
+		p.getNiveau().getTerrain().printTerm();
 	}
 	
 	/* 
