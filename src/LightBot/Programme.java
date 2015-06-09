@@ -41,6 +41,7 @@ public class Programme {
 			}
 		}catch(StackOverflowError e){
 			e.printStackTrace();
+		}catch(NoClassDefFoundError noDef){
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}

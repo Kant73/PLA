@@ -18,12 +18,13 @@ public class TestProg3 extends Niveau{
 		Case[][] cases=this.getTerrain().getEnsembleDeCase();
 		
 		cases[1][0]=new Normal(2);
-		cases[1][1]=new Normal(2);
-		cases[1][2]=new Normal(2);
-		cases[1][3]=new Condition(2);
-		cases[2][3]=new Lampe(2);	
-		cases[3][3]=new Normal(2);
-		cases[4][3]=new Normal(2);
+		cases[1][1]=new Normal(1);
+		cases[1][2]=new Normal(0);
+		cases[1][3]=new Normal(1);
+		cases[1][4]=new Condition(2);
+		cases[2][4]=new Lampe(1);	
+		cases[3][4]=new Normal(0);
+		cases[4][4]=new Normal(1);
 		cases[0][2]=new Lampe(2);
 		
 		this.getTerrain().setEnsembleDeCase(cases);
@@ -33,7 +34,7 @@ public class TestProg3 extends Niveau{
 		this.getPersonnages().add(robot);
 		
 		this.getProgrammes().add(new Programme("main",7));
-		this.getProgrammes().add(new Programme("Proc1",6));
+		this.getProgrammes().add(new Programme("Proc1",7));
 		
 		Programme progMain=this.getProgrammes().get(0);
 		/*progMain.inserer(new Avancer(robot), 0);
@@ -45,12 +46,11 @@ public class TestProg3 extends Niveau{
 		progMain.inserer(new Allumer(robot), 6);*/
 		Programme proc1=this.getProgrammes().get(1);
 		
-		proc1.inserer(new Avancer(robot), 0);
+		proc1.inserer(new Sauter(robot), 0);
 		proc1.inserer(new Allumer(robot), 1);
 		proc1.inserer(new TournerGauche(robot,Couleur.Violet), 2);
-		proc1.inserer(new Break(robot,Couleur.Violet), 3);
-		proc1.inserer(new Wash(robot,Couleur.Violet), 4);
-		proc1.inserer(proc1, 5);
+		proc1.inserer(new Wash(robot,Couleur.Violet), 3);
+		proc1.inserer(proc1, 4);
 		progMain.inserer(proc1, 0);
 
 		robot.setProgramme(progMain);
