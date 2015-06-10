@@ -15,6 +15,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import LightBot.Niveau;
+import LightBot.NomMode;
 import LightBot.Programme;
 import LightBot.Terrain;
 import LightBot.cases.*;
@@ -30,6 +31,8 @@ public class Parser {
 	public static void main(String[] args) {
 		// Parser p = new Parser(args[0]); // pour utiliser le terminal en utilisant un jar
 		Parser p = new Parser("src/LightBot/levels/Niveau.xml"); // pour utiliser le terminal
+		System.out.println(Parser.class.getResource("../levels/Niveau.xml").getPath());
+		
 		p.lire();
 		p.getNiveau().getTerrain().affiche();
 		System.out.println("Nombre de personnages : "+p.getNiveau().getPersonnages().toArray().length);
