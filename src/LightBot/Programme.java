@@ -18,6 +18,11 @@ public class Programme {
 		this.listActions.setSize(this.nbMaxAction);
 	}
 	
+	public int getNbMaxAction()
+	{
+		return nbMaxAction;
+	}
+	
 	public void supprimer(int index){
 		if (index>=0 && index <this.nbMaxAction)this.listActions.set(index, null);
 	}
