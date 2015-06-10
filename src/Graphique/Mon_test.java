@@ -443,6 +443,11 @@ public class Mon_test {
 		spriteSymboleSauter=new Sprite();
 		spriteSymboleSauter.setTexture(Textures.TexSymboleSauter);
 				
+		this.spriteSymboleTournerDroite = new Sprite();
+		this.spriteSymboleTournerDroite.setTexture(Textures.TexSymboleTournerDroite);
+		
+		this.spriteSymboleTournerGauche = new Sprite();
+		this.spriteSymboleTournerGauche.setTexture(Textures.TexSymboleTournerGauche);
 		
 		SpriteCases=new Sprite[NB_CASE_X][NB_CASE_Y][NB_CASE_Z];
 		for(int i=0;i<  NB_CASE_X;i++)
@@ -502,12 +507,10 @@ public class Mon_test {
 		for (int i = 0; i < al.size(); i++) {
 			if (al.get(i) instanceof Avancer) {
 				this.spriteSymboleAvancer.setTexture(Textures.TexSymboleAvancer);
-				System.out.println("Avancer");
 				this.list_action_possible.add(this.spriteSymboleAvancer);
 			}
 			else if(al.get(i) instanceof Allumer) {
 				this.spriteSymboleAllumer.setTexture(Textures.TexSymboleAllumer);
-				System.out.println("Allumer");
 				this.list_action_possible.add(this.spriteSymboleAllumer);
 			}
 			
@@ -541,7 +544,6 @@ public class Mon_test {
 		if (!this.list_action_possible.isEmpty()) {
 			for (int k = 0; k < this.list_action_possible.size(); k++) {
 				Sprite temp = (Sprite) this.list_action_possible.get(k);
-				System.out.println(temp);
 				temp.setPosition(100, k*65);
 				this.fenetre.draw(temp);
 			}
@@ -636,8 +638,7 @@ public class Mon_test {
 								
 								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
 								{
-									//System.out.println("posx " +pos.x + "posy " + pos.y);
-									System.out.println(temp.nom);
+									//System.out.println(temp.nom);
 									l.remove(k);
 								}
 							}
@@ -694,7 +695,7 @@ public class Mon_test {
 									StructStringSprite temp = (StructStringSprite) l.get(k);
 									
 									if (temp.nom == "avancer") {
-										System.out.println("spriteBoutonAvancer");
+										//System.out.println("spriteBoutonAvancer");
 										
 										/*j++;
 										if(j==NB_CASE_Y)
@@ -703,7 +704,7 @@ public class Mon_test {
 										
 									}
 									else if (temp.nom == "reculer") {
-										System.out.println("spriteBoutonReculer");
+										//System.out.println("spriteBoutonReculer");
 										
 										/*if(j==0)
 											j=NB_CASE_Y-1;
@@ -712,7 +713,7 @@ public class Mon_test {
 										Affiche_monde.deplacement_robot(1);
 									}
 									else if (temp.nom == "droite") {
-										System.out.println("spriteBoutonDroite");
+										//System.out.println("spriteBoutonDroite");
 										
 										/*i++;
 										if(i==NB_CASE_X)
@@ -720,7 +721,7 @@ public class Mon_test {
 										Affiche_monde.deplacement_robot(3);
 									}
 									else if (temp.nom == "gauche") {
-										System.out.println("spriteBoutonGauche");
+										//System.out.println("spriteBoutonGauche");
 										
 										/*if(i==0)
 											i=NB_CASE_X-1;
@@ -775,7 +776,7 @@ public class Mon_test {
 							System.out.println(" RIGHT");
 						}	
 					}
-					
+					/*
 					if (!l.isEmpty()) {
 						for (int k = 0; k < l.size(); k++) {
 							StructStringSprite temp = (StructStringSprite) l.get(k);
@@ -786,6 +787,7 @@ public class Mon_test {
 							}
 						}
 					}
+					*/
 					Affiche_monde.fenetre.draw(gradient);
 					//Affiche_monde.fenetre.clear(Color.GREEN);
 					Affiche_monde.afficher_boutons();
