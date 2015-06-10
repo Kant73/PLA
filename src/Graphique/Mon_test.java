@@ -458,12 +458,20 @@ public class Mon_test {
 					
 					SpriteCases[i][j][k].setTexture(Textures.TexCaseBase);
 					
-					if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Bleu)
-						SpriteCases[i][j][k].setTexture(Textures.TexCaseLumEteinte); 
-					else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Jaune)
-						SpriteCases[i][j][k].setTexture(Textures.TexCaseLumAllum);
-	
-						SpriteCases[i][j][k].setScale(reScale,reScale);
+					if(k==NB_CASE_Z-1)
+					{
+						if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Bleu)
+							SpriteCases[i][j][k].setTexture(Textures.TexCaseLumEteinte); 
+						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Jaune)
+							SpriteCases[i][j][k].setTexture(Textures.TexCaseLumAllum);
+									
+					}
+
+					
+
+					
+					SpriteCases[i][j][k].setScale(reScale,reScale);
+
 				}
 	}
 
@@ -647,7 +655,6 @@ public class Mon_test {
 								StructStringSprite temp = (StructStringSprite) l.get(k);
 								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
 								{
-									System.out.println("oooooooo");
 									l.remove(k);
 								}
 							}
