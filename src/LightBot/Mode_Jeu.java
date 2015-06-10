@@ -4,12 +4,8 @@ import java.awt.List;
 
 
 
-public enum Mode_Jeu {
-	
-	Versus_IA,
-	BASIC;
-	
-		
+public class Mode_Jeu {	
+
 	private String nom;
 	private List Cases;
 	private List Terrain;
