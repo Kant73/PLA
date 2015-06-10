@@ -1,6 +1,7 @@
 package Graphique;
 
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
 import LightBot.Niveau;
+import LightBot.actions.*;
 import LightBot.cases.Couleur;
 import LightBot.cases.Lampe;
 import LightBot.parser.Parser;
@@ -49,9 +51,13 @@ public class Mon_test {
 	public Sprite spriteSymboleReculer;
 	public Sprite spriteSymboleGauche;
 	public Sprite spriteSymboleDroite;
+	public Sprite spriteSymboleTournerGauche;
+	public Sprite spriteSymboleTournerDroite;
 	public Sprite spriteSymboleSauter;
 	public Sprite spriteSymboleAllumer;
 	public Sprite spriteRobot;
+	
+	public LinkedList list_action_possible;
 	public float reScale,reScaleRobot;
 	int xRobot,yRobot,nextXRobot,nextYRobot;
 	
@@ -422,6 +428,9 @@ public class Mon_test {
 		spriteSymboleAvancer = new Sprite();
 		spriteSymboleAvancer.setTexture(Textures.TexSymboleAvancer);
 		
+		spriteSymboleAllumer = new Sprite();
+		spriteSymboleAllumer.setTexture(Textures.TexSymboleAllumer);
+		
 		spriteSymboleDroite=new Sprite();
 		spriteSymboleDroite.setTexture(Textures.TexSymboleDroite);
 		
@@ -486,15 +495,57 @@ public class Mon_test {
 		nextYRobot=y;
 	}
 	
+	public void initActionsPossible()
+	{
+		this.list_action_possible = new LinkedList();
+		ArrayList al = monNiveau.getActions();
+		for (int i = 0; i < al.size(); i++) {
+			if (al.get(i) instanceof Avancer) {
+				this.spriteSymboleAvancer.setTexture(Textures.TexSymboleAvancer);
+				System.out.println("Avancer");
+				this.list_action_possible.add(this.spriteSymboleAvancer);
+			}
+			else if(al.get(i) instanceof Allumer) {
+				this.spriteSymboleAllumer.setTexture(Textures.TexSymboleAllumer);
+				System.out.println("Allumer");
+				this.list_action_possible.add(this.spriteSymboleAllumer);
+			}
+			
+			else if(al.get(i) instanceof Break) {
+				System.out.println("Break");
+			}
+			
+			else if(al.get(i) instanceof Sauter) {
+				this.spriteSymboleSauter.setTexture(Textures.TexSymboleSauter);
+				this.list_action_possible.add(this.spriteSymboleSauter);
+			}
+			
+			else if(al.get(i) instanceof TournerDroite) {
+				this.spriteSymboleTournerDroite.setTexture(Textures.TexSymboleTournerDroite);
+				this.list_action_possible.add(this.spriteSymboleTournerDroite);
+			}
+			
+			else if(al.get(i) instanceof TournerGauche) {
+				this.spriteSymboleTournerGauche.setTexture(Textures.TexSymboleTournerGauche);
+				this.list_action_possible.add(this.spriteSymboleTournerGauche);
+			}
+			
+			else if(al.get(i) instanceof Wash) {
+				System.out.println("Wash");
+			}
+		}
+	}
 
 	
 	public void afficher_boutons(){
-		this.fenetre.draw(this.spriteBoutonAllumer);
-		this.fenetre.draw(this.spriteBoutonAvancer);
-		this.fenetre.draw(this.spriteBoutonDroite);
-		this.fenetre.draw(this.spriteBoutonGauche);
-		this.fenetre.draw(this.spriteBoutonReculer);
-		this.fenetre.draw(this.spriteBoutonSauter);
+		if (!this.list_action_possible.isEmpty()) {
+			for (int k = 0; k < this.list_action_possible.size(); k++) {
+				Sprite temp = (Sprite) this.list_action_possible.get(k);
+				System.out.println(temp);
+				temp.setPosition(100, k*65);
+				this.fenetre.draw(temp);
+			}
+		}
 		this.fenetre.draw(this.spriteBoutonPlay);
 	}
 	
@@ -548,21 +599,24 @@ public class Mon_test {
 		//Affiche_monde.fenetre.clear(Color.GREEN);
 		int initPosY=50,initPosX=90;
 		
+		/*
 		Affiche_monde.spriteBoutonAllumer.setPosition(initPosX,initPosY);
 		Affiche_monde.spriteBoutonAvancer.setPosition(initPosX,initPosY+=60);
 		Affiche_monde.spriteBoutonDroite.setPosition(initPosX,initPosY+=60);
 		Affiche_monde.spriteBoutonGauche.setPosition(initPosX,initPosY+=60);
 		Affiche_monde.spriteBoutonReculer.setPosition(initPosX,initPosY+=60);
 		Affiche_monde.spriteBoutonSauter.setPosition(initPosX,initPosY+=60);
+		*/
 		Affiche_monde.spriteBoutonPlay.setPosition(1300,0);
 		
 		
-		Affiche_monde.afficher_boutons();
+		
 		Affiche_monde.set_position_cases();
 		Affiche_monde.set_pos_robot();
 		Affiche_monde.afficher_carte();
+		Affiche_monde.initActionsPossible();
+		Affiche_monde.afficher_boutons();
 		VertexArray gradient = Affiche_monde.createGradient(new org.jsfml.graphics.Color(0, 178, 255, 255), Color.BLACK, Affiche_monde.fenetre);
-	
 	
 			while (Affiche_monde.fenetre.isOpen()) {
 				try {
@@ -588,6 +642,20 @@ public class Mon_test {
 								}
 							}
 						}
+						/*
+						if (!list_sprite.isEmpty()) {
+							for (int k = 0; k < l.size(); k++) {
+								Sprite temp = (Sprite) l.get(k);
+								//System.out.println("posx " +pos.x + "posy " + pos.y);
+								if(temp.getGlobalBounds().contains(pos.x,pos.y))
+								{
+									//System.out.println("posx " +pos.x + "posy " + pos.y);
+									System.out.println(temp.toString());
+								}
+							}
+						}
+						*/
+						
 						if(Affiche_monde.spriteBoutonAvancer.getGlobalBounds().contains(pos.x,pos.y))
 						{
 							

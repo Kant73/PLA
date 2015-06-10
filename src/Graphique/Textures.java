@@ -25,6 +25,8 @@ public class Textures {
 	public static Texture TexSymboleReculer;
 	public static Texture TexSymboleGauche;
 	public static Texture TexSymboleDroite;
+	public static Texture TexSymboleTournerGauche;
+	public static Texture TexSymboleTournerDroite;
 	public static Texture TexSymboleSauter;
 	public static Texture TexSymboleAllumer;
 	public static Texture TexRobotNE;
@@ -52,6 +54,8 @@ public class Textures {
 		TexSymboleAllumer = new Texture();
 		TexSymboleAvancer = new Texture();
 		TexSymboleDroite = new Texture();
+		TexSymboleTournerGauche = new Texture();
+		TexSymboleTournerDroite = new Texture();
 		TexSymboleGauche = new Texture();
 		TexSymboleReculer = new Texture();
 		TexSymboleSauter = new Texture();
@@ -79,6 +83,8 @@ public class Textures {
 			TexSymboleAvancer.loadFromFile(Paths.get("src/Img/symbole_avancer.png"));
 			TexSymboleDroite.loadFromFile(Paths.get("src/Img/symbole_droite.png"));
 			TexSymboleGauche.loadFromFile(Paths.get("src/Img/symbole_gauche.png"));
+			TexSymboleTournerDroite.loadFromFile(Paths.get("src/Img/symbole_rot_droite.png"));
+			TexSymboleTournerGauche.loadFromFile(Paths.get("src/Img/symbole_rot_gauche.png"));
 			TexSymboleReculer.loadFromFile(Paths.get("src/Img/symbole_reculer.png"));
 			TexSymboleSauter.loadFromFile(Paths.get("src/Img/symbole_saut.png"));
 		
