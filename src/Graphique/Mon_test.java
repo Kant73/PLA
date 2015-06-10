@@ -594,7 +594,7 @@ public class Mon_test {
 		List l = new LinkedList();
 		Textures.initTextures();
 		
-		Mon_test Affiche_monde = new Mon_test(1f,"src/LightBot/levels/Niveau.xml");
+		Mon_test Affiche_monde = new Mon_test(1f,"src/LightBot/levels/" + args[0]);
 	
 		//Affiche_monde.fenetre.clear(Color.GREEN);
 		int initPosY=50,initPosX=90;
