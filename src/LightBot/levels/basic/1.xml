@@ -19,5 +19,6 @@
 		<action name="Allumer" p="Robot" />
 		<action name="TournerGauche" p="Robot" />
 		<action name="TournerDroite" p="Robot" />
+		<action name="Sauter" p="Robot" />
 	</actions>
 </niveau>
