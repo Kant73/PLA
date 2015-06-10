@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<niveau>
+	<terrain largeur="3" longueur="5" >
+		<nbActionsPossible>3</nbActionsPossible>
+		<ensembleDeCase>
+			<case type="Normal" x="0" y="0" h="1" />
+			<case type="Normal" x="0" y="1" h="1" />
+			<case type="Normal" x="0" y="2" h="1" />
+			<case type="Lampe" x="1" y="2" h="1" />
+			<case type="Lampe" x="2" y="2" h="1" />
+			<case type="Lampe" x="2" y="3" h="1" />
+			<case type="Lampe" x="2" y="4" h="1" />
+			<case type="Normal" x="0" y="3" h="1" />
+			<case type="Normal" x="0" y="4" h="1" />
+			<case type="Normal" x="1" y="0" h="1" />
+			<case type="Normal" x="1" y="1" h="1" />
+			<case type="Normal" x="1" y="3" h="1" />
+			<case type="Normal" x="1" y="4" h="1" />
+			<case type="Normal" x="2" y="0" h="1" />
+			<case type="Normal" x="2" y="1" h="1" />
+		</ensembleDeCase>
+	</terrain>
+	<personnes>
+		<personne name="Robot" x="0" y="0" o="NORTH" />
+	</personnes>
+	<programmes>
+		<programme name="main" t="12" />
+	</programmes>
+	<actions>
+		<action name="Avancer" p="Robot" />
+		<action name="Allumer" p="Robot" />
+		<action name="TournerGauche" p="Robot" />
+		<action name="TournerDroite" p="Robot" />
+		<action name="Sauter" p="Robot" />
+	</actions>
+</niveau>
