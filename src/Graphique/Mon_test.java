@@ -462,11 +462,8 @@ public class Mon_test {
 						SpriteCases[i][j][k].setTexture(Textures.TexCaseLumEteinte); 
 					else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Jaune)
 						SpriteCases[i][j][k].setTexture(Textures.TexCaseLumAllum);
-					
-					
-						
-					
-					SpriteCases[i][j][k].setScale(reScale,reScale);
+	
+						SpriteCases[i][j][k].setScale(reScale,reScale);
 				}
 	}
 
@@ -506,12 +503,14 @@ public class Mon_test {
 		ArrayList al = monNiveau.getActions();
 		for (int i = 0; i < al.size(); i++) {
 			if (al.get(i) instanceof Avancer) {
-				this.spriteSymboleAvancer.setTexture(Textures.TexSymboleAvancer);
-				this.list_action_possible.add(this.spriteSymboleAvancer);
+				//this.spriteSymboleAvancer.setTexture(Textures.TexSymboleAvancer);
+				StructStringSprite struct = this.new StructStringSprite(this.spriteSymboleAvancer, "avancer");
+				this.list_action_possible.add(struct);
 			}
 			else if(al.get(i) instanceof Allumer) {
-				this.spriteSymboleAllumer.setTexture(Textures.TexSymboleAllumer);
-				this.list_action_possible.add(this.spriteSymboleAllumer);
+				//this.spriteSymboleAllumer.setTexture(Textures.TexSymboleAllumer);
+				StructStringSprite struct = this.new StructStringSprite(this.spriteSymboleAllumer, "allumer");
+				this.list_action_possible.add(struct);
 			}
 			
 			else if(al.get(i) instanceof Break) {
@@ -519,18 +518,21 @@ public class Mon_test {
 			}
 			
 			else if(al.get(i) instanceof Sauter) {
-				this.spriteSymboleSauter.setTexture(Textures.TexSymboleSauter);
-				this.list_action_possible.add(this.spriteSymboleSauter);
+				//this.spriteSymboleSauter.setTexture(Textures.TexSymboleSauter);
+				StructStringSprite struct = this.new StructStringSprite(this.spriteSymboleSauter, "sauter");
+				this.list_action_possible.add(struct);
 			}
 			
 			else if(al.get(i) instanceof TournerDroite) {
-				this.spriteSymboleTournerDroite.setTexture(Textures.TexSymboleTournerDroite);
-				this.list_action_possible.add(this.spriteSymboleTournerDroite);
+				//this.spriteSymboleTournerDroite.setTexture(Textures.TexSymboleTournerDroite);
+				StructStringSprite struct = this.new StructStringSprite(this.spriteSymboleTournerDroite, "droite");
+				this.list_action_possible.add(struct);
 			}
 			
 			else if(al.get(i) instanceof TournerGauche) {
-				this.spriteSymboleTournerGauche.setTexture(Textures.TexSymboleTournerGauche);
-				this.list_action_possible.add(this.spriteSymboleTournerGauche);
+				//this.spriteSymboleTournerGauche.setTexture(Textures.TexSymboleTournerGauche);
+				StructStringSprite struct = this.new StructStringSprite(this.spriteSymboleTournerGauche, "gauche");
+				this.list_action_possible.add(struct);
 			}
 			
 			else if(al.get(i) instanceof Wash) {
@@ -543,9 +545,9 @@ public class Mon_test {
 	public void afficher_boutons(){
 		if (!this.list_action_possible.isEmpty()) {
 			for (int k = 0; k < this.list_action_possible.size(); k++) {
-				Sprite temp = (Sprite) this.list_action_possible.get(k);
-				temp.setPosition(450+k*65, 50);
-				this.fenetre.draw(temp);
+				StructStringSprite temp = (StructStringSprite) this.list_action_possible.get(k);
+				temp.sprite.setPosition(450+k*65, 50);
+				this.fenetre.draw(temp.sprite);
 			}
 		}
 		this.fenetre.draw(this.spriteBoutonPlay);
@@ -587,6 +589,14 @@ public class Mon_test {
 			this.sprite = temp;
 			this.nom = string;
 		}
+		
+		public StructStringSprite(StructStringSprite struct)
+		{
+			Sprite temp = new Sprite(struct.sprite.getTexture());
+			this.sprite = temp;
+			this.nom = struct.nom;
+		}
+		
 	}
 	
 	
@@ -631,32 +641,31 @@ public class Mon_test {
 					if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) { 
 						Vector2i pos = Mouse.getPosition(Affiche_monde.fenetre); 
 						
+						//Si clique droit sur un élément du main, on le supprime
 						if (!l.isEmpty()) {
 							for (int k = 0; k < l.size(); k++) {
 								StructStringSprite temp = (StructStringSprite) l.get(k);
-								//System.out.println("posx " +pos.x + "posy " + pos.y);
-								
 								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
 								{
-									//System.out.println(temp.nom);
+									System.out.println("oooooooo");
 									l.remove(k);
 								}
 							}
 						}
-						/*
-						if (!list_sprite.isEmpty()) {
-							for (int k = 0; k < l.size(); k++) {
-								Sprite temp = (Sprite) l.get(k);
-								//System.out.println("posx " +pos.x + "posy " + pos.y);
-								if(temp.getGlobalBounds().contains(pos.x,pos.y))
+						
+						//Ajout des éléments qu'on a cliqué dans le main
+						if (!Affiche_monde.list_action_possible.isEmpty()) {
+							for (int k = 0; k < Affiche_monde.list_action_possible.size(); k++) {
+								StructStringSprite temp = (StructStringSprite) Affiche_monde.list_action_possible.get(k);
+								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
 								{
-									//System.out.println("posx " +pos.x + "posy " + pos.y);
-									System.out.println(temp.toString());
+									StructStringSprite struct = Affiche_monde.new StructStringSprite(temp);
+									l.add(struct);
 								}
 							}
 						}
-						*/
 						
+						/*
 						if(Affiche_monde.spriteBoutonAvancer.getGlobalBounds().contains(pos.x,pos.y))
 						{
 							
@@ -687,8 +696,8 @@ public class Mon_test {
 							StructStringSprite struct = Affiche_monde.new StructStringSprite(Affiche_monde.spriteSymboleDroite, "droite");
 							l.add(struct);
 						}
-						
-						else if(Affiche_monde.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y))
+						*/
+						if(Affiche_monde.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y))
 						{
 							if (!l.isEmpty()) {
 								for (int k = 0; k < l.size(); k++) {
