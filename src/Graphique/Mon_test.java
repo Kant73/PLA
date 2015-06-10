@@ -63,8 +63,8 @@ public class Mon_test {
 	
 	void set_position_cases()
 	{
-		float referenceCentreX=fenetre.getSize().x;
-		float referenceCentreY=fenetre.getSize().y;
+		float referenceCentreX=fenetre.getSize().x+450;
+		float referenceCentreY=fenetre.getSize().y+250;
 		float divX = (float) (2.0/reScale);
 		float divY = (float) (3.0/reScale);
 		
@@ -544,7 +544,7 @@ public class Mon_test {
 		if (!this.list_action_possible.isEmpty()) {
 			for (int k = 0; k < this.list_action_possible.size(); k++) {
 				Sprite temp = (Sprite) this.list_action_possible.get(k);
-				temp.setPosition(100, k*65);
+				temp.setPosition(450+k*65, 50);
 				this.fenetre.draw(temp);
 			}
 		}
@@ -792,9 +792,16 @@ public class Mon_test {
 					//Affiche_monde.fenetre.clear(Color.GREEN);
 					Affiche_monde.afficher_boutons();
 					if (!l.isEmpty()) {
+						int cpty=0;
 						for (int k = 0; k < l.size(); k++) {
+							
+							if(k%5==0 && k!=0)
+							{
+								cpty++;
+							}
+								
 							StructStringSprite temp = (StructStringSprite) l.get(k);
-							temp.sprite.setPosition(0, k*65);
+							temp.sprite.setPosition((k%5)*65, cpty*65);
 							Affiche_monde.fenetre.draw(temp.sprite);
 						}
 					}
