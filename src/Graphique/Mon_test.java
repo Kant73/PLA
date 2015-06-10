@@ -458,11 +458,15 @@ public class Mon_test {
 					
 					SpriteCases[i][j][k].setTexture(Textures.TexCaseBase);
 					
-					if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Bleu)
-						SpriteCases[i][j][k].setTexture(Textures.TexCaseLumEteinte); 
-					else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Jaune)
-						SpriteCases[i][j][k].setTexture(Textures.TexCaseLumAllum);
-					
+					if(k==NB_CASE_Z-1)
+					{
+						if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Bleu)
+							SpriteCases[i][j][k].setTexture(Textures.TexCaseLumEteinte); 
+						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Jaune)
+							SpriteCases[i][j][k].setTexture(Textures.TexCaseLumAllum);
+									
+					}
+
 					
 						
 					
