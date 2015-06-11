@@ -70,7 +70,7 @@
 		</ensembleDeCase>
 	</terrain>
 	<personnes>
-		<personne name="Robot" x="0" y="6" o="EAST" />
+		<personne name="Robot" x="0" y="6" o="SOUTH" />
 	</personnes>
 	<programmes>
 		<programme name="main" t="12" />
