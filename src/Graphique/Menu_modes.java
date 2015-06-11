@@ -99,6 +99,7 @@ public class Menu_modes {
 	
 	public void afficher_menu()
 	{
+		Menu_principal.fenetre.clear();
 		int selection=-1;
 		this.init_images () ;
 		Menu_principal.fenetre.draw(spriteFond);

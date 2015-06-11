@@ -674,6 +674,7 @@ public class Mon_test {
 	
 	public void afficher_niveau(Niveau niveauCharger)
 	{
+		Menu_principal.fenetre.clear();
 		int i=0,j=0;
 		List l = new LinkedList();
 		//Initialisation des textures

@@ -120,6 +120,7 @@ private void init_font()
 	
 	public void afficher_menu(int modeSelectionne)
 	{
+		Menu_principal.fenetre.clear();
 		Mode_Jeu mj=new Mode_Jeu(NomMode.values()[modeSelectionne]);
 		nbBoutons=mj.getNiveaux().size();
 		
