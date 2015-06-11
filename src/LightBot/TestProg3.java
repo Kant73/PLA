@@ -17,15 +17,15 @@ public class TestProg3 extends Niveau{
 		this.setTerrain(new Terrain(5,5));
 		Case[][] cases=this.getTerrain().getEnsembleDeCase();
 		
-		cases[1][0]=new Normal(2);
-		cases[1][1]=new Normal(1);
-		cases[1][2]=new Normal(0);
-		cases[1][3]=new Normal(1);
-		cases[1][4]=new ConditionViolet(2);
-		cases[2][4]=new Lampe(1);	
-		cases[3][4]=new Normal(0);
-		cases[4][4]=new Normal(1);
-		cases[0][2]=new Lampe(2);
+		cases[1][0]=new Normal(3);
+		cases[1][1]=new Normal(2);
+		cases[1][2]=new Normal(1);
+		cases[1][3]=new Normal(2);
+		cases[1][4]=new ConditionRose(3);
+		cases[2][4]=new Lampe(2);	
+		cases[3][4]=new Normal(1);
+		cases[4][4]=new Normal(2);
+		cases[0][2]=new Lampe(3);
 		
 		this.getTerrain().setEnsembleDeCase(cases);
 		

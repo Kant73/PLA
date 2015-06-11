@@ -1,6 +1,6 @@
 package LightBot.cases;
 
-public class ConditionRose extends Allumable {
+public class ConditionRose extends Condition {
 
 /********************************************* METHODES D'INSTANCE *********************************************/
 
