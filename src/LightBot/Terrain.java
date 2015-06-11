@@ -99,7 +99,7 @@ public class Terrain {
 					System.out.print("........"+" ");
 				}else{
 					String couleur = this.ensembleDeCase[x][y].getColor().toString();
-					for(int k=couleur.length(); k<=8; k++){
+					for(int k=couleur.length(); k<8; k++){
 						couleur += " ";
 					}
 					System.out.print(couleur+" ");
