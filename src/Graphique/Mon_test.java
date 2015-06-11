@@ -737,17 +737,16 @@ public class Mon_test {
 					}
 
 				}
-				else if (event.type == Event.Type.KEY_PRESSED) 
-				{ 
-					if (Keyboard.isKeyPressed(Key.ESCAPE))
+
+				if (event.type == Event.Type.CLOSED) {
+					Menu_principal.fenetre.close();
+				}
+				 else if (event.type == Event.Type.KEY_PRESSED) {
+				 if (Keyboard.isKeyPressed(Key.ESCAPE))
 					{
 						sortie=false;
 					}	
-				}
-				else if (event.type == Event.Type.CLOSED) {
-					Menu_principal.fenetre.close();
-				}
-				else if (event.type == Event.Type.KEY_PRESSED) {
+					 
 					if (Keyboard.isKeyPressed(Key.UP)) {
 						deplacement_robot(0);
 						System.out.println(" UP");
