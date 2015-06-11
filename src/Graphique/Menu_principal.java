@@ -3,6 +3,7 @@ package Graphique;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
@@ -154,6 +155,16 @@ public class Menu_principal {
 		
 		fenetre.create(new VideoMode(1366, 768), "PXTB679X3");
 		Menu_principal monMenu = new Menu_principal();
+		
+		Image icon = new Image();
+		try {
+			icon.loadFromFile(Paths.get("src/Img/BB8_tete.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		fenetre.setIcon(icon);
+		
 		monMenu.afficher_menu();
 	}
 }

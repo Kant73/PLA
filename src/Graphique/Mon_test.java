@@ -485,14 +485,7 @@ public class Mon_test {
 		NB_CASE_Y =  monNiveau.getTerrain().getLongueur();
 		NB_CASE_Z =  monNiveau.getTerrain().getHauteurMax()+1;
 		
-		Image icon = new Image();
-		try {
-			icon.loadFromFile(Paths.get("src/Img/BB8_tete.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Menu_principal.fenetre.setIcon(icon);
+		
 		reScale=Scale;
 		reScaleRobot=Scale/3;
 		SetSprites();
