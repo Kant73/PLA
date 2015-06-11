@@ -26,6 +26,8 @@ import org.jsfml.window.event.Event;
 import LightBot.Niveau;
 import LightBot.Programme;
 import LightBot.actions.*;
+import LightBot.cases.ConditionRose;
+import LightBot.cases.ConditionViolet;
 import LightBot.cases.Couleur;
 import LightBot.cases.Lampe;
 import LightBot.parser.Parser;
@@ -61,6 +63,9 @@ public class Mon_test {
 	public float reScale,reScaleRobot;
 	int xRobot,yRobot,nextXRobot,nextYRobot;
 	
+	/**
+	 * Permet de determiner la position des cases
+	 */
 	void set_position_cases()
 	{
 		float referenceCentreX=fenetre.getSize().x+450;
@@ -94,7 +99,9 @@ public class Mon_test {
 	}	
 }
 	
-	
+	/**
+	 * Permet d'afficher notre terrain ainsi que le fond dégradé, les boutons d'action dispo pour un niveau et les actions qui sont dans les procédures (dont le main)
+	 */
 	void afficher_carte()
 	{
 		this.fenetre.draw(this.gradient);
@@ -115,7 +122,9 @@ public class Mon_test {
 		fenetre.display();
 	}
 	
-	
+	/**
+	 * Permet de changer la position du robot
+	 */
 	void set_pos_robot()
 	{
 		int i=xRobot,j=yRobot;
@@ -389,6 +398,9 @@ public class Mon_test {
 		}
 	}
 	
+	/**
+	 * Permet d'initialiser tous les sprites avec leur textures
+	 */
 	public void SetSprites()
 	{
 		this.spriteRobot=new Sprite();
@@ -452,6 +464,10 @@ public class Mon_test {
 							SpriteCases[i][j][k].setTexture(Textures.TexCaseLumEteinte); 
 						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Jaune)
 							SpriteCases[i][j][k].setTexture(Textures.TexCaseLumAllum);
+						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof ConditionViolet  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Violet)
+							SpriteCases[i][j][k].setTexture(Textures.TexCaseViolet);
+						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof ConditionRose  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Rose)
+							SpriteCases[i][j][k].setTexture(Textures.TexCaseRose);
 									
 					}
 
@@ -460,7 +476,11 @@ public class Mon_test {
 				}
 	}
 
-	
+	/**
+	 * Constructeur de la classe qui charge les niveaux 
+	 * @param Scale
+	 * @param niveauPourParser
+	 */
 	public Mon_test(float Scale,String niveauPourParser)
 	{
 		Parser p = new Parser(niveauPourParser);
@@ -472,7 +492,7 @@ public class Mon_test {
 		NB_CASE_Z =  monNiveau.getTerrain().getHauteurMax()+1;
 		
 		fenetre = new RenderWindow();
-		fenetre.create(new VideoMode(1366, 768), "PBX987X3T Alpha 0.02");
+		fenetre.create(new VideoMode(1366, 768), "PBX987X3T Alpha 0.05");
 		Image icon = new Image();
 		try {
 			icon.loadFromFile(Paths.get("src/Img/BB8_tete.png"));
@@ -489,7 +509,11 @@ public class Mon_test {
 	}
 	
 	
-	
+	/**
+	 * Permet d'initialiser l'emplacement du robot
+	 * @param x	Les coordonnées du robot en x 
+	 * @param y Les coordonnées du robot en y
+	 */
 	public void initPlaceRobot(int x,int y)
 	{
 		xRobot=x;
@@ -540,7 +564,9 @@ public class Mon_test {
 		}
 	}
 
-	
+	/**
+	 * Permet d'initialiser toutes les procédures (dont le main)
+	 */
 	public void initProcedures(){
 		this.tabProgramme = new List[this.monNiveau.getProgrammes().size()];
 		for (int i = 0; i < this.tabProgramme.length; i++) {
@@ -576,7 +602,9 @@ public class Mon_test {
 		}
 	}
 	
-	
+	/**
+	 * Permet d'executer les actions contenues dans le main 
+	 */
 	public void jouer_main(){
 		if (!this.tabProgramme[0].isEmpty()) {
 			for (int k = 0; k < this.tabProgramme[0].size(); k++) {
@@ -594,7 +622,9 @@ public class Mon_test {
 				else if (temp.nom == "gauche") {
 					this.tourner_gauche();
 				}
-				
+				else if (temp.nom == "sauter") {
+					this.sauter();
+				}
 			}
 		}
 	}
@@ -738,6 +768,10 @@ public class Mon_test {
 							Affiche_monde.deplacement_robot(3);
 							System.out.println(" RIGHT");
 						}	
+						else if (Keyboard.isKeyPressed(Key.SPACE)) {
+							Affiche_monde.sauter();
+							System.out.println("Sauter");
+						}
 					}
 					Affiche_monde.afficher_carte();
 	
