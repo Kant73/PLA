@@ -47,8 +47,6 @@ public class Textures {
 		TexCaseRose = new Texture();
 		TexCaseViolet = new Texture();
 		
-		
-		
 		TexBoutonAllumer = new Texture();
 		TexBoutonAvancer = new Texture();
 		TexBoutonDroite = new Texture();
