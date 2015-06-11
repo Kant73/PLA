@@ -437,7 +437,7 @@ public class Mon_test {
 					
 					SpriteCases[i][j][k].setTexture(Textures.TexCaseBase);
 					
-					if(k==NB_CASE_Z-1 || (k==0 && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur() == 0 ) )
+					if(k==monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur())
 					{
 						if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Bleu)
 							SpriteCases[i][j][k].setTexture(Textures.TexCaseLumEteinte); 
@@ -446,9 +446,6 @@ public class Mon_test {
 									
 					}
 
-					
-
-					
 					SpriteCases[i][j][k].setScale(reScale,reScale);
 
 				}
@@ -466,7 +463,7 @@ public class Mon_test {
 		NB_CASE_Z =  monNiveau.getTerrain().getHauteurMax()+1;
 		
 		fenetre = new RenderWindow();
-		fenetre.create(new VideoMode(1366, 768), "Pokebot");
+		fenetre.create(new VideoMode(1366, 768), "PBX987X3T Alpha 0.02");
 		reScale=Scale;
 		reScaleRobot=Scale/3;
 		SetSprites();
@@ -529,8 +526,9 @@ public class Mon_test {
 	
 	public void initProcedures(){
 		this.tabProgramme = new List[this.monNiveau.getProgrammes().size()];
-		
-		
+		for (int i = 0; i < this.tabProgramme.length; i++) {
+			tabProgramme[i] = new LinkedList();
+		}
 	}
 	
 	
@@ -597,7 +595,6 @@ public class Mon_test {
 		int i=0,j=0;
 		List l = new LinkedList();
 		Textures.initTextures();
-		
 		Mon_test Affiche_monde = new Mon_test(1f,"src/LightBot/levels/" + args[0]);
 	
 		//Affiche_monde.fenetre.clear(Color.GREEN);
@@ -611,6 +608,7 @@ public class Mon_test {
 		Affiche_monde.afficher_carte();
 		Affiche_monde.initActionsPossible();
 		Affiche_monde.afficher_boutons();
+		Affiche_monde.initProcedures();
 		VertexArray gradient = Affiche_monde.createGradient(new org.jsfml.graphics.Color(0, 178, 255, 255), Color.BLACK, Affiche_monde.fenetre);
 	
 			while (Affiche_monde.fenetre.isOpen()) {
@@ -625,12 +623,12 @@ public class Mon_test {
 						Vector2i pos = Mouse.getPosition(Affiche_monde.fenetre); 
 						
 						//Si clique droit sur un élément du main, on le supprime
-						if (!l.isEmpty()) {
-							for (int k = 0; k < l.size(); k++) {
-								StructStringSprite temp = (StructStringSprite) l.get(k);
+						if (!Affiche_monde.tabProgramme[0].isEmpty()) {
+							for (int k = 0; k < Affiche_monde.tabProgramme[0].size(); k++) {
+								StructStringSprite temp = (StructStringSprite) Affiche_monde.tabProgramme[0].get(k);
 								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
 								{
-									l.remove(k);
+									Affiche_monde.tabProgramme[0].remove(k);
 								}
 							}
 						}
@@ -642,16 +640,16 @@ public class Mon_test {
 								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
 								{
 									StructStringSprite struct = Affiche_monde.new StructStringSprite(temp);
-									l.add(struct);
+									Affiche_monde.tabProgramme[0].add(struct);
 								}
 							}
 						}
 						
 						if(Affiche_monde.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y))
 						{
-							if (!l.isEmpty()) {
-								for (int k = 0; k < l.size(); k++) {
-									StructStringSprite temp = (StructStringSprite) l.get(k);
+							if (!Affiche_monde.tabProgramme[0].isEmpty()) {
+								for (int k = 0; k < Affiche_monde.tabProgramme[0].size(); k++) {
+									StructStringSprite temp = (StructStringSprite) Affiche_monde.tabProgramme[0].get(k);
 									
 									if (temp.nom == "avancer") {
 										//System.out.println("spriteBoutonAvancer");
@@ -677,7 +675,8 @@ public class Mon_test {
 										/*i++;
 										if(i==NB_CASE_X)
 											i=0;*/
-										Affiche_monde.deplacement_robot(3);
+										//Affiche_monde.deplacement_robot(3);
+										Affiche_monde.tourner_droite();
 									}
 									else if (temp.nom == "gauche") {
 										//System.out.println("spriteBoutonGauche");
@@ -686,7 +685,8 @@ public class Mon_test {
 											i=NB_CASE_X-1;
 										else
 											i--;*/
-										Affiche_monde.deplacement_robot(2);
+										//Affiche_monde.deplacement_robot(2);
+										Affiche_monde.tourner_gauche();
 									}
 									/*
 									try {
@@ -750,16 +750,16 @@ public class Mon_test {
 					Affiche_monde.fenetre.draw(gradient);
 					//Affiche_monde.fenetre.clear(Color.GREEN);
 					Affiche_monde.afficher_boutons();
-					if (!l.isEmpty()) {
+					if (!Affiche_monde.tabProgramme[0].isEmpty()) {
 						int cpty=0;
-						for (int k = 0; k < l.size(); k++) {
+						for (int k = 0; k < Affiche_monde.tabProgramme[0].size(); k++) {
 							
 							if(k%5==0 && k!=0)
 							{
 								cpty++;
 							}
 								
-							StructStringSprite temp = (StructStringSprite) l.get(k);
+							StructStringSprite temp = (StructStringSprite) Affiche_monde.tabProgramme[0].get(k);
 							temp.sprite.setPosition((k%5)*65, cpty*65);
 							Affiche_monde.fenetre.draw(temp.sprite);
 						}
