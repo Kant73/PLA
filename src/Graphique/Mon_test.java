@@ -41,8 +41,6 @@ public class Mon_test {
 	static int NB_CASE_Y ;
 	static int NB_CASE_Z ;
 
-	
-	public RenderWindow fenetre;
 	public Sprite[][][] SpriteCases;
 	
 	
@@ -68,8 +66,8 @@ public class Mon_test {
 	 */
 	void set_position_cases()
 	{
-		float referenceCentreX=fenetre.getSize().x+450;
-		float referenceCentreY=fenetre.getSize().y+250;
+		float referenceCentreX=Menu_principal.fenetre.getSize().x+450;
+		float referenceCentreY=Menu_principal.fenetre.getSize().y+250;
 		float divX = (float) (2.0/reScale);
 		float divY = (float) (3.0/reScale);
 		
@@ -104,7 +102,7 @@ public class Mon_test {
 	 */
 	void afficher_carte()
 	{
-		this.fenetre.draw(this.gradient);
+		Menu_principal.fenetre.draw(this.gradient);
 		this.afficher_boutons();
 		this.afficher_procedure();
 		for(int i= NB_CASE_X-1;i>=0;i--)
@@ -113,13 +111,13 @@ public class Mon_test {
 			{
 				for(int etageActuel = 0; etageActuel <=monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur();etageActuel ++)
 				{	
-					fenetre.draw(SpriteCases[i][j][etageActuel]);
+					Menu_principal.fenetre.draw(SpriteCases[i][j][etageActuel]);
 					if((( i==xRobot && j == yRobot)||(i==nextXRobot && j == nextYRobot)) && etageActuel == monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur())
-						fenetre.draw(spriteRobot);
+						Menu_principal.fenetre.draw(spriteRobot);
 				}
 			}
 		}
-		fenetre.display();
+		Menu_principal.fenetre.display();
 	}
 	
 	/**
@@ -481,18 +479,12 @@ public class Mon_test {
 	 * @param Scale
 	 * @param niveauPourParser
 	 */
-	public Mon_test(float Scale,String niveauPourParser)
+	public void init_niveau(float Scale)
 	{
-		Parser p = new Parser(niveauPourParser);
-		p.lire();
-		monNiveau = p.getNiveau();
-	
 		NB_CASE_X = monNiveau.getTerrain().getLargeur();
 		NB_CASE_Y =  monNiveau.getTerrain().getLongueur();
 		NB_CASE_Z =  monNiveau.getTerrain().getHauteurMax()+1;
 		
-		fenetre = new RenderWindow();
-		fenetre.create(new VideoMode(1366, 768), "PBX987X3T Alpha 0.05");
 		Image icon = new Image();
 		try {
 			icon.loadFromFile(Paths.get("src/Img/BB8_tete.png"));
@@ -500,11 +492,11 @@ public class Mon_test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		fenetre.setIcon(icon);
+		Menu_principal.fenetre.setIcon(icon);
 		reScale=Scale;
 		reScaleRobot=Scale/3;
 		SetSprites();
-		this.gradient = this.createGradient(new org.jsfml.graphics.Color(0, 178, 255, 255), Color.BLACK, this.fenetre);
+		this.gradient = this.createGradient(new org.jsfml.graphics.Color(0, 178, 255, 255), Color.BLACK, Menu_principal.fenetre);
 		initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
 	}
 	
@@ -579,10 +571,10 @@ public class Mon_test {
 			for (int k = 0; k < this.list_action_possible.size(); k++) {
 				StructStringSprite temp = (StructStringSprite) this.list_action_possible.get(k);
 				temp.sprite.setPosition(450+k*65, 50);
-				this.fenetre.draw(temp.sprite);
+				Menu_principal.fenetre.draw(temp.sprite);
 			}
 		}
-		this.fenetre.draw(this.spriteBoutonPlay);
+		Menu_principal.fenetre.draw(this.spriteBoutonPlay);
 	}
 	
 	public void afficher_procedure(){
@@ -597,7 +589,7 @@ public class Mon_test {
 					
 				StructStringSprite temp = (StructStringSprite) this.tabProgramme[0].get(k);
 				temp.sprite.setPosition((k%5)*65, cpty*65);
-				this.fenetre.draw(temp.sprite);
+				Menu_principal.fenetre.draw(temp.sprite);
 			}
 		}
 	}
@@ -684,99 +676,112 @@ public class Mon_test {
 			Sprite temp = new Sprite(struct.sprite.getTexture());
 			this.sprite = temp;
 			this.nom = struct.nom;
-		}
-		
+		}	
 	}
 	
-	public static void main(String[] args) {
-		
+	public void afficher_niveau(Niveau niveauCharger)
+	{
 		int i=0,j=0;
 		List l = new LinkedList();
 		//Initialisation des textures
 		Textures.initTextures();
-		Mon_test Affiche_monde = new Mon_test(1f,"src/LightBot/levels/" + args[0]);
-		int initPosY=50,initPosX=90;
+		monNiveau=new Niveau();
+		monNiveau=niveauCharger;
+		init_niveau(1.0f);
 		
+	int initPosY=50,initPosX=90;
 	
-		Affiche_monde.spriteBoutonPlay.setPosition(1300,0);
+
+	spriteBoutonPlay.setPosition(1300,0);
+
+	set_position_cases();
+	set_pos_robot();
 	
-		Affiche_monde.set_position_cases();
-		Affiche_monde.set_pos_robot();
-		
-		Affiche_monde.initActionsPossible();
-		Affiche_monde.afficher_boutons();
-		Affiche_monde.initProcedures();
-		Affiche_monde.afficher_carte();
-		
-			while (Affiche_monde.fenetre.isOpen()) {
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				for (Event event : Affiche_monde.fenetre.pollEvents()) {					
-					if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) { 
-						Vector2i pos = Mouse.getPosition(Affiche_monde.fenetre); 
-						
-						//Si clique droit sur un élément du main, on le supprime
-						if (!Affiche_monde.tabProgramme[0].isEmpty()) {
-							for (int k = 0; k < Affiche_monde.tabProgramme[0].size(); k++) {
-								StructStringSprite temp = (StructStringSprite) Affiche_monde.tabProgramme[0].get(k);
-								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
-								{
-									Affiche_monde.tabProgramme[0].remove(k);
-								}
-							}
-						}
-						
-						//Ajout des éléments qu'on a cliqué dans le main
-						if (!Affiche_monde.list_action_possible.isEmpty()) {
-							for (int k = 0; k < Affiche_monde.list_action_possible.size(); k++) {
-								StructStringSprite temp = (StructStringSprite) Affiche_monde.list_action_possible.get(k);
-								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
-								{
-									StructStringSprite struct = Affiche_monde.new StructStringSprite(temp);
-									Affiche_monde.tabProgramme[0].add(struct);
-								}
-							}
-						}
-						
-						if(Affiche_monde.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y))
-						{
-							Affiche_monde.jouer_main();
-						}
+	initActionsPossible();
+	afficher_boutons();
+	initProcedures();
+	afficher_carte();
 	
-					}
-					if (event.type == Event.Type.CLOSED) {
-						Affiche_monde.fenetre.close();
-					}
-					if (event.type == Event.Type.KEY_PRESSED) {
-						if (Keyboard.isKeyPressed(Key.UP)) {
-							Affiche_monde.deplacement_robot(0);
-							System.out.println(" UP");
-						}
-						else if (Keyboard.isKeyPressed(Key.DOWN)) {
-							Affiche_monde.deplacement_robot(1);
-							System.out.println(" DOWN");
-						}
-						else if (Keyboard.isKeyPressed(Key.LEFT)) {
-							Affiche_monde.deplacement_robot(2);
-							System.out.println(" LEFT");
-						}
-						else if (Keyboard.isKeyPressed(Key.RIGHT)) {
-							Affiche_monde.deplacement_robot(3);
-							System.out.println(" RIGHT");
-						}	
-						else if (Keyboard.isKeyPressed(Key.SPACE)) {
-							Affiche_monde.sauter();
-							System.out.println("Sauter");
-						}
-					}
-					Affiche_monde.afficher_carte();
-	
-				}
-	
+	boolean sortie=true;
+	while (Menu_principal.fenetre.isOpen() && sortie ) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-	}
+			for (Event event : Menu_principal.fenetre.pollEvents()) {					
+				if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) { 
+					Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
+					
+					//Si clique droit sur un élément du main, on le supprime
+					if (!tabProgramme[0].isEmpty()) {
+						for (int k = 0; k < tabProgramme[0].size(); k++) {
+							StructStringSprite temp = (StructStringSprite) tabProgramme[0].get(k);
+							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
+							{
+								tabProgramme[0].remove(k);
+							}
+						}
+					}
+					
+					//Ajout des éléments qu'on a cliqué dans le main
+					if (!list_action_possible.isEmpty()) {
+						for (int k = 0; k < list_action_possible.size(); k++) {
+							StructStringSprite temp = (StructStringSprite) list_action_possible.get(k);
+							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
+							{
+								StructStringSprite struct = new StructStringSprite(temp);
+								tabProgramme[0].add(struct);
+							}
+						}
+					}
+					
+					if(spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y))
+					{
+						jouer_main();
+					}
+
+				}
+				else if (event.type == Event.Type.KEY_PRESSED) 
+				{ 
+					if (Keyboard.isKeyPressed(Key.ESCAPE))
+					{
+						sortie=false;
+					}	
+				}
+				else if (event.type == Event.Type.CLOSED) {
+					Menu_principal.fenetre.close();
+				}
+				else if (event.type == Event.Type.KEY_PRESSED) {
+					if (Keyboard.isKeyPressed(Key.UP)) {
+						deplacement_robot(0);
+						System.out.println(" UP");
+					}
+					else if (Keyboard.isKeyPressed(Key.DOWN)) {
+						deplacement_robot(1);
+						System.out.println(" DOWN");
+					}
+					else if (Keyboard.isKeyPressed(Key.LEFT)) {
+						deplacement_robot(2);
+						System.out.println(" LEFT");
+					}
+					else if (Keyboard.isKeyPressed(Key.RIGHT)) {
+						deplacement_robot(3);
+						System.out.println(" RIGHT");
+					}	
+					else if (Keyboard.isKeyPressed(Key.SPACE)) {
+						sauter();
+						System.out.println("Sauter");
+					}
+				}
+				afficher_carte();
+
+			}
+
+		}	
+}
+	
+	
+
 }
