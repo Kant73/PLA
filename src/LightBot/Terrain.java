@@ -131,6 +131,15 @@ public class Terrain {
 		this.longueur=longueur;
 		this.largeur=largeur;
 		this.ensembleDeCase=new Case[largeur][longueur];
+		initCase();
+	}
+	
+	private void initCase(){
+		for(int i=0 ; i<largeur ; i++){
+			for(int j=0; j<longueur ; j++){
+				this.ensembleDeCase[i][j].setHauteur(0);
+			}
+		}
 	}
 
 }
