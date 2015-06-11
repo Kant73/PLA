@@ -21,6 +21,7 @@ import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
 import LightBot.Niveau;
+import LightBot.Programme;
 import LightBot.actions.*;
 import LightBot.cases.Couleur;
 import LightBot.cases.Lampe;
@@ -58,6 +59,7 @@ public class Mon_test {
 	public Sprite spriteRobot;
 	
 	public LinkedList list_action_possible;
+	public Programme[] tabProgramme;
 	public float reScale,reScaleRobot;
 	int xRobot,yRobot,nextXRobot,nextYRobot;
 	
@@ -510,15 +512,15 @@ public class Mon_test {
 		this.list_action_possible = new LinkedList();
 		ArrayList al = monNiveau.getActions();
 		for (int i = 0; i < al.size(); i++) {
+			StructStringSprite struct = null;
 			if (al.get(i) instanceof Avancer) {
 				//this.spriteSymboleAvancer.setTexture(Textures.TexSymboleAvancer);
-				StructStringSprite struct = this.new StructStringSprite(this.spriteSymboleAvancer, "avancer");
-				this.list_action_possible.add(struct);
+				struct = this.new StructStringSprite(this.spriteSymboleAvancer, "avancer");
+				
 			}
 			else if(al.get(i) instanceof Allumer) {
 				//this.spriteSymboleAllumer.setTexture(Textures.TexSymboleAllumer);
-				StructStringSprite struct = this.new StructStringSprite(this.spriteSymboleAllumer, "allumer");
-				this.list_action_possible.add(struct);
+				struct = this.new StructStringSprite(this.spriteSymboleAllumer, "allumer");
 			}
 			
 			else if(al.get(i) instanceof Break) {
@@ -527,25 +529,24 @@ public class Mon_test {
 			
 			else if(al.get(i) instanceof Sauter) {
 				//this.spriteSymboleSauter.setTexture(Textures.TexSymboleSauter);
-				StructStringSprite struct = this.new StructStringSprite(this.spriteSymboleSauter, "sauter");
-				this.list_action_possible.add(struct);
+				struct = this.new StructStringSprite(this.spriteSymboleSauter, "sauter");
 			}
 			
 			else if(al.get(i) instanceof TournerDroite) {
 				//this.spriteSymboleTournerDroite.setTexture(Textures.TexSymboleTournerDroite);
-				StructStringSprite struct = this.new StructStringSprite(this.spriteSymboleTournerDroite, "droite");
-				this.list_action_possible.add(struct);
+				struct = this.new StructStringSprite(this.spriteSymboleTournerDroite, "droite");
 			}
 			
 			else if(al.get(i) instanceof TournerGauche) {
 				//this.spriteSymboleTournerGauche.setTexture(Textures.TexSymboleTournerGauche);
-				StructStringSprite struct = this.new StructStringSprite(this.spriteSymboleTournerGauche, "gauche");
-				this.list_action_possible.add(struct);
+				struct = this.new StructStringSprite(this.spriteSymboleTournerGauche, "gauche");
 			}
 			
 			else if(al.get(i) instanceof Wash) {
 				System.out.println("Wash");
 			}
+			
+			this.list_action_possible.add(struct);
 		}
 	}
 
