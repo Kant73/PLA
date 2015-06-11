@@ -31,10 +31,10 @@ public class Parser {
 	public static void main(String[] args) {
 		// Parser p = new Parser(args[0]); // pour utiliser le terminal en utilisant un jar
 		Parser p = new Parser("src/LightBot/levels/Niveau.xml"); // pour utiliser le terminal
-		System.out.println(Parser.class.getResource("../levels/Niveau.xml").getPath());
+		//System.out.println(Parser.class.getResource("../levels/Niveau.xml").getPath());
 		
 		p.lire();
-		p.getNiveau().getTerrain().affiche();
+		//p.getNiveau().getTerrain().affiche();
 		System.out.println("Nombre de personnages : "+p.getNiveau().getPersonnages().toArray().length);
 		System.out.println("Nombre de programmes : "+p.getNiveau().getProgrammes().toArray().length);
 		System.out.print("Liste des actions :");
@@ -65,40 +65,38 @@ public class Parser {
 		final Element racine = this.doc.getDocumentElement(); // récupération de l'Element racine
 		
 	    // Affichage de l'élément racine
-	    System.out.println("\n*************RACINE************");
-	    System.out.println(racine.getNodeName());
+	    //System.out.println("\n*************RACINE************");
+	    //System.out.println(racine.getNodeName());
 		
 	    
 	    for (Node noeud: getChildren(racine)){
-			System.out.println("Noeuds : "+noeud.getNodeName());
+			//System.out.println("Noeuds : "+noeud.getNodeName());
 			switch(noeud.getNodeName()){
 			case "terrain" :
-				System.out.println("Nous sommes dans terrain");
+				//System.out.println("Nous sommes dans terrain");
 				int lar = getIntNodeAttribute(noeud, "largeur");
 				int lon = getIntNodeAttribute(noeud, "longueur");
 				Terrain t = new Terrain(lar, lon);
 				for(Node childTerrain : getChildren(noeud)){
-		    		System.out.println("Sous-noeud : "+childTerrain.getNodeName());
+		    		//System.out.println("Sous-noeud : "+childTerrain.getNodeName());
 		    		switch(childTerrain.getNodeName()){
 		    		case "nbActionsPossible" :
-		    			System.out.println("Actions possibles = "+childTerrain.getTextContent());
+		    			//System.out.println("Actions possibles = "+childTerrain.getTextContent());
 		    			t.setNbActionsPossible( getNodeTextToInt(childTerrain));
 		    			break;
 		    		case "ensembleDeCase" :
-		    			Case[][] tableau = new Case[lar][lon];
 		    			for(Node noeudCase:getChildren(childTerrain)){
-	    		    		System.out.println("Sous-Sous-Noeuds : "+noeudCase.getNodeName());
+	    		    		//System.out.println("Sous-Sous-Noeuds : "+noeudCase.getNodeName());
 	    		    		int x = getIntNodeAttribute(noeudCase, "x");
     		    			int y = getIntNodeAttribute(noeudCase, "y");
     		    			int h = getIntNodeAttribute(noeudCase, "h");
-    		    			String couleur=getNodeAttribute(noeudCase, "couleur");
-    		    			System.out.println("Couleur : "+couleur);
+    		    			String couleur=getNodeAttribute(noeudCase, "couleur");    		    			
     		    			String nomFonction=getNodeAttribute(noeudCase,"type");
-    		    			tableau[x][y] = newInstanceCase( nomFonction,h);
-    		    			if(!couleur.equals(""))tableau[x][y].setColor(Couleur.valueOf(couleur));
+    		    			t.getEnsembleDeCase()[x][y] = newInstanceCase( nomFonction,h);
+    		    			if(!couleur.equals(""))t.getEnsembleDeCase()[x][y].setColor(Couleur.valueOf(couleur));
 		    			}
-		    			t.setEnsembleDeCase(tableau);
 		    			n.setTerrain(t);
+		    			t.affiche();
 		    			break;
 		    		default : break;
 		    		}
@@ -106,7 +104,7 @@ public class Parser {
 				this.n.setTerrain(t);
 				break;
 			case "personnes" :
-				System.out.println("Nous sommes dans personnes");
+				//System.out.println("Nous sommes dans personnes");
 				for(Node noeudPers:getChildren(noeud)){	
 					int x=getIntNodeAttribute(noeudPers, "x");
 					int y=getIntNodeAttribute(noeudPers, "y");
@@ -118,7 +116,7 @@ public class Parser {
 				}
 				break;
 			case "programmes" :
-				System.out.println("Nous sommes dans programmes");
+				//System.out.println("Nous sommes dans programmes");
 				for(Node noeudProg:getChildren(noeud)){
 					String nom=getNodeAttribute(noeudProg, "name");
 					int taille=getIntNodeAttribute(noeudProg, "t");
@@ -127,7 +125,7 @@ public class Parser {
 				}
 				break;
 			case "actions" :
-				System.out.println("Nous sommes dans actions");		
+				//System.out.println("Nous sommes dans actions");		
 				for(Node noeudAction:getChildren(noeud)){
 					String nomPers=getNodeAttribute(noeudAction, "p");
 					Personnage pers=this.n.getPersonnageByName(nomPers);
