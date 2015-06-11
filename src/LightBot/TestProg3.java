@@ -21,7 +21,7 @@ public class TestProg3 extends Niveau{
 		cases[1][1]=new Normal(1);
 		cases[1][2]=new Normal(0);
 		cases[1][3]=new Normal(1);
-		cases[1][4]=new Condition(2);
+		cases[1][4]=new ConditionViolet(2);
 		cases[2][4]=new Lampe(1);	
 		cases[3][4]=new Normal(0);
 		cases[4][4]=new Normal(1);
