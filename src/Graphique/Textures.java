@@ -10,14 +10,14 @@ public class Textures {
 	public static Texture TexCaseBase ;
 	public static Texture TexCaseLumEteinte ;
 	public static Texture TexCaseLumAllum ;
+	public static Texture TexCasePointeur;		//Case Pointeur (Vert)
 	
 	
 	public static Texture TexBoutonAvancer;
 	public static Texture TexBoutonReculer;
 	public static Texture TexCaseTransp;
-	public static Texture TexCaseVerte;
-	public static Texture TexCaseRose;
-	public static Texture TexCaseViolet;
+	public static Texture TexCaseRose;			//Case condition (Rose)
+	public static Texture TexCaseViolet;		//Case condition (Violet)
 	public static Texture TexBoutonGauche;
 	public static Texture TexBoutonDroite;
 	public static Texture TexBoutonSauter;
@@ -41,9 +41,9 @@ public class Textures {
 		TexCaseBase = new Texture();
 		TexCaseLumEteinte = new Texture();
 		TexCaseLumAllum = new Texture();
+		TexCasePointeur = new Texture();
 		
 		TexCaseTransp = new Texture();
-		TexCaseVerte = new Texture();
 		TexCaseRose = new Texture();
 		TexCaseViolet = new Texture();
 		
@@ -71,7 +71,7 @@ public class Textures {
 			TexCaseBase.loadFromFile(Paths.get("src/Img/case0.png"));
 			TexCaseLumEteinte.loadFromFile(Paths.get("src/Img/case1.png"));
 			TexCaseLumAllum.loadFromFile(Paths.get("src/Img/case2.png"));
-			TexCaseVerte.loadFromFile(Paths.get("src/Img/case3.png"));
+			TexCasePointeur.loadFromFile(Paths.get("src/Img/case3.png"));
 			TexCaseTransp.loadFromFile(Paths.get("src/Img/case4.png"));
 			TexCaseRose.loadFromFile(Paths.get("src/Img/case7.png"));
 			TexCaseViolet.loadFromFile(Paths.get("src/Img/case6.png"));
