@@ -41,12 +41,6 @@ public class Mon_test {
 	public Sprite[][][] SpriteCases;
 	
 	
-	public Sprite spriteBoutonAvancer;
-	public Sprite spriteBoutonReculer;
-	public Sprite spriteBoutonGauche;
-	public Sprite spriteBoutonDroite;
-	public Sprite spriteBoutonSauter;
-	public Sprite spriteBoutonAllumer;
 	public Sprite spriteBoutonPlay;
 	public Sprite spriteSymboleAvancer;
 	public Sprite spriteSymboleReculer;
@@ -59,7 +53,7 @@ public class Mon_test {
 	public Sprite spriteRobot;
 	
 	public LinkedList list_action_possible;
-	public Programme[] tabProgramme;
+	public List[] tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
 	public float reScale,reScaleRobot;
 	int xRobot,yRobot,nextXRobot,nextYRobot;
 	
@@ -406,23 +400,6 @@ public class Mon_test {
 		}	
 		this.spriteRobot.setScale(reScaleRobot,reScaleRobot);
 		
-		spriteBoutonAllumer=new Sprite();
-		spriteBoutonAllumer.setTexture(Textures.TexBoutonAllumer);
-		
-		spriteBoutonAvancer=new Sprite();
-		spriteBoutonAvancer.setTexture(Textures.TexBoutonAvancer);
-		
-		spriteBoutonDroite=new Sprite();
-		spriteBoutonDroite.setTexture(Textures.TexBoutonDroite);
-		
-		spriteBoutonGauche=new Sprite();
-		spriteBoutonGauche.setTexture(Textures.TexBoutonGauche);
-		
-		spriteBoutonReculer=new Sprite();
-		spriteBoutonReculer.setTexture(Textures.TexBoutonReculer);
-		
-		spriteBoutonSauter=new Sprite();
-		spriteBoutonSauter.setTexture(Textures.TexBoutonSauter);
 		
 		spriteBoutonPlay=new Sprite();
 		spriteBoutonPlay.setTexture(Textures.TexBoutonPlay);
@@ -460,7 +437,7 @@ public class Mon_test {
 					
 					SpriteCases[i][j][k].setTexture(Textures.TexCaseBase);
 					
-					if(k==NB_CASE_Z-1)
+					if(k==NB_CASE_Z-1 || (k==0 && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur() == 0 ) )
 					{
 						if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Bleu)
 							SpriteCases[i][j][k].setTexture(Textures.TexCaseLumEteinte); 
@@ -516,7 +493,6 @@ public class Mon_test {
 			if (al.get(i) instanceof Avancer) {
 				//this.spriteSymboleAvancer.setTexture(Textures.TexSymboleAvancer);
 				struct = this.new StructStringSprite(this.spriteSymboleAvancer, "avancer");
-				
 			}
 			else if(al.get(i) instanceof Allumer) {
 				//this.spriteSymboleAllumer.setTexture(Textures.TexSymboleAllumer);
@@ -550,6 +526,13 @@ public class Mon_test {
 		}
 	}
 
+	
+	public void initProcedures(){
+		this.tabProgramme = new List[this.monNiveau.getProgrammes().size()];
+		
+		
+	}
+	
 	
 	public void afficher_boutons(){
 		if (!this.list_action_possible.isEmpty()) {
@@ -620,18 +603,9 @@ public class Mon_test {
 		//Affiche_monde.fenetre.clear(Color.GREEN);
 		int initPosY=50,initPosX=90;
 		
-		/*
-		Affiche_monde.spriteBoutonAllumer.setPosition(initPosX,initPosY);
-		Affiche_monde.spriteBoutonAvancer.setPosition(initPosX,initPosY+=60);
-		Affiche_monde.spriteBoutonDroite.setPosition(initPosX,initPosY+=60);
-		Affiche_monde.spriteBoutonGauche.setPosition(initPosX,initPosY+=60);
-		Affiche_monde.spriteBoutonReculer.setPosition(initPosX,initPosY+=60);
-		Affiche_monde.spriteBoutonSauter.setPosition(initPosX,initPosY+=60);
-		*/
+
 		Affiche_monde.spriteBoutonPlay.setPosition(1300,0);
-		
-		
-		
+	
 		Affiche_monde.set_position_cases();
 		Affiche_monde.set_pos_robot();
 		Affiche_monde.afficher_carte();
@@ -673,38 +647,6 @@ public class Mon_test {
 							}
 						}
 						
-						/*
-						if(Affiche_monde.spriteBoutonAvancer.getGlobalBounds().contains(pos.x,pos.y))
-						{
-							
-							StructStringSprite struct = Affiche_monde.new StructStringSprite(Affiche_monde.spriteSymboleAvancer, "avancer");
-							l.add(struct);
-						}
-						
-						else if(Affiche_monde.spriteBoutonReculer.getGlobalBounds().contains(pos.x,pos.y))
-						{
-							
-							
-							StructStringSprite struct = Affiche_monde.new StructStringSprite(Affiche_monde.spriteSymboleReculer, "reculer");
-							l.add(struct);
-						}
-						
-						else if(Affiche_monde.spriteBoutonGauche.getGlobalBounds().contains(pos.x,pos.y))
-						{
-							
-							
-							StructStringSprite struct = Affiche_monde.new StructStringSprite(Affiche_monde.spriteSymboleGauche, "gauche");
-							l.add(struct);
-						}
-						
-						else if(Affiche_monde.spriteBoutonDroite.getGlobalBounds().contains(pos.x,pos.y))
-						{
-							
-							
-							StructStringSprite struct = Affiche_monde.new StructStringSprite(Affiche_monde.spriteSymboleDroite, "droite");
-							l.add(struct);
-						}
-						*/
 						if(Affiche_monde.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y))
 						{
 							if (!l.isEmpty()) {
