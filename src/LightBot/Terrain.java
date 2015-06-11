@@ -93,11 +93,19 @@ public class Terrain {
 	public void affiche(){
 		for(int y=0;y<longueur;y++){
 			for(int x=0;x<largeur;x++)
-				if(this.ensembleDeCase[x][y]==null)System.out.print("null     ");
-				else if (this.ensembleDeCase[x][y].getHauteur()==-1)System.out.print("........"+" ");
-				else System.out.print(this.ensembleDeCase[x][y].getColor()+" ");
+				if(this.ensembleDeCase[x][y]==null){
+					System.out.print("null    "+" "); // 8 caractères plus 1 espace
+				}else if (this.ensembleDeCase[x][y].getHauteur()==-1){
+					System.out.print("........"+" ");
+				}else{
+					String couleur = this.ensembleDeCase[x][y].getColor().toString();
+					for(int k=couleur.length(); k<=8; k++){
+						couleur += " ";
+					}
+					System.out.print(couleur+" ");
+				}
 				//if(this.ensembleDeCase[x][y]!=null) System.out.print("("+x+","+y+")"+this.ensembleDeCase[x][y].getColor()+" ");
-			System.out.println("");
+			System.out.println();
 		}
 	}
 	
