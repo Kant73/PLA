@@ -2,7 +2,7 @@ package LightBot;
 
 import LightBot.cases.Case;
 import LightBot.cases.Lampe;
-import LightBot.personnage.Pcardinaux;
+import LightBot.cases.Normal;
 
 
 public class Terrain {
@@ -137,7 +137,7 @@ public class Terrain {
 	private void initCase(){
 		for(int i=0 ; i<largeur ; i++){
 			for(int j=0; j<longueur ; j++){
-				this.ensembleDeCase[i][j].setHauteur(0);
+				this.ensembleDeCase[i][j] = new Normal(0);
 			}
 		}
 	}
