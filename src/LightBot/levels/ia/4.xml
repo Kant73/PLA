@@ -67,7 +67,7 @@
 		<personne name="Robot2" x="7" y="7" o="SOUTH" />
 	</personnes>
 	<programmes>
-		<programme name="main" t="14" />
+		<programme name="main" t="15" />
 		<programme name="proc1" t="8" />
 		<programme name="proc2" t="8" />
 	</programmes>
