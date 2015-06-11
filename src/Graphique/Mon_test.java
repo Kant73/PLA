@@ -1,11 +1,14 @@
 package Graphique;
 
 
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.Image;
 import org.jsfml.graphics.PrimitiveType;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
@@ -112,6 +115,7 @@ public class Mon_test {
 		fenetre.display();
 	}
 	
+	
 	void set_pos_robot()
 	{
 		int i=xRobot,j=yRobot;
@@ -119,6 +123,7 @@ public class Mon_test {
 					,SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getPosition().y +reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y );
 			
 	}
+	
 	
 	void tourner_droite()
 	{
@@ -468,6 +473,14 @@ public class Mon_test {
 		
 		fenetre = new RenderWindow();
 		fenetre.create(new VideoMode(1366, 768), "PBX987X3T Alpha 0.02");
+		Image icon = new Image();
+		try {
+			icon.loadFromFile(Paths.get("src/Img/BB8_tete.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		fenetre.setIcon(icon);
 		reScale=Scale;
 		reScaleRobot=Scale/3;
 		SetSprites();
@@ -535,7 +548,6 @@ public class Mon_test {
 		}
 	}
 	
-	
 	public void afficher_boutons(){
 		if (!this.list_action_possible.isEmpty()) {
 			for (int k = 0; k < this.list_action_possible.size(); k++) {
@@ -564,6 +576,36 @@ public class Mon_test {
 		}
 	}
 	
+	
+	public void jouer_main(){
+		if (!this.tabProgramme[0].isEmpty()) {
+			for (int k = 0; k < this.tabProgramme[0].size(); k++) {
+				StructStringSprite temp = (StructStringSprite) this.tabProgramme[0].get(k);
+				
+				if (temp.nom == "avancer") {
+					this.deplacement_robot(0);
+				}
+				else if (temp.nom == "reculer") {
+					this.deplacement_robot(1);
+				}
+				else if (temp.nom == "droite") {
+					this.tourner_droite();
+				}
+				else if (temp.nom == "gauche") {
+					this.tourner_gauche();
+				}
+				
+			}
+		}
+	}
+	
+	/**
+	 * Permet de créer un fond dégradé
+	 * @param color1	La couleur du haut de la fenêtre 
+	 * @param color2	La couleur du bas de la fenêtre
+	 * @param window	La fenêtre à laquelle on applique un gradient (pour avoir ses dimensions)
+	 * @return	Un VertexArray comprenant le dégradé
+	 */
 	public VertexArray createGradient(Color color1, Color color2, RenderWindow window){
 		
 		//Create the vertex array
@@ -590,6 +632,12 @@ public class Mon_test {
 		return gradient;
 	}
 	
+	/**
+	 * Structure comprenant une Sprite et une chaine indiquant de quel type de sprite il s'agit
+	 * Utilisé pour les actions
+	 * @author quentin
+	 *
+	 */
 	public class StructStringSprite {
 		public Sprite sprite;
 		public String nom;
@@ -610,18 +658,16 @@ public class Mon_test {
 		
 	}
 	
-	
 	public static void main(String[] args) {
 		
 		int i=0,j=0;
 		List l = new LinkedList();
+		//Initialisation des textures
 		Textures.initTextures();
 		Mon_test Affiche_monde = new Mon_test(1f,"src/LightBot/levels/" + args[0]);
-	
-		//Affiche_monde.fenetre.clear(Color.GREEN);
 		int initPosY=50,initPosX=90;
 		
-
+	
 		Affiche_monde.spriteBoutonPlay.setPosition(1300,0);
 	
 		Affiche_monde.set_position_cases();
@@ -631,8 +677,7 @@ public class Mon_test {
 		Affiche_monde.afficher_boutons();
 		Affiche_monde.initProcedures();
 		Affiche_monde.afficher_carte();
-		//VertexArray gradient = Affiche_monde.createGradient(new org.jsfml.graphics.Color(0, 178, 255, 255), Color.BLACK, Affiche_monde.fenetre);
-	
+		
 			while (Affiche_monde.fenetre.isOpen()) {
 				try {
 					Thread.sleep(10);
@@ -669,70 +714,7 @@ public class Mon_test {
 						
 						if(Affiche_monde.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y))
 						{
-							if (!Affiche_monde.tabProgramme[0].isEmpty()) {
-								for (int k = 0; k < Affiche_monde.tabProgramme[0].size(); k++) {
-									StructStringSprite temp = (StructStringSprite) Affiche_monde.tabProgramme[0].get(k);
-									
-									if (temp.nom == "avancer") {
-										//System.out.println("spriteBoutonAvancer");
-										
-										/*j++;
-										if(j==NB_CASE_Y)
-											j=0;*/
-										Affiche_monde.deplacement_robot(0);
-										
-									}
-									else if (temp.nom == "reculer") {
-										//System.out.println("spriteBoutonReculer");
-										
-										/*if(j==0)
-											j=NB_CASE_Y-1;
-										else
-											j--;*/
-										Affiche_monde.deplacement_robot(1);
-									}
-									else if (temp.nom == "droite") {
-										//System.out.println("spriteBoutonDroite");
-										
-										/*i++;
-										if(i==NB_CASE_X)
-											i=0;*/
-										//Affiche_monde.deplacement_robot(3);
-										Affiche_monde.tourner_droite();
-									}
-									else if (temp.nom == "gauche") {
-										//System.out.println("spriteBoutonGauche");
-										
-										/*if(i==0)
-											i=NB_CASE_X-1;
-										else
-											i--;*/
-										//Affiche_monde.deplacement_robot(2);
-										Affiche_monde.tourner_gauche();
-									}
-									/*
-									try {
-										Thread.sleep(200);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									
-									Affiche_monde.fenetre.draw(gradient);
-									if (!l.isEmpty()) {
-										for (int k1 = 0; k1 < l.size(); k1++) {
-											StructStringSprite temp1 = (StructStringSprite) l.get(k1);
-											temp1.sprite.setPosition(0, k1*65);
-											Affiche_monde.fenetre.draw(temp1.sprite);
-										}
-									}
-									*/
-									//Affiche_monde.afficher_boutons();
-									//Affiche_monde.initPlaceRobot(i,j);
-									//Affiche_monde.set_pos_robot();
-									//Affiche_monde.afficher_carte();
-								}
-							}
+							Affiche_monde.jouer_main();
 						}
 	
 					}
@@ -757,39 +739,6 @@ public class Mon_test {
 							System.out.println(" RIGHT");
 						}	
 					}
-					/*
-					if (!l.isEmpty()) {
-						for (int k = 0; k < l.size(); k++) {
-							StructStringSprite temp = (StructStringSprite) l.get(k);
-							Vector2i pos2 = Mouse.getPosition(Affiche_monde.fenetre); 
-							if(temp.sprite.getGlobalBounds().contains(pos2.x,pos2.y))
-							{
-								
-							}
-						}
-					}
-					*/
-					//Affiche_monde.fenetre.draw(gradient);
-					//Affiche_monde.fenetre.clear(Color.GREEN);
-					Affiche_monde.afficher_boutons();
-					/*
-					if (!Affiche_monde.tabProgramme[0].isEmpty()) {
-						int cpty=0;
-						for (int k = 0; k < Affiche_monde.tabProgramme[0].size(); k++) {
-							
-							if(k%5==0 && k!=0)
-							{
-								cpty++;
-							}
-								
-							StructStringSprite temp = (StructStringSprite) Affiche_monde.tabProgramme[0].get(k);
-							temp.sprite.setPosition((k%5)*65, cpty*65);
-							Affiche_monde.fenetre.draw(temp.sprite);
-						}
-					}
-					*/
-					//Affiche_monde.initPlaceRobot(i,j);
-					//Affiche_monde.set_pos_robot();
 					Affiche_monde.afficher_carte();
 	
 				}
