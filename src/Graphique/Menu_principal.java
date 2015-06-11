@@ -7,6 +7,7 @@ import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
+import org.jsfml.system.Time;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
@@ -14,6 +15,7 @@ import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.Mouse.Button;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
+import org.jsfml.audio.Music;;
 
 public class Menu_principal {
 	
@@ -28,6 +30,21 @@ public class Menu_principal {
 	private Sprite spriteFond;
 	private Texture monFond;
 	
+
+	Music music = new Music();
+	//PARTIE MUSIQUE
+	private void playMusic() {
+		
+		try {
+			music.openFromFile(Paths.get("src/Music/Zarnakand.ogg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		music.setVolume(30);
+		//music.setPlayingOffset(time);
+		music.play();
+	}
 
 	private void init_images () 
 	{  
@@ -166,7 +183,9 @@ public class Menu_principal {
 		}
 		fenetre.setIcon(icon);
 		
+		monMenu.playMusic();
 		monMenu.afficher_menu();
+		
 	}
 }
 
