@@ -128,14 +128,15 @@ public class Menu_principal {
 							fenetre.display();
 						}
 					}
-					/*else if (event.type == Event.Type.MOUSE_MOVED) 
+					else if (event.type == Event.Type.MOUSE_MOVED) 
 						{
 							Vector2i pos = Mouse.getPosition(fenetre); 
 							selection = sprite_pos_souris(pos);
 							
+								fenetre.draw(spriteFond);
 							this.afficher_boutons();
 							fenetre.display();
-						}*/
+						}
 					else if (event.type == Event.Type.CLOSED ||  ((event.type == Event.Type.KEY_PRESSED)  && (Keyboard.isKeyPressed(Key.ESCAPE)))) {
 						fenetre.close();	
 					}

@@ -136,15 +136,16 @@ public class Menu_modes {
 							sortie=false;
 						}	
 					}
-					/*else if (event.type == Event.Type.MOUSE_MOVED) 
+					else if (event.type == Event.Type.MOUSE_MOVED) 
 						{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
 							selection = sprite_pos_souris(pos);
 							
-							this.afficher_boutons();
-							Menu_principal.fenetre.display();
+							Menu_principal.fenetre.draw(spriteFond);
+								this.afficher_boutons();
+								Menu_principal.fenetre.display();
 						}
-					*/
+					
 					else if (event.type == Event.Type.CLOSED) {
 						Menu_principal.fenetre.close();
 					}
