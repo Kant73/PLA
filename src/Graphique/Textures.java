@@ -16,6 +16,8 @@ public class Textures {
 	public static Texture TexBoutonReculer;
 	public static Texture TexCaseTransp;
 	public static Texture TexCaseVerte;
+	public static Texture TexCaseRose;
+	public static Texture TexCaseViolet;
 	public static Texture TexBoutonGauche;
 	public static Texture TexBoutonDroite;
 	public static Texture TexBoutonSauter;
@@ -42,6 +44,9 @@ public class Textures {
 		
 		TexCaseTransp = new Texture();
 		TexCaseVerte = new Texture();
+		TexCaseRose = new Texture();
+		TexCaseViolet = new Texture();
+		
 		
 		
 		TexBoutonAllumer = new Texture();
@@ -70,6 +75,8 @@ public class Textures {
 			TexCaseLumAllum.loadFromFile(Paths.get("src/Img/case2.png"));
 			TexCaseVerte.loadFromFile(Paths.get("src/Img/case3.png"));
 			TexCaseTransp.loadFromFile(Paths.get("src/Img/case4.png"));
+			TexCaseRose.loadFromFile(Paths.get("src/Img/case7.png"));
+			TexCaseViolet.loadFromFile(Paths.get("src/Img/case6.png"));
 			
 			TexBoutonAllumer.loadFromFile(Paths.get("src/Img/allumer.png"));
 			TexBoutonAvancer.loadFromFile(Paths.get("src/Img/avancer.png"));

@@ -1,6 +1,7 @@
 package LightBot.cases;
 
 public enum Couleur{
+	Rose("\033[1;35m"),
 	Bleu("\033[34m"), /* A allumer*/
 	Jaune("\033[33m"), /* Case allumee*/
 	Blanc("\033[0m"),/*Normal*/
