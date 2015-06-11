@@ -41,7 +41,7 @@ public class Allumer extends Actions {
 				}
 			}else if(C instanceof Condition){
 				if(this.perso.getCouleur()!=Couleur.Blanc)this.perso.setCouleur(Couleur.Blanc);
-				else if(this.perso.getCouleur()==Couleur.Blanc)this.perso.setCouleur(Couleur.Violet);
+				else this.perso.setCouleur(C.getColor());
 			}
 		}
 	}
