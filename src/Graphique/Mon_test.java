@@ -51,6 +51,7 @@ public class Mon_test {
 	public Sprite spriteSymboleSauter;
 	public Sprite spriteSymboleAllumer;
 	public Sprite spriteRobot;
+	public VertexArray gradient;
 	
 	public LinkedList list_action_possible;
 	public List[] tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
@@ -93,6 +94,9 @@ public class Mon_test {
 	
 	void afficher_carte()
 	{
+		this.fenetre.draw(this.gradient);
+		this.afficher_boutons();
+		this.afficher_procedure();
 		for(int i= NB_CASE_X-1;i>=0;i--)
 		{
 			for(int j= NB_CASE_Y-1;j>=0;j--)
@@ -467,7 +471,7 @@ public class Mon_test {
 		reScale=Scale;
 		reScaleRobot=Scale/3;
 		SetSprites();
-		
+		this.gradient = this.createGradient(new org.jsfml.graphics.Color(0, 178, 255, 255), Color.BLACK, this.fenetre);
 		initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
 	}
 	
@@ -543,6 +547,23 @@ public class Mon_test {
 		this.fenetre.draw(this.spriteBoutonPlay);
 	}
 	
+	public void afficher_procedure(){
+		if (!this.tabProgramme[0].isEmpty()) {
+			int cpty=0;
+			for (int k = 0; k < this.tabProgramme[0].size(); k++) {
+				
+				if(k%5==0 && k!=0)
+				{
+					cpty++;
+				}
+					
+				StructStringSprite temp = (StructStringSprite) this.tabProgramme[0].get(k);
+				temp.sprite.setPosition((k%5)*65, cpty*65);
+				this.fenetre.draw(temp.sprite);
+			}
+		}
+	}
+	
 	public VertexArray createGradient(Color color1, Color color2, RenderWindow window){
 		
 		//Create the vertex array
@@ -605,11 +626,12 @@ public class Mon_test {
 	
 		Affiche_monde.set_position_cases();
 		Affiche_monde.set_pos_robot();
-		Affiche_monde.afficher_carte();
+		
 		Affiche_monde.initActionsPossible();
 		Affiche_monde.afficher_boutons();
 		Affiche_monde.initProcedures();
-		VertexArray gradient = Affiche_monde.createGradient(new org.jsfml.graphics.Color(0, 178, 255, 255), Color.BLACK, Affiche_monde.fenetre);
+		Affiche_monde.afficher_carte();
+		//VertexArray gradient = Affiche_monde.createGradient(new org.jsfml.graphics.Color(0, 178, 255, 255), Color.BLACK, Affiche_monde.fenetre);
 	
 			while (Affiche_monde.fenetre.isOpen()) {
 				try {
@@ -747,9 +769,10 @@ public class Mon_test {
 						}
 					}
 					*/
-					Affiche_monde.fenetre.draw(gradient);
+					//Affiche_monde.fenetre.draw(gradient);
 					//Affiche_monde.fenetre.clear(Color.GREEN);
 					Affiche_monde.afficher_boutons();
+					/*
 					if (!Affiche_monde.tabProgramme[0].isEmpty()) {
 						int cpty=0;
 						for (int k = 0; k < Affiche_monde.tabProgramme[0].size(); k++) {
@@ -764,6 +787,7 @@ public class Mon_test {
 							Affiche_monde.fenetre.draw(temp.sprite);
 						}
 					}
+					*/
 					//Affiche_monde.initPlaceRobot(i,j);
 					//Affiche_monde.set_pos_robot();
 					Affiche_monde.afficher_carte();
