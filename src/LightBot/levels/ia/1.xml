@@ -63,13 +63,24 @@
 		</ensembleDeCase>
 	</terrain>
 	<personnes>
-		<personne name="Robot" x="2" y="1" o="WEST" />
+		<personne name="Robot1" x="0" y="0" o="NORTH" />
+		<personne name="Robot2" x="7" y="7" o="SOUTH" />
 	</personnes>
 	<programmes>
-		<programme name="main" t="3" />
+		<programme name="main" t="10" />
+		<programme name="proc1" t="5" />
+		<programme name="proc2" t="5" />
 	</programmes>
 	<actions>
-		<action name="Avancer" p="Robot" />
-		<action name="Allumer" p="Robot" />
+		<action name="Avancer" p="Robot1" />
+		<action name="Allumer" p="Robot1" />
+		<action name="Sauter" p="Robot1" />
+		<action name="TournerGauche" p="Robot1" />
+		<action name="TournerDroite" p="Robot1" />
+		<action name="Avancer" p="Robot2" />
+		<action name="Allumer" p="Robot2" />
+		<action name="Sauter" p="Robot2" />
+		<action name="TournerGauche" p="Robot2" />
+		<action name="TournerDroite" p="Robot2" />
 	</actions>
 </niveau>
