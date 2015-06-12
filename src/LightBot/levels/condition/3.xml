@@ -67,6 +67,6 @@
 		<action name="TournerDroite" p="Robot" />
 		<action name="TournerGauche" p="Robot" />
 		<action name="Sauter" p="Robot" />
-		<!-- <action name="Break" p="Robot" /> -->
+		<action name="Break" p="Robot" />
 	</actions>
 </niveau>

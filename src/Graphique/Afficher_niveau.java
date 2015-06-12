@@ -57,6 +57,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	public Sprite spriteSymboleTournerDroite;
 	public Sprite spriteSymboleSauter;
 	public Sprite spriteSymboleAllumer;
+	public Sprite spriteSymboleBreak;
 	public Sprite spriteRobot;
 	public VertexArray gradient;
 	
@@ -466,6 +467,9 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		spriteP2= new Sprite();
 		spriteP2.setTexture(Textures.TexP2);
+
+		spriteSymboleBreak = new Sprite();
+		spriteSymboleBreak.setTexture(Textures.TexSymboleBreak);
 		
 		spriteSymboleAvancer = new Sprite();
 		spriteSymboleAvancer.setTexture(Textures.TexSymboleAvancer);
@@ -514,9 +518,6 @@ public class Afficher_niveau extends Menu_niveaux{
 							SpriteCases[i][j][k].setTexture(Textures.TexCasePointee);
 						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Pointeur  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Vert && !((Pointeur) monNiveau.getTerrain().getEnsembleDeCase()[i][j]).estPointee())
 							SpriteCases[i][j][k].setTexture(Textures.TexCasePointeur);
-						
-									
-					
 					}
 
 					SpriteCases[i][j][k].setScale(reScale,reScale);
@@ -573,7 +574,8 @@ public class Afficher_niveau extends Menu_niveaux{
 			}
 			
 			else if(al.get(i) instanceof Break) {
-				System.out.println("Break");
+				struct = this.new StructStringSprite(this.spriteSymboleBreak, "break");
+				
 			}
 			
 			else if(al.get(i) instanceof Sauter) {
