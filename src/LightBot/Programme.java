@@ -50,11 +50,11 @@ public class Programme {
 	public void insererQueue(Object obj){
 		if(this.currentIndex<this.nbMaxAction)
 			if (obj instanceof Programme){
-				this.listActions.add((Programme)obj);
+				this.listActions.set(this.currentIndex,(Programme)obj);
 				this.currentIndex++;
 			}
 			else if (obj instanceof Actions){
-				this.listActions.add((Actions)obj);
+				this.listActions.set(this.currentIndex ,(Actions)obj);
 				this.currentIndex++;
 			}
 	}
