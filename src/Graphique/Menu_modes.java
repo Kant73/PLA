@@ -18,6 +18,7 @@ import LightBot.NomMode;
 public class Menu_modes extends Menu_principal{
 
 	private static final int nbBoutons = NomMode.values().length;
+	private int nbActuelImages=7;
 	private Sprite [] mesBoutons;
 	private Texture[] mesTextures ;
 	
@@ -46,9 +47,27 @@ public class Menu_modes extends Menu_principal{
 		{
 			mesTextures[i]=new Texture();
 			try {
-				if(i<nbBoutons)
+				if(i<nbActuelImages)
 				{
-					mesTextures[i].loadFromFile(Paths.get("src/Img/mode00"+i+".png"));
+					if(i<nbBoutons)
+					{
+						mesTextures[i].loadFromFile(Paths.get("src/Img/mode00"+i+".png"));
+						mesBoutons[i]=new Sprite();
+						mesBoutons[i].setTexture(mesTextures[i]);
+						if(i%5==0 && i!=0)
+							k++;
+						
+						mesBoutons[i].setPosition(Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(mesTextures[i].getSize().x/2+ecartPix/2) + (mesTextures[i].getSize().x+ecartPix)*(i%nbMaxLigne)
+								, Menu_principal.fenetre.getSize().y/3+(mesTextures[i].getSize().y+ecartPix)*k);
+					}
+					else
+					{
+						mesTextures[i].loadFromFile(Paths.get("src/Img/mode00"+(i-this.nbBoutons)+"_select.png"));
+					}
+				}
+				else
+				{
+					mesTextures[i].loadFromFile(Paths.get("src/Img/mode000.png"));
 					mesBoutons[i]=new Sprite();
 					mesBoutons[i].setTexture(mesTextures[i]);
 					if(i%5==0 && i!=0)
@@ -57,10 +76,7 @@ public class Menu_modes extends Menu_principal{
 					mesBoutons[i].setPosition(Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(mesTextures[i].getSize().x/2+ecartPix/2) + (mesTextures[i].getSize().x+ecartPix)*(i%nbMaxLigne)
 							, Menu_principal.fenetre.getSize().y/3+(mesTextures[i].getSize().y+ecartPix)*k);
 				}
-				else
-				{
-					mesTextures[i].loadFromFile(Paths.get("src/Img/mode00"+(i-this.nbBoutons)+"_select.png"));
-				}
+					
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
