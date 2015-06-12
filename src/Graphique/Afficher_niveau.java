@@ -60,6 +60,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	public List[] tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
 	public float reScale,reScaleRobot;
 	int xRobot,yRobot,nextXRobot,nextYRobot;
+	int progSelect=0;
 		
 	/**
 	 * Permet de determiner la position des cases
@@ -592,24 +593,26 @@ public class Afficher_niveau extends Menu_niveaux{
 	 */
 	public void jouer_main(){
 		if (!this.tabProgramme[0].isEmpty()) {
-			for (int k = 0; k < this.tabProgramme[0].size(); k++) {
-				StructStringSprite temp = (StructStringSprite) this.tabProgramme[0].get(k);
+			for (int k = 0; k < this.monNiveau.getProgrammes().get(this.progSelect).getActions().size(); k++) {
 				
-				if (temp.nom == "avancer") {
-					this.deplacement_robot(0);
+				
+				Object temp = this.monNiveau.getProgrammes().get(this.progSelect).getActions().get(k);
+				
+				if (temp instanceof Avancer) {
+					this.avancer();
 				}
-				else if (temp.nom == "reculer") {
-					this.deplacement_robot(1);
-				}
-				else if (temp.nom == "droite") {
+				else if (temp instanceof TournerDroite) {
 					this.tourner_droite();
 				}
-				else if (temp.nom == "gauche") {
+				else if (temp instanceof TournerGauche) {
 					this.tourner_gauche();
 				}
-				else if (temp.nom == "sauter") {
+				else if (temp instanceof Sauter) {
 					this.sauter();
 				}
+				/*else if (temp instanceof Allumer) {
+					this.deplacement_robot(4);
+				}*/
 			}
 		}
 	}
@@ -672,16 +675,39 @@ public class Afficher_niveau extends Menu_niveaux{
 		}	
 	}
 	
+	public void inserer_actions(StructStringSprite struct){
+		switch (struct.nom) {
+		case "avancer":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Avancer(this.monNiveau.getPersonnageByName("Robot")));
+			break;
+		case "gauche":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerGauche(this.monNiveau.getPersonnageByName("Robot")));
+			break;
+		case "droite":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerDroite(this.monNiveau.getPersonnageByName("Robot")));
+			break;
+		case "sauter":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Sauter(this.monNiveau.getPersonnageByName("Robot")));
+			break;
+		case "allumer":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.monNiveau.getPersonnageByName("Robot")));
+			break;
+		default:
+			System.out.println("Ajout d'élément inconnu à la liste des programmes");
+			break;
+		}
+	}
+	
 	public void afficher_niveau(Niveau niveauCharger)
 	{
-		Menu_principal.fenetre.clear();
-		int i=0,j=0;
-		List l = new LinkedList();
-		//Initialisation des textures
-		Textures.initTextures();
-		monNiveau=new Niveau();
-		monNiveau=niveauCharger;
-		init_niveau(1.0f);
+	Menu_principal.fenetre.clear();
+	int i=0,j=0;
+	List l = new LinkedList();
+	//Initialisation des textures
+	Textures.initTextures();
+	monNiveau=new Niveau();
+	monNiveau=niveauCharger;
+	init_niveau(1.0f);
 		
 	int initPosY=50,initPosX=90;
 	
@@ -715,6 +741,7 @@ public class Afficher_niveau extends Menu_niveaux{
 							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
 							{
 								tabProgramme[0].remove(k);
+								this.monNiveau.getProgrammes().get(this.progSelect).supprimer(k);
 							}
 						}
 					}
@@ -726,7 +753,11 @@ public class Afficher_niveau extends Menu_niveaux{
 							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
 							{
 								StructStringSprite struct = new StructStringSprite(temp);
-								tabProgramme[0].add(struct);
+								//monNiveau.getProgrammes().add(struct);
+								if(this.tabProgramme[0].size() < this.monNiveau.getProgrammes().get(this.progSelect).getNbMaxAction()){
+									inserer_actions(struct);
+									tabProgramme[0].add(struct);
+								}
 							}
 						}
 					}
