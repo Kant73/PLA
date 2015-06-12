@@ -510,10 +510,13 @@ public class Afficher_niveau extends Menu_niveaux{
 							SpriteCases[i][j][k].setTexture(Textures.TexCaseViolet);
 						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof ConditionRose  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Rose)
 							SpriteCases[i][j][k].setTexture(Textures.TexCaseRose);
-						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Pointeur  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Vert)
+						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Pointeur  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Vert && ((Pointeur) monNiveau.getTerrain().getEnsembleDeCase()[i][j]).estPointee())
+							SpriteCases[i][j][k].setTexture(Textures.TexCasePointee);
+						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Pointeur  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Vert && !((Pointeur) monNiveau.getTerrain().getEnsembleDeCase()[i][j]).estPointee())
 							SpriteCases[i][j][k].setTexture(Textures.TexCasePointeur);
 						
 									
+					
 					}
 
 					SpriteCases[i][j][k].setScale(reScale,reScale);
