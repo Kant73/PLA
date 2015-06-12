@@ -147,7 +147,7 @@ private void init_font()
 							if(selection !=-1)
 							{
 								Mon_test level = new  Mon_test();
-								level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la résolution du niveau.
+								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la résolution du niveau.
 								level.afficher_niveau(mj.getNiveaux().get(selection));
 								
 								Menu_principal.fenetre.draw(spriteFond);

@@ -744,7 +744,7 @@ public class Mon_test extends Menu_niveaux{
 				 else if (event.type == Event.Type.KEY_PRESSED) {
 				 if (Keyboard.isKeyPressed(Key.ESCAPE))
 					{
-					 	this.playMusic("Zarnakand.ogg");		//Relancement de la musique de menu.
+					 	//this.playMusic("Zarnakand.ogg");		//Relancement de la musique de menu.
 						sortie=false;
 					}	
 					 
