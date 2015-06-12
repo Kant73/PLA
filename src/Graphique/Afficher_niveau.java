@@ -294,116 +294,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.avancer();
 	}
 	
-	/*
-	void deplacement_robot(int Orientation)
-	{
-		int newX,newY;
-		newX=xRobot;
-		newY=yRobot;
-		float deplX=0,deplY = 0,deplSaut=0;
-		float coeff = 2;
-	
-		if(Orientation==0)//HAUT
-		{
-			spriteRobot.setTexture(Textures.TexRobotNW);
-			if(yRobot+1<NB_CASE_Y && monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot+1].getHauteur()>=0)
-			{
-				newY=yRobot+1;	
-				deplX=-1;
-				deplY=-0.5f;
-			}
-		}
-		if(Orientation==1)//BAS
-		{
-			spriteRobot.setTexture(Textures.TexRobotSE);
-			if(yRobot-1>=0 && monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot-1].getHauteur()>=0)
-			{
-				newY=yRobot-1;	
-				deplX=1;
-				deplY=0.5f;
-			}
-		}
-		if(Orientation==2 )// GAUCHE
-		{
-			spriteRobot.setTexture(Textures.TexRobotSW);
-			if(xRobot-1>=0 && monNiveau.getTerrain().getEnsembleDeCase()[xRobot-1][yRobot].getHauteur()>=0)
-			{
-				newX=xRobot-1;	
-				deplX=-1;
-				deplY=0.5f;
-			}
-		}
-		if(Orientation==3)// DROITE
-		{
-			spriteRobot.setTexture(Textures.TexRobotNE);
-			if(xRobot+1<NB_CASE_X && monNiveau.getTerrain().getEnsembleDeCase()[xRobot+1][yRobot].getHauteur()>=0)
-			{
-				newX=xRobot+1;
-				deplX=1;
-				deplY=-0.5f;
-			}
-		}
-	
-		deplX=deplX*coeff;
-		deplY=deplY*coeff;
-		if(yRobot!=newY || xRobot != newX)
-		{
-			nextXRobot=newX;
-			nextYRobot=newY;
-			Vector2f posFinale,posInit;
-			
-			posFinale = new Vector2f(SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x + reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteRobot.getTexture().getSize().x/2, 
-					SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y +reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y);
-			posInit = new Vector2f(spriteRobot.getPosition().x,spriteRobot.getPosition().y);
-			
-			
-			if(monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur()!=monNiveau.getTerrain().getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur())
-			{	
-				deplSaut=-3*coeff;
-			
-				boolean b =  newX>xRobot || newY>yRobot ;
-
-				while (
-						(b && spriteRobot.getPosition().y + reScaleRobot*spriteRobot.getTexture().getSize().y > SpriteCases[nextXRobot][nextYRobot][monNiveau.getTerrain().getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur()].getPosition().y+reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*2)
-						||(!b  && monNiveau.getTerrain().getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur()>monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur() && spriteRobot.getPosition().y + reScaleRobot*spriteRobot.getTexture().getSize().y > posInit.y+reScaleRobot*spriteRobot.getTexture().getSize().y -reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*(monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()-monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur()))
-						)
-				{
-					spriteRobot.setPosition(spriteRobot.getPosition().x,spriteRobot.getPosition().y+deplSaut);
-					afficher_carte();	
-				}
-			}
-		
-			posFinale = new Vector2f(SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x + reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteRobot.getTexture().getSize().x/2, 
-				SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y +reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y);
-			posInit = new Vector2f(spriteRobot.getPosition().x,spriteRobot.getPosition().y);
-		
-			while( (posInit.x>=posFinale.x && posInit.y>=posFinale.y 
-					  && spriteRobot.getPosition().x >= posFinale.x 
-					  && spriteRobot.getPosition().y >= posFinale.y)
-					  	  || 
-				  (posInit.x<=posFinale.x && posInit.y>=posFinale.y 
-						  && spriteRobot.getPosition().x <= posFinale.x 
-						  && spriteRobot.getPosition().y >= posFinale.y)
-						  || 
-				  (posInit.x>=posFinale.x && posInit.y<=posFinale.y 
-						  && spriteRobot.getPosition().x >= posFinale.x 
-						  && spriteRobot.getPosition().y <= posFinale.y)
-						  || 
-				  (posInit.x<=posFinale.x && posInit.y<=posFinale.y 
-						  && spriteRobot.getPosition().x <= posFinale.x 
-						  && spriteRobot.getPosition().y <= posFinale.y)						  
-				  )
-			{
-				spriteRobot.setPosition(spriteRobot.getPosition().x+deplX,spriteRobot.getPosition().y+deplY);
-				afficher_carte();
-			}
-		
-			initPlaceRobot(newX,newY);
-			set_pos_robot();
-			afficher_carte();
-		}
-	}
-	*/
 	
 	public void sprite_selectionne(Vector2i pos)
 	{	
@@ -672,7 +562,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		if (!this.tabProgramme[0].isEmpty()) {
 			for (int k = 0; k < this.monNiveau.getProgrammes().get(this.progSelect).getActions().size(); k++) {
 				
-				
 				Object temp = this.monNiveau.getProgrammes().get(this.progSelect).getActions().get(k);
 				
 				if (temp instanceof Avancer) {
@@ -770,125 +659,224 @@ public class Afficher_niveau extends Menu_niveaux{
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.monNiveau.getPersonnageByName("Robot")));
 			break;
 		default:
-			System.out.println("Ajout d'élément inconnu à la liste des programmes");
 			break;
 		}
 	}
 	
 	public void afficher_niveau(Niveau niveauCharger)
 	{
+		this.progSelect=0;
+		int i=0,j=0;
+		//Initialisation des textures
+		Textures.initTextures();
+		monNiveau=new Niveau();
+		monNiveau=niveauCharger;
+		init_niveau(1.0f);
+		set_position_cases();
+		set_pos_robot();
 		
-	this.progSelect=0;
-	Menu_principal.fenetre.clear();
-	int i=0,j=0;
-	List l = new LinkedList();
-	//Initialisation des textures
-	Textures.initTextures();
-	monNiveau=new Niveau();
-	monNiveau=niveauCharger;
-	init_niveau(1.0f);
-	set_position_cases();
-	set_pos_robot();
+		
+		initActionsPossible();
+		StructStringSprite temp= (StructStringSprite)this.list_action_possible.getLast();
+		afficher_boutons();
+		spriteBoutonPlay.setPosition(temp.sprite.getPosition().x + spriteBoutonPlay.getTexture().getSize().x * 3,temp.sprite.getPosition().y);
 	
+		
 	
-	initActionsPossible();
-	StructStringSprite temp= (StructStringSprite)this.list_action_possible.getLast();
-	afficher_boutons();
-	spriteBoutonPlay.setPosition(temp.sprite.getPosition().x + spriteBoutonPlay.getTexture().getSize().x * 3,temp.sprite.getPosition().y);
-
-	
-
-	initProcedures();
-	afficher_carte();
-	
-	boolean sortie=true;
-	while (Menu_principal.fenetre.isOpen() && sortie ) {
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			for (Event event : Menu_principal.fenetre.pollEvents()) {					
-				if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) { 
-					Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-					
-					//Si clique droit sur un élément du main, on le supprime
-					if (!tabProgramme[this.progSelect].isEmpty()) {
-						for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
-							temp = (StructStringSprite) tabProgramme[this.progSelect].get(k);
-							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
-							{
-								tabProgramme[this.progSelect].remove(k);
-								this.monNiveau.getProgrammes().get(this.progSelect).supprimer(k);
-							}
-						}
-					}
-					
-					//Ajout des éléments qu'on a cliqué dans le main
-					if (!list_action_possible.isEmpty()) {
-						for (int k = 0; k < list_action_possible.size(); k++) {
-							temp = (StructStringSprite) list_action_possible.get(k);
-							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
-							{
-								StructStringSprite struct = new StructStringSprite(temp);
-								//monNiveau.getProgrammes().add(struct);
-								if(this.tabProgramme[this.progSelect].size() < this.monNiveau.getProgrammes().get(this.progSelect).getNbMaxAction()){
-									inserer_actions(struct);
-									tabProgramme[this.progSelect].add(struct);
+		initProcedures();
+		afficher_carte();
+		
+		boolean sortie=true;
+		while (Menu_principal.fenetre.isOpen() && sortie ) 
+		{
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				for (Event event : Menu_principal.fenetre.pollEvents()) {					
+					if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) { 
+						Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
+						
+						//Si clique droit sur un élément du main, on le supprime
+						if (!tabProgramme[this.progSelect].isEmpty()) {
+							for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
+								temp = (StructStringSprite) tabProgramme[this.progSelect].get(k);
+								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
+								{
+									tabProgramme[this.progSelect].remove(k);
+									this.monNiveau.getProgrammes().get(this.progSelect).supprimer(k);
 								}
 							}
 						}
+						
+						//Ajout des éléments qu'on a cliqué dans le main
+						if (!list_action_possible.isEmpty()) {
+							for (int k = 0; k < list_action_possible.size(); k++) {
+								temp = (StructStringSprite) list_action_possible.get(k);
+								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
+								{
+									StructStringSprite struct = new StructStringSprite(temp);
+									//monNiveau.getProgrammes().add(struct);
+									if(this.tabProgramme[this.progSelect].size() < this.monNiveau.getProgrammes().get(this.progSelect).getNbMaxAction()){
+										inserer_actions(struct);
+										tabProgramme[this.progSelect].add(struct);
+									}
+								}
+							}
+						}
+						
+						if(spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y))
+						{
+							jouer_main();
+						}
+						else
+							sprite_selectionne(pos);
 					}
-					
-					if(spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y))
-					{
-						jouer_main();
+	
+					if (event.type == Event.Type.CLOSED) {
+						Menu_principal.fenetre.close();
 					}
-					else
-						sprite_selectionne(pos);
-					
-
+					 else if (event.type == Event.Type.KEY_PRESSED) {
+					 if (Keyboard.isKeyPressed(Key.ESCAPE))
+						{
+						 	//this.playMusic("Zarnakand.ogg");		//Relancement de la musique de menu.
+							sortie=false;
+						}	
+						if (Keyboard.isKeyPressed(Key.UP)) {
+							deplacement_robot(0);
+							System.out.println(" UP");
+						}
+						else if (Keyboard.isKeyPressed(Key.DOWN)) {
+							deplacement_robot(1);
+							System.out.println(" DOWN");
+						}
+						else if (Keyboard.isKeyPressed(Key.LEFT)) {
+							deplacement_robot(2);
+							System.out.println(" LEFT");
+						}
+						else if (Keyboard.isKeyPressed(Key.RIGHT)) {
+							deplacement_robot(3);
+							System.out.println(" RIGHT");
+						}	
+						else if (Keyboard.isKeyPressed(Key.SPACE)) {
+							sauter();
+							System.out.println("Sauter");
+						}
+					}
+					afficher_carte();
 				}
-
-				if (event.type == Event.Type.CLOSED) {
-					Menu_principal.fenetre.close();
-				}
-				 else if (event.type == Event.Type.KEY_PRESSED) {
-				 if (Keyboard.isKeyPressed(Key.ESCAPE))
-					{
-					 	//this.playMusic("Zarnakand.ogg");		//Relancement de la musique de menu.
-						sortie=false;
-					}	
-					 
-					/*if (Keyboard.isKeyPressed(Key.UP)) {
-						deplacement_robot(0);
-						System.out.println(" UP");
-					}
-					else if (Keyboard.isKeyPressed(Key.DOWN)) {
-						deplacement_robot(1);
-						System.out.println(" DOWN");
-					}
-					else if (Keyboard.isKeyPressed(Key.LEFT)) {
-						deplacement_robot(2);
-						System.out.println(" LEFT");
-					}
-					else if (Keyboard.isKeyPressed(Key.RIGHT)) {
-						deplacement_robot(3);
-						System.out.println(" RIGHT");
-					}	
-					else if (Keyboard.isKeyPressed(Key.SPACE)) {
-						sauter();
-						System.out.println("Sauter");
-					}*/
-				}
-				afficher_carte();
-
+			}	
+	}
+	
+	
+	void deplacement_robot(int Orientation)
+	{
+		int newX,newY;
+		newX=xRobot;
+		newY=yRobot;
+		float deplX=0,deplY = 0,deplSaut=0;
+		float coeff = 2;
+	
+		if(Orientation==0)//HAUT
+		{
+			spriteRobot.setTexture(Textures.TexRobotNW);
+			if(yRobot+1<NB_CASE_Y && monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot+1].getHauteur()>=0)
+			{
+				newY=yRobot+1;	
+				deplX=-1;
+				deplY=-0.5f;
 			}
-
-		}	
-}
+		}
+		if(Orientation==1)//BAS
+		{
+			spriteRobot.setTexture(Textures.TexRobotSE);
+			if(yRobot-1>=0 && monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot-1].getHauteur()>=0)
+			{
+				newY=yRobot-1;	
+				deplX=1;
+				deplY=0.5f;
+			}
+		}
+		if(Orientation==2 )// GAUCHE
+		{
+			spriteRobot.setTexture(Textures.TexRobotSW);
+			if(xRobot-1>=0 && monNiveau.getTerrain().getEnsembleDeCase()[xRobot-1][yRobot].getHauteur()>=0)
+			{
+				newX=xRobot-1;	
+				deplX=-1;
+				deplY=0.5f;
+			}
+		}
+		if(Orientation==3)// DROITE
+		{
+			spriteRobot.setTexture(Textures.TexRobotNE);
+			if(xRobot+1<NB_CASE_X && monNiveau.getTerrain().getEnsembleDeCase()[xRobot+1][yRobot].getHauteur()>=0)
+			{
+				newX=xRobot+1;
+				deplX=1;
+				deplY=-0.5f;
+			}
+		}
 	
-	
+		deplX=deplX*coeff;
+		deplY=deplY*coeff;
+		if(yRobot!=newY || xRobot != newX)
+		{
+			nextXRobot=newX;
+			nextYRobot=newY;
+			Vector2f posFinale,posInit;
+			
+			posFinale = new Vector2f(SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x + reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteRobot.getTexture().getSize().x/2, 
+					SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y +reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y);
+			posInit = new Vector2f(spriteRobot.getPosition().x,spriteRobot.getPosition().y);
+			
+			
+			if(monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur()!=monNiveau.getTerrain().getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur())
+			{	
+				deplSaut=-3*coeff;
+			
+				boolean b =  newX>xRobot || newY>yRobot ;
 
+				while (
+						(b && spriteRobot.getPosition().y + reScaleRobot*spriteRobot.getTexture().getSize().y > SpriteCases[nextXRobot][nextYRobot][monNiveau.getTerrain().getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur()].getPosition().y+reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*2)
+						||(!b  && monNiveau.getTerrain().getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur()>monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur() && spriteRobot.getPosition().y + reScaleRobot*spriteRobot.getTexture().getSize().y > posInit.y+reScaleRobot*spriteRobot.getTexture().getSize().y -reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*(monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()-monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur()))
+						)
+				{
+					spriteRobot.setPosition(spriteRobot.getPosition().x,spriteRobot.getPosition().y+deplSaut);
+					afficher_carte();	
+				}
+			}
+		
+			posFinale = new Vector2f(SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x + reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteRobot.getTexture().getSize().x/2, 
+				SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y +reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y);
+			posInit = new Vector2f(spriteRobot.getPosition().x,spriteRobot.getPosition().y);
+		
+			while( (posInit.x>=posFinale.x && posInit.y>=posFinale.y 
+					  && spriteRobot.getPosition().x >= posFinale.x 
+					  && spriteRobot.getPosition().y >= posFinale.y)
+					  	  || 
+				  (posInit.x<=posFinale.x && posInit.y>=posFinale.y 
+						  && spriteRobot.getPosition().x <= posFinale.x 
+						  && spriteRobot.getPosition().y >= posFinale.y)
+						  || 
+				  (posInit.x>=posFinale.x && posInit.y<=posFinale.y 
+						  && spriteRobot.getPosition().x >= posFinale.x 
+						  && spriteRobot.getPosition().y <= posFinale.y)
+						  || 
+				  (posInit.x<=posFinale.x && posInit.y<=posFinale.y 
+						  && spriteRobot.getPosition().x <= posFinale.x 
+						  && spriteRobot.getPosition().y <= posFinale.y)						  
+				  )
+			{
+				spriteRobot.setPosition(spriteRobot.getPosition().x+deplX,spriteRobot.getPosition().y+deplY);
+				afficher_carte();
+			}
+		
+			initPlaceRobot(newX,newY);
+			set_pos_robot();
+			afficher_carte();
+		}
+	}
 }
