@@ -3,9 +3,9 @@ package LightBot;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Vector;
 
+import Graphique.Afficher_niveau;
 import LightBot.personnage.Personnage;
 import LightBot.actions.*;
 
@@ -14,9 +14,10 @@ public class Ordonnanceur {
 	private ArrayList<Programme> progs;
 	private Vector<Iterator<Object>> listItActions;
 	private ArrayList<LinkedList<Iterator<Object>>> listFifo;
+	private Afficher_niveau afficheN;
 	
 	
-	Ordonnanceur(ArrayList<Personnage> persos){
+	public Ordonnanceur(ArrayList<Personnage> persos){
 		this.progs=new ArrayList<Programme>();
 		this.listItActions=new Vector<Iterator<Object>>();
 		this.listFifo=new ArrayList<LinkedList<Iterator<Object>>>();
@@ -32,7 +33,6 @@ public class Ordonnanceur {
 		try{
 			for(int i=0;i<this.listItActions.toArray().length;i++) //Execute une action pour chaque robot
 				this.execute((Iterator<Object>)this.listItActions.toArray()[i],i);
-			
 			if(isListFifoEmpty())return;
 			this.run();
 		}catch(NullPointerException e){
