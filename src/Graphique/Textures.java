@@ -7,6 +7,9 @@ import org.jsfml.graphics.Texture;
 
 public class Textures {
 
+	
+	public static Texture []texProcs;
+			
 	public static Texture TexCaseBase ;
 	public static Texture TexCaseLumEteinte ;
 	public static Texture TexCaseLumAllum ;
@@ -38,6 +41,10 @@ public class Textures {
 	
 	public static void initTextures()
 	{
+		texProcs = new Texture[6];
+		
+		
+		
 		TexCaseBase = new Texture();
 		TexCaseLumEteinte = new Texture();
 		TexCaseLumAllum = new Texture();
@@ -68,6 +75,15 @@ public class Textures {
 		TexRobotSW = new Texture();
 		
 		try {
+			for (int i=0;i< texProcs.length;i++)
+			{
+				texProcs[i]=new Texture ();
+				if(i<texProcs.length/2)
+					texProcs[i].loadFromFile(Paths.get("src/Img/proc"+i+".png"));	
+				else
+					texProcs[i].loadFromFile(Paths.get("src/Img/proc"+(texProcs.length-i-1)+"_select.png"));
+			}
+			
 			TexCaseBase.loadFromFile(Paths.get("src/Img/case0.png"));
 			TexCaseLumEteinte.loadFromFile(Paths.get("src/Img/case1.png"));
 			TexCaseLumAllum.loadFromFile(Paths.get("src/Img/case2.png"));

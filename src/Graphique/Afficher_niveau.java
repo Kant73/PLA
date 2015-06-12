@@ -42,6 +42,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	static int NB_CASE_Z ;
 
 	public Sprite[][][] SpriteCases;
+	public Sprite [] spritesProcedures;
 	
 	
 	public Sprite spriteBoutonPlay;
@@ -60,7 +61,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	public List[] tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
 	public float reScale,reScaleRobot;
 	int xRobot,yRobot,nextXRobot,nextYRobot;
-	int progSelect=0;
+	int progSelect;
 		
 	/**
 	 * Permet de determiner la position des cases
@@ -104,6 +105,8 @@ public class Afficher_niveau extends Menu_niveaux{
 	void afficher_carte()
 	{
 		Menu_principal.fenetre.draw(this.gradient);
+		for (int i=0; i< this.monNiveau.getProgrammes().size(); i++)
+			Menu_principal.fenetre.draw(spritesProcedures[i]);
 		this.afficher_boutons();
 		this.afficher_procedure();
 		for(int i= NB_CASE_X-1;i>=0;i--)
@@ -287,7 +290,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.avancer();
 	}
 	
-	
+	/*
 	void deplacement_robot(int Orientation)
 	{
 		int newX,newY;
@@ -396,12 +399,29 @@ public class Afficher_niveau extends Menu_niveaux{
 			afficher_carte();
 		}
 	}
+	*/
 	
+	public void sprite_selectionne(Vector2i pos)
+	{	
+		int last_select = this.progSelect;
+		
+		for (int i=0; i< this.monNiveau.getProgrammes().size() ; i++)
+		{
+			if(spritesProcedures[i].getGlobalBounds().contains(pos.x,pos.y) && i!=this.progSelect)
+			{	
+				spritesProcedures[i].setTexture(Textures.texProcs[i+this.spritesProcedures.length]);	
+				this.progSelect=i;
+			}
+		}
+		if(this.progSelect!=last_select)
+			spritesProcedures[last_select].setTexture(Textures.texProcs[last_select]);
+	}
 	/**
 	 * Permet d'initialiser tous les sprites avec leur textures
 	 */
 	public void SetSprites()
 	{
+		int ecart=50;
 		this.spriteRobot=new Sprite();
 		switch (monNiveau.getPersonnages().get(0).getOrientation())
 		{
@@ -420,6 +440,20 @@ public class Afficher_niveau extends Menu_niveaux{
 		}	
 		this.spriteRobot.setScale(reScaleRobot,reScaleRobot);
 		
+		
+		spritesProcedures = new Sprite[3];
+		for (int i=0;i<spritesProcedures.length;i++)
+		{
+			spritesProcedures[i]=new Sprite();
+			spritesProcedures[i].setTexture(Textures.texProcs[i]);	
+		}
+		
+	
+		
+		spritesProcedures[0].setPosition(25, ecart);
+		spritesProcedures[1].setPosition(25,spritesProcedures[0].getPosition().y + spritesProcedures[0].getTexture().getSize().y + ecart );
+		spritesProcedures[2].setPosition(25,	spritesProcedures[1].getPosition().y + spritesProcedures[1].getTexture().getSize().y + ecart );
+		spritesProcedures[0].setTexture(Textures.texProcs[3]);
 		
 		spriteBoutonPlay=new Sprite();
 		spriteBoutonPlay.setTexture(Textures.TexBoutonPlay);
@@ -572,18 +606,23 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	public void afficher_procedure(){
-		if (!this.tabProgramme[0].isEmpty()) {
-			int cpty=0;
-			for (int k = 0; k < this.tabProgramme[0].size(); k++) {
+		for(int i=0;i< this.monNiveau.getProgrammes().size(); i++ )
+		{
+			if (!this.tabProgramme[i].isEmpty()) {
+				int cpty=0;
 				
-				if(k%5==0 && k!=0)
-				{
-					cpty++;
-				}
+				for (int k = 0; k < this.tabProgramme[i].size(); k++) {
 					
-				StructStringSprite temp = (StructStringSprite) this.tabProgramme[0].get(k);
-				temp.sprite.setPosition((k%5)*65, cpty*65);
-				Menu_principal.fenetre.draw(temp.sprite);
+					if(k%5==0 && k!=0)
+					{
+						cpty++;
+					}
+						
+					StructStringSprite temp = (StructStringSprite) this.tabProgramme[i].get(k);
+					temp.sprite.setPosition(spritesProcedures[i].getPosition().x+5+(k%5)*65
+										   ,spritesProcedures[i].getPosition().y+5+cpty*65);
+					Menu_principal.fenetre.draw(temp.sprite);
+				}
 			}
 		}
 	}
@@ -700,6 +739,8 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	public void afficher_niveau(Niveau niveauCharger)
 	{
+		
+	this.progSelect=0;
 	Menu_principal.fenetre.clear();
 	int i=0,j=0;
 	List l = new LinkedList();
@@ -735,12 +776,12 @@ public class Afficher_niveau extends Menu_niveaux{
 					Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
 					
 					//Si clique droit sur un élément du main, on le supprime
-					if (!tabProgramme[0].isEmpty()) {
-						for (int k = 0; k < tabProgramme[0].size(); k++) {
-							StructStringSprite temp = (StructStringSprite) tabProgramme[0].get(k);
+					if (!tabProgramme[this.progSelect].isEmpty()) {
+						for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
+							StructStringSprite temp = (StructStringSprite) tabProgramme[this.progSelect].get(k);
 							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
 							{
-								tabProgramme[0].remove(k);
+								tabProgramme[this.progSelect].remove(k);
 								this.monNiveau.getProgrammes().get(this.progSelect).supprimer(k);
 							}
 						}
@@ -754,9 +795,9 @@ public class Afficher_niveau extends Menu_niveaux{
 							{
 								StructStringSprite struct = new StructStringSprite(temp);
 								//monNiveau.getProgrammes().add(struct);
-								if(this.tabProgramme[0].size() < this.monNiveau.getProgrammes().get(this.progSelect).getNbMaxAction()){
+								if(this.tabProgramme[this.progSelect].size() < this.monNiveau.getProgrammes().get(this.progSelect).getNbMaxAction()){
 									inserer_actions(struct);
-									tabProgramme[0].add(struct);
+									tabProgramme[this.progSelect].add(struct);
 								}
 							}
 						}
@@ -766,6 +807,9 @@ public class Afficher_niveau extends Menu_niveaux{
 					{
 						jouer_main();
 					}
+					else
+						sprite_selectionne(pos);
+					
 
 				}
 
@@ -779,7 +823,7 @@ public class Afficher_niveau extends Menu_niveaux{
 						sortie=false;
 					}	
 					 
-					if (Keyboard.isKeyPressed(Key.UP)) {
+					/*if (Keyboard.isKeyPressed(Key.UP)) {
 						deplacement_robot(0);
 						System.out.println(" UP");
 					}
@@ -798,7 +842,7 @@ public class Afficher_niveau extends Menu_niveaux{
 					else if (Keyboard.isKeyPressed(Key.SPACE)) {
 						sauter();
 						System.out.println("Sauter");
-					}
+					}*/
 				}
 				afficher_carte();
 
