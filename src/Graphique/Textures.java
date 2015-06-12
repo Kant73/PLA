@@ -11,6 +11,7 @@ public class Textures {
 	public static Texture []texProcs;
 			
 	public static Texture TexCaseBase ;
+	public static Texture TexVerrou ;
 	public static Texture TexCaseLumEteinte ;
 	public static Texture TexCaseLumAllum ;
 	public static Texture TexCasePointeur;		//Case Pointeur (Vert)
@@ -43,8 +44,7 @@ public class Textures {
 	{
 		texProcs = new Texture[6];
 		
-		
-		
+		TexVerrou = new Texture();
 		TexCaseBase = new Texture();
 		TexCaseLumEteinte = new Texture();
 		TexCaseLumAllum = new Texture();
@@ -84,6 +84,7 @@ public class Textures {
 					texProcs[i].loadFromFile(Paths.get("src/Img/proc"+(texProcs.length-i-1)+"_select.png"));
 			}
 			
+			TexVerrou.loadFromFile(Paths.get("src/Img/verrou.png"));
 			TexCaseBase.loadFromFile(Paths.get("src/Img/case0.png"));
 			TexCaseLumEteinte.loadFromFile(Paths.get("src/Img/case1.png"));
 			TexCaseLumAllum.loadFromFile(Paths.get("src/Img/case2.png"));
