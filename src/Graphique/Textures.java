@@ -10,6 +10,8 @@ public class Textures {
 	
 	public static Texture []texProcs;
 			
+	public static Texture TexP1 ;
+	public static Texture TexP2 ;
 	public static Texture TexCaseBase ;
 	public static Texture TexVerrou ;
 	public static Texture TexCaseLumEteinte ;
@@ -49,6 +51,8 @@ public class Textures {
 		TexCaseLumEteinte = new Texture();
 		TexCaseLumAllum = new Texture();
 		TexCasePointeur = new Texture();
+		TexP1 = new Texture();
+		TexP2 = new Texture();
 		
 		TexCaseTransp = new Texture();
 		TexCaseRose = new Texture();
@@ -101,6 +105,8 @@ public class Textures {
 			TexBoutonSauter.loadFromFile(Paths.get("src/Img/saut.png"));
 			TexBoutonPlay.loadFromFile(Paths.get("src/Img/play.png"));
 			
+			TexP1.loadFromFile(Paths.get("src/Img/symbole_P1.png"));
+			TexP2.loadFromFile(Paths.get("src/Img/symbole_P2.png"));
 			TexSymboleAllumer.loadFromFile(Paths.get("src/Img/symbole_allumer.png"));
 			TexSymboleAvancer.loadFromFile(Paths.get("src/Img/symbole_avancer.png"));
 			TexSymboleDroite.loadFromFile(Paths.get("src/Img/symbole_droite.png"));

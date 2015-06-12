@@ -1,14 +1,11 @@
 package Graphique;
 
 
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.jsfml.graphics.Color;
-import org.jsfml.graphics.Image;
 import org.jsfml.graphics.PrimitiveType;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
@@ -20,17 +17,21 @@ import org.jsfml.window.Keyboard;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.Mouse.Button;
-import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
 import LightBot.Niveau;
-import LightBot.Programme;
-import LightBot.actions.*;
+import LightBot.actions.Allumer;
+import LightBot.actions.Avancer;
+import LightBot.actions.Break;
+import LightBot.actions.Sauter;
+import LightBot.actions.TournerDroite;
+import LightBot.actions.TournerGauche;
+import LightBot.actions.Wash;
 import LightBot.cases.ConditionRose;
 import LightBot.cases.ConditionViolet;
 import LightBot.cases.Couleur;
 import LightBot.cases.Lampe;
-import LightBot.parser.Parser;
+import LightBot.cases.Pointeur;
 
 public class Afficher_niveau extends Menu_niveaux{
 	 
@@ -46,6 +47,8 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	
 	public Sprite spriteBoutonPlay;
+	public Sprite spriteP1;
+	public Sprite spriteP2;
 	public Sprite spriteSymboleAvancer;
 	public Sprite spriteSymboleReculer;
 	public Sprite spriteSymboleGauche;
@@ -457,6 +460,12 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		spriteBoutonPlay=new Sprite();
 		spriteBoutonPlay.setTexture(Textures.TexBoutonPlay);
+			
+		spriteP1= new Sprite();
+		spriteP1.setTexture(Textures.TexP1);
+		
+		spriteP2= new Sprite();
+		spriteP2.setTexture(Textures.TexP2);
 		
 		spriteSymboleAvancer = new Sprite();
 		spriteSymboleAvancer.setTexture(Textures.TexSymboleAvancer);
@@ -501,6 +510,9 @@ public class Afficher_niveau extends Menu_niveaux{
 							SpriteCases[i][j][k].setTexture(Textures.TexCaseViolet);
 						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof ConditionRose  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Rose)
 							SpriteCases[i][j][k].setTexture(Textures.TexCaseRose);
+						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Pointeur  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Vert)
+							SpriteCases[i][j][k].setTexture(Textures.TexCasePointeur);
+						
 									
 					}
 
@@ -582,6 +594,20 @@ public class Afficher_niveau extends Menu_niveaux{
 			
 			this.list_action_possible.add(struct);
 		}
+		
+		if(this.monNiveau.getProgrammes().size()>=2)
+		{
+			StructStringSprite struct = null;
+			struct = this.new StructStringSprite(this.spriteP1, "P1");
+			this.list_action_possible.add(struct);
+		}
+		if(this.monNiveau.getProgrammes().size()>=3)
+		{
+			StructStringSprite struct = null;
+			struct = this.new StructStringSprite(this.spriteP2, "P2");
+			this.list_action_possible.add(struct);
+		}
+		
 	}
 
 	/**
