@@ -55,6 +55,33 @@ public class Terrain {
 		return max;
 	}
 	
+	public int getPosCaseX(Case C){
+		
+		for(int i=0; i< largeur; i++){
+			for(int j=0; j< largeur; j++){
+				if (C == this.ensembleDeCase[i][j]){
+					return i;
+				}
+			}
+		}
+		System.out.println("Case introuvable !!!");
+		return -1;
+		
+	}
+	
+	public int getPosCaseY(Case C){
+		
+		for(int i=0; i< largeur; i++){
+			for(int j=0; j< largeur; j++){
+				if (C == this.ensembleDeCase[i][j]){
+					return j;
+				}
+			}
+		}
+		System.out.println("Case introuvable !!!");
+		return -1;
+		
+	}
 	
 /********************************************* MUTATEURS *********************************************/
 

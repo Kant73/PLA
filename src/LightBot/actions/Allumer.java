@@ -1,9 +1,11 @@
 package LightBot.actions;
 
+import LightBot.cases.Allumable;
 import LightBot.cases.Case;
 import LightBot.cases.Condition;
 import LightBot.cases.Couleur;
 import LightBot.cases.Lampe;
+import LightBot.cases.Pointeur;
 import LightBot.personnage.Personnage;
 
 
@@ -39,7 +41,14 @@ public class Allumer extends Actions {
 					break;
 				default:break;
 				}
-			}else if(C instanceof Condition){
+			}
+			else if (C instanceof Pointeur){
+				Case temp;
+				temp = ((Pointeur) C).getSuivante();
+				if (temp != null)
+					this.perso.setPosition(this.perso.getTerrain().getPosCaseX(temp), this.perso.getTerrain().getPosCaseY(temp));
+			}
+			else if(C instanceof Condition){
 				if(this.perso.getCouleur()!=Couleur.Blanc)this.perso.setCouleur(Couleur.Blanc);
 				else this.perso.setCouleur(C.getColor());
 			}

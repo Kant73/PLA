@@ -17,15 +17,16 @@ public class TestProg3 extends Niveau{
 		this.setTerrain(new Terrain(5,5));
 		Case[][] cases=this.getTerrain().getEnsembleDeCase();
 		
-		cases[1][0]=new Normal(3);
 		cases[1][1]=new Normal(2);
 		cases[1][2]=new Normal(1);
 		cases[1][3]=new Normal(2);
-		cases[1][4]=new ConditionRose(3);
-		cases[2][4]=new Lampe(2);	
+		cases[1][4]=new ConditionRose(2);
+		cases[2][4]=new Pointeur(2);
+		cases[1][0]=new Pointeur(2,cases[2][4]);
 		cases[3][4]=new Normal(1);
-		cases[4][4]=new Normal(2);
-		cases[0][2]=new Lampe(3);
+		cases[4][4]=new Pointeur(2);
+		cases[2][3]=new Pointeur(2,cases[4][4]);
+		cases[0][2]=new Lampe(2);
 		
 		this.getTerrain().setEnsembleDeCase(cases);
 		
@@ -33,25 +34,27 @@ public class TestProg3 extends Niveau{
 		robot.setTerrain(this.getTerrain());
 		this.getPersonnages().add(robot);
 		
-		this.getProgrammes().add(new Programme("main",7));
-		this.getProgrammes().add(new Programme("Proc1",7));
+		this.getProgrammes().add(new Programme("main",5));
+		//this.getProgrammes().add(new Programme("Proc1",7));
 		
 		Programme progMain=this.getProgrammes().get(0);
-		/*progMain.inserer(new Avancer(robot), 0);
-		progMain.inserer(new Avancer(robot), 1);
-		progMain.inserer(new Avancer(robot), 2);
-		progMain.inserer(new Allumer(robot), 3);
+		progMain.inserer(new Allumer(robot), 0);
+		progMain.inserer(new TournerGauche(robot), 1);
+		progMain.inserer(new TournerGauche(robot), 2);
+		progMain.inserer(new Avancer(robot), 3);
+		progMain.inserer(new Allumer(robot), 4);
+		/*progMain.inserer(new Allumer(robot), 3);
 		progMain.inserer(new TournerGauche(robot,Couleur.Violet), 4);
 		progMain.inserer(new Avancer(robot), 5);
 		progMain.inserer(new Allumer(robot), 6);*/
-		Programme proc1=this.getProgrammes().get(1);
+		/*Programme proc1=this.getProgrammes().get(1);
 		
-		proc1.inserer(new Sauter(robot), 0);
+		proc1.inserer(new Allumer(robot), 0);
 		proc1.inserer(new Allumer(robot), 1);
 		proc1.inserer(new TournerGauche(robot,Couleur.Violet), 2);
 		proc1.inserer(new Wash(robot,Couleur.Violet), 3);
 		proc1.inserer(proc1, 4);
-		progMain.inserer(proc1, 0);
+		progMain.inserer(proc1, 0);*/
 
 		robot.setProgramme(progMain);
 

@@ -41,14 +41,15 @@ public class Avancer extends Actions {
 					}else{this.perso.setMort(true);}
 					break;
 				case WEST : 
-					if ((x-1)<0){
+					if ((x-1)>=0){
 						if(h == T.getEnsembleDeCase()[x-1][y].getHauteur())this.perso.setPositionX(x-1);
 					}else{this.perso.setMort(true);}
 					break;
 				case NORTH :
-					if ((y-1)<0 ){
+					if ((y-1)>=0 ){
 						if(h == T.getEnsembleDeCase()[x][y-1].getHauteur())this.perso.setPositionY(y-1);
-					}else{this.perso.setMort(true);}
+					}else{System.out.println(x+"  "+y);
+						this.perso.setMort(true);}
 					break;
 				default:break;
 			}
