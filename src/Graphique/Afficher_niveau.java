@@ -787,17 +787,17 @@ public class Afficher_niveau extends Menu_niveaux{
 	monNiveau=new Niveau();
 	monNiveau=niveauCharger;
 	init_niveau(1.0f);
-		
-	int initPosY=50,initPosX=90;
-	
-
-	spriteBoutonPlay.setPosition(1300,0);
-
 	set_position_cases();
 	set_pos_robot();
 	
+	
 	initActionsPossible();
+	StructStringSprite temp= (StructStringSprite)this.list_action_possible.getLast();
 	afficher_boutons();
+	spriteBoutonPlay.setPosition(temp.sprite.getPosition().x + spriteBoutonPlay.getTexture().getSize().x * 3,temp.sprite.getPosition().y);
+
+	
+
 	initProcedures();
 	afficher_carte();
 	
@@ -816,7 +816,7 @@ public class Afficher_niveau extends Menu_niveaux{
 					//Si clique droit sur un élément du main, on le supprime
 					if (!tabProgramme[this.progSelect].isEmpty()) {
 						for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
-							StructStringSprite temp = (StructStringSprite) tabProgramme[this.progSelect].get(k);
+							temp = (StructStringSprite) tabProgramme[this.progSelect].get(k);
 							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
 							{
 								tabProgramme[this.progSelect].remove(k);
@@ -828,7 +828,7 @@ public class Afficher_niveau extends Menu_niveaux{
 					//Ajout des éléments qu'on a cliqué dans le main
 					if (!list_action_possible.isEmpty()) {
 						for (int k = 0; k < list_action_possible.size(); k++) {
-							StructStringSprite temp = (StructStringSprite) list_action_possible.get(k);
+							temp = (StructStringSprite) list_action_possible.get(k);
 							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
 							{
 								StructStringSprite struct = new StructStringSprite(temp);
