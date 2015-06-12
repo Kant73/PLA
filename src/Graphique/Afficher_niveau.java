@@ -20,6 +20,7 @@ import org.jsfml.window.Mouse.Button;
 import org.jsfml.window.event.Event;
 
 import LightBot.Niveau;
+import LightBot.Programme;
 import LightBot.actions.Allumer;
 import LightBot.actions.Avancer;
 import LightBot.actions.Break;
@@ -658,13 +659,12 @@ public class Afficher_niveau extends Menu_niveaux{
 		case "allumer":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.monNiveau.getPersonnageByName("Robot")));
 			break;
-		/*case "P1":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Programme(this.monNiveau.getPersonnageByName("Robot")));
+		case "P1":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(1));
 			break;
-		case "P2":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Programme(this.monNiveau.getPersonnageByName("Robot")));
-			break;*/
-			
+			case "P2":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(2));
+			break;
 		default:
 			break;
 		}
