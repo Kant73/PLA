@@ -126,10 +126,11 @@ public class Terrain {
 					System.out.print("........"+" ");
 				}else{
 					String couleur = this.ensembleDeCase[x][y].getColor().toString();
+					int hauteur = this.ensembleDeCase[x][y].getHauteur();
 					for(int k=couleur.length(); k<8; k++){
 						couleur += " ";
 					}
-					System.out.print(couleur+" ");
+					System.out.print(hauteur + couleur+" ");
 				}
 				//if(this.ensembleDeCase[x][y]!=null) System.out.print("("+x+","+y+")"+this.ensembleDeCase[x][y].getColor()+" ");
 			System.out.println();
@@ -179,3 +180,5 @@ public class Terrain {
 	}
 
 }
+
+
