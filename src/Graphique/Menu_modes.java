@@ -15,7 +15,7 @@ import org.jsfml.window.event.Event;
 import LightBot.Mode_Jeu;
 import LightBot.NomMode;
 
-public class Menu_modes {
+public class Menu_modes extends Menu_principal{
 
 	private static final int nbBoutons = NomMode.values().length;
 	private Sprite [] mesBoutons;
@@ -23,7 +23,6 @@ public class Menu_modes {
 	
 	private Sprite spriteFond;
 	private Texture monFond;
-	
 	
 	private void init_images () 
 	{  

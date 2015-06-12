@@ -32,7 +32,7 @@ import LightBot.cases.Couleur;
 import LightBot.cases.Lampe;
 import LightBot.parser.Parser;
 
-public class Mon_test {
+public class Mon_test extends Menu_niveaux{
 	 
 	
 	static Niveau monNiveau;
@@ -60,7 +60,7 @@ public class Mon_test {
 	public List[] tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
 	public float reScale,reScaleRobot;
 	int xRobot,yRobot,nextXRobot,nextYRobot;
-	
+		
 	/**
 	 * Permet de determiner la position des cases
 	 */
@@ -744,6 +744,7 @@ public class Mon_test {
 				 else if (event.type == Event.Type.KEY_PRESSED) {
 				 if (Keyboard.isKeyPressed(Key.ESCAPE))
 					{
+					 	this.playMusic("Zarnakand.ogg");		//Relancement de la musique de menu.
 						sortie=false;
 					}	
 					 

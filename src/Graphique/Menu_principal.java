@@ -30,19 +30,23 @@ public class Menu_principal {
 	private Sprite spriteFond;
 	private Texture monFond;
 	
-
-	Music music = new Music();
-	//PARTIE MUSIQUE
-	private void playMusic() {
+	public static Music music = new Music();
+	
+	/**
+	 * Lancer la musique en paramètre comme par exemple "musique.ogg".
+	 * Convertir les fichiers audios en .ogg pour pouvoir les utiliser.
+	 * Ajouter les fichiers audios dans le package Music.
+	 * @param pNomMusique
+	 */
+	protected void playMusic(String pNomMusique) {
 		
 		try {
-			music.openFromFile(Paths.get("src/Music/Zarnakand.ogg"));
+			music.openFromFile(Paths.get("src/Music/" + pNomMusique));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		music.setVolume(30);
-		//music.setPlayingOffset(time);
+		music.setLoop(true);
 		music.play();
 	}
 
@@ -183,7 +187,7 @@ public class Menu_principal {
 		}
 		fenetre.setIcon(icon);
 		
-		monMenu.playMusic();
+		monMenu.playMusic("Zarnakand.ogg");
 		monMenu.afficher_menu();
 		
 	}

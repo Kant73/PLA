@@ -18,7 +18,7 @@ import org.jsfml.window.event.Event;
 import LightBot.Mode_Jeu;
 import LightBot.NomMode;
 
-public class Menu_niveaux {
+public class Menu_niveaux extends Menu_modes{
 
 	private Font police;
 	private Text monTexte;
@@ -147,6 +147,7 @@ private void init_font()
 							if(selection !=-1)
 							{
 								Mon_test level = new  Mon_test();
+								level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la résolution du niveau.
 								level.afficher_niveau(mj.getNiveaux().get(selection));
 								
 								Menu_principal.fenetre.draw(spriteFond);
