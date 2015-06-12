@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Vector;
 
-import Graphique.Afficher_niveau;
 import LightBot.personnage.Personnage;
 import LightBot.actions.*;
 
@@ -14,7 +13,6 @@ public class Ordonnanceur {
 	private ArrayList<Programme> progs;
 	private Vector<Iterator<Object>> listItActions;
 	private ArrayList<LinkedList<Iterator<Object>>> listFifo;
-	private Afficher_niveau afficheN;
 	
 	
 	public Ordonnanceur(ArrayList<Personnage> persos){
