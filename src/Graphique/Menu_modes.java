@@ -47,10 +47,11 @@ public class Menu_modes extends Menu_principal{
 		{
 			mesTextures[i]=new Texture();
 			try {
-				if(i<nbActuelImages)
-				{
+				
 					if(i<nbBoutons)
 					{
+						System.out.println("nb_bouton:" + this.nbBoutons);
+						System.out.println("i:" + i);
 						mesTextures[i].loadFromFile(Paths.get("src/Img/mode00"+i+".png"));
 						mesBoutons[i]=new Sprite();
 						mesBoutons[i].setTexture(mesTextures[i]);
@@ -62,27 +63,9 @@ public class Menu_modes extends Menu_principal{
 					}
 					else
 					{
+						System.out.println(i-this.nbBoutons);
 						mesTextures[i].loadFromFile(Paths.get("src/Img/mode00"+(i-this.nbBoutons)+"_select.png"));
 					}
-				}
-				else
-				{
-					if(i<nbBoutons)
-					{
-					mesTextures[i].loadFromFile(Paths.get("src/Img/mode000.png"));
-					mesBoutons[i]=new Sprite();
-					mesBoutons[i].setTexture(mesTextures[i]);
-					if(i%5==0 && i!=0)
-						k++;
-					
-					mesBoutons[i].setPosition(Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(mesTextures[i].getSize().x/2+ecartPix/2) + (mesTextures[i].getSize().x+ecartPix)*(i%nbMaxLigne)
-							, Menu_principal.fenetre.getSize().y/3+(mesTextures[i].getSize().y+ecartPix)*k);
-					}
-					else
-					{
-						mesTextures[i].loadFromFile(Paths.get("src/Img/mode000_select.png"));
-					}
-				}
 					
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
