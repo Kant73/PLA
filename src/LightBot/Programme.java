@@ -23,6 +23,10 @@ public class Programme {
 		return nbMaxAction;
 	}
 	
+	public int getNbElements(){
+		return this.currentIndex;
+	}
+	
 	public Vector<Object> getActions(){
 		return this.listActions;
 	}
