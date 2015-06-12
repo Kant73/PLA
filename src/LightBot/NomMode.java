@@ -5,6 +5,7 @@ public enum NomMode {
 		Procedure(NomMode.class.getResource("levels/procedure/").getPath()),
 		Loop(NomMode.class.getResource("levels/loop/").getPath()),
 		Condition(NomMode.class.getResource("levels/condition/").getPath()),
+		Pointeur(NomMode.class.getResource("levels/pointeur/").getPath()),
 		Memory(NomMode.class.getResource("levels/memory/").getPath()),
 		Fork(NomMode.class.getResource("levels/fork/").getPath()),
 		Versus_IA(NomMode.class.getResource("levels/ia/").getPath());

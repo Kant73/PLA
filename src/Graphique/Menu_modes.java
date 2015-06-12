@@ -67,6 +67,8 @@ public class Menu_modes extends Menu_principal{
 				}
 				else
 				{
+					if(i<nbBoutons)
+					{
 					mesTextures[i].loadFromFile(Paths.get("src/Img/mode000.png"));
 					mesBoutons[i]=new Sprite();
 					mesBoutons[i].setTexture(mesTextures[i]);
@@ -75,6 +77,11 @@ public class Menu_modes extends Menu_principal{
 					
 					mesBoutons[i].setPosition(Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(mesTextures[i].getSize().x/2+ecartPix/2) + (mesTextures[i].getSize().x+ecartPix)*(i%nbMaxLigne)
 							, Menu_principal.fenetre.getSize().y/3+(mesTextures[i].getSize().y+ecartPix)*k);
+					}
+					else
+					{
+						mesTextures[i].loadFromFile(Paths.get("src/Img/mode000_select.png"));
+					}
 				}
 					
 			} catch (IOException e) {
