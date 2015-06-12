@@ -86,17 +86,23 @@ public class Parser {
 		    			break;
 		    		case "ensembleDeCase" :
 		    			for(Node noeudCase:getChildren(childTerrain)){
-	    		    		//System.out.println("Sous-Sous-Noeuds : "+noeudCase.getNodeName());
+    		    			String nomFonction=getNodeAttribute(noeudCase,"type");
+    		    			//System.out.println("Sous-Sous-Noeuds : "+noeudCase.getNodeName());
 	    		    		int x = getIntNodeAttribute(noeudCase, "x");
     		    			int y = getIntNodeAttribute(noeudCase, "y");
     		    			int h = getIntNodeAttribute(noeudCase, "h");
-    		    			String couleur=getNodeAttribute(noeudCase, "couleur");    		    			
-    		    			String nomFonction=getNodeAttribute(noeudCase,"type");
-    		    			t.getEnsembleDeCase()[x][y] = newInstanceCase( nomFonction,h);
-    		    			if(!couleur.equals(""))t.getEnsembleDeCase()[x][y].setColor(Couleur.valueOf(couleur));
+    		    			t.getEnsembleDeCase()[x][y] = newInstanceCase(nomFonction, h);
+    		    			if(nomFonction.equals("Pointeur")){
+    		    				int xp = getIntNodeAttribute(noeudCase, "xp");
+    		    				int yp = getIntNodeAttribute(noeudCase, "yp");
+        		    			int hp = getIntNodeAttribute(noeudCase, "hp");
+        		    			t.getEnsembleDeCase()[xp][yp] = new Pointeur(hp,t.getEnsembleDeCase()[x][y]);
+    		    			}else{
+    		    				String couleur=getNodeAttribute(noeudCase, "couleur"); // Permet d'allumer des cases dès la lecture du terrain
+        		    			if(!couleur.equals(""))t.getEnsembleDeCase()[x][y].setColor(Couleur.valueOf(couleur));
+    		    			}
 		    			}
 		    			n.setTerrain(t);
-		    			t.affiche();
 		    			break;
 		    		default : break;
 		    		}

@@ -10,7 +10,6 @@ public class Pointeur extends Allumable {
 		this.suivante = null;
 	}
 	
-	
 	public Pointeur(int pHauteur, Case suiv) {			//Constructeur de la case Pointeur
 		super(Couleur.Vert, pHauteur);
 		this.suivante = suiv;
