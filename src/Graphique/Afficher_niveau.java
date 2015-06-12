@@ -658,6 +658,13 @@ public class Afficher_niveau extends Menu_niveaux{
 		case "allumer":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.monNiveau.getPersonnageByName("Robot")));
 			break;
+		/*case "P1":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Programme(this.monNiveau.getPersonnageByName("Robot")));
+			break;
+		case "P2":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Programme(this.monNiveau.getPersonnageByName("Robot")));
+			break;*/
+			
 		default:
 			break;
 		}

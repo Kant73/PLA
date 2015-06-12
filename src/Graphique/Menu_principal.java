@@ -7,15 +7,15 @@ import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
-import org.jsfml.system.Time;
+import org.jsfml.internal.JSFMLError;
+import org.jsfml.internal.SFMLNative;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
-import org.jsfml.window.Mouse;
 import org.jsfml.window.Keyboard.Key;
+import org.jsfml.window.Mouse;
 import org.jsfml.window.Mouse.Button;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
-import org.jsfml.audio.Music;;
 
 public class Menu_principal {
 	
@@ -116,6 +116,7 @@ public class Menu_principal {
 
 	public void afficher_menu()
 	{
+		
 		int selection=-1;
 		this.init_images () ;
 		fenetre.draw(spriteFond);
@@ -175,6 +176,11 @@ public class Menu_principal {
 	
 	public static void main(String[] args) {
 		
+
+try {SFMLNative.loadNativeLibraries();} 
+catch (JSFMLError err) {/*things*/}
+
+
 		fenetre.create(new VideoMode(1366, 768), "PXTB679X3");
 		Menu_principal monMenu = new Menu_principal();
 		
