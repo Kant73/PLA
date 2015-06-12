@@ -26,7 +26,7 @@ public class Mode_Jeu {
 	
 	private void setNiveaux(NomMode mode){
 		if(mode!=null && this.niveaux!=null){
-			File folder = new File(mode.getPath());
+			File folder = new File(mode.getPath().replace("%20", " "));			
 			ArrayList<String> noms=new ArrayList<String>();			
 			Parser p;
 			
