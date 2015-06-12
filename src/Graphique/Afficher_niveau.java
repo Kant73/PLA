@@ -558,46 +558,53 @@ public class Afficher_niveau extends Menu_niveaux{
 		nextYRobot=y;
 	}
 	
+	
+	public boolean action_deja_presente(StructStringSprite compare)
+	{
+		StructStringSprite temp = null;
+		for (int i = 0; i < this.list_action_possible.size(); i++) 
+		{
+			temp=(StructStringSprite) this.list_action_possible.get(i);
+			if (temp.nom.equals(compare.nom))
+			{
+				return true;
+			}	
+		}
+		return false;
+	}
+	
 	public void initActionsPossible()
 	{
 		this.list_action_possible = new LinkedList();
-		ArrayList al = monNiveau.getActions();
+		ArrayList al = monNiveau.getActions() ;
+		
 		for (int i = 0; i < al.size(); i++) {
+			
 			StructStringSprite struct = null;
 			if (al.get(i) instanceof Avancer) {
-				//this.spriteSymboleAvancer.setTexture(Textures.TexSymboleAvancer);
 				struct = this.new StructStringSprite(this.spriteSymboleAvancer, "avancer");
 			}
 			else if(al.get(i) instanceof Allumer) {
-				//this.spriteSymboleAllumer.setTexture(Textures.TexSymboleAllumer);
 				struct = this.new StructStringSprite(this.spriteSymboleAllumer, "allumer");
 			}
-			
 			else if(al.get(i) instanceof Break) {
-				struct = this.new StructStringSprite(this.spriteSymboleBreak, "break");
-				
+				struct = this.new StructStringSprite(this.spriteSymboleBreak, "break");	
 			}
-			
 			else if(al.get(i) instanceof Sauter) {
-				//this.spriteSymboleSauter.setTexture(Textures.TexSymboleSauter);
 				struct = this.new StructStringSprite(this.spriteSymboleSauter, "sauter");
 			}
-			
 			else if(al.get(i) instanceof TournerDroite) {
-				//this.spriteSymboleTournerDroite.setTexture(Textures.TexSymboleTournerDroite);
 				struct = this.new StructStringSprite(this.spriteSymboleTournerDroite, "droite");
 			}
-			
 			else if(al.get(i) instanceof TournerGauche) {
-				//this.spriteSymboleTournerGauche.setTexture(Textures.TexSymboleTournerGauche);
 				struct = this.new StructStringSprite(this.spriteSymboleTournerGauche, "gauche");
 			}
-			
 			else if(al.get(i) instanceof Wash) {
 				System.out.println("Wash");
 			}
 			
-			this.list_action_possible.add(struct);
+			if(!action_deja_presente(struct))
+				this.list_action_possible.add(struct);
 		}
 		
 		if(this.monNiveau.getProgrammes().size()>=2)
