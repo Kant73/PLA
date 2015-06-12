@@ -33,7 +33,7 @@ public class Menu_principal {
 //	public static Music music = new Music();
 //	
 //	/**
-//	 * Lancer la musique en paramètre comme par exemple "musique.ogg".
+//	 * Lancer la musique en paramï¿½tre comme par exemple "musique.ogg".
 //	 * Convertir les fichiers audios en .ogg pour pouvoir les utiliser.
 //	 * Ajouter les fichiers audios dans le package Music.
 //	 * @param pNomMusique
@@ -177,6 +177,9 @@ public class Menu_principal {
 		
 		fenetre.create(new VideoMode(1366, 768), "PXTB679X3");
 		Menu_principal monMenu = new Menu_principal();
+		
+		fenetre.setFramerateLimit(60);
+		fenetre.setVerticalSyncEnabled(true);
 		
 		Image icon = new Image();
 		try {
