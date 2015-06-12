@@ -16,13 +16,13 @@ public class Avancer extends Actions {
 	}
 	
 	public String toString(){
-		if(this.couleurCondition==Couleur.Violet)return "Avancer cond.";
+		if(this.couleurCondition==Couleur.Violet || this.couleurCondition==Couleur.Rose)return "Avancer cond.";
 		return "Avancer";
 	}
 
 	@Override
 	public void agir() {
-		if(this.couleurCondition==this.perso.getCouleur() || this.perso.getCouleur()==Couleur.Violet){
+		if(this.couleurCondition==this.perso.getCouleur() || (this.perso.getCouleur()==Couleur.Violet && this.couleurCondition!=Couleur.Rose) || (this.perso.getCouleur()==Couleur.Rose && this.couleurCondition!=Couleur.Violet)){
 			Pcardinaux o = this.perso.getOrientation();
 			Terrain T = this.perso.getTerrain();
 			int x = this.perso.getPositionX();

@@ -16,7 +16,7 @@ public abstract class Actions {
 	
 	public Actions(Personnage p,Couleur c){
 		this(p);
-		if(c==Couleur.Violet)this.couleurCondition=c;
+		if(c==Couleur.Violet || c==Couleur.Rose)this.couleurCondition=c;
 	}
 	
 	public void agir(){}

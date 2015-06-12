@@ -20,13 +20,13 @@ public class Allumer extends Actions {
 	}
 	
 	public String toString(){
-		if(this.couleurCondition==Couleur.Violet)return "Allumer cond.";
+		if(this.couleurCondition==Couleur.Violet || this.couleurCondition==Couleur.Rose)return "Allumer cond.";
 		return "Allumer";
 	}
 
 	@Override
 	public void agir() {
-		if(this.couleurCondition==this.perso.getCouleur() || this.perso.getCouleur()==Couleur.Violet){
+		if(this.couleurCondition==this.perso.getCouleur() || (this.perso.getCouleur()==Couleur.Violet && this.couleurCondition!=Couleur.Rose) || (this.perso.getCouleur()==Couleur.Rose && this.couleurCondition!=Couleur.Violet)){
 			Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()];
 			int nbLampeAllumee=this.perso.getTerrain().getNbLampeAllumee();
 			if (C instanceof Lampe){

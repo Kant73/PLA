@@ -15,13 +15,13 @@ public class TournerGauche extends Actions {
 	}
 
 	public String toString(){
-		if(this.couleurCondition==Couleur.Violet)return "TournerGauche cond.";
+		if(this.couleurCondition==Couleur.Violet || this.couleurCondition==Couleur.Rose)return "TournerGauche cond.";
 		return "TournerGauche";
 	}
 	
 	@Override
 	public void agir() {
-		if(this.couleurCondition==this.perso.getCouleur() || this.perso.getCouleur()==Couleur.Violet){
+		if(this.couleurCondition==this.perso.getCouleur() || (this.perso.getCouleur()==Couleur.Violet && this.couleurCondition!=Couleur.Rose) || (this.perso.getCouleur()==Couleur.Rose && this.couleurCondition!=Couleur.Violet)){
 			if (this.perso.getOrientation() == Pcardinaux.EAST){
 				this.perso.setOrientation(Pcardinaux.NORTH);
 			}
