@@ -23,7 +23,7 @@ public class Programme {
 		return nbMaxAction;
 	}
 	
-	public Vector<Object> getListActions(){
+	public Vector<Object> getActions(){
 		return this.listActions;
 	}
 	
