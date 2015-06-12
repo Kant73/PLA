@@ -10,6 +10,7 @@ public class Programme {
 	private int nbMaxAction;
 	private Vector<Object> listActions;
 	private String nom;
+	private int currentIndex=0;
 	
 	public Programme(String nom, int taille){
 		this.nbMaxAction= taille;	
@@ -18,19 +19,44 @@ public class Programme {
 		this.listActions.setSize(this.nbMaxAction);
 	}
 	
-	public int getNbMaxAction()
-	{
+	public int getNbMaxAction(){
 		return nbMaxAction;
 	}
 	
+	public Vector<Object> getListActions(){
+		return this.listActions;
+	}
+	
 	public void supprimer(int index){
-		if (index>=0 && index <this.nbMaxAction)this.listActions.set(index, null);
+		if (index>=0 && index <this.nbMaxAction){
+			this.listActions.set(index, null);
+			this.currentIndex--;
+		}
 	}
 	
 	public void inserer(Object obj, int index){
 		if (index>=0 && index <this.nbMaxAction)
-			if (obj instanceof Programme)this.listActions.set(index, (Programme)obj);
-			else if (obj instanceof Actions)this.listActions.set(index, (Actions)obj);		
+			if (obj instanceof Programme){
+				this.listActions.set(index, (Programme)obj);
+				this.currentIndex++;
+			}
+			else if (obj instanceof Actions){
+				this.listActions.set(index, (Actions)obj);
+				this.currentIndex++;
+			}
+			
+	}
+	
+	public void insererQueue(Object obj){
+		if(this.currentIndex<this.nbMaxAction)
+			if (obj instanceof Programme){
+				this.listActions.add((Programme)obj);
+				this.currentIndex++;
+			}
+			else if (obj instanceof Actions){
+				this.listActions.add((Actions)obj);
+				this.currentIndex++;
+			}
 	}
 	
 	public void execute(){
