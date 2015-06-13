@@ -20,8 +20,13 @@ public class Allumer extends Actions {
 	}
 	
 	public String toString(){
-		if(this.couleurCondition==Couleur.Violet || this.couleurCondition==Couleur.Rose)return "Allumer cond.";
-		return "Allumer";
+		if(this.couleurCondition==Couleur.Violet || this.couleurCondition==Couleur.Rose){
+			return "Allumer cond.";
+		}else if(this.couleurCondition == Couleur.Vert){
+			return "Allumer Pointeur";
+		}else{
+			return "Allumer";
+		}
 	}
 
 	@Override
