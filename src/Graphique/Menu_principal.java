@@ -17,6 +17,7 @@ import org.jsfml.window.Mouse.Button;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
+
 public class Menu_principal {
 	
 	public static final RenderWindow fenetre = new RenderWindow(); 
@@ -174,14 +175,16 @@ public class Menu_principal {
 	}
 	
 	
-	public static void main(String[] args) {
+
+	
+public static void main(String[] args) {
 		
 
-try {SFMLNative.loadNativeLibraries();} 
-catch (JSFMLError err) {/*things*/}
+	try {SFMLNative.loadNativeLibraries();} 
+	catch (JSFMLError err) {/*things*/}
 
 
-		fenetre.create(new VideoMode(1366, 768), "PXTB679X3");
+		fenetre.create(new VideoMode(1366, 768), "StarBot");
 		Menu_principal monMenu = new Menu_principal();
 		
 		fenetre.setFramerateLimit(60);
