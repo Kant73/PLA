@@ -18,12 +18,13 @@ import LightBot.NomMode;
 public class Menu_modes extends Menu_principal{
 
 	private static final int nbBoutons = NomMode.values().length;
-	private int nbActuelImages=7;
+	private int selection;
 	private Sprite [] mesBoutons;
 	private Texture[] mesTextures ;
 	
 	private Sprite spriteFond;
 	private Texture monFond;
+
 	
 	private void init_images () 
 	{  
@@ -47,7 +48,6 @@ public class Menu_modes extends Menu_principal{
 		{
 			mesTextures[i]=new Texture();
 			try {
-				
 					if(i<nbBoutons)
 					{
 						System.out.println("nb_bouton:" + this.nbBoutons);
@@ -74,21 +74,20 @@ public class Menu_modes extends Menu_principal{
 		}
 	}
 	
-	private int sprite_pos_souris(Vector2i pos)
+	private void hover(Vector2i pos)
 	{	
+		int last_select = this.selection;
+		this.selection=-1;
 		for (int i=0; i< this.nbBoutons; i++)
 		{
 			if(mesBoutons[i].getGlobalBounds().contains(pos.x,pos.y))
 			{
 				mesBoutons[i].setTexture(mesTextures[i+this.nbBoutons]);
-				return i;
+				this.selection=i;
 			}
 		}
-		
-		for (int i=0; i< this.nbBoutons ; i++)
-			mesBoutons[i].setTexture(mesTextures[i]);
-		
-		return -1;
+		if(this.selection!=last_select && last_select!=-1)
+			mesBoutons[last_select].setTexture(mesTextures[last_select]);
 	}
 	
 	
@@ -105,7 +104,7 @@ public class Menu_modes extends Menu_principal{
 	public void afficher_menu()
 	{
 		Menu_principal.fenetre.clear();
-		int selection=-1;
+		this.selection=-1;
 		this.init_images () ;
 		Menu_principal.fenetre.draw(spriteFond);
 		this.afficher_boutons();
@@ -120,14 +119,14 @@ public class Menu_modes extends Menu_principal{
 						if(event.asMouseButtonEvent().button == Button.LEFT)
 						{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							selection = sprite_pos_souris(pos);
+							hover(pos);
 							
-							if(selection !=-1)
+							if(this.selection !=-1)
 							{
 								Menu_niveaux modes = new  Menu_niveaux();
-								modes.afficher_menu(selection);
+								modes.afficher_menu(this.selection);
 								
-								selection = sprite_pos_souris(pos);
+								hover(pos);
 								Menu_principal.fenetre.draw(spriteFond);
 								this.afficher_boutons();
 								Menu_principal.fenetre.display();
@@ -144,11 +143,11 @@ public class Menu_modes extends Menu_principal{
 					else if (event.type == Event.Type.MOUSE_MOVED) 
 						{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							selection = sprite_pos_souris(pos);
+							hover(pos);
 							
 							Menu_principal.fenetre.draw(spriteFond);
-								this.afficher_boutons();
-								Menu_principal.fenetre.display();
+							this.afficher_boutons();
+							Menu_principal.fenetre.display();
 						}
 					
 					else if (event.type == Event.Type.CLOSED) {
