@@ -140,10 +140,10 @@ public class Menu_principal {
 							case jouer : 
 								Menu_modes modes = new  Menu_modes();
 								modes.afficher_menu();
-								System.out.println("JOUER");
 								break;
 							case credits :
-								System.out.println("CREDITS");
+								Credits credit = new  Credits();
+								credit.afficher_credits();
 							}
 							hover(pos);
 							fenetre.draw(spriteFond);

@@ -73,7 +73,7 @@ private void init_font()
 					
 					mesBoutons[i]=new Sprite();
 					mesBoutons[i].setTexture(maTexture);
-					if(i%5==0 && i!=0)
+					if(i%nbMaxLigne==0 && i!=0)
 						k++;
 					
 					mesBoutons[i].setPosition(Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(maTexture.getSize().x/2+ecartPix/2) + (maTexture.getSize().x+ecartPix)*(i%nbMaxLigne)

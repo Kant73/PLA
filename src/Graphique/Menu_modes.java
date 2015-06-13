@@ -55,7 +55,7 @@ public class Menu_modes extends Menu_principal{
 						mesTextures[i].loadFromFile(Paths.get("src/Img/mode00"+i+".png"));
 						mesBoutons[i]=new Sprite();
 						mesBoutons[i].setTexture(mesTextures[i]);
-						if(i%5==0 && i!=0)
+						if(i%nbMaxLigne==0 && i!=0)
 							k++;
 						
 						mesBoutons[i].setPosition(Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(mesTextures[i].getSize().x/2+ecartPix/2) + (mesTextures[i].getSize().x+ecartPix)*(i%nbMaxLigne)
