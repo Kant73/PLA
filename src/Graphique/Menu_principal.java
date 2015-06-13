@@ -3,6 +3,7 @@ package Graphique;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
@@ -130,11 +131,31 @@ public class Menu_principal {
 	}
 	
 
+private void fondu()
+{
+	for(int i=0;i<20;i++)
+	{
+		spriteFond.setColor(new Color(spriteFond.getColor(), 3*i));
+		fenetre.draw(spriteFond);
+		fenetre.display();
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	spriteFond.setColor(new Color(spriteFond.getColor(), 255));
+}
+
+	
 	public void afficher_menu()
 	{
 		
 		this.selection=-1;
 		this.init_images () ;
+		
+		
 		fenetre.draw(spriteFond);
 		this.afficher_boutons();
 		fenetre.display();
@@ -150,21 +171,25 @@ public class Menu_principal {
 							Vector2i pos = Mouse.getPosition(fenetre); 
 							hover(pos);
 							
-							switch (selection)
+							if(selection != -1)
 							{
-							case jouer : 
-								Menu_modes modes = new  Menu_modes();
-								modes.afficher_menu();
-								break;
-							case credits :
-								Credits credit = new  Credits();
-								credit.afficher_credits();
-							}
-						
-							fenetre.draw(spriteFond);
-							reinit_textures();
-							this.afficher_boutons();
-							fenetre.display();
+								fondu();
+								switch (selection)
+								{
+								case jouer : 
+									Menu_modes modes = new  Menu_modes();
+									modes.afficher_menu();
+									break;
+								case credits :
+									Credits credit = new  Credits();
+									credit.afficher_credits();
+								}
+								fondu();
+								fenetre.draw(spriteFond);
+								reinit_textures();
+								this.afficher_boutons();
+								fenetre.display();
+								}
 						}
 					}
 					else if (event.type == Event.Type.MOUSE_MOVED) 

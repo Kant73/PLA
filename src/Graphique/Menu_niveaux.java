@@ -125,6 +125,23 @@ private void init_font()
 		}
 	}
 	
+	private void fondu()
+	{
+		for(int i=0;i<20;i++)
+		{
+			spriteFond.setColor(new Color(spriteFond.getColor(), 3*i));
+			fenetre.draw(spriteFond);
+			fenetre.display();
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+		}
+		spriteFond.setColor(new Color(spriteFond.getColor(), 255));
+	}
+	
 	public void afficher_menu(int modeSelectionne)
 	{
 		Menu_principal.fenetre.clear();
@@ -153,10 +170,12 @@ private void init_font()
 							
 							if(selection !=-1)
 							{
+								fondu();
 								Afficher_niveau level = new  Afficher_niveau();
 								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la r�solution du niveau.
 								level.afficher_niveau(mj.getNiveaux().get(selection));
 								
+								fondu();
 								fenetre.draw(spriteFond);
 								reinit_textures();
 								this.afficher_boutons();
