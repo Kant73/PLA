@@ -2,26 +2,31 @@ package Graphique;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Random;
 
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
-import org.jsfml.window.Mouse;
 import org.jsfml.window.Keyboard.Key;
+import org.jsfml.window.Mouse;
 import org.jsfml.window.Mouse.Button;
 import org.jsfml.window.event.Event;
 
-import LightBot.Mode_Jeu;
 import LightBot.NomMode;
 
-public class Menu_modes extends Menu_principal{
+public class Credits {
 
-	private static final int nbBoutons = NomMode.values().length;
+	private static final int nbBoutons = 6;
+	private static final int rotMax = 60;
+	private static final int rotMin = -rotMax;
+
+	
 	private int selection;
 	private Sprite [] mesBoutons;
 	private Texture[] mesTextures ;
 	
+	private boolean [] sens;
 	private Sprite spriteFond;
 	private Texture monFond;
 
@@ -29,11 +34,12 @@ public class Menu_modes extends Menu_principal{
 	private void init_images () 
 	{  
 		int k=0;
-		int ecartPix = 30;
-		int nbMaxLigne=5;
+		int ecartPix = 150;
+		int nbMaxLigne=3;
+		sens = new boolean[nbBoutons];
 		monFond = new Texture();
 		mesBoutons = new Sprite[nbBoutons];
-		mesTextures = new Texture[nbBoutons*2];
+		mesTextures = new Texture[nbBoutons];
 		
 		try {
 			monFond.loadFromFile(Paths.get("src/Img/fond_menu.png"));
@@ -44,26 +50,24 @@ public class Menu_modes extends Menu_principal{
 			e1.printStackTrace();
 		}
 		
-		for (int i=0; i< this.nbBoutons*2 ; i++)
+		for (int i=0; i< this.nbBoutons ; i++)
 		{
 			mesTextures[i]=new Texture();
 			try {
-					if(i<nbBoutons)
-					{
-						mesTextures[i].loadFromFile(Paths.get("src/Img/mode00"+i+".png"));
-						mesBoutons[i]=new Sprite();
-						mesBoutons[i].setTexture(mesTextures[i]);
-						if(i%nbMaxLigne==0 && i!=0)
-							k++;
-						
-						mesBoutons[i].setPosition(Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(mesTextures[i].getSize().x/2+ecartPix/2) + (mesTextures[i].getSize().x+ecartPix)*(i%nbMaxLigne)
-								, Menu_principal.fenetre.getSize().y/3+(mesTextures[i].getSize().y+ecartPix)*k);
-					}
-					else
-					{
-						mesTextures[i].loadFromFile(Paths.get("src/Img/mode00"+(i-this.nbBoutons)+"_select.png"));
-					}
+					mesTextures[i].loadFromFile(Paths.get("src/Img/credit"+i+".png"));
+					mesBoutons[i]=new Sprite();
+					mesBoutons[i].setTexture(mesTextures[i]);
+					if(i%nbMaxLigne==0 && i!=0)
+						k++;
 					
+					mesBoutons[i].setPosition(150+Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(mesTextures[i].getSize().x/2+ecartPix/2) + (mesTextures[i].getSize().x+ecartPix)*(i%nbMaxLigne)
+							,300+(mesTextures[i].getSize().y+ecartPix-50)*k);
+					
+					mesBoutons[i].rotate((int)(Math.random() * (rotMax-rotMin)) + rotMin);
+					this.sens[i]=new Random().nextBoolean() ;
+					mesBoutons[i].setOrigin(mesBoutons[i].getTexture().getSize().x/2, mesBoutons[i].getTexture().getSize().y/2);
+
+						
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -71,21 +75,32 @@ public class Menu_modes extends Menu_principal{
 		}
 	}
 	
-	private void hover(Vector2i pos)
-	{	
-		int last_select = this.selection;
-		this.selection=-1;
+	private void anim_credits()
+	{
 		for (int i=0; i< this.nbBoutons; i++)
 		{
-			if(mesBoutons[i].getGlobalBounds().contains(pos.x,pos.y))
+			if(this.sens[i])
 			{
-				mesBoutons[i].setTexture(mesTextures[i+this.nbBoutons]);
-				this.selection=i;
-			}
+				mesBoutons[i].rotate(2.0f);
+				
+				if(mesBoutons[i].getRotation()>=rotMax)
+					this.sens[i]=false;
+			}	
 		}
-		if(this.selection!=last_select && last_select!=-1)
-			mesBoutons[last_select].setTexture(mesTextures[last_select]);
+	
+		for (int i=0; i< this.nbBoutons; i++)
+		{
+			if(!this.sens[i])
+			{
+				mesBoutons[i].rotate(-2.0f);
+				
+				if(mesBoutons[i].getRotation()<=rotMin)
+					this.sens[i]=true;
+			}
+		}	
 	}
+
+
 	
 	
 	private void afficher_boutons()
@@ -97,24 +112,17 @@ public class Menu_modes extends Menu_principal{
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
 	}
 	
-	private void reinit_textures()
-	{
-		for (int i=0; i< this.nbBoutons; i++)
-		{
-				mesBoutons[i].setTexture(mesTextures[i]);
-		}
-	}
-	
 
 	
-	public void afficher_menu()
+	public void afficher_credits()
 	{
 		Menu_principal.fenetre.clear();
+
+
 		this.selection=-1;
 		this.init_images () ;
 		Menu_principal.fenetre.draw(spriteFond);
-		this.afficher_boutons();
-		Menu_principal.fenetre.display();
+		
 		boolean sortie=true;
 		while (Menu_principal.fenetre.isOpen() && sortie  ) 
 		{
@@ -125,24 +133,10 @@ public class Menu_modes extends Menu_principal{
 						if(event.asMouseButtonEvent().button == Button.LEFT)
 						{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							hover(pos);
-							
-							if(this.selection !=-1)
-							{
-								Menu_niveaux modes = new  Menu_niveaux();
-								modes.afficher_menu(this.selection);
-								
-								fenetre.draw(spriteFond);
-								reinit_textures();
-								this.afficher_boutons();
-								fenetre.display();
-							}
-							
 							if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
 							{
 								sortie=false;
 							}
-							
 						}
 					}
 					else if (event.type == Event.Type.KEY_PRESSED) 
@@ -152,28 +146,22 @@ public class Menu_modes extends Menu_principal{
 							sortie=false;
 						}	
 					}
-					else if (event.type == Event.Type.MOUSE_MOVED) 
-						{
-							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							hover(pos);
-							
-							Menu_principal.fenetre.draw(spriteFond);
-							this.afficher_boutons();
-							Menu_principal.fenetre.display();
-						}
-					
 					else if (event.type == Event.Type.CLOSED) {
 						Menu_principal.fenetre.close();
 					}
 				}
-			
+				
+				anim_credits();
+				Menu_principal.fenetre.draw(spriteFond);
+				this.afficher_boutons();
+				Menu_principal.fenetre.display();
+				
 				try {
-					Thread.sleep(15);
+					Thread.sleep(10);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}			
 		}
 	}
-	
 }

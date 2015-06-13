@@ -114,9 +114,16 @@ private void init_font()
 					,mesBoutons[i].getPosition().y+mesBoutons[i].getTexture().getSize().y/2-monTexte.getLocalBounds().height/2-10);
 			Menu_principal.fenetre.draw(monTexte);
 		}
+		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
 	}
 	
-
+	private void reinit_textures()
+	{
+		for (int i=0; i< this.nbBoutons; i++)
+		{
+				mesBoutons[i].setTexture(maTexture);
+		}
+	}
 	
 	public void afficher_menu(int modeSelectionne)
 	{
@@ -150,11 +157,17 @@ private void init_font()
 								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la r�solution du niveau.
 								level.afficher_niveau(mj.getNiveaux().get(selection));
 								
-								Menu_principal.fenetre.draw(spriteFond);
+								fenetre.draw(spriteFond);
+								reinit_textures();
 								this.afficher_boutons();
-								Menu_principal.fenetre.display();
+								fenetre.display();
 								
 							}
+							if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
+							{
+								sortie=false;
+							}
+								
 						}
 					}
 					else if (event.type == Event.Type.KEY_PRESSED) 

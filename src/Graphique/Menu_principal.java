@@ -21,10 +21,13 @@ import org.jsfml.window.event.Event;
 public class Menu_principal {
 	
 	public static final RenderWindow fenetre = new RenderWindow(); 
+	public static Texture texRetour;
+	public static Sprite spriteRetour;
 	
 	private static final int nbBoutons = 2;
 	private static final int jouer = 0;
 	private static final int credits = 1;
+	
 	private Sprite [] mesBoutons;
 	private Texture[] mesTextures ;
 	
@@ -57,15 +60,19 @@ public class Menu_principal {
 		monFond = new Texture();
 		mesBoutons = new Sprite[nbBoutons];
 		mesTextures = new Texture[nbBoutons*2];
-		
+		texRetour = new Texture();
+		spriteRetour = new Sprite();
 		try {
 			monFond.loadFromFile(Paths.get("src/Img/fond_menu.png"));
+			texRetour.loadFromFile(Paths.get("src/Img/retour.png"));
 			spriteFond=new Sprite ();
 			spriteFond.setTexture(monFond);
 			spriteFond.setPosition(0,0);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		spriteRetour.setTexture(texRetour);
+		spriteRetour.setPosition(0, 0);
 		
 		for (int i=0; i< this.nbBoutons*2 ; i++)
 		{
@@ -103,6 +110,14 @@ public class Menu_principal {
 		}
 		if(this.selection!=last_select && last_select!=-1)
 			mesBoutons[last_select].setTexture(mesTextures[last_select]);
+	}
+	
+	private void reinit_textures()
+	{
+		for (int i=0; i< this.nbBoutons; i++)
+		{
+				mesBoutons[i].setTexture(mesTextures[i]);
+		}
 	}
 	
 	
@@ -145,8 +160,9 @@ public class Menu_principal {
 								Credits credit = new  Credits();
 								credit.afficher_credits();
 							}
-							hover(pos);
+						
 							fenetre.draw(spriteFond);
+							reinit_textures();
 							this.afficher_boutons();
 							fenetre.display();
 						}

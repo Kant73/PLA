@@ -316,7 +316,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	 */
 	public void SetSprites()
 	{
-		int ecart=50;
+		int ecart=70;
 		this.spriteRobot=new Sprite();
 		switch (monNiveau.getPersonnages().get(0).getOrientation())
 		{
@@ -343,7 +343,6 @@ public class Afficher_niveau extends Menu_niveaux{
 			spritesProcedures[i].setTexture(Textures.texProcs[i]);	
 		}
 		
-	
 		
 		spritesProcedures[0].setPosition(25, ecart);
 		spritesProcedures[1].setPosition(25,spritesProcedures[0].getPosition().y + spritesProcedures[0].getTexture().getSize().y + ecart );
@@ -531,6 +530,7 @@ public class Afficher_niveau extends Menu_niveaux{
 				Menu_principal.fenetre.draw(temp.sprite);
 			}
 		}
+		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
 		Menu_principal.fenetre.draw(this.spriteBoutonPlay);
 	}
 	
@@ -740,6 +740,11 @@ public class Afficher_niveau extends Menu_niveaux{
 						}
 						else
 							sprite_selectionne(pos);
+						
+						if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
+						{
+							sortie=false;
+						}
 					}
 	
 					if (event.type == Event.Type.CLOSED) {
