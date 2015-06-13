@@ -50,8 +50,6 @@ public class Menu_modes extends Menu_principal{
 			try {
 					if(i<nbBoutons)
 					{
-						System.out.println("nb_bouton:" + this.nbBoutons);
-						System.out.println("i:" + i);
 						mesTextures[i].loadFromFile(Paths.get("src/Img/mode00"+i+".png"));
 						mesBoutons[i]=new Sprite();
 						mesBoutons[i].setTexture(mesTextures[i]);
@@ -63,7 +61,6 @@ public class Menu_modes extends Menu_principal{
 					}
 					else
 					{
-						System.out.println(i-this.nbBoutons);
 						mesTextures[i].loadFromFile(Paths.get("src/Img/mode00"+(i-this.nbBoutons)+"_select.png"));
 					}
 					
