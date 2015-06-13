@@ -2,6 +2,7 @@ package LightBot.parser;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -53,12 +54,19 @@ public class Parser {
 			final DocumentBuilder builder = factory.newDocumentBuilder(); // création d'un parseur
 			this.doc = builder.parse(new File(fichier)); // création d'un Document
 		}catch (final ParserConfigurationException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		}
+		} catch (SAXException e) {}
+	}
+	
+	public Parser(InputStream is){
+		this.n = new Niveau();
+		try{
+			final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			final DocumentBuilder builder = factory.newDocumentBuilder(); // création d'un parseur
+			this.doc = builder.parse(is); // création d'un Document
+		}catch (final ParserConfigurationException e) {
+        } catch (IOException e) {
+		} catch (SAXException e) {}
 	}
 	
 	public void lire(){
