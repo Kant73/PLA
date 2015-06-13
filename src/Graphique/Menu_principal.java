@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Image;
+import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
@@ -214,6 +215,8 @@ private void fondu()
 				}			
 		}
 	}
+	
+
 	
 	
 

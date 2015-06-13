@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.PrimitiveType;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
@@ -20,7 +21,6 @@ import org.jsfml.window.Mouse.Button;
 import org.jsfml.window.event.Event;
 
 import LightBot.Niveau;
-import LightBot.Programme;
 import LightBot.actions.Allumer;
 import LightBot.actions.Avancer;
 import LightBot.actions.Break;
@@ -45,7 +45,7 @@ public class Afficher_niveau extends Menu_niveaux{
 
 	public Sprite[][][] SpriteCases;
 	public Sprite [] spritesProcedures;
-	
+	public Sprite [][] spriteAnim;
 	
 	public Sprite spriteBoutonPlay;
 	public Sprite spriteP1;
@@ -68,6 +68,22 @@ public class Afficher_niveau extends Menu_niveaux{
 	int xRobot,yRobot,nextXRobot,nextYRobot;
 	int progSelect;
 		
+	private void initialiser_anim()
+	{
+		spriteAnim = new Sprite[4][9];
+		int debutX=0,debutY=8,tailleX=64,tailleY=64;
+		
+		for(int i=0;i<spriteAnim.length;i++)
+		{
+			for(int j = 0; j <spriteAnim[i].length;j++)
+			{
+				spriteAnim[i][j]=new Sprite();
+				spriteAnim[i][j].setTexture(Textures.maFeuille);
+				spriteAnim[i][j].setTextureRect(new IntRect(debutX+j*tailleX, debutY*tailleY+i*tailleY, tailleX, tailleY));
+				spriteAnim[i][j].setScale(reScaleRobot,reScaleRobot);
+			}
+		}		
+	}
 	/**
 	 * Permet de determiner la position des cases
 	 */

@@ -9,6 +9,8 @@ public class Textures {
 
 	
 	public static Texture []texProcs;
+	public static Texture maFeuille ;
+
 	
 	public static Texture TexP1 ;
 	public static Texture TexP2 ;
@@ -77,10 +79,12 @@ public class Textures {
 		TexSymboleGauche = new Texture();
 		TexSymboleReculer = new Texture();
 		TexSymboleSauter = new Texture();
-		TexRobotNE = new Texture();
-		TexRobotNW = new Texture();
-		TexRobotSE = new Texture();
-		TexRobotSW = new Texture();
+
+		TexRobotNE= new Texture();
+		TexRobotNW= new Texture();
+		TexRobotSE= new Texture();
+		TexRobotSW= new Texture();
+		maFeuille = new Texture();
 		
 		try {
 			for (int i=0;i< texProcs.length;i++)
@@ -91,7 +95,7 @@ public class Textures {
 				else
 					texProcs[i].loadFromFile(Paths.get("src/Img/proc"+(texProcs.length-i-1)+"_select.png"));
 			}
-			
+			maFeuille.loadFromFile(Paths.get("src/Img/feuille.png"));
 			TexVerrou.loadFromFile(Paths.get("src/Img/verrou.png"));
 			TexCaseBase.loadFromFile(Paths.get("src/Img/case0.png"));
 			TexCaseLumEteinte.loadFromFile(Paths.get("src/Img/case1.png"));
