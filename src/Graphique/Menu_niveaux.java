@@ -32,17 +32,17 @@ public class Menu_niveaux extends Menu_modes{
 	private int selection;
 	
 	
-private void init_font()
-{
-	police = new Font();
-	
-	try {
-		police.loadFromFile(Paths.get("src/Fonts/Starjedi.ttf"));
-	} catch(IOException ex) {
-	    //Failed to load font
-	    ex.printStackTrace();
+	private void init_font()
+	{
+		police = new Font();
+		
+		try {
+			police.loadFromFile(Paths.get("src/Fonts/Starjedi.ttf"));
+		} catch(IOException ex) {
+		    //Failed to load font
+		    ex.printStackTrace();
+		}
 	}
-}
 	
 	
 	private void init_images () 
