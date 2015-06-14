@@ -84,6 +84,8 @@ public class Afficher_niveau extends Menu_niveaux{
 			}
 		}		
 	}
+	
+	
 	/**
 	 * Permet de determiner la position des cases
 	 */
@@ -120,8 +122,9 @@ public class Afficher_niveau extends Menu_niveaux{
 		}	
 	}
 		
+	
 	/**
-	 * Permet d'afficher les cadres pour les procédures (dont le main)
+	 * Permet d'afficher les cadres pour les procÃ©dures (dont le main)
 	 */
 	public void afficher_cadre_procedures()
 	{
@@ -153,6 +156,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		}
 		Menu_principal.fenetre.display();
 	}
+	
 	
 	/**
 	 * Permet de changer la position du robot
@@ -336,6 +340,8 @@ public class Afficher_niveau extends Menu_niveaux{
 		if(this.progSelect!=last_select)
 			spritesProcedures[last_select].setTexture(Textures.texProcs[last_select]);
 	}
+	
+	
 	/**
 	 * Permet d'initialiser tous les sprites avec leur textures
 	 */
@@ -370,8 +376,8 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		
 		spritesProcedures[0].setPosition(25, ecart);
-		spritesProcedures[1].setPosition(25,spritesProcedures[0].getPosition().y + spritesProcedures[0].getTexture().getSize().y + ecart );
-		spritesProcedures[2].setPosition(25,	spritesProcedures[1].getPosition().y + spritesProcedures[1].getTexture().getSize().y + ecart );
+		spritesProcedures[1].setPosition(25, spritesProcedures[0].getPosition().y + spritesProcedures[0].getTexture().getSize().y + ecart );
+		spritesProcedures[2].setPosition(25, spritesProcedures[1].getPosition().y + spritesProcedures[1].getTexture().getSize().y + ecart );
 		spritesProcedures[0].setTexture(Textures.texProcs[3]);
 		
 		spriteBoutonPlay=new Sprite();
@@ -476,7 +482,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	/**
 	 * Permet de ne pas avoir de doublon dans la liste des actions possible pour un niveau
 	 * @param compare
-	 * @return true si l'action est déjà présente, false sinon
+	 * @return true si l'action est dï¿½jï¿½ prï¿½sente, false sinon
 	 */
 	public boolean action_deja_presente(StructStringSprite compare)
 	{
@@ -493,7 +499,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	/**
-	 * Initialise la liste des sprites avec uniquement les actions possible pour un niveau donné
+	 * Initialise la liste des sprites avec uniquement les actions possible pour un niveau donnï¿½
 	 */
 	public void initActionsPossible()
 	{
@@ -567,7 +573,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	/**
-	 * Permet d'afficher les procédures (le main et les deux autres sous procédures)
+	 * Permet d'afficher les procï¿½dures (le main et les deux autres sous procï¿½dures)
 	 */
 	public void afficher_procedure(){
 		for(int i=0;i< this.monNiveau.getProgrammes().size(); i++ )
@@ -678,6 +684,11 @@ public class Afficher_niveau extends Menu_niveaux{
 		}	
 	}
 	
+	
+	/**
+	 * Permet d'inserer une action dans la liste des programmes par rapport Ã  la liste des sprites
+	 * @param struct
+	 */
 	public void inserer_actions(StructStringSprite struct){
 		switch (struct.nom) {
 		case "avancer":
@@ -707,7 +718,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	/**
-	 * Méthode principale de la classe qui permet d'afficher tout un niveau avec les actions et procédures associée
+	 * MÃ©thode principale de la classe qui permet d'afficher tout un niveau avec les actions et procÃ©dures associÃ©e
 	 * @param niveauCharger Le niveau que l'on veut afficher
 	 */
 	public void afficher_niveau(Niveau niveauCharger)
