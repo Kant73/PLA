@@ -117,8 +117,18 @@ public class Afficher_niveau extends Menu_niveaux{
 						SpriteCases[i][j][etageActuel].setPosition(SpriteCases[i][j][etageActuel-1].getPosition().x ,SpriteCases[i][j][etageActuel-1].getPosition().y- SpriteCases[i][j][etageActuel-1].getTexture().getSize().y/divY);
 				}
 			}		
-	}	
-}
+		}	
+	}
+		
+	/**
+	 * Permet d'afficher les cadres pour les procédures (dont le main)
+	 */
+	public void afficher_cadre_procedures()
+	{
+		for (int i=0; i< this.monNiveau.getProgrammes().size(); i++)
+			Menu_principal.fenetre.draw(spritesProcedures[i]);
+	}
+	
 	
 	/**
 	 * Permet d'afficher notre terrain ainsi que le fond dÃ©gradÃ©, les boutons d'action dispo pour un niveau et les actions qui sont dans les procÃ©dures (dont le main)
@@ -126,8 +136,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	void afficher_carte()
 	{
 		Menu_principal.fenetre.draw(this.gradient);
-		for (int i=0; i< this.monNiveau.getProgrammes().size(); i++)
-			Menu_principal.fenetre.draw(spritesProcedures[i]);
+		afficher_cadre_procedures();
 		this.afficher_boutons();
 		this.afficher_procedure();
 		for(int i= NB_CASE_X-1;i>=0;i--)
@@ -464,7 +473,11 @@ public class Afficher_niveau extends Menu_niveaux{
 		nextYRobot=y;
 	}
 	
-	
+	/**
+	 * Permet de ne pas avoir de doublon dans la liste des actions possible pour un niveau
+	 * @param compare
+	 * @return true si l'action est déjà présente, false sinon
+	 */
 	public boolean action_deja_presente(StructStringSprite compare)
 	{
 		StructStringSprite temp = null;
@@ -479,6 +492,9 @@ public class Afficher_niveau extends Menu_niveaux{
 		return false;
 	}
 	
+	/**
+	 * Initialise la liste des sprites avec uniquement les actions possible pour un niveau donné
+	 */
 	public void initActionsPossible()
 	{
 		this.list_action_possible = new LinkedList();
@@ -550,6 +566,9 @@ public class Afficher_niveau extends Menu_niveaux{
 		Menu_principal.fenetre.draw(this.spriteBoutonPlay);
 	}
 	
+	/**
+	 * Permet d'afficher les procédures (le main et les deux autres sous procédures)
+	 */
 	public void afficher_procedure(){
 		for(int i=0;i< this.monNiveau.getProgrammes().size(); i++ )
 		{
@@ -571,6 +590,7 @@ public class Afficher_niveau extends Menu_niveaux{
 			}
 		}
 	}
+	
 	
 	/**
 	 * Permet d'executer les actions contenues dans le main 
@@ -686,6 +706,10 @@ public class Afficher_niveau extends Menu_niveaux{
 		}
 	}
 	
+	/**
+	 * Méthode principale de la classe qui permet d'afficher tout un niveau avec les actions et procédures associée
+	 * @param niveauCharger Le niveau que l'on veut afficher
+	 */
 	public void afficher_niveau(Niveau niveauCharger)
 	{
 		this.progSelect=0;
