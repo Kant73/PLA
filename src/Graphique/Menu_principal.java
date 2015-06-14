@@ -66,7 +66,7 @@ public class Menu_principal {
 		spriteRetour = new Sprite();
 		try {
 			monFond.loadFromFile(Paths.get("src/Img/fond_menu.png"));
-			texRetour.loadFromFile(Paths.get("src/Img/retour.png"));
+			texRetour.loadFromFile(Paths.get("src/Img/retour2.png"));
 			spriteFond=new Sprite ();
 			spriteFond.setTexture(monFond);
 			spriteFond.setPosition(0,0);
