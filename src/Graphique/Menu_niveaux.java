@@ -37,7 +37,7 @@ private void init_font()
 	police = new Font();
 	
 	try {
-		police.loadFromFile(Paths.get("src/Fonts/arial.ttf"));
+		police.loadFromFile(Paths.get("src/Fonts/Starjedi.ttf"));
 	} catch(IOException ex) {
 	    //Failed to load font
 	    ex.printStackTrace();
@@ -107,8 +107,32 @@ private void init_font()
 		for (int i=0; i< this.nbBoutons; i++)/*On affiche les boutons et les numéros à l'intérieur*/
 		{
 			Menu_principal.fenetre.draw(mesBoutons[i]);
-			
-			monTexte.setString("" + (i+1));
+			switch ((i+1)) {
+			case 1:
+				monTexte.setString("i");
+				break;
+			case 2:
+				monTexte.setString("ii");
+				break;
+			case 3:
+				monTexte.setString("iii");
+				break;
+			case 4:
+				monTexte.setString("iv");
+				break;
+			case 5:
+				monTexte.setString("v");
+				break;
+			case 6:
+				monTexte.setString("vi");
+				break;
+			case 7:
+				monTexte.setString("vii");
+				break;
+			default:
+				break;
+			}
+			//monTexte.setString("" + (i+1));
 			
 			monTexte.setPosition(mesBoutons[i].getPosition().x+mesBoutons[i].getTexture().getSize().x/2-monTexte.getLocalBounds().width/2
 					,mesBoutons[i].getPosition().y+mesBoutons[i].getTexture().getSize().y/2-monTexte.getLocalBounds().height/2-10);
