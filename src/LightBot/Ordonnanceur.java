@@ -5,22 +5,32 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Vector;
 
+import Graphique.Afficher_niveau;
+import LightBot.actions.Actions;
+import LightBot.actions.Allumer;
+import LightBot.actions.Avancer;
+import LightBot.actions.Break;
+import LightBot.actions.Sauter;
+import LightBot.actions.TournerDroite;
+import LightBot.actions.TournerGauche;
 import LightBot.personnage.Personnage;
-import LightBot.actions.*;
 
 public class Ordonnanceur {
 
 	private ArrayList<Programme> progs;
 	private Vector<Iterator<Object>> listItActions;
 	private ArrayList<LinkedList<Iterator<Object>>> listFifo;
+	private Personnage pers;
+	private Afficher_niveau affichage;
 	
-	
-	public Ordonnanceur(ArrayList<Personnage> persos){
+	public Ordonnanceur(ArrayList<Personnage> persos, Afficher_niveau affichage){
 		this.progs=new ArrayList<Programme>();
 		this.listItActions=new Vector<Iterator<Object>>();
 		this.listFifo=new ArrayList<LinkedList<Iterator<Object>>>();
+		this.affichage=affichage;
 		for(int i=0;i<persos.toArray().length;i++){
 			this.progs.add(persos.get(i).getProgramme());
+			this.pers=persos.get(0);
 			this.listItActions.add(persos.get(i).getProgramme().getActions().iterator());
 			this.listFifo.add(new LinkedList<Iterator<Object>>());
 			this.listFifo.get(i).add(this.listItActions.get(i));
@@ -58,7 +68,40 @@ public class Ordonnanceur {
 					int nbLampeAllumee=((Actions)obj).getPersonnage().getTerrain().getNbLampeAllumee();
 					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() || ((Actions)obj).getPersonnage().isMort()) throw new ArrayIndexOutOfBoundsException();
 					else{
+						
 						((Actions)obj).agir();
+						if((Actions)obj instanceof Avancer)
+						{
+							this.affichage.avancer();
+						}
+						else if((Actions)obj instanceof Sauter)
+						{
+							this.affichage.sauter();
+						}
+						else if((Actions)obj instanceof Allumer)
+						{
+							// Ajouter une animation
+						}
+						else if((Actions)obj instanceof TournerDroite)
+						{
+							this.affichage.tourner_droite();
+						}
+						else if((Actions)obj instanceof TournerGauche)
+						{
+							this.affichage.tourner_gauche();
+						}
+						
+						
+						
+						this.affichage.set_textures_cases();
+						this.affichage.afficher_carte();
+						
+						
+						
+						/*
+						System.out.println(((Actions)obj).toString());
+						System.out.println(this.pers.getPositionX()+" "+this.pers.getPositionY());
+						System.out.println(this.pers.getOrientation());*/
 					}
 				}
 				else if(obj instanceof Programme){
