@@ -57,6 +57,7 @@ public class Ordonnanceur {
 	}
 	
 	private void execute(Iterator<Object> itActions,int index) throws ArrayIndexOutOfBoundsException,BreakException{
+		int lastX,lastY;
 		try{			
 			
 			if(itActions.hasNext()){
@@ -69,15 +70,15 @@ public class Ordonnanceur {
 					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() || ((Actions)obj).getPersonnage().isMort()) throw new ArrayIndexOutOfBoundsException();
 					else{
 						
-						System.out.println(" 1   " + this.pers.getPositionX() + " " + this.pers.getPositionY());
-						System.out.println(this.pers.getOrientation());
+						lastX=this.pers.getPositionX();
+						lastY=this.pers.getPositionY();	
 						((Actions)obj).agir();
-						System.out.println(" 2   " + this.pers.getPositionX() + " " + this.pers.getPositionY());
+						
 						
 						int ancX = this.pers.getPositionX(),ancY=this.pers.getPositionY();
 						if((Actions)obj instanceof Avancer)
 						{
-							this.affichage.avancer();
+							this.affichage.avancer(lastX,lastY);
 						}
 						else if((Actions)obj instanceof Sauter)
 						{
@@ -87,7 +88,6 @@ public class Ordonnanceur {
 						{
 							// Ajouter une animation
 						}
-						System.out.println(this.pers.getOrientation());
 						
 						this.affichage.set_pos_robot();
 						this.affichage.set_textures_cases();

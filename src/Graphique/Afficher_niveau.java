@@ -180,44 +180,42 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	
-	public void avancer()
+	public void avancer(int lastX,int lastY)
 	{
-		int newX,newY;
-		newX=xRobot;
-		newY=yRobot;
-		float deplX=0,deplY = 0,deplSaut=0;
+		int newX=monNiveau.getPersonnages().get(0).getPositionX(),newY=monNiveau.getPersonnages().get(0).getPositionY();
+		float deplX=0,deplY = 0;
 		float coeff = 2;
+		xRobot=lastX;
+		yRobot=lastY;
+		nextXRobot=newX;
+		nextYRobot=newY;
 		
 		switch (monNiveau.getPersonnages().get(0).getOrientation())
 		{
 		case  SOUTH:
-			if(yRobot+1<NB_CASE_Y && monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot+1].getHauteur()>=0)
+			if(lastY+1<NB_CASE_Y && monNiveau.getTerrain().getEnsembleDeCase()[lastX][lastY+1].getHauteur()>=0)
 			{
-				newY=yRobot+1;	
 				deplX=-1;
 				deplY=-0.5f;
 			}
 			break;
 		case  NORTH:
-			if(yRobot-1>=0 && monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot-1].getHauteur()>=0)
+			if(lastY-1>=0 && monNiveau.getTerrain().getEnsembleDeCase()[lastX][lastY-1].getHauteur()>=0)
 			{
-				newY=yRobot-1;	
 				deplX=1;
 				deplY=0.5f;
 			}
 			break;
 		case WEST :
-			if(xRobot-1>=0 && monNiveau.getTerrain().getEnsembleDeCase()[xRobot-1][yRobot].getHauteur()>=0)
-			{
-				newX=xRobot-1;	
+			if(lastX-1>=0 && monNiveau.getTerrain().getEnsembleDeCase()[lastX-1][lastY].getHauteur()>=0)
+			{	
 				deplX=-1;
 				deplY=0.5f;
 			}
 			break;
 		case EAST :
-			if(xRobot+1<NB_CASE_X && monNiveau.getTerrain().getEnsembleDeCase()[xRobot+1][yRobot].getHauteur()>=0)
+			if(lastX+1<NB_CASE_X && monNiveau.getTerrain().getEnsembleDeCase()[lastX+1][lastY].getHauteur()>=0)
 			{
-				newX=xRobot+1;
 				deplX=1;
 				deplY=-0.5f;
 			}
@@ -226,10 +224,8 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 		deplX=deplX*coeff;
 		deplY=deplY*coeff;
-		if(yRobot!=newY || xRobot != newX)
+		if(lastY!=newY || lastX != newX)
 		{
-			nextXRobot=newX;
-			nextYRobot=newY;
 			Vector2f posFinale,posInit;
 		
 			posFinale = new Vector2f(SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x 
@@ -274,17 +270,13 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	
-	public void sauter(int ancX,int ancY)
+	public void sauter(int lastX,int lastY)
 	{
-		int newX,newY;
-		newX=xRobot;
-		newY=yRobot;
-		float deplX=0,deplY = 0,deplSaut=0;
+		int newX=monNiveau.getPersonnages().get(0).getPositionX(),newY=monNiveau.getPersonnages().get(0).getPositionY();
+		float deplSaut=0;
 		float coeff = 2;
-		Vector2f posFinale,posInit;
+		Vector2f posInit;
 		
-		posFinale = new Vector2f(SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x + reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().width/2, 
-				SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y +reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height);
 		posInit = new Vector2f(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x,spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y);
 		
 		
@@ -309,7 +301,7 @@ public class Afficher_niveau extends Menu_niveaux{
 				afficher_carte();	
 			}
 		}
-		this.avancer();
+		this.avancer(lastX,lastY);
 	}
 	
 	
@@ -739,13 +731,20 @@ public class Afficher_niveau extends Menu_niveaux{
 							monNiveau=mj.getNiveau(selection);
 							
 							int save_select = this.progSelect;
-							
+							/*On supprime toute les actions qui existaient au cas où ?*/
+							for(int l=0;l<monNiveau.getProgrammes().size();l++)
+							{
+								for(int k=monNiveau.getProgrammes().get(l).getNbElements();k>0;k--)
+								{
+									monNiveau.getProgrammes().get(l).supprimer(k);
+								}
+							}
+							/*On réinsère les actions*/
 							for(int l=0;l<tabProgramme.length;l++)
 							{
 								this.progSelect=l;
 								if (!tabProgramme[this.progSelect].isEmpty()) {
 									for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
-										
 										temp = (StructStringSprite) tabProgramme[this.progSelect].get(k);
 										StructStringSprite struct = new StructStringSprite(temp);
 										inserer_actions(struct);	
