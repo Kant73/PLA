@@ -4,9 +4,9 @@
 		<nbActionsPossible>3</nbActionsPossible>
 		<ensembleDeCase>
 			<case type="Normal" x="0" y="0" h="1" />
-			<case type="Normal" x="1" y="0" h="1" />
-			<case type="Normal" x="2" y="0" h="1" />
-			<case type="Normal" x="3" y="0" h="1" />
+			<case type="Normal" x="1" y="0" h="0" />
+			<case type="Normal" x="2" y="0" h="0" />
+			<case type="Normal" x="3" y="0" h="0" />
 			
 			<case type="Lampe" x="0" y="1" h="1" />
 			<case type="Normal" x="1" y="1" h="1" />
@@ -19,12 +19,12 @@
 			
 			<case type="Lampe" x="1" y="3" h="1" />
 			<case type="Lampe" x="2" y="3" h="1" />
-			<case type="Normal" x="3" y="3" h="1" />
+			<case type="Normal" x="3" y="3" h="0" />
 			
 			<case type="Lampe" x="0" y="4" h="4" />
 			<case type="Lampe" x="1" y="4" h="4" />
-			<case type="Normal" x="2" y="4" h="1" />
-			<case type="Normal" x="3" y="4" h="1" />
+			<case type="Normal" x="2" y="4" h="0" />
+			<case type="Normal" x="3" y="4" h="0" />
 			
 		</ensembleDeCase>
 	</terrain>
