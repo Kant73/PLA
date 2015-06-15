@@ -32,6 +32,7 @@ public class Textures {
 	public static Texture TexBoutonSauter;
 	public static Texture TexBoutonAllumer;
 	public static Texture TexBoutonPlay;
+	public static Texture texBoutonReset ;
 	
 	public static Texture TexSymboleBreak;
 	public static Texture TexSymboleAvancer;
@@ -82,6 +83,7 @@ public class Textures {
 		TexSymboleReculer = new Texture();
 		TexSymboleSauter = new Texture();
 
+		texBoutonReset=new Texture();
 		TexRobotNE= new Texture();
 		TexRobotNW= new Texture();
 		TexRobotSE= new Texture();
@@ -97,6 +99,7 @@ public class Textures {
 				else
 					texProcs[i].loadFromFile(Paths.get("src/Img/proc"+(texProcs.length-i-1)+"_select.png"));
 			}
+			texBoutonReset.loadFromFile(Paths.get("src/Img/reset.png"));
 			maFeuille.loadFromFile(Paths.get("src/Img/feuille.png"));
 			TexVerrou.loadFromFile(Paths.get("src/Img/verrou.png"));
 			TexCaseBase.loadFromFile(Paths.get("src/Img/case0.png"));

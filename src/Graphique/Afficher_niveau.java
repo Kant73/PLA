@@ -16,6 +16,7 @@ import org.jsfml.window.Mouse;
 import org.jsfml.window.Mouse.Button;
 import org.jsfml.window.event.Event;
 
+import LightBot.Mode_Jeu;
 import LightBot.Niveau;
 import LightBot.Ordonnanceur;
 import LightBot.actions.Allumer;
@@ -46,6 +47,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	public Sprite [][] spriteAnim;
 	
 	public Sprite spriteBoutonPlay;
+	public Sprite spriteBoutonReset;
 	public Sprite spriteP1;
 	public Sprite spriteP2;
 	public Sprite spriteSymboleAvancer;
@@ -57,7 +59,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	public Sprite spriteSymboleSauter;
 	public Sprite spriteSymboleAllumer;
 	public Sprite spriteSymboleBreak;
-	public Sprite spriteRobot;
+	public int numAnim;
 	
 	public LinkedList list_action_possible;
 	public List[] tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
@@ -77,9 +79,9 @@ public class Afficher_niveau extends Menu_niveaux{
 				spriteAnim[i][j]=new Sprite();
 				spriteAnim[i][j].setTexture(Textures.maFeuille);
 				spriteAnim[i][j].setTextureRect(new IntRect(debutX+j*tailleX, debutY*tailleY+i*tailleY, tailleX, tailleY));
-				spriteAnim[i][j].setScale(reScaleRobot,reScaleRobot);
+				//spriteAnim[i][j].setScale(reScaleRobot,reScaleRobot);
 			}
-		}		
+		}	
 	}
 	
 	
@@ -147,7 +149,12 @@ public class Afficher_niveau extends Menu_niveaux{
 				{	
 					Menu_principal.fenetre.draw(SpriteCases[i][j][etageActuel]);
 					if((( i==xRobot && j == yRobot)||(i==nextXRobot && j == nextYRobot)) && etageActuel == monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur())
-						Menu_principal.fenetre.draw(spriteRobot);
+					{
+						
+						spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][numAnim].setPosition(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition());
+						Menu_principal.fenetre.draw(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][numAnim]);
+					}
+						
 				}
 			}
 		}
@@ -161,49 +168,17 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void set_pos_robot()
 	{
 		int i=monNiveau.getPersonnages().get(0).getPositionX(),j=monNiveau.getPersonnages().get(0).getPositionY();
-			spriteRobot.setPosition(SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getPosition().x + reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteRobot.getTexture().getSize().x/2
-					,SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getPosition().y +reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y );
+		
+		
+		spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].setPosition(SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getPosition().x 
+					+ reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().x/2
+					- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().width/2
+					,SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getPosition().y 
+					+reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().y/3 
+					- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height );
 			
 	}
 	
-	
-	public void tourner_droite()
-	{
-		switch (monNiveau.getPersonnages().get(0).getOrientation())
-		{
-		case NORTH :
-			spriteRobot.setTexture(Textures.TexRobotSW);
-			break;
-		case SOUTH :
-			spriteRobot.setTexture(Textures.TexRobotNE);
-			break;
-		case WEST :
-			spriteRobot.setTexture(Textures.TexRobotNW);
-			break;
-		case EAST :
-			spriteRobot.setTexture(Textures.TexRobotSE);
-			break;
-		}	
-	}
-	
-	public void tourner_gauche()
-	{
-		switch (monNiveau.getPersonnages().get(0).getOrientation())
-		{
-		case NORTH :
-			spriteRobot.setTexture(Textures.TexRobotNE);
-			break;
-		case SOUTH :
-			spriteRobot.setTexture(Textures.TexRobotSW);
-			break;
-		case WEST :
-			spriteRobot.setTexture(Textures.TexRobotSE);
-			break;
-		case EAST :
-			spriteRobot.setTexture(Textures.TexRobotNW);
-			break;
-		}	
-	}
 	
 	public void avancer()
 	{
@@ -215,7 +190,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		switch (monNiveau.getPersonnages().get(0).getOrientation())
 		{
-		case NORTH :
+		case  SOUTH:
 			if(yRobot+1<NB_CASE_Y && monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot+1].getHauteur()>=0)
 			{
 				newY=yRobot+1;	
@@ -223,7 +198,7 @@ public class Afficher_niveau extends Menu_niveaux{
 				deplY=-0.5f;
 			}
 			break;
-		case SOUTH :
+		case  NORTH:
 			if(yRobot-1>=0 && monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot-1].getHauteur()>=0)
 			{
 				newY=yRobot-1;	
@@ -257,39 +232,49 @@ public class Afficher_niveau extends Menu_niveaux{
 			nextYRobot=newY;
 			Vector2f posFinale,posInit;
 		
-			posFinale = new Vector2f(SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x + reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteRobot.getTexture().getSize().x/2, 
-				SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y +reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y);
-			posInit = new Vector2f(spriteRobot.getPosition().x,spriteRobot.getPosition().y);
+			posFinale = new Vector2f(SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x 
+					+ reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2
+					- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().width/2, 
+				SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y 
+				+reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 
+				- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height);
+			
+			posInit = new Vector2f(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x
+					,spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y);
 		
 			while( (posInit.x>=posFinale.x && posInit.y>=posFinale.y 
-					  && spriteRobot.getPosition().x >= posFinale.x 
-					  && spriteRobot.getPosition().y >= posFinale.y)
+					  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x >= posFinale.x 
+					  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y >= posFinale.y)
 					  	  || 
 				  (posInit.x<=posFinale.x && posInit.y>=posFinale.y 
-						  && spriteRobot.getPosition().x <= posFinale.x 
-						  && spriteRobot.getPosition().y >= posFinale.y)
+						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x <= posFinale.x 
+						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y >= posFinale.y)
 						  || 
 				  (posInit.x>=posFinale.x && posInit.y<=posFinale.y 
-						  && spriteRobot.getPosition().x >= posFinale.x 
-						  && spriteRobot.getPosition().y <= posFinale.y)
+						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x >= posFinale.x 
+						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y <= posFinale.y)
 						  || 
 				  (posInit.x<=posFinale.x && posInit.y<=posFinale.y 
-						  && spriteRobot.getPosition().x <= posFinale.x 
-						  && spriteRobot.getPosition().y <= posFinale.y)						  
+						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x <= posFinale.x 
+						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y <= posFinale.y)						  
 				  )
 			{
-				spriteRobot.setPosition(spriteRobot.getPosition().x+deplX,spriteRobot.getPosition().y+deplY);
+				numAnim++;
+				if(numAnim>=spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()].length)
+					numAnim=0;
+					
+				spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].setPosition(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x+deplX,spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y+deplY);
 				afficher_carte();
 			}
 		
-			initPlaceRobot(newX,newY);
+			initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
 			set_pos_robot();
 			afficher_carte();
 		}
 	}
 	
 	
-	public void sauter()
+	public void sauter(int ancX,int ancY)
 	{
 		int newX,newY;
 		newX=xRobot;
@@ -298,9 +283,9 @@ public class Afficher_niveau extends Menu_niveaux{
 		float coeff = 2;
 		Vector2f posFinale,posInit;
 		
-		posFinale = new Vector2f(SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x + reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteRobot.getTexture().getSize().x/2, 
-				SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y +reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y);
-		posInit = new Vector2f(spriteRobot.getPosition().x,spriteRobot.getPosition().y);
+		posFinale = new Vector2f(SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x + reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().width/2, 
+				SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y +reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height);
+		posInit = new Vector2f(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x,spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y);
 		
 		
 		if(monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur()!=monNiveau.getTerrain().getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur())
@@ -310,11 +295,17 @@ public class Afficher_niveau extends Menu_niveaux{
 			boolean b =  newX>xRobot || newY>yRobot ;
 
 			while (
-					(b && spriteRobot.getPosition().y + reScaleRobot*spriteRobot.getTexture().getSize().y > SpriteCases[nextXRobot][nextYRobot][monNiveau.getTerrain().getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur()].getPosition().y+reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*2)
-					||(!b  && monNiveau.getTerrain().getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur()>monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur() && spriteRobot.getPosition().y + reScaleRobot*spriteRobot.getTexture().getSize().y > posInit.y+reScaleRobot*spriteRobot.getTexture().getSize().y -reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*(monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()-monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur()))
+					(b && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y 
+							+ reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height
+							> SpriteCases[nextXRobot][nextYRobot][monNiveau.getTerrain().getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur()].getPosition().y
+							+reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*2)
+					||(!b  && monNiveau.getTerrain().getEnsembleDeCase()[nextXRobot][nextYRobot].getHauteur()>monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur() 
+							&& spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y 
+							+ reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height 
+							> posInit.y+reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height -reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*(monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()-monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur()))
 					)
 			{
-				spriteRobot.setPosition(spriteRobot.getPosition().x,spriteRobot.getPosition().y+deplSaut);
+				spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].setPosition(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x,spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y+deplSaut);
 				afficher_carte();	
 			}
 		}
@@ -345,24 +336,6 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void SetSprites()
 	{
 		int ecart=70;
-		this.spriteRobot=new Sprite();
-		switch (monNiveau.getPersonnages().get(0).getOrientation())
-		{
-		case NORTH :
-			spriteRobot.setTexture(Textures.TexRobotSE);
-			break;
-		case SOUTH :
-			spriteRobot.setTexture(Textures.TexRobotNW);
-			break;
-		case WEST :
-			spriteRobot.setTexture(Textures.TexRobotSW);
-			break;
-		case EAST :
-			spriteRobot.setTexture(Textures.TexRobotNE);
-			break;
-		}	
-		this.spriteRobot.setScale(reScaleRobot,reScaleRobot);
-		
 		
 		spritesProcedures = new Sprite[3];
 		for (int i=0;i<spritesProcedures.length;i++)
@@ -378,6 +351,9 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		spriteBoutonPlay=new Sprite();
 		spriteBoutonPlay.setTexture(Textures.TexBoutonPlay);
+		
+		spriteBoutonReset = new Sprite();
+		spriteBoutonReset.setTexture(Textures.texBoutonReset);
 			
 		spriteP1= new Sprite();
 		spriteP1.setTexture(Textures.TexP1);
@@ -469,7 +445,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		
 		reScale=Scale;
-		reScaleRobot=Scale/3;
+		reScaleRobot=Scale;
 		SetSprites();
 		initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
 	}
@@ -579,6 +555,8 @@ public class Afficher_niveau extends Menu_niveaux{
 		}
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
 		Menu_principal.fenetre.draw(this.spriteBoutonPlay);
+		Menu_principal.fenetre.draw(this.spriteBoutonReset);
+		
 	}
 	
 	/**
@@ -669,24 +647,28 @@ public class Afficher_niveau extends Menu_niveaux{
 	 * Méthode principale de la classe qui permet d'afficher tout un niveau avec les actions et procédures associée
 	 * @param niveauCharger Le niveau que l'on veut afficher
 	 */
-	public void afficher_niveau(Niveau niveauCharger)
+	public void afficher_niveau(Niveau niveauCharger,Mode_Jeu mj, int selection)
 	{
 		this.progSelect=0;
+		this.numAnim=0;
 		int i=0,j=0;
+		boolean unSeulPlay=true;
 		//Initialisation des textures
 		Textures.initTextures();
-		monNiveau=new Niveau();
+		initialiser_anim();
 		monNiveau=niveauCharger;
 		init_niveau(1.0f);
 		set_position_cases();
 		set_pos_robot();
+		
+	
 		
 		
 		initActionsPossible();
 		StructStringSprite temp= (StructStringSprite)this.list_action_possible.getLast();
 		afficher_boutons();
 		spriteBoutonPlay.setPosition(temp.sprite.getPosition().x + spriteBoutonPlay.getTexture().getSize().x * 3,temp.sprite.getPosition().y);
-	
+		spriteBoutonReset.setPosition(spriteBoutonPlay.getPosition().x + spriteBoutonPlay.getTexture().getSize().x + 5,spriteBoutonPlay.getPosition().y);
 		
 	
 		initProcedures();
@@ -733,11 +715,13 @@ public class Afficher_niveau extends Menu_niveaux{
 							}
 						}
 						
-						if(spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y))
+						if(spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
 						{
 							monNiveau.getPersonnages().get(0).setProgramme(monNiveau.getProgrammes().get(0));
 							Ordonnanceur monOrdonnanceur = new Ordonnanceur (monNiveau.getPersonnages(),this);
 							monOrdonnanceur.run();
+							if (!tabProgramme[0].isEmpty())
+								unSeulPlay=false;
 						}
 						else
 							sprite_selectionne(pos);
@@ -745,6 +729,30 @@ public class Afficher_niveau extends Menu_niveaux{
 						if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
 						{
 							sortie=false;
+						}
+						else if(spriteBoutonReset.getGlobalBounds().contains(pos.x,pos.y))
+						{
+							monNiveau=mj.getNiveau(selection);
+							
+							int save_select = this.progSelect;
+							
+							for(int l=0;l<tabProgramme.length;l++)
+							{
+								this.progSelect=l;
+								if (!tabProgramme[this.progSelect].isEmpty()) {
+									for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
+										
+										temp = (StructStringSprite) tabProgramme[this.progSelect].get(k);
+										StructStringSprite struct = new StructStringSprite(temp);
+										inserer_actions(struct);	
+									}
+								}
+							}
+							this.progSelect = save_select;	
+							this.set_textures_cases();
+							initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
+							set_pos_robot();
+							unSeulPlay=true;
 						}
 						afficher_carte();
 					}
@@ -755,6 +763,8 @@ public class Afficher_niveau extends Menu_niveaux{
 					 else if (event.type == Event.Type.KEY_PRESSED) {
 					 if (Keyboard.isKeyPressed(Key.ESCAPE))
 						{
+
+							
 						 	//this.playMusic("Zarnakand.ogg");		//Relancement de la musique de menu.
 							sortie=false;
 						}	

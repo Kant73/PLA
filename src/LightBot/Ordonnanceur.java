@@ -69,35 +69,29 @@ public class Ordonnanceur {
 					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() || ((Actions)obj).getPersonnage().isMort()) throw new ArrayIndexOutOfBoundsException();
 					else{
 						
-						
+						System.out.println(" 1   " + this.pers.getPositionX() + " " + this.pers.getPositionY());
+						System.out.println(this.pers.getOrientation());
 						((Actions)obj).agir();
+						System.out.println(" 2   " + this.pers.getPositionX() + " " + this.pers.getPositionY());
+						
+						int ancX = this.pers.getPositionX(),ancY=this.pers.getPositionY();
 						if((Actions)obj instanceof Avancer)
 						{
 							this.affichage.avancer();
 						}
 						else if((Actions)obj instanceof Sauter)
 						{
-							this.affichage.sauter();
+							this.affichage.sauter(ancX,ancY);
 						}
 						else if((Actions)obj instanceof Allumer)
 						{
 							// Ajouter une animation
 						}
-						else if((Actions)obj instanceof TournerDroite)
-						{
-							this.affichage.tourner_droite();
-						}
-						else if((Actions)obj instanceof TournerGauche)
-						{
-							this.affichage.tourner_gauche();
-						}
+						System.out.println(this.pers.getOrientation());
 						
-						
-						
+						this.affichage.set_pos_robot();
 						this.affichage.set_textures_cases();
 						this.affichage.afficher_carte();
-						
-						
 						
 						/*
 						System.out.println(((Actions)obj).toString());

@@ -216,7 +216,7 @@ public class Menu_niveaux extends Menu_modes{
 								Afficher_niveau level = new  Afficher_niveau();
 								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la r�solution du niveau.
 								Niveau copie = mj.getNiveau(selection);
-								level.afficher_niveau(copie);
+								level.afficher_niveau(copie, mj,selection);
 								
 								fondu();
 								fenetre.draw(spriteFond);
