@@ -19,6 +19,7 @@ public class Textures {
 	public static Texture TexCaseLumEteinte ;
 	public static Texture TexCaseLumAllum ;
 	public static Texture TexCasePointeur;		//Case Pointeur (Vert)
+	public static Texture TexCaseClonage;		//Case Clonage (Orange)
 	
 	public static Texture TexCasePointee;
 	public static Texture TexBoutonAvancer;
@@ -62,6 +63,7 @@ public class Textures {
 		TexCaseRose = new Texture();
 		TexCaseViolet = new Texture();
 		TexCasePointee = new Texture();
+		TexCaseClonage = new Texture();
 		
 		TexBoutonAllumer = new Texture();
 		TexBoutonAvancer = new Texture();
@@ -101,6 +103,7 @@ public class Textures {
 			TexCaseLumEteinte.loadFromFile(Paths.get("src/Img/case1.png"));
 			TexCaseLumAllum.loadFromFile(Paths.get("src/Img/case2.png"));
 			TexCasePointeur.loadFromFile(Paths.get("src/Img/case3.png"));
+			TexCaseClonage.loadFromFile(Paths.get("src/Img/case5.png"));
 			TexCaseTransp.loadFromFile(Paths.get("src/Img/case4.png"));
 			TexCaseRose.loadFromFile(Paths.get("src/Img/case7.png"));
 			TexCaseViolet.loadFromFile(Paths.get("src/Img/case6.png"));
