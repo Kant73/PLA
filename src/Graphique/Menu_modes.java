@@ -31,7 +31,7 @@ public class Menu_modes extends Menu_principal{
 	{  
 		int k=0;
 		int ecartPix = 30;
-		int nbMaxLigne=5;
+		int nbMaxLigne=4;
 		monFond = new Texture();
 		mesBoutons = new Sprite[nbBoutons];
 		mesTextures = new Texture[nbBoutons*2];
