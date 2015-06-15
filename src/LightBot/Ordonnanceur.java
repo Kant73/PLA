@@ -69,6 +69,7 @@ public class Ordonnanceur {
 					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() || ((Actions)obj).getPersonnage().isMort()) throw new ArrayIndexOutOfBoundsException();
 					else{
 						
+						
 						((Actions)obj).agir();
 						if((Actions)obj instanceof Avancer)
 						{

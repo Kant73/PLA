@@ -61,7 +61,6 @@ public class Afficher_niveau extends Menu_niveaux{
 	public Sprite spriteSymboleAllumer;
 	public Sprite spriteSymboleBreak;
 	public Sprite spriteRobot;
-	public VertexArray gradient;
 	
 	public LinkedList list_action_possible;
 	public List[] tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
@@ -139,7 +138,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	 */
 	public void afficher_carte()
 	{
-		Menu_principal.fenetre.draw(this.gradient);
+		Menu_principal.fenetre.clear(Color.BLACK);
 		afficher_cadre_procedures();
 		this.afficher_boutons();
 		this.afficher_procedure();
@@ -472,7 +471,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		reScale=Scale;
 		reScaleRobot=Scale/3;
 		SetSprites();
-		this.gradient = this.createGradient(new org.jsfml.graphics.Color(0, 178, 255, 255), Color.BLACK, Menu_principal.fenetre);
 		initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
 	}
 	
@@ -608,67 +606,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		}
 	}
 	
-	
-	/**
-	 * Permet d'executer les actions contenues dans le main 
-	 */
-	public void jouer_main(){
-		if (!this.tabProgramme[0].isEmpty()) {
-			for (int k = 0; k < this.monNiveau.getProgrammes().get(this.progSelect).getActions().size(); k++) {
-				
-				Object temp = this.monNiveau.getProgrammes().get(this.progSelect).getActions().get(k);
-				
-				if (temp instanceof Avancer) {
-					this.avancer();
-				}
-				else if (temp instanceof TournerDroite) {
-					this.tourner_droite();
-				}
-				else if (temp instanceof TournerGauche) {
-					this.tourner_gauche();
-				}
-				else if (temp instanceof Sauter) {
-					this.sauter();
-				}
-				/*else if (temp instanceof Allumer) {
-					this.deplacement_robot(4);
-				}*/
-			}
-		}
-	}
-	
-	/**
-	 * Permet de créer un fond dégradé
-	 * @param color1	La couleur du haut de la fenêtre 
-	 * @param color2	La couleur du bas de la fenêtre
-	 * @param window	La fenêtre à laquelle on applique un gradient (pour avoir ses dimensions)
-	 * @return	Un VertexArray comprenant le dégradé
-	 */
-	public VertexArray createGradient(Color color1, Color color2, RenderWindow window){
-		
-		//Create the vertex array
-        VertexArray gradient = new VertexArray();
-
-        //Our gradient will be a rectangular shape - a quad - so we will use the primitive type QUADS
-        gradient.setPrimitiveType(PrimitiveType.QUADS);
-
-        //Create the vertices in counter-clockwise order (standard), beginning with the top left corner of the screen
-        //The vertices at the top edge of the screen should be yellow
-        //color1 = new org.jsfml.graphics.Color(0, 255, 0, 255);
-        gradient.add(new Vertex(new Vector2f(0, 0), color1));
-
-        //Create the bottom left vertex
-        //The vertices at the bottom edge of the screen should be red
-        gradient.add(new Vertex(new Vector2f(0, window.getSize().y), color2));
-
-        //Create the bottom right vertex (red)
-        gradient.add(new Vertex(new Vector2f(window.getSize().x, window.getSize().y), color2));
-
-        //Create the top right vertex (yellow)
-        gradient.add(new Vertex(new Vector2f(window.getSize().x, 0),color1));
-        
-		return gradient;
-	}
 	
 	/**
 	 * Structure comprenant une Sprite et une chaine indiquant de quel type de sprite il s'agit
@@ -827,7 +764,7 @@ public class Afficher_niveau extends Menu_niveaux{
 			}	
 	}
 	
-	
+	/*
 	void deplacement_robot(int Orientation)
 	{
 		int newX,newY;
@@ -935,5 +872,5 @@ public class Afficher_niveau extends Menu_niveaux{
 			set_pos_robot();
 			afficher_carte();
 		}
-	}
+	}*/
 }
