@@ -61,7 +61,7 @@
 		</ensembleDeCase>
 	</terrain>
 	<personnes>
-		<personne name="Robot" x="6" y="6" o="SOUTH" />
+		<personne name="Robot" x="6" y="6" o="NORTH" />
 	</personnes>
 	<programmes>
 		<programme name="main" t="12" />

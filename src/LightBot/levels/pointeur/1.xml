@@ -23,7 +23,7 @@
 		</ensembleDeCase>
 	</terrain>
 	<personnes>
-		<personne name="Robot" x="0" y="0" o="NORTH" />
+		<personne name="Robot" x="0" y="0" o="SOUTH" />
 	</personnes>
 	<programmes>
 		<programme name="main" t="1" />
