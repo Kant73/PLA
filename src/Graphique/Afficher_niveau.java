@@ -148,9 +148,9 @@ public class Afficher_niveau extends Menu_niveaux{
 				for(int etageActuel = 0; etageActuel <=monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur();etageActuel ++)
 				{	
 					Menu_principal.fenetre.draw(SpriteCases[i][j][etageActuel]);
+
 					if((( i==xRobot && j == yRobot)||(i==nextXRobot && j == nextYRobot)) && etageActuel == monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur())
 					{
-						
 						spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][numAnim].setPosition(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition());
 						Menu_principal.fenetre.draw(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][numAnim]);
 					}
@@ -717,11 +717,15 @@ public class Afficher_niveau extends Menu_niveaux{
 						
 						if(spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
 						{
+							
 							monNiveau.getPersonnages().get(0).setProgramme(monNiveau.getProgrammes().get(0));
 							Ordonnanceur monOrdonnanceur = new Ordonnanceur (monNiveau.getPersonnages(),this);
 							monOrdonnanceur.run();
+	
 							if (!tabProgramme[0].isEmpty())
 								unSeulPlay=false;
+							if(monNiveau.getTerrain().getMaxLampe() == 	monNiveau.getTerrain().getNbLampeAllumee())
+								sortie=false;
 						}
 						else
 							sprite_selectionne(pos);
@@ -763,15 +767,18 @@ public class Afficher_niveau extends Menu_niveaux{
 					 else if (event.type == Event.Type.KEY_PRESSED) {
 					 if (Keyboard.isKeyPressed(Key.ESCAPE))
 						{
-
-							
 						 	//this.playMusic("Zarnakand.ogg");		//Relancement de la musique de menu.
 							sortie=false;
 						}	
 					}
-
 				}
-			}	
+			}
+		if(selection<mj.getNbNiveaux()-1 && monNiveau.getTerrain().getMaxLampe() == 	monNiveau.getTerrain().getNbLampeAllumee())
+		{
+			Afficher_niveau level = new  Afficher_niveau();
+			Niveau copie = mj.getNiveau(selection+1);
+			level.afficher_niveau(copie, mj,selection+1);
+		}
 	}
 	
 	/*
