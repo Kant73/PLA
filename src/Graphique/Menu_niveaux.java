@@ -70,20 +70,6 @@ public class Menu_niveaux extends Menu_modes{
 			e1.printStackTrace();
 		}
 		
-		/*
-		for (int i=0; i< this.nbBoutons ; i++)
-		{
-					
-					mesBoutons[i]=new Sprite();
-					mesBoutons[i].setTexture(maTexture);
-					if(i%nbMaxLigne==0 && i!=0)
-						k++;
-					
-					mesBoutons[i].setPosition(Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(maTexture.getSize().x/2+ecartPix/2) + (maTexture.getSize().x+ecartPix)*(i%nbMaxLigne)
-							, Menu_principal.fenetre.getSize().y/2-maTexture.getSize().y/2 +(maTexture.getSize().y+ecartPix)*k);
-		}
-		
-		*/
 
 		for (int i=0; i< this.nbBoutons*2 ; i++)
 		{
@@ -98,7 +84,7 @@ public class Menu_niveaux extends Menu_modes{
 						k++;
 					
 					mesBoutons[i].setPosition(Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(mesTextures[i].getSize().x/2+ecartPix/2) + (mesTextures[i].getSize().x+ecartPix)*(i%nbMaxLigne)
-							, Menu_principal.fenetre.getSize().y/3+(mesTextures[i].getSize().y+ecartPix)*k);
+							, Menu_principal.fenetre.getSize().y/3+(mesTextures[i].getSize().y+ecartPix)*k + 50);
 				}
 				else
 				{
@@ -111,24 +97,7 @@ public class Menu_niveaux extends Menu_modes{
 			}
 		}
 	}
-	
-	/*
-	private void hover(Vector2i pos)
-	{	
-		int last_select = this.selection;
-		this.selection=-1;
-		for (int i=0; i< this.nbBoutons; i++)
-		{
-			if(mesBoutons[i].getGlobalBounds().contains(pos.x,pos.y))
-			{
-				mesBoutons[i].setTexture(maTextureSel);
-				this.selection=i;
-			}
-		}
-		if(this.selection!=last_select && last_select!=-1)
-			mesBoutons[last_select].setTexture(maTexture);
-	}
-	*/
+
 	
 	private void hover(Vector2i pos)
 	{	
@@ -184,7 +153,7 @@ public class Menu_niveaux extends Menu_modes{
 			//monTexte.setString("" + (i+1));
 			
 			monTexte.setPosition(mesBoutons[i].getPosition().x+mesBoutons[i].getTexture().getSize().x/2-monTexte.getLocalBounds().width/2
-					,mesBoutons[i].getPosition().y+mesBoutons[i].getTexture().getSize().y/2-monTexte.getLocalBounds().height/2-10);
+					,mesBoutons[i].getPosition().y+mesBoutons[i].getTexture().getSize().y/2-monTexte.getLocalBounds().height/2-10 - 85);
 			Menu_principal.fenetre.draw(monTexte);
 		}
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
@@ -194,7 +163,7 @@ public class Menu_niveaux extends Menu_modes{
 	{
 		for (int i=0; i< this.nbBoutons; i++)
 		{
-				mesBoutons[i].setTexture(maTexture);
+				mesBoutons[i].setTexture(mesTextures[i]);
 		}
 	}
 	
