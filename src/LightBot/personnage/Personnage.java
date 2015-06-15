@@ -46,6 +46,10 @@ public class Personnage {
 		return this.orientation;
 	}
 	
+	public int getOrientationInt () {
+		return this.orientation.getCode();
+	}
+	
 	public Programme getProgramme() {
 		return this.prog;
 	}
