@@ -7,11 +7,7 @@ import java.util.List;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.IntRect;
-import org.jsfml.graphics.PrimitiveType;
-import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
-import org.jsfml.graphics.Vertex;
-import org.jsfml.graphics.VertexArray;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -29,6 +25,7 @@ import LightBot.actions.Sauter;
 import LightBot.actions.TournerDroite;
 import LightBot.actions.TournerGauche;
 import LightBot.actions.Wash;
+import LightBot.cases.Clonage;
 import LightBot.cases.ConditionRose;
 import LightBot.cases.ConditionViolet;
 import LightBot.cases.Couleur;
@@ -449,6 +446,9 @@ public class Afficher_niveau extends Menu_niveaux{
 							SpriteCases[i][j][k].setTexture(Textures.TexCasePointee);
 						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Pointeur  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Vert && !((Pointeur) monNiveau.getTerrain().getEnsembleDeCase()[i][j]).estPointee())
 							SpriteCases[i][j][k].setTexture(Textures.TexCasePointeur);
+						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Clonage  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Orange)
+							SpriteCases[i][j][k].setTexture(Textures.TexCaseClonage);
+						
 					}
 
 					SpriteCases[i][j][k].setScale(reScale,reScale);
