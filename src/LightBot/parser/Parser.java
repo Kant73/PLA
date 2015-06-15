@@ -110,11 +110,11 @@ public class Parser {
         		    			if(!couleur.equals(""))t.getEnsembleDeCase()[x][y].setColor(Couleur.valueOf(couleur));
     		    			}
 		    			}
-		    			n.setTerrain(t);
 		    			break;
 		    		default : break;
 		    		}
 				}
+    			t.setMaxLampe();
 				this.n.setTerrain(t);
 				break;
 			case "personnes" :

@@ -106,7 +106,7 @@ public class Terrain {
 		if(this.maxAllumee!=i)this.maxAllumee=i;
 	}
 	
-	private void setMaxLampe(){
+	public void setMaxLampe(){
 		this.maxAllumee=0;
 		for(int i=0;i<largeur;i++)
 			for(int j=0;j<longueur;j++)
