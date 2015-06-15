@@ -132,22 +132,22 @@ public class Menu_principal {
 	}
 	
 
-private void fondu()
-{
-	for(int i=0;i<20;i++)
+	private void fondu()
 	{
-		spriteFond.setColor(new Color(spriteFond.getColor(), 3*i));
-		fenetre.draw(spriteFond);
-		fenetre.display();
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		for(int i=0;i<20;i++)
+		{
+			spriteFond.setColor(new Color(spriteFond.getColor(), 3*i));
+			fenetre.draw(spriteFond);
+			fenetre.display();
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+		}
+		spriteFond.setColor(new Color(spriteFond.getColor(), 255));
 	}
-	spriteFond.setColor(new Color(spriteFond.getColor(), 255));
-}
 
 	
 	public void afficher_menu()
@@ -217,35 +217,29 @@ private void fondu()
 	}
 	
 
+	public static void main(String[] args) {
+	
+		try {SFMLNative.loadNativeLibraries();} 
+		catch (JSFMLError err) {/*things*/}
 	
 	
-
-	
-public static void main(String[] args) {
-		
-
-	try {SFMLNative.loadNativeLibraries();} 
-	catch (JSFMLError err) {/*things*/}
-
-
-		fenetre.create(new VideoMode(1366, 768), "StarBot");
-		Menu_principal monMenu = new Menu_principal();
-		
-		fenetre.setFramerateLimit(60);
-		fenetre.setVerticalSyncEnabled(true);
-		
-		Image icon = new Image();
-		try {
-			icon.loadFromFile(Paths.get("src/Img/BB8_tete.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		fenetre.setIcon(icon);
-		
-		//monMenu.playMusic("Zarnakand.ogg");
-		monMenu.afficher_menu();
-		
+			fenetre.create(new VideoMode(1366, 768), "StarBot");
+			Menu_principal monMenu = new Menu_principal();
+			
+			fenetre.setFramerateLimit(60);
+			fenetre.setVerticalSyncEnabled(true);
+			
+			Image icon = new Image();
+			try {
+				icon.loadFromFile(Paths.get("src/Img/BB8_tete.png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			fenetre.setIcon(icon);
+			
+			//monMenu.playMusic("Zarnakand.ogg");
+			monMenu.afficher_menu();
 	}
 }
 
