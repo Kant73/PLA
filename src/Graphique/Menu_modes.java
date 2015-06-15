@@ -108,13 +108,13 @@ public class Menu_modes extends Menu_principal{
 	
 	private void fondu()
 	{
-		for(int i=0;i<20;i++)
+		for(int i=10;i<40;i++)
 		{
 			spriteFond.setColor(new Color(spriteFond.getColor(), 3*i));
 			fenetre.draw(spriteFond);
 			fenetre.display();
 			try {
-				Thread.sleep(10);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
