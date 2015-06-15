@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <niveau>
 	<terrain largeur="6" longueur="6" >
-		<nbActionsPossible>10</nbActionsPossible>
+		<nbActionsPossible>20</nbActionsPossible>
 		<ensembleDeCase>
 			<case type="Clonage" x="1" y="1" h="1" />
 			<case type="Lampe"   x="1" y="0" h="1" />
@@ -28,7 +28,8 @@
 		<personne name="Robot" x="5" y="5" o="WEST" />
 	</personnes>
 	<programmes>
-		<programme name="main" t="7" />
+		<programme name="main" t="2" />
+		<programme name="p1" t="4" />
 	</programmes>
 	<actions>
 		<action name="Avancer" p="Robot" />
