@@ -16,6 +16,7 @@ import org.jsfml.window.Mouse.Button;
 import org.jsfml.window.event.Event;
 
 import LightBot.Mode_Jeu;
+import LightBot.Niveau;
 import LightBot.NomMode;
 
 public class Menu_niveaux extends Menu_modes{
@@ -197,7 +198,8 @@ public class Menu_niveaux extends Menu_modes{
 								fondu();
 								Afficher_niveau level = new  Afficher_niveau();
 								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la r�solution du niveau.
-								level.afficher_niveau(mj.getNiveaux().get(selection));
+								Niveau copie = mj.getNiveaux().get(selection);
+								level.afficher_niveau(copie);
 								
 								fondu();
 								fenetre.draw(spriteFond);

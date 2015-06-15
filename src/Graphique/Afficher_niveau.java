@@ -21,6 +21,7 @@ import org.jsfml.window.Mouse.Button;
 import org.jsfml.window.event.Event;
 
 import LightBot.Niveau;
+import LightBot.Ordonnanceur;
 import LightBot.actions.Allumer;
 import LightBot.actions.Avancer;
 import LightBot.actions.Break;
@@ -60,7 +61,6 @@ public class Afficher_niveau extends Menu_niveaux{
 	public Sprite spriteSymboleAllumer;
 	public Sprite spriteSymboleBreak;
 	public Sprite spriteRobot;
-	public VertexArray gradient;
 	
 	public LinkedList list_action_possible;
 	public List[] tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
@@ -136,9 +136,9 @@ public class Afficher_niveau extends Menu_niveaux{
 	/**
 	 * Permet d'afficher notre terrain ainsi que le fond dégradé, les boutons d'action dispo pour un niveau et les actions qui sont dans les procédures (dont le main)
 	 */
-	void afficher_carte()
+	public void afficher_carte()
 	{
-		Menu_principal.fenetre.draw(this.gradient);
+		Menu_principal.fenetre.clear(Color.BLACK);
 		afficher_cadre_procedures();
 		this.afficher_boutons();
 		this.afficher_procedure();
@@ -161,35 +161,16 @@ public class Afficher_niveau extends Menu_niveaux{
 	/**
 	 * Permet de changer la position du robot
 	 */
-	void set_pos_robot()
+	public void set_pos_robot()
 	{
-		int i=xRobot,j=yRobot;
+		int i=monNiveau.getPersonnages().get(0).getPositionX(),j=monNiveau.getPersonnages().get(0).getPositionY();
 			spriteRobot.setPosition(SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getPosition().x + reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().x/2 - reScaleRobot*spriteRobot.getTexture().getSize().x/2
 					,SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getPosition().y +reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().y/3 - reScaleRobot*spriteRobot.getTexture().getSize().y );
 			
 	}
 	
 	
-	void tourner_droite()
-	{
-		switch (monNiveau.getPersonnages().get(0).getOrientation())
-		{
-		case NORTH :
-			spriteRobot.setTexture(Textures.TexRobotNE);
-			break;
-		case SOUTH :
-			spriteRobot.setTexture(Textures.TexRobotSW);
-			break;
-		case WEST :
-			spriteRobot.setTexture(Textures.TexRobotNW);
-			break;
-		case EAST :
-			spriteRobot.setTexture(Textures.TexRobotSE);
-			break;
-		}	
-	}
-	
-	void tourner_gauche()
+	public void tourner_droite()
 	{
 		switch (monNiveau.getPersonnages().get(0).getOrientation())
 		{
@@ -200,6 +181,25 @@ public class Afficher_niveau extends Menu_niveaux{
 			spriteRobot.setTexture(Textures.TexRobotNE);
 			break;
 		case WEST :
+			spriteRobot.setTexture(Textures.TexRobotNW);
+			break;
+		case EAST :
+			spriteRobot.setTexture(Textures.TexRobotSE);
+			break;
+		}	
+	}
+	
+	public void tourner_gauche()
+	{
+		switch (monNiveau.getPersonnages().get(0).getOrientation())
+		{
+		case NORTH :
+			spriteRobot.setTexture(Textures.TexRobotNE);
+			break;
+		case SOUTH :
+			spriteRobot.setTexture(Textures.TexRobotSW);
+			break;
+		case WEST :
 			spriteRobot.setTexture(Textures.TexRobotSE);
 			break;
 		case EAST :
@@ -208,7 +208,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		}	
 	}
 	
-	void avancer()
+	public void avancer()
 	{
 		int newX,newY;
 		newX=xRobot;
@@ -292,7 +292,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	
-	void sauter()
+	public void sauter()
 	{
 		int newX,newY;
 		newX=xRobot;
@@ -352,10 +352,10 @@ public class Afficher_niveau extends Menu_niveaux{
 		switch (monNiveau.getPersonnages().get(0).getOrientation())
 		{
 		case NORTH :
-			spriteRobot.setTexture(Textures.TexRobotNW);
+			spriteRobot.setTexture(Textures.TexRobotSE);
 			break;
 		case SOUTH :
-			spriteRobot.setTexture(Textures.TexRobotSE);
+			spriteRobot.setTexture(Textures.TexRobotNW);
 			break;
 		case WEST :
 			spriteRobot.setTexture(Textures.TexRobotSW);
@@ -373,7 +373,6 @@ public class Afficher_niveau extends Menu_niveaux{
 			spritesProcedures[i]=new Sprite();
 			spritesProcedures[i].setTexture(Textures.texProcs[i]);	
 		}
-		
 		
 		spritesProcedures[0].setPosition(25, ecart);
 		spritesProcedures[1].setPosition(25, spritesProcedures[0].getPosition().y + spritesProcedures[0].getTexture().getSize().y + ecart );
@@ -422,6 +421,17 @@ public class Afficher_niveau extends Menu_niveaux{
 				for(int k=0;k<  NB_CASE_Z;k++)
 				{
 					SpriteCases[i][j][k]=new Sprite();
+				}
+		set_textures_cases();
+		
+	}
+	
+	public void set_textures_cases()
+	{
+		for(int i=0;i<  NB_CASE_X;i++)
+			for(int j=0;j<  NB_CASE_Y;j++)
+				for(int k=0;k<  NB_CASE_Z;k++)
+				{
 					
 					SpriteCases[i][j][k].setTexture(Textures.TexCaseBase);
 					
@@ -461,7 +471,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		reScale=Scale;
 		reScaleRobot=Scale/3;
 		SetSprites();
-		this.gradient = this.createGradient(new org.jsfml.graphics.Color(0, 178, 255, 255), Color.BLACK, Menu_principal.fenetre);
 		initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
 	}
 	
@@ -599,67 +608,6 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	
 	/**
-	 * Permet d'executer les actions contenues dans le main 
-	 */
-	public void jouer_main(){
-		if (!this.tabProgramme[0].isEmpty()) {
-			for (int k = 0; k < this.monNiveau.getProgrammes().get(this.progSelect).getActions().size(); k++) {
-				
-				Object temp = this.monNiveau.getProgrammes().get(this.progSelect).getActions().get(k);
-				
-				if (temp instanceof Avancer) {
-					this.avancer();
-				}
-				else if (temp instanceof TournerDroite) {
-					this.tourner_droite();
-				}
-				else if (temp instanceof TournerGauche) {
-					this.tourner_gauche();
-				}
-				else if (temp instanceof Sauter) {
-					this.sauter();
-				}
-				/*else if (temp instanceof Allumer) {
-					this.deplacement_robot(4);
-				}*/
-			}
-		}
-	}
-	
-	/**
-	 * Permet de créer un fond dégradé
-	 * @param color1	La couleur du haut de la fenêtre 
-	 * @param color2	La couleur du bas de la fenêtre
-	 * @param window	La fenêtre à laquelle on applique un gradient (pour avoir ses dimensions)
-	 * @return	Un VertexArray comprenant le dégradé
-	 */
-	public VertexArray createGradient(Color color1, Color color2, RenderWindow window){
-		
-		//Create the vertex array
-        VertexArray gradient = new VertexArray();
-
-        //Our gradient will be a rectangular shape - a quad - so we will use the primitive type QUADS
-        gradient.setPrimitiveType(PrimitiveType.QUADS);
-
-        //Create the vertices in counter-clockwise order (standard), beginning with the top left corner of the screen
-        //The vertices at the top edge of the screen should be yellow
-        //color1 = new org.jsfml.graphics.Color(0, 255, 0, 255);
-        gradient.add(new Vertex(new Vector2f(0, 0), color1));
-
-        //Create the bottom left vertex
-        //The vertices at the bottom edge of the screen should be red
-        gradient.add(new Vertex(new Vector2f(0, window.getSize().y), color2));
-
-        //Create the bottom right vertex (red)
-        gradient.add(new Vertex(new Vector2f(window.getSize().x, window.getSize().y), color2));
-
-        //Create the top right vertex (yellow)
-        gradient.add(new Vertex(new Vector2f(window.getSize().x, 0),color1));
-        
-		return gradient;
-	}
-	
-	/**
 	 * Structure comprenant une Sprite et une chaine indiquant de quel type de sprite il s'agit
 	 * Utilisé pour les actions
 	 * @author quentin
@@ -692,19 +640,19 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void inserer_actions(StructStringSprite struct){
 		switch (struct.nom) {
 		case "avancer":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Avancer(this.monNiveau.getPersonnageByName("Robot")));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Avancer(this.monNiveau.getPersonnages().get(0)));
 			break;
 		case "gauche":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerGauche(this.monNiveau.getPersonnageByName("Robot")));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerGauche(this.monNiveau.getPersonnages().get(0)));
 			break;
 		case "droite":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerDroite(this.monNiveau.getPersonnageByName("Robot")));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerDroite(this.monNiveau.getPersonnages().get(0)));
 			break;
 		case "sauter":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Sauter(this.monNiveau.getPersonnageByName("Robot")));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Sauter(this.monNiveau.getPersonnages().get(0)));
 			break;
 		case "allumer":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.monNiveau.getPersonnageByName("Robot")));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.monNiveau.getPersonnages().get(0)));
 			break;
 		case "P1":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(1));
@@ -787,7 +735,9 @@ public class Afficher_niveau extends Menu_niveaux{
 						
 						if(spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y))
 						{
-							jouer_main();
+							monNiveau.getPersonnages().get(0).setProgramme(monNiveau.getProgrammes().get(0));
+							Ordonnanceur monOrdonnanceur = new Ordonnanceur (monNiveau.getPersonnages(),this);
+							monOrdonnanceur.run();
 						}
 						else
 							sprite_selectionne(pos);
@@ -796,6 +746,7 @@ public class Afficher_niveau extends Menu_niveaux{
 						{
 							sortie=false;
 						}
+						afficher_carte();
 					}
 	
 					if (event.type == Event.Type.CLOSED) {
@@ -807,33 +758,13 @@ public class Afficher_niveau extends Menu_niveaux{
 						 	//this.playMusic("Zarnakand.ogg");		//Relancement de la musique de menu.
 							sortie=false;
 						}	
-						if (Keyboard.isKeyPressed(Key.UP)) {
-							deplacement_robot(0);
-							System.out.println(" UP");
-						}
-						else if (Keyboard.isKeyPressed(Key.DOWN)) {
-							deplacement_robot(1);
-							System.out.println(" DOWN");
-						}
-						else if (Keyboard.isKeyPressed(Key.LEFT)) {
-							deplacement_robot(2);
-							System.out.println(" LEFT");
-						}
-						else if (Keyboard.isKeyPressed(Key.RIGHT)) {
-							deplacement_robot(3);
-							System.out.println(" RIGHT");
-						}	
-						else if (Keyboard.isKeyPressed(Key.SPACE)) {
-							sauter();
-							System.out.println("Sauter");
-						}
 					}
-					afficher_carte();
+
 				}
 			}	
 	}
 	
-	
+	/*
 	void deplacement_robot(int Orientation)
 	{
 		int newX,newY;
@@ -941,5 +872,5 @@ public class Afficher_niveau extends Menu_niveaux{
 			set_pos_robot();
 			afficher_carte();
 		}
-	}
+	}*/
 }

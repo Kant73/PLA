@@ -3,73 +3,39 @@
 	<terrain largeur="7" longueur="7" >
 		<nbActionsPossible>3</nbActionsPossible>
 		<ensembleDeCase>
+			
 			<case type="Normal" x="0" y="0" h="1" />
-			<case type="Normal" x="1" y="0" h="1" />
-			<case type="Normal" x="2" y="0" h="1" />
-			<case type="Normal" x="3" y="0" h="1" />
-			<case type="Normal" x="4" y="0" h="1" />
-			<case type="Normal" x="5" y="0" h="1" />
-			<case type="Normal" x="6" y="0" h="1" />
+			<case type="Normal" x="1" y="0" h="0" />
+			<case type="Lampe" x="2" y="0" h="1" />
+			<case type="Normal" x="3" y="0" h="0" />
 			
 			<case type="Normal" x="0" y="1" h="1" />
-			<case type="Normal" x="1" y="1" h="1" />
-			<case type="Normal" x="2" y="1" h="1" />
-			<case type="Normal" x="3" y="1" h="1" />
-			<case type="Normal" x="4" y="1" h="1" />
-			<case type="Normal" x="5" y="1" h="1" />
-			<case type="Normal" x="6" y="1" h="1" />
+			<case type="Normal" x="1" y="1" h="0" />
+			<case type="Lampe" x="2" y="1" h="3" />
+			<case type="Normal" x="3" y="1" h="3" />
 
 			
-			<case type="Normal" x="0" y="2" h="1" />
-			<case type="Normal" x="1" y="2" h="1" />
-			<case type="Normal" x="2" y="2" h="1" />
-			<case type="Normal" x="3" y="2" h="1" />
-			<case type="Normal" x="4" y="2" h="1" />
-			<case type="Normal" x="5" y="2" h="1" />
-			<case type="Normal" x="6" y="2" h="1" />
-			
-			<case type="Normal" x="0" y="3" h="1" />
-			<case type="Normal" x="1" y="3" h="1" />
-			<case type="Normal" x="2" y="3" h="1" />
-			<case type="Normal" x="3" y="3" h="1" />
-			<case type="Normal" x="4" y="3" h="1" />
-			<case type="Normal" x="5" y="3" h="1" />
-			<case type="Normal" x="6" y="3" h="1" />
-			
-			<case type="Normal" x="0" y="4" h="1" />
-			<case type="Normal" x="1" y="4" h="1" />
-			<case type="Normal" x="2" y="4" h="1" />
-			<case type="Normal" x="3" y="4" h="1" />
-			<case type="Normal" x="4" y="4" h="1" />
-			<case type="Normal" x="5" y="4" h="1" />
-			<case type="Normal" x="6" y="4" h="1" />
-			
-			<case type="Normal" x="0" y="5" h="1" />
-			<case type="Normal" x="1" y="5" h="1" />
-			<case type="Normal" x="2" y="5" h="1" />
-			<case type="Normal" x="3" y="5" h="1" />
-			<case type="Normal" x="4" y="5" h="1" />
-			<case type="Normal" x="5" y="5" h="1" />
-			<case type="Normal" x="6" y="5" h="1" />
-			
-			<case type="Normal" x="0" y="6" h="1" />
-			<case type="Normal" x="1" y="6" h="1" />
-			<case type="Normal" x="2" y="6" h="1" />
-			<case type="Normal" x="3" y="6" h="1" />
-			<case type="Normal" x="4" y="6" h="1" />
-			<case type="Normal" x="5" y="6" h="1" />
-			<case type="Normal" x="6" y="6" h="1" />
-			
+			<case type="Lampe" x="0" y="2" h="3" />
+			<case type="Normal" x="1" y="2" h="3" />
+			<case type="Lampe" x="2" y="2" h="5" />
+			<case type="Normal" x="3" y="2" h="5" />
 		</ensembleDeCase>
 	</terrain>
 	<personnes>
-		<personne name="Robot" x="2" y="1" o="WEST" />
+		<personne name="Robot" x="0" y="0" o="SOUTH" />
 	</personnes>
 	<programmes>
-		<programme name="main" t="3" />
+		<programme name="main" t="5" />
+		<programme name="proc1" t="5" />
+		<programme name="proc2" t="5" />
 	</programmes>
 	<actions>
 		<action name="Avancer" p="Robot" />
 		<action name="Allumer" p="Robot" />
+		<action name="Sauter" p="Robot" />
+		<action name="TournerGauche" p="Robot" />
+		<action name="TournerDroite" p="Robot" />
+		<!-- <action name="PoserBloc" p="Robot" /> -->
+		<!-- <action name="RetirerBloc" p="Robot" /> -->
 	</actions>
 </niveau>

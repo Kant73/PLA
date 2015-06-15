@@ -1,69 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <niveau>
-	<terrain largeur="7" longueur="7" >
+	<terrain largeur="4" longueur="5" >
 		<nbActionsPossible>3</nbActionsPossible>
 		<ensembleDeCase>
 			<case type="Normal" x="0" y="0" h="1" />
-			<case type="Normal" x="1" y="0" h="1" />
-			<case type="Normal" x="2" y="0" h="1" />
-			<case type="Normal" x="3" y="0" h="1" />
-			<case type="Normal" x="4" y="0" h="1" />
-			<case type="Normal" x="5" y="0" h="1" />
-			<case type="Normal" x="6" y="0" h="1" />
+			<case type="Normal" x="1" y="0" h="0" />
+			<case type="Normal" x="2" y="0" h="0" />
+			<case type="Normal" x="3" y="0" h="0" />
 			
-			<case type="Normal" x="0" y="1" h="1" />
+			<case type="Lampe" x="0" y="1" h="1" />
 			<case type="Normal" x="1" y="1" h="1" />
 			<case type="Normal" x="2" y="1" h="1" />
-			<case type="Normal" x="3" y="1" h="1" />
-			<case type="Normal" x="4" y="1" h="1" />
-			<case type="Normal" x="5" y="1" h="1" />
-			<case type="Normal" x="6" y="1" h="1" />
 
+			<case type="Pointeur" xp="0" yp="2" hp="2" x="3" y="1" h="3"/>
+			<case type="Lampe" x="1" y="2" h="1" />
+			<case type="Lampe" x="2" y="2" h="1" />
+			<case type="Pointeur" xp="3" yp="2" hp="3" x="0" y="3" h="4"/>
 			
-			<case type="Normal" x="0" y="2" h="1" />
-			<case type="Normal" x="1" y="2" h="1" />
-			<case type="Normal" x="2" y="2" h="1" />
-			<case type="Normal" x="3" y="2" h="1" />
-			<case type="Normal" x="4" y="2" h="1" />
-			<case type="Normal" x="5" y="2" h="1" />
-			<case type="Normal" x="6" y="2" h="1" />
+			<case type="Lampe" x="1" y="3" h="1" />
+			<case type="Lampe" x="2" y="3" h="1" />
+			<case type="Normal" x="3" y="3" h="0" />
 			
-			<case type="Normal" x="0" y="3" h="1" />
-			<case type="Normal" x="1" y="3" h="1" />
-			<case type="Normal" x="2" y="3" h="1" />
-			<case type="Normal" x="3" y="3" h="1" />
-			<case type="Normal" x="4" y="3" h="1" />
-			<case type="Normal" x="5" y="3" h="1" />
-			<case type="Normal" x="6" y="3" h="1" />
-			
-			<case type="Normal" x="0" y="4" h="1" />
-			<case type="Normal" x="1" y="4" h="1" />
-			<case type="Normal" x="2" y="4" h="1" />
-			<case type="Normal" x="3" y="4" h="1" />
-			<case type="Normal" x="4" y="4" h="1" />
-			<case type="Normal" x="5" y="4" h="1" />
-			<case type="Normal" x="6" y="4" h="1" />
-			
-			<case type="Normal" x="0" y="5" h="1" />
-			<case type="Normal" x="1" y="5" h="1" />
-			<case type="Normal" x="2" y="5" h="1" />
-			<case type="Normal" x="3" y="5" h="1" />
-			<case type="Normal" x="4" y="5" h="1" />
-			<case type="Normal" x="5" y="5" h="1" />
-			<case type="Normal" x="6" y="5" h="1" />
-			
-			<case type="Normal" x="0" y="6" h="1" />
-			<case type="Normal" x="1" y="6" h="1" />
-			<case type="Normal" x="2" y="6" h="1" />
-			<case type="Normal" x="3" y="6" h="1" />
-			<case type="Normal" x="4" y="6" h="1" />
-			<case type="Normal" x="5" y="6" h="1" />
-			<case type="Normal" x="6" y="6" h="1" />
+			<case type="Lampe" x="0" y="4" h="4" />
+			<case type="Lampe" x="1" y="4" h="4" />
+			<case type="Normal" x="2" y="4" h="0" />
+			<case type="Normal" x="3" y="4" h="0" />
 			
 		</ensembleDeCase>
 	</terrain>
 	<personnes>
-		<personne name="Robot" x="4" y="1" o="WEST" />
+		<personne name="Robot" x="0" y="0" o="NORTH" />
 	</personnes>
 	<programmes>
 		<programme name="main" t="8" />
@@ -76,6 +42,5 @@
 		<action name="TournerDroite" p="Robot" />
 		<action name="TournerGauche" p="Robot" />
 		<action name="Sauter" p="Robot" />
-		<!-- <action name="Break" p="Robot" /> -->
 	</actions>
 </niveau>
