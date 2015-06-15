@@ -9,38 +9,37 @@ import LightBot.parser.Parser;
 
 public class Mode_Jeu {	
 
-	private ArrayList<Niveau> niveaux; 
+	private ArrayList<String> noms; 
 	
 	public static void main(String[] pArgs){
 		new Mode_Jeu(NomMode.Basic);
 	}
 	
 	public Mode_Jeu(NomMode mode){
-		this.niveaux=new ArrayList<Niveau>();
-		this.setNiveaux(mode);
+		this.noms=new ArrayList<String>();
+		this.setNoms(mode);
 	}	
 	
-	public ArrayList<Niveau> getNiveaux(){
-		return this.niveaux;
+	public int getNbNiveaux(){
+		return this.noms.size();
+	}
+	public Niveau getNiveau(int index){
+		if(index>=0 && index <this.noms.size()){
+			Parser p=new Parser(this.noms.get(index));
+			p.lire();
+			return p.getNiveau();
+		}else return null;
 	}
 	
-	private void setNiveaux(NomMode mode){
-		if(mode!=null && this.niveaux!=null){
-			File folder = new File(mode.getPath().replace("%20", " "));			
-			ArrayList<String> noms=new ArrayList<String>();			
-			Parser p;
-			
+	private void setNoms(NomMode mode){
+		if(mode!=null && this.noms!=null){
+			File folder = new File(mode.getPath().replace("%20", " "));					
 		    for (File fichier:folder.listFiles()) {
 		    	String nomFichier=fichier.toString();		    	
 				if (fichier.isFile() && nomFichier.substring(nomFichier.length()-4).equals(".xml"))
 					noms.add(nomFichier);
 		    }
-		    noms.sort(String.CASE_INSENSITIVE_ORDER);
-		    for(String nom:noms){
-				p=new Parser(nom);
-				p.lire();
-				this.niveaux.add(p.getNiveau());
-		    }
+		    this.noms.sort(String.CASE_INSENSITIVE_ORDER);
 		}
 	}
 		
