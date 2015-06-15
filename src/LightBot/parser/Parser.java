@@ -107,7 +107,9 @@ public class Parser {
         		    			t.getEnsembleDeCase()[xp][yp] = new Pointeur(hp,t.getEnsembleDeCase()[x][y]);
     		    			}else{
     		    				String couleur=getNodeAttribute(noeudCase, "couleur"); // Permet d'allumer des cases dès la lecture du terrain
-        		    			if(!couleur.equals(""))t.getEnsembleDeCase()[x][y].setColor(Couleur.valueOf(couleur));
+    		    				if(!couleur.equals("")){
+    		    					t.getEnsembleDeCase()[x][y].setColor(Couleur.valueOf(couleur));
+    		    				}
     		    			}
 		    			}
 		    			break;
