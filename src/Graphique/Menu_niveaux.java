@@ -25,8 +25,9 @@ public class Menu_niveaux extends Menu_modes{
 	private Text monTexte;
 	private static int nbBoutons;
 	private Sprite [] mesBoutons;
-	private Texture maTexture ;
-	private Texture maTextureSel ;
+	private Texture[] mesTextures;
+	private Texture maTexture;
+	private Texture maTextureSel;
 	
 	private Sprite spriteFond;
 	private Texture monFond;
@@ -53,6 +54,7 @@ public class Menu_niveaux extends Menu_modes{
 		int nbMaxLigne=4;
 		monFond = new Texture();
 		mesBoutons = new Sprite[nbBoutons];
+		this.mesTextures = new Texture[nbBoutons*2];
 		maTexture = new Texture();
 		maTextureSel = new Texture();
 		
@@ -68,7 +70,7 @@ public class Menu_niveaux extends Menu_modes{
 			e1.printStackTrace();
 		}
 		
-		
+		/*
 		for (int i=0; i< this.nbBoutons ; i++)
 		{
 					
@@ -80,8 +82,37 @@ public class Menu_niveaux extends Menu_modes{
 					mesBoutons[i].setPosition(Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(maTexture.getSize().x/2+ecartPix/2) + (maTexture.getSize().x+ecartPix)*(i%nbMaxLigne)
 							, Menu_principal.fenetre.getSize().y/2-maTexture.getSize().y/2 +(maTexture.getSize().y+ecartPix)*k);
 		}
+		
+		*/
+
+		for (int i=0; i< this.nbBoutons*2 ; i++)
+		{
+			mesTextures[i]=new Texture();
+			try {
+				if(i<nbBoutons)
+				{
+					mesTextures[i].loadFromFile(Paths.get("src/Img/numero_level_"+(i+1)+".png"));
+					mesBoutons[i]=new Sprite();
+					mesBoutons[i].setTexture(mesTextures[i]);
+					if(i%nbMaxLigne==0 && i!=0)
+						k++;
+					
+					mesBoutons[i].setPosition(Menu_principal.fenetre.getSize().x/2-nbMaxLigne*(mesTextures[i].getSize().x/2+ecartPix/2) + (mesTextures[i].getSize().x+ecartPix)*(i%nbMaxLigne)
+							, Menu_principal.fenetre.getSize().y/3+(mesTextures[i].getSize().y+ecartPix)*k);
+				}
+				else
+				{
+					mesTextures[i].loadFromFile(Paths.get("src/Img/numero_level_"+(i-this.nbBoutons+1)+"_selec.png"));
+				}
+					
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
+	/*
 	private void hover(Vector2i pos)
 	{	
 		int last_select = this.selection;
@@ -97,13 +128,30 @@ public class Menu_niveaux extends Menu_modes{
 		if(this.selection!=last_select && last_select!=-1)
 			mesBoutons[last_select].setTexture(maTexture);
 	}
+	*/
+	
+	private void hover(Vector2i pos)
+	{	
+		int last_select = this.selection;
+		this.selection=-1;
+		for (int i=0; i< this.nbBoutons; i++)
+		{
+			if(mesBoutons[i].getGlobalBounds().contains(pos.x,pos.y))
+			{
+				mesBoutons[i].setTexture(mesTextures[i+this.nbBoutons]);
+				this.selection=i;
+			}
+		}
+		if(this.selection!=last_select && last_select!=-1)
+			mesBoutons[last_select].setTexture(mesTextures[last_select]);
+	}
 	
 	
 	private void afficher_boutons()
 	{
 		monTexte = new Text();
 		Text monTexte = new Text("", police, 50);
-		monTexte.setColor(Color.BLACK);
+		monTexte.setColor(Color.YELLOW);
 		
 		for (int i=0; i< this.nbBoutons; i++)/*On affiche les boutons et les numéros à l'intérieur*/
 		{
@@ -171,7 +219,7 @@ public class Menu_niveaux extends Menu_modes{
 	{
 		Menu_principal.fenetre.clear();
 		Mode_Jeu mj=new Mode_Jeu(NomMode.values()[modeSelectionne]);
-		nbBoutons=mj.getNiveaux().size();
+		nbBoutons=mj.getNbNiveaux();
 		
 		this.selection=-1;
 		this.init_images () ;
@@ -198,7 +246,7 @@ public class Menu_niveaux extends Menu_modes{
 								fondu();
 								Afficher_niveau level = new  Afficher_niveau();
 								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la r�solution du niveau.
-								Niveau copie = mj.getNiveaux().get(selection);
+								Niveau copie = mj.getNiveau(selection);
 								level.afficher_niveau(copie);
 								
 								fondu();
