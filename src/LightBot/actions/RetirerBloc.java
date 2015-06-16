@@ -94,11 +94,11 @@ public class RetirerBloc extends Actions {
 		case NORTH :
 			if ((positionPersoY-1) >= 0) {
 				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()-1];		//On récupère la case adjacente en face du personnage.
-				if (C instanceof Memoire  && (C.getHauteur() > ((Memoire) C).getHauteurOriginal())) {								//Si le bloc est un bloc Memoire et que sa (hauteur-1) est supérieur à la hauteur originale de la case de base.
-					C.setHauteur(C.getHauteur());																						//On diminue la hauteur du bloc Memoire de 1.
+				if (C instanceof Memoire  && ((C.getHauteur()-1) > ((Memoire) C).getHauteurOriginal())) {								//Si le bloc est un bloc Memoire et que sa (hauteur-1) est supérieur à la hauteur originale de la case de base.
+					C.setHauteur((C.getHauteur()-1));																						//On diminue la hauteur du bloc Memoire de 1.
 					reserve = (reserve + 1);																							//On retire 1 bloc de la réserve.
 				}	
-				else if ((C.getHauteur() == ((Memoire) C).getHauteurOriginal())){													//Sinon si la (hauteur-1) du bloc Memoire est égal à la hauteur original,
+				else if (((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){													//Sinon si la (hauteur-1) du bloc Memoire est égal à la hauteur original,
 					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());													//on remplace la case Memoire par une case Normal avec son hauteur de base.
 					C = caseNormal;
 					reserve = (reserve + 1);																							//On retire 1 bloc de la réserve.
@@ -109,11 +109,11 @@ public class RetirerBloc extends Actions {
 		case SOUTH : 
 			if ((positionPersoY+1) < t.getLongueur()) {
 				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()+1];
-				if (C instanceof Memoire  && (C.getHauteur() > ((Memoire) C).getHauteurOriginal())) {		
-					C.setHauteur(C.getHauteur());															
+				if (C instanceof Memoire  && ((C.getHauteur()-1) > ((Memoire) C).getHauteurOriginal())) {		
+					C.setHauteur((C.getHauteur()-1));															
 					reserve = (reserve + 1);
 				}	
-				else if ((C.getHauteur() == ((Memoire) C).getHauteurOriginal())){
+				else if (((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
 					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());
 					C = caseNormal;
 					reserve = (reserve + 1);
@@ -124,11 +124,11 @@ public class RetirerBloc extends Actions {
 		case EAST :
 			if ((positionPersoX+1) < t.getLargeur()) {
 				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()+1][this.perso.getPositionY()];
-				if (C instanceof Memoire  && (C.getHauteur() > ((Memoire) C).getHauteurOriginal())) {		
-					C.setHauteur(C.getHauteur());															
+				if (C instanceof Memoire  && ((C.getHauteur()-1) > ((Memoire) C).getHauteurOriginal())) {		
+					C.setHauteur((C.getHauteur()-1));															
 					reserve = (reserve + 1);
 				}	
-				else if ((C.getHauteur() == ((Memoire) C).getHauteurOriginal())){
+				else if (((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
 					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());
 					C = caseNormal;
 					reserve = (reserve + 1);
@@ -139,11 +139,11 @@ public class RetirerBloc extends Actions {
 		case WEST :
 			if ((positionPersoX-1) >= 0) {
 				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()-1][this.perso.getPositionY()];
-				if (C instanceof Memoire  && (C.getHauteur() > ((Memoire) C).getHauteurOriginal())) {		
-					C.setHauteur(C.getHauteur());															
+				if (C instanceof Memoire  && ((C.getHauteur()-1) > ((Memoire) C).getHauteurOriginal())) {		
+					C.setHauteur((C.getHauteur()-1));															
 					reserve = (reserve + 1);
 				}	
-				else if ((C.getHauteur() == ((Memoire) C).getHauteurOriginal())){
+				else if (((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
 					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());
 					C = caseNormal;
 					reserve = (reserve + 1);
