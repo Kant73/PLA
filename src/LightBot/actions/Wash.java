@@ -15,7 +15,7 @@ public class Wash extends Actions {
 	
 	@Override
 	public void agir(){
-		if(this.couleurCondition==this.perso.getCouleur() || this.perso.getCouleur()==Couleur.Violet){
+		if(matchColor()){
 			if(this.perso.getCouleur()!=Couleur.Blanc)this.perso.setCouleur(Couleur.Blanc);
 		}
 	}
