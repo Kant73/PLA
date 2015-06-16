@@ -32,28 +32,36 @@ public class Sauter extends Actions {
 			switch(o){
 				case EAST :
 					if ((x+1)<T.getLargeur()){
-						if(h == T.getEnsembleDeCase()[x+1][y].getHauteur()-1||h == T.getEnsembleDeCase()[x+1][y].getHauteur()+1)this.perso.setPositionX(x+1);
+						if(h-1 == T.getEnsembleDeCase()[x+1][y].getHauteur()||h+1 == T.getEnsembleDeCase()[x+1][y].getHauteur()){
+							this.perso.setPositionX(x+1);
+						}
 					}else {this.perso.setMort(true);}
 					break;
 				case SOUTH :
 					if ((y+1)<T.getLongueur()){
-						if(h == T.getEnsembleDeCase()[x][y+1].getHauteur() -1 || h == T.getEnsembleDeCase()[x][y+1].getHauteur()+1)this.perso.setPositionY(y+1);
+						if(h-1 == T.getEnsembleDeCase()[x][y+1].getHauteur() || h+1 == T.getEnsembleDeCase()[x][y+1].getHauteur()){
+							this.perso.setPositionY(y+1);
+						}
 					}else{this.perso.setMort(true);}
 					break;
 				case WEST : 
-					if ((x-1)<0){
-						if(h == T.getEnsembleDeCase()[x-1][y].getHauteur()-1 || h == T.getEnsembleDeCase()[x-1][y].getHauteur()+1)this.perso.setPositionX(x-1);
+					if ((x-1)>=0){
+						if(h-1 == T.getEnsembleDeCase()[x-1][y].getHauteur() || h+1 == T.getEnsembleDeCase()[x-1][y].getHauteur()){
+							this.perso.setPositionX(x-1);
+						}
 					}else{this.perso.setMort(true);}
 					break;
 				case NORTH :
-					if ((y-1)<0 ){
-						if(h == T.getEnsembleDeCase()[x][y-1].getHauteur()-1 || h == T.getEnsembleDeCase()[x][y-1].getHauteur()+1)this.perso.setPositionY(y-1);
+					if ((y-1)>=0 ){
+						if(h-1 == T.getEnsembleDeCase()[x][y-1].getHauteur() || h+1 == T.getEnsembleDeCase()[x][y-1].getHauteur()){
+							this.perso.setPositionY(y-1);
+						}
 					}else{this.perso.setMort(true);}
 					break;
 				default:break;
 			}
 
-			if(T.getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()].getHauteur()==-1){
+			if(T.getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()].getHauteur()==0){
 				this.perso.setMort(true);				
 			}
 		}
