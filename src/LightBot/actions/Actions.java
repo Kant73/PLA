@@ -6,8 +6,33 @@ import LightBot.personnage.Personnage;
 
 public abstract class Actions {
 
+/********************************************* ATTRIBUTS *********************************************/
+	
 	protected Personnage perso;
 	protected Couleur couleurCondition;
+	protected int reserveCase;
+	
+/********************************************* ACCESSEURS *********************************************/	
+	
+	public Couleur getCouleur(){
+		return this.couleurCondition;
+	}
+	
+	public int getReserveCase() {
+		return this.reserveCase;
+	}
+	
+/********************************************* MUTATEURS *********************************************/
+	
+	public void setCouleur(Couleur pColor) {
+		this.couleurCondition = pColor;
+	}
+	
+	public void setReserveCase(int pReserveCase) {
+		this.reserveCase = pReserveCase;
+	}
+	
+/********************************************* METHODES D'INSTANCE *********************************************/
 	
 	public Actions(Personnage p){
 		this.perso=p;
@@ -21,17 +46,14 @@ public abstract class Actions {
 		}
 	}
 	
+	public Actions(Personnage pPerso, int pReserveCase){
+		this(pPerso);
+		this.reserveCase = pReserveCase;
+	}
+	
 	public void agir() {}
 	
 	public Personnage getPersonnage(){
 		return this.perso;
-	}
-	
-	public Couleur getCouleur(){
-		return this.couleurCondition;
-	}
-	
-	public void setCouleur(Couleur pColor) {
-		this.couleurCondition = pColor;
 	}
 }
