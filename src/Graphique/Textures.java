@@ -124,11 +124,8 @@ public class Textures {
 			TexP2.loadFromFile(Paths.get("src/Img/symbole_P2.png"));
 			TexSymboleAllumer.loadFromFile(Paths.get("src/Img/symbole_allumer.png"));
 			TexSymboleAvancer.loadFromFile(Paths.get("src/Img/symbole_avancer.png"));
-			TexSymboleDroite.loadFromFile(Paths.get("src/Img/symbole_droite.png"));
-			TexSymboleGauche.loadFromFile(Paths.get("src/Img/symbole_gauche.png"));
 			TexSymboleTournerDroite.loadFromFile(Paths.get("src/Img/symbole_rot_droite.png"));
 			TexSymboleTournerGauche.loadFromFile(Paths.get("src/Img/symbole_rot_gauche.png"));
-			TexSymboleReculer.loadFromFile(Paths.get("src/Img/symbole_reculer.png"));
 			TexSymboleSauter.loadFromFile(Paths.get("src/Img/symbole_saut.png"));
 			TexSymboleBreak.loadFromFile(Paths.get("src/Img/break.png"));
 			
