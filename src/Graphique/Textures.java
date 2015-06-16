@@ -100,7 +100,7 @@ public class Textures {
 				if(i<texProcs.length/2)
 					texProcs[i].loadFromFile(Paths.get("src/Img/proc"+i+".png"));	
 				else
-					texProcs[i].loadFromFile(Paths.get("src/Img/proc"+(texProcs.length-i-1)+"_select.png"));
+					texProcs[i].loadFromFile(Paths.get("src/Img/proc"+(i-texProcs.length/2)+"_select.png"));
 			}
 		
 			mesAnims[0].loadFromFile(Paths.get("src/Img/BB8_SE.png"));
