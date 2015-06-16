@@ -23,16 +23,16 @@ public class TournerDroite extends Actions {
 	public void agir() {
 		if(this.couleurCondition==this.perso.getCouleur() || (this.perso.getCouleur()==Couleur.Violet && this.couleurCondition!=Couleur.Rose) || (this.perso.getCouleur()==Couleur.Rose && this.couleurCondition!=Couleur.Violet)){
 			if (this.perso.getOrientation() == Pcardinaux.EAST){
-				this.perso.setOrientation(Pcardinaux.SOUTH);
-			}
-			else if (this.perso.getOrientation() == Pcardinaux.NORTH){
-				this.perso.setOrientation(Pcardinaux.EAST);
-			}
-			else if (this.perso.getOrientation() == Pcardinaux.WEST){
 				this.perso.setOrientation(Pcardinaux.NORTH);
 			}
-			else {
+			else if (this.perso.getOrientation() == Pcardinaux.NORTH){
 				this.perso.setOrientation(Pcardinaux.WEST);
+			}
+			else if (this.perso.getOrientation() == Pcardinaux.WEST){
+				this.perso.setOrientation(Pcardinaux.SOUTH);
+			}
+			else {
+				this.perso.setOrientation(Pcardinaux.EAST);
 			}
 		}
 	}
