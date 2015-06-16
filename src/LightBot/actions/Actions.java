@@ -28,10 +28,6 @@ public abstract class Actions {
 		this.couleurCondition = pColor;
 	}
 	
-	public void setReserveCase(int pReserveCase) {
-		this.reserveCase = pReserveCase;
-	}
-	
 /********************************************* METHODES D'INSTANCE *********************************************/
 	
 	public Actions(Personnage p){
@@ -44,11 +40,6 @@ public abstract class Actions {
 		if(c==Couleur.Violet || c==Couleur.Rose){
 			this.couleurCondition=c;
 		}
-	}
-	
-	public Actions(Personnage pPerso, int pReserveCase){
-		this(pPerso);
-		this.reserveCase = pReserveCase;
 	}
 	
 	public void agir() {}

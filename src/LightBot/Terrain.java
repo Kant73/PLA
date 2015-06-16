@@ -12,6 +12,7 @@ public class Terrain {
 	private int largeur;
 	private int longueur;
 	private int nbActionsPossible;
+	private int reserveBloc;					//Réserve de blocs que peut poser le robot.
 	private int nbLampeAllumee=0;
 	private int maxAllumee;
 	private Case[][] ensembleDeCase;			//Tableau à 2 dimensions de cases représentant le terrain
@@ -28,6 +29,14 @@ public class Terrain {
 
 	public int getNbActionsPossible() {
 		return nbActionsPossible;
+	}
+	
+	/**
+	 * Accès à la réserve de blocs du robot.
+	 * @return La réserve de blocs reserveBloc.
+	 */
+	public int getReserveBloc() {
+		return reserveBloc;
 	}
 	
 	public Case[][] getEnsembleDeCase() {
@@ -96,6 +105,14 @@ public class Terrain {
 	public void setNbActionsPossible(int pNbActionsPossible) {
 		this.nbActionsPossible = pNbActionsPossible;
 	}
+	
+	/**
+	 * Permet de modifier la réserve de blocs. 
+	 * @param Nombre de blocs pour la réserve.
+	 */
+	public void setReserveBloc(int pReserveBloc) {
+		this.reserveBloc = pReserveBloc;
+	}
 
 	public void setEnsembleDeCase(Case[][] pEnsembleDeCase) {
 		this.ensembleDeCase = pEnsembleDeCase;
@@ -116,6 +133,8 @@ public class Terrain {
 	public void setNbLampeAllumee(int i){
 		this.nbLampeAllumee=i;
 	}
+
+/********************************************* METHODES D'INSTANCE *********************************************/
 	
 	public void affiche(){
 		for(int y=0;y<longueur;y++){
@@ -158,8 +177,6 @@ public class Terrain {
 		}
 		System.out.println(ligne);
 	}
-	
-/********************************************* METHODES D'INSTANCE *********************************************/
 	
 	//Constructeur de l'objet Terrain
 	public Terrain(int pLargeur, int pLongueur, int pNbActionsPossible, Case[][] pEnsembleDeCase){
