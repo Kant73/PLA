@@ -10,7 +10,6 @@ public abstract class Actions {
 	
 	protected Personnage perso;
 	protected Couleur couleurCondition;
-	protected int reserveCase;
 	
 /********************************************* ACCESSEURS *********************************************/	
 	
@@ -18,16 +17,8 @@ public abstract class Actions {
 		return this.couleurCondition;
 	}
 	
-	public int getReserveCase() {
-		return this.reserveCase;
-	}
-	
 /********************************************* MUTATEURS *********************************************/
-	
-	public void setCouleur(Couleur pColor) {
-		this.couleurCondition = pColor;
-	}
-	
+
 /********************************************* METHODES D'INSTANCE *********************************************/
 	
 	public Actions(Personnage p){
