@@ -63,12 +63,13 @@ public class Afficher_niveau extends Menu_niveaux{
 	public Sprite spriteSymboleBreak;
 	public Sprite spriteSymbolePoser;
 	public Sprite spriteSymboleSuppr;
-	public int numAnim;
+	public int[] ancX,ancY;
+	public int[] numAnim;
+	public int indexRobot;
 	
 	public LinkedList list_action_possible;
 	public List[] tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
 	public float reScale,reScaleRobot;
-	int xRobot,yRobot,nextXRobot,nextYRobot;
 	int progSelect;
 		
 	private void initialiser_anim()
@@ -158,12 +159,13 @@ public class Afficher_niveau extends Menu_niveaux{
 				{	
 					Menu_principal.fenetre.draw(SpriteCases[i][j][etageActuel]);
 
-					if((( i==xRobot && j == yRobot)||(i==nextXRobot && j == nextYRobot)) && etageActuel == monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur())
-					{
-						spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][numAnim].setPosition(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition());
-						Menu_principal.fenetre.draw(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][numAnim]);
-					}
-						
+					for(int l = 0; l<monNiveau.getPersonnages().size();l++)
+						if((i==monNiveau.getPersonnages().get(l).getPositionX() && j == monNiveau.getPersonnages().get(l).getPositionY() || i==ancX[l] && j == ancY[l] ) 
+								&& etageActuel == monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur())
+						{
+							spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][numAnim[l]].setPosition(spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][0].getPosition());
+							Menu_principal.fenetre.draw(spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][numAnim[l]]);
+						}
 				}
 			}
 		}
@@ -176,31 +178,32 @@ public class Afficher_niveau extends Menu_niveaux{
 	 */
 	public void set_pos_robot()
 	{
-		int i=monNiveau.getPersonnages().get(0).getPositionX(),j=monNiveau.getPersonnages().get(0).getPositionY();
-		
-		
-		spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].setPosition(SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getPosition().x 
-					+ reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().x/2
-					- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().width/2
-					,SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getPosition().y 
-					+reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().y/3 
-					- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height
-					+ 10);
+		int i,j;
+		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
+		{
+			 i=monNiveau.getPersonnages().get(l).getPositionX();
+			 j=monNiveau.getPersonnages().get(l).getPositionY();
 			
+			spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][0].setPosition(SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getPosition().x 
+						+ reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().x/2
+						- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][0].getLocalBounds().width/2
+						,SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getPosition().y 
+						+reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteur()].getTexture().getSize().y/3 
+						- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][0].getLocalBounds().height
+						+ 10);	
+		}		
 	}
 	
 	
-	public void avancer(int lastX,int lastY)
+	public void avancer(int index)
 	{
-		int newX=monNiveau.getPersonnages().get(0).getPositionX(),newY=monNiveau.getPersonnages().get(0).getPositionY();
+		int lastX=ancX[index];
+		int lastY=ancY[index];
+		int newX=monNiveau.getPersonnages().get(index).getPositionX(),newY=monNiveau.getPersonnages().get(index).getPositionY();
 		float deplX=0,deplY = 0;
 		float coeff = 2;
-		xRobot=lastX;
-		yRobot=lastY;
-		nextXRobot=newX;
-		nextYRobot=newY;
 		
-		switch (monNiveau.getPersonnages().get(0).getOrientation())
+		switch (monNiveau.getPersonnages().get(index).getOrientation())
 		{
 		case  SOUTH:
 				deplX=-1;
@@ -227,54 +230,54 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 			posFinale = new Vector2f(SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().x 
 					+ reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().x/2
-					- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().width/2, 
+					- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getLocalBounds().width/2, 
 				SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y 
 				+reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3 
-				- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height);
+				- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getLocalBounds().height);
 			
-			posInit = new Vector2f(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x
-					,spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y);
+			posInit = new Vector2f(spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().x
+					,spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().y);
 		
 			while( (posInit.x>=posFinale.x && posInit.y>=posFinale.y 
-					  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x >= posFinale.x 
-					  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y >= posFinale.y)
+					  && spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().x >= posFinale.x 
+					  && spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().y >= posFinale.y)
 					  	  || 
 				  (posInit.x<=posFinale.x && posInit.y>=posFinale.y 
-						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x <= posFinale.x 
-						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y >= posFinale.y)
+						  && spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().x <= posFinale.x 
+						  && spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().y >= posFinale.y)
 						  || 
 				  (posInit.x>=posFinale.x && posInit.y<=posFinale.y 
-						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x >= posFinale.x 
-						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y <= posFinale.y)
+						  && spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().x >= posFinale.x 
+						  && spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().y <= posFinale.y)
 						  || 
 				  (posInit.x<=posFinale.x && posInit.y<=posFinale.y 
-						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x <= posFinale.x 
-						  && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y <= posFinale.y)						  
+						  && spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().x <= posFinale.x 
+						  && spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().y <= posFinale.y)						  
 				  )
 			{
-				numAnim++;
-				if(numAnim>=spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()].length)
-					numAnim=0;
+				numAnim[index]++;
+				if(numAnim[index]>=spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()].length)
+					numAnim[index]=0;
 					
-				spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].setPosition(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x+deplX,spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y+deplY);
+				spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].setPosition(spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().x+deplX,spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().y+deplY);
 				afficher_carte();
 			}
-			initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
 			set_pos_robot();
 			afficher_carte();
 		}
 	}
 	
 	
-	public void sauter(int lastX,int lastY)
+	public void sauter(int index)
 	{
-		int newX=monNiveau.getPersonnages().get(0).getPositionX(),newY=monNiveau.getPersonnages().get(0).getPositionY();
+		int lastX=ancX[index];
+		int lastY=ancY[index];
+		int newX=monNiveau.getPersonnages().get(index).getPositionX(),newY=monNiveau.getPersonnages().get(index).getPositionY();
 		float deplSaut=0;
 		float coeff = 2;
 		Vector2f posInit;
 		
-		posInit = new Vector2f(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x,spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y);
-		
+		posInit = new Vector2f(spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().x,spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().y);
 		
 		if(monNiveau.getTerrain().getEnsembleDeCase()[lastX][lastY].getHauteur()!=monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur())
 		{	
@@ -282,26 +285,26 @@ public class Afficher_niveau extends Menu_niveaux{
 			
 			boolean b =  newX>lastX || newY>lastY ;
 
-			while ((b && spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y 
-							+ reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height
+			while ((b && spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().y 
+							+ reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getLocalBounds().height
 							> SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y
 							+reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*2
 							+10)
 							
 				||(!b  && monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()>monNiveau.getTerrain().getEnsembleDeCase()[lastX][lastY].getHauteur() 
-							&& spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y 
-							+ reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height 
-							> posInit.y+reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height 
+							&& spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().y 
+							+ reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getLocalBounds().height 
+							> posInit.y+reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getLocalBounds().height 
 							-reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*(monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()
 							-monNiveau.getTerrain().getEnsembleDeCase()[lastX][lastY].getHauteur())
 							+10)
 					)
 			{
-				spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].setPosition(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x,spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y+deplSaut);
+				spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].setPosition(spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().x,spriteAnim[monNiveau.getPersonnages().get(index).getOrientationInt()][0].getPosition().y+deplSaut);
 				afficher_carte();	
 			}
 		}
-		this.avancer(lastX,lastY);
+		this.avancer(index);
 	}
 	
 	
@@ -440,27 +443,24 @@ public class Afficher_niveau extends Menu_niveaux{
 		NB_CASE_X = monNiveau.getTerrain().getLargeur();
 		NB_CASE_Y =  monNiveau.getTerrain().getLongueur();
 		NB_CASE_Z =  monNiveau.getTerrain().getHauteurMax()+1;
+
+		this.ancX=new int[monNiveau.getPersonnages().size()];
+		this.ancY=new int[monNiveau.getPersonnages().size()];
+		this.numAnim=new int [monNiveau.getPersonnages().size()];
+		
+		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
+		{
+			ancX[l]=monNiveau.getPersonnages().get(l).getPositionX();
+			ancY[l]=monNiveau.getPersonnages().get(l).getPositionY();
+			this.numAnim[l]=0;
+		}
 		
 		
 		reScale=Scale;
 		reScaleRobot=Scale;
 		SetSprites();
-		initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
 	}
-	
-	
-	/**
-	 * Permet d'initialiser l'emplacement du robot
-	 * @param x	Les coordonnées du robot en x 
-	 * @param y Les coordonnées du robot en y
-	 */
-	public void initPlaceRobot(int x,int y)
-	{
-		xRobot=x;
-		yRobot=y;
-		nextXRobot=x;
-		nextYRobot=y;
-	}
+
 	
 	/**
 	 * Permet de ne pas avoir de doublon dans la liste des actions possible pour un niveau
@@ -622,25 +622,25 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void inserer_actions(StructStringSprite struct){
 		switch (struct.nom) {
 		case "avancer":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Avancer(this.monNiveau.getPersonnages().get(0)));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Avancer(this.monNiveau.getPersonnages().get(indexRobot)));
 			break;
 		case "gauche":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerGauche(this.monNiveau.getPersonnages().get(0)));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerGauche(this.monNiveau.getPersonnages().get(indexRobot)));
 			break;
 		case "droite":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerDroite(this.monNiveau.getPersonnages().get(0)));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerDroite(this.monNiveau.getPersonnages().get(indexRobot)));
 			break;
 		case "sauter":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Sauter(this.monNiveau.getPersonnages().get(0)));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Sauter(this.monNiveau.getPersonnages().get(indexRobot)));
 			break;
 		case "allumer":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.monNiveau.getPersonnages().get(0)));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.monNiveau.getPersonnages().get(indexRobot)));
 			break;
 		case "poser":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new PoserBloc(this.monNiveau.getPersonnages().get(0)));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new PoserBloc(this.monNiveau.getPersonnages().get(indexRobot)));
 			break;
 		case "suppr":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new RetirerBloc(this.monNiveau.getPersonnages().get(0)));
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new RetirerBloc(this.monNiveau.getPersonnages().get(indexRobot)));
 			break;
 		case "P1":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(1));
@@ -682,7 +682,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		}
 		this.progSelect = save_select;	
 		this.set_textures_cases();
-		initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
 		set_pos_robot();
 	}
 	/**
@@ -692,7 +691,8 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void afficher_niveau(Niveau niveauCharger,Mode_Jeu mj, int selection)
 	{
 		this.progSelect=0;
-		this.numAnim=0;
+		this.indexRobot=0;
+
 		int i=0,j=0;
 		boolean unSeulPlay=true;
 		//Initialisation des textures
@@ -757,8 +757,9 @@ public class Afficher_niveau extends Menu_niveaux{
 						
 						if(spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
 						{
-							
-							monNiveau.getPersonnages().get(0).setProgramme(monNiveau.getProgrammes().get(0));
+							for(int l = 0; l<monNiveau.getPersonnages().size();l++)	
+								monNiveau.getPersonnages().get(l).setProgramme(monNiveau.getProgrammes().get(l));
+								
 							Ordonnanceur monOrdonnanceur = new Ordonnanceur (monNiveau.getPersonnages(),this);
 							monOrdonnanceur.run();
 	

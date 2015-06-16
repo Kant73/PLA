@@ -96,7 +96,8 @@ public class Ordonnanceur {
 						{
 							System.out.println("ALLUMER !!! X : "+ this.listPers.get(index).getPositionX() + "Y :" + this.listPers.get(index).getPositionY() );
 						}
-						
+						this.affichage.ancX[index]=this.listPers.get(index).getPositionX();
+						this.affichage.ancY[index]=this.listPers.get(index).getPositionY();
 						this.affichage.set_pos_robot();
 						this.affichage.set_textures_cases();
 						this.affichage.afficher_carte();
