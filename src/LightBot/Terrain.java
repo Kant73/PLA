@@ -59,7 +59,6 @@ public class Terrain {
 		
 		for(int i=0; i< largeur; i++){
 			for(int j=0; j< longueur; j++){
-				System.out.println(C.getClass());
 				if (C == this.ensembleDeCase[i][j]){
 					return i;
 				}
