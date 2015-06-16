@@ -42,4 +42,13 @@ public abstract class Actions {
 	public Personnage getPersonnage(){
 		return this.perso;
 	}
+	
+	public boolean matchColor (){
+		boolean colorOK;
+		/* Marche bien pour n'avoir que 2 couleurs de conditions */
+		colorOK = this.couleurCondition == this.perso.getCouleur(); 
+		colorOK |= (this.perso.getCouleur() == Couleur.Violet 	&& this.couleurCondition != Couleur.Rose);
+		colorOK |= (this.perso.getCouleur() == Couleur.Rose 	&& this.couleurCondition != Couleur.Violet);
+		return colorOK;
+	}
 }
