@@ -13,6 +13,7 @@ import LightBot.actions.Break;
 import LightBot.actions.PoserBloc;
 import LightBot.actions.RetirerBloc;
 import LightBot.actions.Sauter;
+import LightBot.cases.Clonage;
 import LightBot.personnage.Personnage;
 
 public class Ordonnanceur {
@@ -20,17 +21,18 @@ public class Ordonnanceur {
 	private ArrayList<Programme> progs;
 	private Vector<Iterator<Object>> listItActions;
 	private ArrayList<LinkedList<Iterator<Object>>> listFifo;
-	private Personnage pers;
+	private ArrayList<Personnage> listPers;
 	private Afficher_niveau affichage;
 	
 	public Ordonnanceur(ArrayList<Personnage> persos, Afficher_niveau affichage){
 		this.progs=new ArrayList<Programme>();
 		this.listItActions=new Vector<Iterator<Object>>();
 		this.listFifo=new ArrayList<LinkedList<Iterator<Object>>>();
+		this.listPers=new ArrayList<Personnage>();
 		this.affichage=affichage;
 		for(int i=0;i<persos.toArray().length;i++){
 			this.progs.add(persos.get(i).getProgramme());
-			this.pers=persos.get(0);
+			this.listPers.add(persos.get(i));
 			this.listItActions.add(persos.get(i).getProgramme().getActions().iterator());
 			this.listFifo.add(new LinkedList<Iterator<Object>>());
 			this.listFifo.get(i).add(this.listItActions.get(i));
@@ -70,16 +72,21 @@ public class Ordonnanceur {
 					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() || ((Actions)obj).getPersonnage().isMort()) throw new ArrayIndexOutOfBoundsException();
 					else{
 						
-						lastX=this.pers.getPositionX();
-						lastY=this.pers.getPositionY();	
+						this.affichage.ancX[index]=this.listPers.get(index).getPositionX();
+						this.affichage.ancY[index]=this.listPers.get(index).getPositionY();
+						
 						((Actions)obj).agir();
 						if((Actions)obj instanceof Avancer)
 						{
-							this.affichage.avancer(lastX,lastY);
+							this.affichage.avancer(index);
 						}
+						/*else if((Actions)obj instanceof Clonage)
+						{
+							this.affichage.avancer(index);
+						}*/
 						else if((Actions)obj instanceof Sauter)
 						{
-							this.affichage.sauter(lastX,lastY);
+							this.affichage.sauter(index);
 						}
 						else if((Actions)obj instanceof PoserBloc || (Actions)obj instanceof RetirerBloc )
 						{
@@ -87,7 +94,7 @@ public class Ordonnanceur {
 						}
 						else if((Actions)obj instanceof Allumer)
 						{
-							System.out.println("ALLUMER !!! X : "+ this.pers.getPositionX() + "Y :" + this.pers.getPositionY() );
+							System.out.println("ALLUMER !!! X : "+ this.listPers.get(index).getPositionX() + "Y :" + this.listPers.get(index).getPositionY() );
 						}
 						
 						this.affichage.set_pos_robot();
