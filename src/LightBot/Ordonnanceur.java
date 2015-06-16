@@ -10,9 +10,9 @@ import LightBot.actions.Actions;
 import LightBot.actions.Allumer;
 import LightBot.actions.Avancer;
 import LightBot.actions.Break;
+import LightBot.actions.PoserBloc;
+import LightBot.actions.RetirerBloc;
 import LightBot.actions.Sauter;
-import LightBot.actions.TournerDroite;
-import LightBot.actions.TournerGauche;
 import LightBot.personnage.Personnage;
 
 public class Ordonnanceur {
@@ -81,7 +81,11 @@ public class Ordonnanceur {
 						{
 							this.affichage.sauter(lastX,lastY);
 						}
-						if((Actions)obj instanceof Allumer)
+						else if((Actions)obj instanceof PoserBloc || (Actions)obj instanceof RetirerBloc )
+						{
+							this.affichage.set_position_cases();
+						}
+						else if((Actions)obj instanceof Allumer)
 						{
 							System.out.println("ALLUMER !!! X : "+ this.pers.getPositionX() + "Y :" + this.pers.getPositionY() );
 						}
@@ -90,7 +94,7 @@ public class Ordonnanceur {
 						this.affichage.set_textures_cases();
 						this.affichage.afficher_carte();
 						
-						if((Actions)obj instanceof Allumer)
+						if((Actions)obj instanceof Allumer || (Actions)obj instanceof PoserBloc || (Actions)obj instanceof RetirerBloc)
 						{
 							try {
 								Thread.sleep(300);

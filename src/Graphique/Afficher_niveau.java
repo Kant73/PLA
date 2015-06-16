@@ -97,7 +97,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	/**
 	 * Permet de determiner la position des cases
 	 */
-	void set_position_cases()
+	public void set_position_cases()
 	{
 		float referenceCentreX=Menu_principal.fenetre.getSize().x+450;
 		float referenceCentreY=Menu_principal.fenetre.getSize().y+250;
