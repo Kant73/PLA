@@ -32,7 +32,7 @@
 		<personne name="Robot" x="2" y="2" o="SOUTH" />
 	</personnes>
 	<programmes>
-		<programme name="main" t="8" />
+		<programme name="main" t="9" />
 		<programme name="proc1" t="5" />
 		<programme name="proc2" t="5" />
 	</programmes>
