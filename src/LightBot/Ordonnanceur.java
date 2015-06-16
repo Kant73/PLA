@@ -81,9 +81,9 @@ public class Ordonnanceur {
 						{
 							this.affichage.sauter(lastX,lastY);
 						}
-						else if((Actions)obj instanceof Allumer)
+						if((Actions)obj instanceof Allumer)
 						{
-							// Ajouter une animation
+							System.out.println("ALLUMER !!! X : "+ this.pers.getPositionX() + "Y :" + this.pers.getPositionY() );
 						}
 						
 						this.affichage.set_pos_robot();
