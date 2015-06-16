@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<niveau>
+	<terrain largeur="7" longueur="3" >
+		<nbActionsPossible>100</nbActionsPossible>
+		<ensembleDeCase>
+			<case type="Lampe"			x="0" y="0" h="1" />
+			
+			<case type="Pointeur"		x="0" y="2" h="1" xp="6" yp="6" hp="1" />
+			<case type="Transparente"	x="1" y="2" h="5" />
+			<case type="Transparente"	x="2" y="2" h="3" />
+			<case type="Transparente"	x="3" y="2" h="1" />
+			<case type="Transparente"	x="4" y="2" h="4" />
+			<case type="Transparente"	x="5" y="2" h="2" />
+		</ensembleDeCase>
+	</terrain>
+	<personnes>
+		<personne name="Robot" x="0" y="2" o="EAST" />
+	</personnes>
+	<programmes>
+		<programme name="main" t="20" />
+		<programme name="proc1" t="10" />
+		<programme name="proc2" t="10" />
+	</programmes>
+	<actions>
+		<action name="Avancer" 		p="Robot" />
+		<action name="Allumer" 		p="Robot" />
+		<action name="Swap"			p="Robot" />
+		<action name="CompareFront"	p="Robot" />
+		<action name="Wash"			p="Robot" />
+	</actions>
+</niveau>
