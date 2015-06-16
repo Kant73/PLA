@@ -73,16 +73,13 @@ public class Ordonnanceur {
 						lastX=this.pers.getPositionX();
 						lastY=this.pers.getPositionY();	
 						((Actions)obj).agir();
-						
-						
-						int ancX = this.pers.getPositionX(),ancY=this.pers.getPositionY();
 						if((Actions)obj instanceof Avancer)
 						{
 							this.affichage.avancer(lastX,lastY);
 						}
 						else if((Actions)obj instanceof Sauter)
 						{
-							this.affichage.sauter(ancX,ancY);
+							this.affichage.sauter(lastX,lastY);
 						}
 						else if((Actions)obj instanceof Allumer)
 						{
