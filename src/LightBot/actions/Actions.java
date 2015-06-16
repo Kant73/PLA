@@ -31,4 +31,7 @@ public abstract class Actions {
 		return this.couleurCondition;
 	}
 	
+	public void setCouleur(Couleur pColor) {
+		this.couleurCondition = pColor;
+	}
 }
