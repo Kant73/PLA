@@ -77,15 +77,6 @@ public class Ordonnanceur {
 						{
 							this.affichage.avancer(lastX,lastY);
 						}
-						if((Actions)obj instanceof Allumer)
-						{
-							try {
-								Thread.sleep(300);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
 						else if((Actions)obj instanceof Sauter)
 						{
 							this.affichage.sauter(lastX,lastY);
@@ -98,6 +89,16 @@ public class Ordonnanceur {
 						this.affichage.set_pos_robot();
 						this.affichage.set_textures_cases();
 						this.affichage.afficher_carte();
+						
+						if((Actions)obj instanceof Allumer)
+						{
+							try {
+								Thread.sleep(300);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
 						
 						/*
 						System.out.println(((Actions)obj).toString());
