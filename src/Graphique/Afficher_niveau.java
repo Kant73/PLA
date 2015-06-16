@@ -147,7 +147,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	 */
 	public void afficher_carte()
 	{
-		Menu_principal.fenetre.clear(Color.BLACK);
+		fenetre.draw(Menu_modes.spritefondMode);
 		afficher_cadre_procedures();
 		this.afficher_boutons();
 		this.afficher_procedure();

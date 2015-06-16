@@ -8,7 +8,6 @@ import org.jsfml.graphics.Font;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Text;
 import org.jsfml.graphics.Texture;
-import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.Keyboard.Key;
@@ -30,8 +29,6 @@ public class Menu_niveaux extends Menu_modes{
 	private Texture maTexture;
 	private Texture maTextureSel;
 	
-	private Sprite spriteFond;
-	private Texture monFond;
 	private int selection;
 	
 	
@@ -53,20 +50,15 @@ public class Menu_niveaux extends Menu_modes{
 		int k=0;
 		int ecartPix = 30;
 		int nbMaxLigne=4;
-		monFond = new Texture();
+		
 		mesBoutons = new Sprite[nbBoutons];
 		this.mesTextures = new Texture[nbBoutons*2];
 		maTexture = new Texture();
 		maTextureSel = new Texture();
 		
 		try {
-			monFond.loadFromFile(Paths.get("src/Img/fond_menu.png"));
 			maTexture.loadFromFile(Paths.get("src/Img/numero_level.png"));
 			maTextureSel.loadFromFile(Paths.get("src/Img/numero_level_selec.png"));
-			
-			spriteFond=new Sprite ();
-			spriteFond.setTexture(monFond);
-			spriteFond.setPosition(0,0);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -100,7 +92,7 @@ public class Menu_niveaux extends Menu_modes{
 	}
 
 	
-	private void hover(Vector2f pos)
+	private void hover(Vector2i pos)
 	{	
 		int last_select = this.selection;
 		this.selection=-1;
@@ -172,8 +164,8 @@ public class Menu_niveaux extends Menu_modes{
 	{
 		for(int i=0;i<20;i++)
 		{
-			spriteFond.setColor(new Color(spriteFond.getColor(), 3*i));
-			fenetre.draw(spriteFond);
+			Menu_modes.spritefondMode.setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
+			fenetre.draw(Menu_modes.spritefondMode);
 			fenetre.display();
 			try {
 				Thread.sleep(10);
@@ -182,7 +174,7 @@ public class Menu_niveaux extends Menu_modes{
 				e.printStackTrace();
 			}		
 		}
-		spriteFond.setColor(new Color(spriteFond.getColor(), 255));
+		Menu_modes.spritefondMode.setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
 	}
 	
 	public void afficher_menu(int modeSelectionne)
@@ -194,7 +186,7 @@ public class Menu_niveaux extends Menu_modes{
 		this.selection=-1;
 		this.init_images () ;
 		init_font();
-		Menu_principal.fenetre.draw(spriteFond);
+		Menu_principal.fenetre.draw(Menu_modes.spritefondMode);
 		this.afficher_boutons();
 	
 		Menu_principal.fenetre.display();
@@ -209,8 +201,7 @@ public class Menu_niveaux extends Menu_modes{
 						if(event.asMouseButtonEvent().button == Button.LEFT)
 						{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							Vector2f posRedim = fenetre.mapPixelToCoords(pos); 
-							hover(posRedim);
+							hover(pos);
 							
 							if(selection !=-1)
 							{
@@ -219,9 +210,8 @@ public class Menu_niveaux extends Menu_modes{
 								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la r�solution du niveau.
 								Niveau copie = mj.getNiveau(selection);
 								level.afficher_niveau(copie, mj,selection);
-								
 								fondu();
-								fenetre.draw(spriteFond);
+								fenetre.draw(Menu_modes.spritefondMode);
 								reinit_textures();
 								this.afficher_boutons();
 								fenetre.display();
@@ -245,10 +235,9 @@ public class Menu_niveaux extends Menu_modes{
 					else if (event.type == Event.Type.MOUSE_MOVED) 
 						{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							Vector2f posRedim = fenetre.mapPixelToCoords(pos); 
-							hover(posRedim);
+							hover(pos);
 							
-							Menu_principal.fenetre.draw(spriteFond);
+							fenetre.draw(Menu_modes.spritefondMode);
 							this.afficher_boutons();
 							Menu_principal.fenetre.display();
 						}

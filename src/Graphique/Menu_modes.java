@@ -23,10 +23,55 @@ public class Menu_modes extends Menu_principal{
 	private int selection;
 	private Sprite [] mesBoutons;
 	private Texture[] mesTextures ;
+	public static Texture fondMode;
+	public static Sprite spritefondMode;
 	
 	private Sprite spriteFond;
 	private Texture monFond;
 
+	private void charger_fond_mode(int sel)
+	{	
+		fondMode=new Texture();
+		spritefondMode = new Sprite();
+		try {
+			switch (sel)
+			{
+			case 0:
+				fondMode.loadFromFile(Paths.get("src/Img/Basic.jpg"));
+				break;
+			case 1:
+				fondMode.loadFromFile(Paths.get("src/Img/Procédure.jpg"));
+				break;
+			case 2:
+				fondMode.loadFromFile(Paths.get("src/Img/Loop.jpg"));
+				break;
+			case 3:
+				fondMode.loadFromFile(Paths.get("src/Img/Condition.jpg"));
+				break;
+			case 4:
+				fondMode.loadFromFile(Paths.get("src/Img/Star.jpg"));
+				break;
+			case 5:
+				fondMode.loadFromFile(Paths.get("src/Img/Memory.jpg"));
+				break;
+			case 6:
+				fondMode.loadFromFile(Paths.get("src/Img/Clone.jpg"));
+				break;
+			case 7:
+				fondMode.loadFromFile(Paths.get("src/Img/Battle.jpg"));
+				break;
+			default :
+				System.out.println("pas d'image de fond disponible");
+				break;
+		}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		spritefondMode.setTexture(fondMode);
+		spritefondMode.setPosition(0, 0);
+	}
+		
 	
 	private void init_images () 
 	{  
@@ -38,6 +83,7 @@ public class Menu_modes extends Menu_principal{
 		mesTextures = new Texture[nbBoutons*2];
 		
 		try {
+			
 			monFond.loadFromFile(Paths.get("src/Img/fond_menu.png"));
 			spriteFond=new Sprite ();
 			spriteFond.setTexture(monFond);
@@ -150,6 +196,7 @@ public class Menu_modes extends Menu_principal{
 							{
 								Menu_niveaux modes = new  Menu_niveaux();
 								fondu();
+								charger_fond_mode(this.selection);
 								modes.afficher_menu(this.selection);
 								fondu();
 								fenetre.draw(spriteFond);
