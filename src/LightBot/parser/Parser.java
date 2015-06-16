@@ -92,6 +92,9 @@ public class Parser {
 		    			//System.out.println("Actions possibles = "+childTerrain.getTextContent());
 		    			t.setNbActionsPossible( getNodeTextToInt(childTerrain));
 		    			break;
+		    		case "reserveBloc" :
+		    			t.setReserveBloc(getNodeTextToInt(childTerrain));
+		    			break;
 		    		case "ensembleDeCase" :
 		    			for(Node noeudCase:getChildren(childTerrain)){
     		    			String nomFonction=getNodeAttribute(noeudCase,"type");
