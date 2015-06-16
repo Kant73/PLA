@@ -18,7 +18,11 @@ public abstract class Actions {
 	}
 	
 /********************************************* MUTATEURS *********************************************/
-
+	
+	public void setCouleur(Couleur pColor) {
+		this.couleurCondition = pColor;
+	}
+	
 /********************************************* METHODES D'INSTANCE *********************************************/
 	
 	public Actions(Personnage p){
