@@ -70,7 +70,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	private void initialiser_anim()
 	{
 		spriteAnim = new Sprite[4][26];
-		int y0=0,tailleX=128,tailleY=128;
+		int y0=0,tailleX=128,tailleY=118;
 		
 		for(int i=0;i<spriteAnim.length;i++)
 		{
