@@ -88,7 +88,9 @@ public class Personnage {
 	}	
 	
 	public void setCouleur(Couleur c){
-		this.couleur=c;
+		if(Couleur.Rose == c || Couleur.Violet == c || Couleur.Blanc == c){
+			this.couleur = c;
+		}
 	}
 	
 	public void setPositionX(int pPositionX) {
