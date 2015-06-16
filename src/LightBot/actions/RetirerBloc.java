@@ -98,7 +98,7 @@ public class RetirerBloc extends Actions {
 					C.setHauteur((C.getHauteur()-1));																						//On diminue la hauteur du bloc Memoire de 1.
 					reserve = (reserve + 1);																							//On retire 1 bloc de la réserve.
 				}	
-				else if (((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){													//Sinon si la (hauteur-1) du bloc Memoire est égal à la hauteur original,
+				else if (C instanceof Memoire && ((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){													//Sinon si la (hauteur-1) du bloc Memoire est égal à la hauteur original,
 					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());													//on remplace la case Memoire par une case Normal avec son hauteur de base.
 					C = caseNormal;
 					reserve = (reserve + 1);																							//On retire 1 bloc de la réserve.
@@ -113,7 +113,7 @@ public class RetirerBloc extends Actions {
 					C.setHauteur((C.getHauteur()-1));															
 					reserve = (reserve + 1);
 				}	
-				else if (((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
+				else if (C instanceof Memoire && ((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
 					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());
 					C = caseNormal;
 					reserve = (reserve + 1);
@@ -128,7 +128,7 @@ public class RetirerBloc extends Actions {
 					C.setHauteur((C.getHauteur()-1));															
 					reserve = (reserve + 1);
 				}	
-				else if (((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
+				else if (C instanceof Memoire && ((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
 					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());
 					C = caseNormal;
 					reserve = (reserve + 1);
@@ -143,7 +143,7 @@ public class RetirerBloc extends Actions {
 					C.setHauteur((C.getHauteur()-1));															
 					reserve = (reserve + 1);
 				}	
-				else if (((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
+				else if (C instanceof Memoire && ((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
 					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());
 					C = caseNormal;
 					reserve = (reserve + 1);
