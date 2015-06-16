@@ -2,6 +2,7 @@ package LightBot.personnage;
 
 import LightBot.Programme;
 import LightBot.Terrain;
+import LightBot.cases.Case;
 import LightBot.cases.Couleur;
 
 
@@ -52,6 +53,34 @@ public class Personnage {
 	
 	public Programme getProgramme() {
 		return this.prog;
+	}
+	
+	public Case getCaseCurrent() {
+		return this.terrain.getEnsembleDeCase()[this.currentX][this.currentY];
+	}
+	
+	public Case getCaseFrontHim(){
+		Case caseDevant = null;
+		try{
+			switch(this.orientation){
+				case EAST :
+					caseDevant = this.terrain.getEnsembleDeCase()[this.currentX+1][this.currentY];
+					break;
+				case SOUTH :
+					caseDevant = this.terrain.getEnsembleDeCase()[this.currentX][this.currentY+1];
+					break;
+				case WEST : 
+					caseDevant = this.terrain.getEnsembleDeCase()[this.currentX-1][this.currentY];
+					break;
+				case NORTH :
+					caseDevant = this.terrain.getEnsembleDeCase()[this.currentX][this.currentY-1];
+					break;
+				default:break;
+			}
+		}catch(IndexOutOfBoundsException e){
+			return null;
+		}
+		return caseDevant;
 	}
 	
 	public Terrain getTerrain() {

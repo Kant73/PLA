@@ -16,10 +16,12 @@ public abstract class Actions {
 	
 	public Actions(Personnage p,Couleur c){
 		this(p);
-		if(c==Couleur.Violet || c==Couleur.Rose)this.couleurCondition=c;
+		if(c==Couleur.Violet || c==Couleur.Rose){
+			this.couleurCondition=c;
+		}
 	}
 	
-	public void agir(){}
+	public void agir() {}
 	
 	public Personnage getPersonnage(){
 		return this.perso;

@@ -99,17 +99,22 @@ public class Parser {
 	    		    		int x = getIntNodeAttribute(noeudCase, "x");
     		    			int y = getIntNodeAttribute(noeudCase, "y");
     		    			int h = getIntNodeAttribute(noeudCase, "h");
-    		    			t.getEnsembleDeCase()[x][y] = newInstanceCase(nomFonction, h);
-    		    			if(nomFonction.equals("Pointeur")){
-    		    				int xp = getIntNodeAttribute(noeudCase, "xp");
-    		    				int yp = getIntNodeAttribute(noeudCase, "yp");
-        		    			int hp = getIntNodeAttribute(noeudCase, "hp");
-        		    			t.getEnsembleDeCase()[xp][yp] = new Pointeur(hp,t.getEnsembleDeCase()[x][y]);
+    		    			if(nomFonction.equals("Transparente")){
+    		    				boolean estLampe = getBooleanNodeAttribute(noeudCase, "estLampe");
+    		    				t.getEnsembleDeCase()[x][y] = new Transparente(h, estLampe);
     		    			}else{
-    		    				String couleur=getNodeAttribute(noeudCase, "couleur"); // Permet d'allumer des cases dès la lecture du terrain
-    		    				if(!couleur.equals("")){
-    		    					t.getEnsembleDeCase()[x][y].setColor(Couleur.valueOf(couleur));
-    		    				}
+	    		    			t.getEnsembleDeCase()[x][y] = newInstanceCase(nomFonction, h);
+	    		    			if(nomFonction.equals("Pointeur")){
+	    		    				int xp = getIntNodeAttribute(noeudCase, "xp");
+	    		    				int yp = getIntNodeAttribute(noeudCase, "yp");
+	        		    			int hp = getIntNodeAttribute(noeudCase, "hp");
+	        		    			t.getEnsembleDeCase()[xp][yp] = new Pointeur(hp,t.getEnsembleDeCase()[x][y]);
+	    		    			}else{
+	    		    				String couleur=getNodeAttribute(noeudCase, "couleur"); // Permet d'allumer des cases dès la lecture du terrain
+	    		    				if(!couleur.equals("")){
+	    		    					t.getEnsembleDeCase()[x][y].setColor(Couleur.valueOf(couleur));
+	    		    				}
+	    		    			}
     		    			}
 		    			}
 		    			break;
@@ -171,6 +176,15 @@ public class Parser {
 			e.printStackTrace();
 			return 0;
 		}		
+	}
+	
+	private boolean getBooleanNodeAttribute(Node noeud, String attr){
+		try{
+			return Boolean.parseBoolean(getNodeAttribute(noeud, attr));
+		}catch(Exception e){
+			e.printStackTrace();
+			return Boolean.FALSE ;
+		}
 	}
 	
 	private String getNodeAttribute(Node noeud, String attr){
