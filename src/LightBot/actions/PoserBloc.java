@@ -31,7 +31,7 @@ public class PoserBloc extends Actions{
 		case NORTH :
 			if ((positionPersoY - 1) >= 0) {
 				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()-1];		//On récupère la case adjacente en face du personnage.
-				if (C instanceof Normal && C.getHauteur() < t.getHauteurMax()) {						//On ajoute un bloc que si la case est une instance de Normal et que sa hauteur est inférieure à 5.
+				if (C instanceof Normal && C.getHauteur() < t.getHauteurMax() && (C.getHauteur() != -1)) {						//On ajoute un bloc que si la case est une instance de Normal et que sa hauteur est inférieure à 5.
 					C.setHauteur(C.getHauteur() + 2);									//On augmente la hauteur de la case de +1. {getHauteur() retourne la hauteur-1}
 					((Normal) C).setFondation((((Normal) C).getFondation() + 1));		//On informe le nombre de bloc qui a été posé sur la case.
 				}	else System.out.println("LimiteHN  || Case non Normal");
@@ -41,7 +41,7 @@ public class PoserBloc extends Actions{
 		case SOUTH :
 			if ((positionPersoY + 1) < (t.getLongueur())) {
 				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()+1];
-				if (C instanceof Normal && C.getHauteur() < t.getHauteurMax()) {
+				if (C instanceof Normal && C.getHauteur() < t.getHauteurMax() && (C.getHauteur() != -1)) {
 					C.setHauteur(C.getHauteur() + 2);
 					((Normal) C).setFondation((((Normal) C).getFondation() + 1));
 				}	else System.out.println("LimiteHS  || Case non Normal");
@@ -51,7 +51,7 @@ public class PoserBloc extends Actions{
 		case EAST :
 			if ((positionPersoX + 1) < (t.getLargeur())) {
 				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()+1][this.perso.getPositionY()];
-				if (C instanceof Normal && C.getHauteur() < t.getHauteurMax()) {
+				if (C instanceof Normal && C.getHauteur() < t.getHauteurMax() && (C.getHauteur() != -1)) {
 					C.setHauteur(C.getHauteur() + 2);
 					((Normal) C).setFondation((((Normal) C).getFondation() + 1));
 				}	else System.out.println("LimiteHE  || Case non Normal");
@@ -61,7 +61,7 @@ public class PoserBloc extends Actions{
 		case WEST :
 			if ((positionPersoX - 1) >= 0) {
 				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()-1][this.perso.getPositionY()];
-				if (C instanceof Normal && C.getHauteur() < t.getHauteurMax()) {
+				if (C instanceof Normal && C.getHauteur() < t.getHauteurMax() && (C.getHauteur() != -1)) {
 					C.setHauteur(C.getHauteur() + 2);
 					((Normal) C).setFondation((((Normal) C).getFondation() + 1));
 				}	else System.out.println("LimiteHW  || Case non Normal");
