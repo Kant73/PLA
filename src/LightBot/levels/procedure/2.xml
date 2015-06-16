@@ -30,8 +30,8 @@
 		<personne name="Robot" x="4" y="1" o="SOUTH" />
 	</personnes>
 	<programmes>
-		<programme name="main" t="5" />
-		<programme name="proc1" t="5" />
+		<programme name="main" t="6" />
+		<programme name="proc1" t="6" />
 	</programmes>
 	<actions>
 		<action name="Avancer" p="Robot" />
