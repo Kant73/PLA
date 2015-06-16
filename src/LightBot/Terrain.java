@@ -58,7 +58,8 @@ public class Terrain {
 	public int getPosCaseX(Case C){
 		
 		for(int i=0; i< largeur; i++){
-			for(int j=0; j< largeur; j++){
+			for(int j=0; j< longueur; j++){
+				System.out.println(C.getClass());
 				if (C == this.ensembleDeCase[i][j]){
 					return i;
 				}
@@ -72,7 +73,7 @@ public class Terrain {
 	public int getPosCaseY(Case C){
 		
 		for(int i=0; i< largeur; i++){
-			for(int j=0; j< largeur; j++){
+			for(int j=0; j< longueur; j++){
 				if (C == this.ensembleDeCase[i][j]){
 					return j;
 				}
