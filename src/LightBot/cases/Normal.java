@@ -3,7 +3,7 @@ package LightBot.cases;
 public class Normal extends NonAllumable {
 /******************************************** ATTRIBUTS **********************************************/
 	
-	int fondation;		//Permet de savoir si c'est une case de base dans le terrain.
+	private int fondation;		//Permet de savoir si c'est une case de base dans le terrain.
 	
 /******************************************** ACCESSEURS *********************************************/
 	
