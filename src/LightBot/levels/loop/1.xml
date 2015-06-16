@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <niveau>
 	<terrain largeur="1" longueur="5" >
-		<nbActionsPossible>3</nbActionsPossible>
+		<nbActionsPossible>20</nbActionsPossible>
 		<ensembleDeCase>
 			<case type="Lampe" x="0" y="0" h="1" />
 			<case type="Lampe" x="0" y="1" h="1" />
