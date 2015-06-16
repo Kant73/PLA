@@ -70,7 +70,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	private void initialiser_anim()
 	{
 		spriteAnim = new Sprite[4][26];
-		int y0=0,tailleX=256,tailleY=256;
+		int y0=0,tailleX=128,tailleY=128;
 		
 		for(int i=0;i<spriteAnim.length;i++)
 		{
@@ -86,8 +86,6 @@ public class Afficher_niveau extends Menu_niveaux{
 				//spriteAnim[i][j].setScale(reScaleRobot,reScaleRobot);
 			}
 		}	
-		
-		System.out.println(spriteAnim[0][0].getLocalBounds().width);
 		
 	}
 	
