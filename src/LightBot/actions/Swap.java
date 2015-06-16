@@ -2,7 +2,6 @@ package LightBot.actions;
 
 import LightBot.Terrain;
 import LightBot.cases.Case;
-import LightBot.cases.Couleur;
 import LightBot.cases.Transparente;
 import LightBot.personnage.Personnage;
 

@@ -1,6 +1,5 @@
 package LightBot.actions;
 
-import LightBot.cases.Allumable;
 import LightBot.cases.Case;
 import LightBot.cases.Condition;
 import LightBot.cases.Couleur;
