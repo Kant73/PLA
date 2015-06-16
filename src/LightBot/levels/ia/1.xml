@@ -5,7 +5,7 @@
 		<ensembleDeCase>
 			<case type="Normal" x="0" y="0" h="1" />
 			<case type="Normal" x="1" y="0" h="1" />
-			<case type="Normal" x="2" y="0" h="1" />
+			<case type="Lampe" x="2" y="0" h="1" />
 			<case type="Normal" x="3" y="0" h="1" />
 			<case type="Normal" x="4" y="0" h="1" />
 			<case type="Normal" x="5" y="0" h="1" />

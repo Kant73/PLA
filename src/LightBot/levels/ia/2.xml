@@ -49,7 +49,7 @@
 			<case type="Normal" x="2" y="5" h="1" />
 			<case type="Normal" x="3" y="5" h="1" />
 			<case type="Normal" x="4" y="5" h="1" />
-			<case type="Normal" x="5" y="5" h="1" />
+			<case type="Lampe" x="5" y="5" h="1" />
 			<case type="Normal" x="6" y="5" h="2" />
 			
 			<case type="Normal" x="0" y="6" h="1" />
