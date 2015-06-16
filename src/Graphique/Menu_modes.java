@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
@@ -72,7 +73,7 @@ public class Menu_modes extends Menu_principal{
 		}
 	}
 	
-	private void hover(Vector2i pos)
+	private void hover(Vector2f pos)
 	{	
 		int last_select = this.selection;
 		this.selection=-1;
@@ -142,7 +143,8 @@ public class Menu_modes extends Menu_principal{
 						if(event.asMouseButtonEvent().button == Button.LEFT)
 						{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							hover(pos);
+							Vector2f posRedim = fenetre.mapPixelToCoords(pos); 
+							hover(posRedim);
 							
 							if(this.selection !=-1)
 							{
@@ -173,7 +175,8 @@ public class Menu_modes extends Menu_principal{
 					else if (event.type == Event.Type.MOUSE_MOVED) 
 						{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							hover(pos);
+							Vector2f posRedim = fenetre.mapPixelToCoords(pos); 
+							hover(posRedim);
 							
 							Menu_principal.fenetre.draw(spriteFond);
 							this.afficher_boutons();
