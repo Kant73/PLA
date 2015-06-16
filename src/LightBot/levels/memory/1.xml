@@ -2,6 +2,7 @@
 <niveau>
 	<terrain largeur="1" longueur="3" >
 		<nbActionsPossible>50</nbActionsPossible>
+		<reserveBloc>1</reserveBloc>
 		<ensembleDeCase>
 			<case type="Normal" x="0" y="0" h="1" />
 			
@@ -15,7 +16,7 @@
 		<personne name="Robot" x="0" y="0" o="SOUTH" />
 	</personnes>
 	<programmes>
-		<programme name="main" t="5" />
+		<programme name="main" t="4" />
 	</programmes>
 	<actions>
 		<action name="Avancer" p="Robot" />

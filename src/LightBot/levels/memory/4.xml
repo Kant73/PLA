@@ -2,6 +2,7 @@
 <niveau>
 	<terrain largeur="5" longueur="5" >
 		<nbActionsPossible>50</nbActionsPossible>
+		<ReserveBloc>3</ReserveBloc>
 		<ensembleDeCase>
 			<case type="Lampe" x="0" y="0" h="3" />
 			<case type="Normal" x="1" y="0" h="1" />

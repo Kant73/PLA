@@ -2,12 +2,13 @@
 <niveau>
 	<terrain largeur="7" longueur="7" >
 		<nbActionsPossible>50</nbActionsPossible>
+		<reserveBloc>1</reserveBloc>
 		<ensembleDeCase>
 			
 			<case type="Normal" x="0" y="0" h="1" />
 			<case type="Normal" x="1" y="0" h="0" />
 			<case type="Lampe" x="2" y="0" h="1" />
-			<case type="Normal" x="3" y="0" h="0" />
+			<case type="Normal" x="3" y="0" h="1" />
 			
 			<case type="Normal" x="0" y="1" h="1" />
 			<case type="Normal" x="1" y="1" h="0" />
@@ -25,9 +26,9 @@
 		<personne name="Robot" x="0" y="0" o="SOUTH" />
 	</personnes>
 	<programmes>
-		<programme name="main" t="5" />
-		<programme name="proc1" t="5" />
-		<programme name="proc2" t="5" />
+		<programme name="main" t="10" />
+		<programme name="proc1" t="10" />
+		<programme name="proc2" t="10" />
 	</programmes>
 	<actions>
 		<action name="Avancer" p="Robot" />
