@@ -635,6 +635,38 @@ public class Afficher_niveau extends Menu_niveaux{
 		}
 	}
 	
+	
+	void reset_niveau(Mode_Jeu mj, int selection)
+	{
+		StructStringSprite temp;
+		monNiveau=mj.getNiveau(selection);
+		
+		int save_select = this.progSelect;
+		/*On supprime toute les actions qui existaient au cas où ?*/
+		for(int l=0;l<monNiveau.getProgrammes().size();l++)
+		{
+			for(int k=monNiveau.getProgrammes().get(l).getNbElements();k>0;k--)
+			{
+				monNiveau.getProgrammes().get(l).supprimer(k);
+			}
+		}
+		/*On réinsère les actions*/
+		for(int l=0;l<tabProgramme.length;l++)
+		{
+			this.progSelect=l;
+			if (!tabProgramme[this.progSelect].isEmpty()) {
+				for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
+					temp = (StructStringSprite) tabProgramme[this.progSelect].get(k);
+					StructStringSprite struct = new StructStringSprite(temp);
+					inserer_actions(struct);	
+				}
+			}
+		}
+		this.progSelect = save_select;	
+		this.set_textures_cases();
+		initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
+		set_pos_robot();
+	}
 	/**
 	 * Méthode principale de la classe qui permet d'afficher tout un niveau avec les actions et procédures associée
 	 * @param niveauCharger Le niveau que l'on veut afficher
@@ -652,8 +684,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		init_niveau(1.0f);
 		set_position_cases();
 		set_pos_robot();
-		
-	
 		
 		
 		initActionsPossible();
@@ -728,33 +758,8 @@ public class Afficher_niveau extends Menu_niveaux{
 						}
 						else if(spriteBoutonReset.getGlobalBounds().contains(pos.x,pos.y))
 						{
-							monNiveau=mj.getNiveau(selection);
 							
-							int save_select = this.progSelect;
-							/*On supprime toute les actions qui existaient au cas où ?*/
-							for(int l=0;l<monNiveau.getProgrammes().size();l++)
-							{
-								for(int k=monNiveau.getProgrammes().get(l).getNbElements();k>0;k--)
-								{
-									monNiveau.getProgrammes().get(l).supprimer(k);
-								}
-							}
-							/*On réinsère les actions*/
-							for(int l=0;l<tabProgramme.length;l++)
-							{
-								this.progSelect=l;
-								if (!tabProgramme[this.progSelect].isEmpty()) {
-									for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
-										temp = (StructStringSprite) tabProgramme[this.progSelect].get(k);
-										StructStringSprite struct = new StructStringSprite(temp);
-										inserer_actions(struct);	
-									}
-								}
-							}
-							this.progSelect = save_select;	
-							this.set_textures_cases();
-							initPlaceRobot(monNiveau.getPersonnages().get(0).getPositionX(),monNiveau.getPersonnages().get(0).getPositionY());
-							set_pos_robot();
+							reset_niveau(mj,selection);
 							unSeulPlay=true;
 						}
 						afficher_carte();
