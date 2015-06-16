@@ -14,14 +14,16 @@ public class CompareFront extends Actions {
 	}
 	
 	public void agir(){
-		Case caseFront = this.perso.getCaseFrontHim();
-		Case caseCurrent = this.perso.getCaseCurrent();
-		if (caseFront != null){ // On ne doit pas chercher à comparer une case qui n'est pas dans le terrain
-			if(caseFront instanceof Pointeur){ // Si on arrive à la case de retour au début on change de couleur pour pouvoir faire les actions de retour
-				this.perso.setCouleur(Couleur.Violet);
-			}else if(caseFront instanceof Transparente && caseCurrent instanceof Transparente){
-				if(caseCurrent.getHauteur() > caseFront.getHauteur()){
-					this.perso.setCouleur(Couleur.Rose);
+		if(super.matchColor()){
+			Case caseFront = this.perso.getCaseFrontHim();
+			Case caseCurrent = this.perso.getCaseCurrent();
+			if (caseFront != null){ // On ne doit pas chercher à comparer une case qui n'est pas dans le terrain
+				if(caseFront instanceof Pointeur){ // Si on arrive à la case de retour au début on change de couleur pour pouvoir faire les actions de retour
+					this.perso.setCouleur(Couleur.Violet);
+				}else if(caseFront instanceof Transparente && caseCurrent instanceof Transparente){
+					if(caseCurrent.getHauteur() > caseFront.getHauteur()){
+						this.perso.setCouleur(Couleur.Rose);
+					}
 				}
 			}
 		}

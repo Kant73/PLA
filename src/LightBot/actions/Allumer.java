@@ -31,7 +31,7 @@ public class Allumer extends Actions {
 
 	@Override
 	public void agir() {
-		if(this.couleurCondition==this.perso.getCouleur() || (this.perso.getCouleur()==Couleur.Violet && this.couleurCondition!=Couleur.Rose) || (this.perso.getCouleur()==Couleur.Rose && this.couleurCondition!=Couleur.Violet)){
+		if(super.matchColor()){
 			Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()];
 			int nbLampeAllumee=this.perso.getTerrain().getNbLampeAllumee();
 			if (C instanceof Lampe){

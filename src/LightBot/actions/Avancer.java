@@ -22,7 +22,7 @@ public class Avancer extends Actions {
 
 	@Override
 	public void agir() {
-		if(this.couleurCondition==this.perso.getCouleur() || (this.perso.getCouleur()==Couleur.Violet && this.couleurCondition!=Couleur.Rose) || (this.perso.getCouleur()==Couleur.Rose && this.couleurCondition!=Couleur.Violet)){
+		if(super.matchColor()){
 			Pcardinaux o = this.perso.getOrientation();
 			Terrain T = this.perso.getTerrain();
 			int x = this.perso.getPositionX();
