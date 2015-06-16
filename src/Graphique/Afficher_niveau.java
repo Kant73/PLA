@@ -69,19 +69,26 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 	private void initialiser_anim()
 	{
-		spriteAnim = new Sprite[4][9];
-		int debutX=0,debutY=8,tailleX=64,tailleY=64;
+		spriteAnim = new Sprite[4][26];
+		int y0=0,tailleX=256,tailleY=256;
 		
 		for(int i=0;i<spriteAnim.length;i++)
 		{
+			y0=0;
 			for(int j = 0; j <spriteAnim[i].length;j++)
 			{
 				spriteAnim[i][j]=new Sprite();
-				spriteAnim[i][j].setTexture(Textures.maFeuille);
-				spriteAnim[i][j].setTextureRect(new IntRect(debutX+j*tailleX, debutY*tailleY+i*tailleY, tailleX, tailleY));
+				spriteAnim[i][j].setTexture(Textures.mesAnims[i]);
+				
+				spriteAnim[i][j].setTextureRect(new IntRect((j%6)*tailleX, y0*tailleY, tailleX, tailleY));
+				if(j%6==0 && j!=0)
+					y0++;
 				//spriteAnim[i][j].setScale(reScaleRobot,reScaleRobot);
 			}
 		}	
+		
+		System.out.println(spriteAnim[0][0].getLocalBounds().width);
+		
 	}
 	
 	
@@ -281,12 +288,12 @@ public class Afficher_niveau extends Menu_niveaux{
 							> SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getPosition().y
 							+reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*2)
 							
-				||(!b  && monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()>monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur() 
+				||(!b  && monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()>monNiveau.getTerrain().getEnsembleDeCase()[lastX][lastY].getHauteur() 
 							&& spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y 
 							+ reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height 
 							> posInit.y+reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getLocalBounds().height 
 							-reScale*SpriteCases[newX][newY][monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()].getTexture().getSize().y/3*(monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteur()
-							-monNiveau.getTerrain().getEnsembleDeCase()[xRobot][yRobot].getHauteur()))
+							-monNiveau.getTerrain().getEnsembleDeCase()[lastX][lastY].getHauteur()))
 					)
 			{
 				spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].setPosition(spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().x,spriteAnim[monNiveau.getPersonnages().get(0).getOrientationInt()][0].getPosition().y+deplSaut);

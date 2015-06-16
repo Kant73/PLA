@@ -9,7 +9,7 @@ public class Textures {
 
 	
 	public static Texture []texProcs;
-	public static Texture maFeuille ;
+	public static Texture mesAnims[] ;
 
 	
 	public static Texture TexP1 ;
@@ -88,7 +88,10 @@ public class Textures {
 		TexRobotNW= new Texture();
 		TexRobotSE= new Texture();
 		TexRobotSW= new Texture();
-		maFeuille = new Texture();
+		mesAnims = new Texture[4];
+		
+		for (int i=0;i< mesAnims.length;i++)
+			mesAnims[i] = new Texture();
 		
 		try {
 			for (int i=0;i< texProcs.length;i++)
@@ -99,8 +102,14 @@ public class Textures {
 				else
 					texProcs[i].loadFromFile(Paths.get("src/Img/proc"+(texProcs.length-i-1)+"_select.png"));
 			}
+		
+			mesAnims[0].loadFromFile(Paths.get("src/Img/BB8_SE.png"));
+			mesAnims[1].loadFromFile(Paths.get("src/Img/BB8_NE.png"));
+			mesAnims[2].loadFromFile(Paths.get("src/Img/BB8_NO.png"));
+			mesAnims[3].loadFromFile(Paths.get("src/Img/BB8_SO.png"));
+			
 			texBoutonReset.loadFromFile(Paths.get("src/Img/reset.png"));
-			maFeuille.loadFromFile(Paths.get("src/Img/feuille.png"));
+			
 			TexVerrou.loadFromFile(Paths.get("src/Img/verrou.png"));
 			TexCaseBase.loadFromFile(Paths.get("src/Img/case0.png"));
 			TexCaseLumEteinte.loadFromFile(Paths.get("src/Img/case1.png"));

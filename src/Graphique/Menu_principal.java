@@ -11,6 +11,7 @@ import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 import org.jsfml.internal.JSFMLError;
 import org.jsfml.internal.SFMLNative;
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.Keyboard.Key;
@@ -98,13 +99,15 @@ public class Menu_principal {
 		}
 	}
 	
-	private void hover(Vector2i pos)
+	private void hover(Vector2f pos)
 	{	
 		int last_select = this.selection;
 		this.selection=-1;
+		
+		
 		for (int i=0; i< this.nbBoutons; i++)
 		{
-			if(mesBoutons[i].getGlobalBounds().contains(pos.x,pos.y))
+			if(mesBoutons[i].getGlobalBounds().contains(pos))
 			{
 				mesBoutons[i].setTexture(mesTextures[i+this.nbBoutons]);
 				this.selection=i;
@@ -170,7 +173,9 @@ public class Menu_principal {
 						if(event.asMouseButtonEvent().button == Button.LEFT)
 						{
 							Vector2i pos = Mouse.getPosition(fenetre); 
-							hover(pos);
+							Vector2f posRedim = fenetre.mapPixelToCoords(pos);
+							
+							hover(posRedim);
 							
 							if(selection != -1)
 							{
@@ -196,7 +201,8 @@ public class Menu_principal {
 					else if (event.type == Event.Type.MOUSE_MOVED) 
 						{
 							Vector2i pos = Mouse.getPosition(fenetre); 
-							hover(pos);
+							Vector2f posRedim = fenetre.mapPixelToCoords(pos); 
+							hover(posRedim);
 							
 								fenetre.draw(spriteFond);
 							this.afficher_boutons();
