@@ -102,22 +102,17 @@ public class Parser {
 	    		    		int x = getIntNodeAttribute(noeudCase, "x");
     		    			int y = getIntNodeAttribute(noeudCase, "y");
     		    			int h = getIntNodeAttribute(noeudCase, "h");
-    		    			if(nomFonction.equals("Transparente")){
-    		    				boolean estLampe = getBooleanNodeAttribute(noeudCase, "estLampe");
-    		    				t.getEnsembleDeCase()[x][y] = new Transparente(h, estLampe);
+    		    			t.getEnsembleDeCase()[x][y] = newInstanceCase(nomFonction, h);
+    		    			if(nomFonction.equals("Pointeur")){
+    		    				int xp = getIntNodeAttribute(noeudCase, "xp");
+    		    				int yp = getIntNodeAttribute(noeudCase, "yp");
+        		    			int hp = getIntNodeAttribute(noeudCase, "hp");
+        		    			t.getEnsembleDeCase()[xp][yp] = new Pointeur(hp,t.getEnsembleDeCase()[x][y]);
     		    			}else{
-	    		    			t.getEnsembleDeCase()[x][y] = newInstanceCase(nomFonction, h);
-	    		    			if(nomFonction.equals("Pointeur")){
-	    		    				int xp = getIntNodeAttribute(noeudCase, "xp");
-	    		    				int yp = getIntNodeAttribute(noeudCase, "yp");
-	        		    			int hp = getIntNodeAttribute(noeudCase, "hp");
-	        		    			t.getEnsembleDeCase()[xp][yp] = new Pointeur(hp,t.getEnsembleDeCase()[x][y]);
-	    		    			}else{
-	    		    				String couleur=getNodeAttribute(noeudCase, "couleur"); // Permet d'allumer des cases dès la lecture du terrain
-	    		    				if(!couleur.equals("")){
-	    		    					t.getEnsembleDeCase()[x][y].setColor(Couleur.valueOf(couleur));
-	    		    				}
-	    		    			}
+    		    				String couleur=getNodeAttribute(noeudCase, "couleur"); // Permet d'allumer des cases dès la lecture du terrain
+    		    				if(!couleur.equals("")){
+    		    					t.getEnsembleDeCase()[x][y].setColor(Couleur.valueOf(couleur));
+    		    				}
     		    			}
 		    			}
 		    			break;
