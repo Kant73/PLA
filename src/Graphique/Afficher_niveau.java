@@ -22,6 +22,8 @@ import LightBot.Ordonnanceur;
 import LightBot.actions.Allumer;
 import LightBot.actions.Avancer;
 import LightBot.actions.Break;
+import LightBot.actions.PoserBloc;
+import LightBot.actions.RetirerBloc;
 import LightBot.actions.Sauter;
 import LightBot.actions.TournerDroite;
 import LightBot.actions.TournerGauche;
@@ -59,6 +61,8 @@ public class Afficher_niveau extends Menu_niveaux{
 	public Sprite spriteSymboleSauter;
 	public Sprite spriteSymboleAllumer;
 	public Sprite spriteSymboleBreak;
+	public Sprite spriteSymbolePoser;
+	public Sprite spriteSymboleSuppr;
 	public int numAnim;
 	
 	public LinkedList list_action_possible;
@@ -367,6 +371,12 @@ public class Afficher_niveau extends Menu_niveaux{
 		spriteSymboleReculer=new Sprite();
 		spriteSymboleReculer.setTexture(Textures.TexSymboleReculer);
 		
+		spriteSymbolePoser=new Sprite();
+		spriteSymbolePoser.setTexture(Textures.TexSymbolePoser);
+		
+		spriteSymboleSuppr=new Sprite();
+		spriteSymboleSuppr.setTexture(Textures.TexSymboleSuppr);
+		
 		spriteSymboleSauter=new Sprite();
 		spriteSymboleSauter.setTexture(Textures.TexSymboleSauter);
 				
@@ -500,6 +510,12 @@ public class Afficher_niveau extends Menu_niveaux{
 			else if(al.get(i) instanceof TournerGauche) {
 				struct = this.new StructStringSprite(this.spriteSymboleTournerGauche, "gauche");
 			}
+			else if(al.get(i) instanceof PoserBloc) {
+				struct = this.new StructStringSprite(this.spriteSymbolePoser, "poser");
+			}
+			else if(al.get(i) instanceof RetirerBloc) {
+				struct = this.new StructStringSprite(this.spriteSymboleSuppr, "suppr");
+			}
 			else if(al.get(i) instanceof Wash) {
 				System.out.println("Wash");
 			}
@@ -619,6 +635,12 @@ public class Afficher_niveau extends Menu_niveaux{
 			break;
 		case "allumer":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.monNiveau.getPersonnages().get(0)));
+			break;
+		case "poser":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new PoserBloc(this.monNiveau.getPersonnages().get(0)));
+			break;
+		case "suppr":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new RetirerBloc(this.monNiveau.getPersonnages().get(0)));
 			break;
 		case "P1":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(1));

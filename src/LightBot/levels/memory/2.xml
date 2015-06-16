@@ -34,7 +34,7 @@
 		<action name="Sauter" p="Robot" />
 		<action name="TournerGauche" p="Robot" />
 		<action name="TournerDroite" p="Robot" />
-		<!-- <action name="PoserBloc" p="Robot" /> -->
-		<!-- <action name="RetirerBloc" p="Robot" /> -->
+		<action name="PoserBloc" p="Robot" />
+		<action name="RetirerBloc" p="Robot" />
 	</actions>
 </niveau>
