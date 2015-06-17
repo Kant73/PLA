@@ -69,7 +69,10 @@ public class Ordonnanceur {
 			    }
 				else if(obj instanceof Actions && !(obj instanceof Break)){
 					int nbLampeAllumee=((Actions)obj).getPersonnage().getTerrain().getNbLampeAllumee();
-					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() || ((Actions)obj).getPersonnage().isMort()) throw new ArrayIndexOutOfBoundsException();
+					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() || ((Actions)obj).getPersonnage().isMort()) {
+						this.progs.get(index).reset();
+						throw new ArrayIndexOutOfBoundsException();
+					}
 					else{
 						
 						this.affichage.ancX[index]=this.listPers.get(index).getPositionX();

@@ -115,4 +115,16 @@ public class Programme {
 		return this.nom;
 	}
 	
+	public void reset(){
+		for(int i=0;i<this.nbMaxAction;i++){
+			if(this.listActions.get(i) instanceof Actions){
+				this.supprimer(i);
+			}
+			else if(this.listActions.get(i) instanceof Programme){
+				((Programme)this.listActions.get(i)).reset();	
+				this.supprimer(i);
+			}
+		}
+	}
+	
 }
