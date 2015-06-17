@@ -141,7 +141,7 @@ public class Terrain {
 			for(int x=0;x<largeur;x++)
 				if(this.ensembleDeCase[x][y]==null){
 					System.out.print("null    "+" "); // 8 caractères plus 1 espace
-				}else if (this.ensembleDeCase[x][y].getHauteur()==-1){
+				}else if (this.ensembleDeCase[x][y].getHauteur() == 0){
 					System.out.print("........"+" ");
 				}else{
 					String couleur = this.ensembleDeCase[x][y].getColor().toString();
@@ -154,7 +154,7 @@ public class Terrain {
 						System.out.print(((Normal) this.ensembleDeCase[x][y]).getFondation() + " " );	//Affiche le nombre de blocs posés sur une case.
 						
 					}
-						System.out.print(hauteur + couleur + " ");										//Affiche la hauteur et la couleur d'une case.
+					System.out.print(hauteur + couleur + " ");										//Affiche la hauteur et la couleur d'une case.
 				}
 				//if(this.ensembleDeCase[x][y]!=null) System.out.print("("+x+","+y+")"+this.ensembleDeCase[x][y].getColor()+" ");
 			System.out.println();

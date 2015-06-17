@@ -15,6 +15,10 @@ public abstract class Case {
 	}
 	
 	public int getHauteur() {
+		return hauteur;
+	}
+	
+	public int getHauteurGraphique() {
 		return hauteur-1;
 	}
 	

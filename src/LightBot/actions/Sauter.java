@@ -61,7 +61,7 @@ public class Sauter extends Actions {
 				default:break;
 			}
 
-			if(T.getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()].getHauteur()==-1){
+			if(T.getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()].getHauteur() == 0){
 				this.perso.setMort(true);				
 			}
 		}
