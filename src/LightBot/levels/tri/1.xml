@@ -5,7 +5,7 @@
 		<ensembleDeCase>
 			<case type="Lampe"			x="0" y="0" h="1" />
 			
-			<case type="Pointeur"		x="0" y="2" h="1" xp="6" yp="6" hp="1" />
+			<case type="Pointeur"		x="0" y="2" h="1" xp="6" yp="2" hp="1" />
 			<case type="Transparente"	x="1" y="2" h="5" />
 			<case type="Transparente"	x="2" y="2" h="3" />
 			<case type="Transparente"	x="3" y="2" h="1" />

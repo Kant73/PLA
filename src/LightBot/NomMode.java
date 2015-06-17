@@ -8,7 +8,8 @@ public enum NomMode {
 		Pointeur(NomMode.class.getResource("levels/pointeur/").getPath()),
 		Memory(NomMode.class.getResource("levels/memory/").getPath()),
 		Fork(NomMode.class.getResource("levels/fork/").getPath()),
-		Versus_IA(NomMode.class.getResource("levels/ia/").getPath());
+		Versus_IA(NomMode.class.getResource("levels/ia/").getPath()),
+		Tri(NomMode.class.getResource("levels/tri/").getPath());
 		
 		private String path;
 		
