@@ -100,10 +100,6 @@ public class Ordonnanceur {
 						{
 							this.affichage.set_position_cases();
 						}
-						else if((Actions)obj instanceof Allumer)
-						{
-							System.out.println("ALLUMER !!! X : "+ this.listPers.get(index).getPositionX() + "Y :" + this.listPers.get(index).getPositionY() );
-						}
 						this.affichage.ancX[index]=this.listPers.get(index).getPositionX();
 						this.affichage.ancY[index]=this.listPers.get(index).getPositionY();
 						this.affichage.set_pos_robot();
