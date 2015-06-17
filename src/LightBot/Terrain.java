@@ -113,6 +113,14 @@ public class Terrain {
 	public void setReserveBloc(int pReserveBloc) {
 		this.reserveBloc = pReserveBloc;
 	}
+	
+	public void incrementReserve(){
+		this.reserveBloc ++;
+	}
+	
+	public void decrementReserve(){
+		this.reserveBloc --;
+	}
 
 	public void setEnsembleDeCase(Case[][] pEnsembleDeCase) {
 		this.ensembleDeCase = pEnsembleDeCase;

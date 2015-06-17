@@ -93,7 +93,7 @@ public class PoserBloc extends Actions{
 		switch(orientationPerso) {
 		case NORTH :
 			if ((positionPersoY - 1) >= 0) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()-1];	//On récupère la case adjacente en face du personnage.
+				Case C = this.perso.getTerrain().getEnsembleDeCase()[positionPersoX][positionPersoY-1];	//On récupère la case adjacente en face du personnage.
 				if (C instanceof Memoire && ((C.getHauteur()) < t.getHauteurMax()) && (reserve > 0)) {							//Si C est un bloc Memoire et que sa hauteur est inférieure à la hauteurMax du terrain et que la réserve n'est pas vide,
 					C.setHauteur((C.getHauteur()+1));																				//on augmente la hauteur du bloc Memoire de 1.
 					reserve = (reserve - 1);																						//On diminue la réserve de 1 bloc.
@@ -102,7 +102,7 @@ public class PoserBloc extends Actions{
 					int pHauteurCase = C.getHauteur();																				//on récupère la hauteur de la case C.
 					if ((C.getHauteur() < t.getHauteurMax()) && (C.getHauteur() != 0) && (reserve > 0)) {							//Si la hauteur de C est inférieure à la hauteurMax du terrain, qu'il y a déjà une case Normal et que la réserve n'est pas vide,
 						Memoire caseMemoire = new Memoire((pHauteurCase+1), pHauteurCase);												//création d'un bloc Memoire qui a pour hauteur, la hauteur originale +1. On lui attribut en plus la hauteur original de la case Normal.
-						C = caseMemoire;																								//On met le bloc Memoire dans C.
+						t.getEnsembleDeCase()[positionPersoX][positionPersoY-1] = caseMemoire;																								//On met le bloc Memoire dans C.
 						reserve = (reserve - 1);																						//On diminue la réserve de 1 bloc.
 					}
 				}	else System.out.println("LimiteHN  || Case non Normal/Memoire || Pas de case || réserve à 0");
@@ -111,7 +111,7 @@ public class PoserBloc extends Actions{
 			break;
 		case SOUTH :
 			if ((positionPersoY + 1) < (t.getLongueur())) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()+1];
+				Case C = this.perso.getTerrain().getEnsembleDeCase()[positionPersoX][positionPersoY+1];
 				if (C instanceof Memoire && ((C.getHauteur()) < t.getHauteurMax()) && (reserve > 0)) {							//Si C est un bloc Memoire et que sa hauteur est inférieure à la hauteurMax du terrain et que la réserve n'est pas vide,
 					C.setHauteur((C.getHauteur()+1));																				//on augmente la hauteur du bloc Memoire de 1.
 					reserve = (reserve - 1);																						//On diminue la réserve de 1 bloc.
@@ -120,7 +120,7 @@ public class PoserBloc extends Actions{
 					int pHauteurCase = C.getHauteur();																				//on récupère la hauteur de la case C.
 					if ((C.getHauteur() < t.getHauteurMax()) && (C.getHauteur() != 0) && (reserve > 0)) {							//Si la hauteur de C est inférieure à la hauteurMax du terrain, qu'il y a déjà une case Normal et que la réserve n'est pas vide,
 						Memoire caseMemoire = new Memoire((pHauteurCase+1), pHauteurCase);												//création d'un bloc Memoire qui a pour hauteur, la hauteur originale +1. On lui attribut en plus la hauteur original de la case Normal.
-						C = caseMemoire;																								//On met le bloc Memoire dans C.
+						t.getEnsembleDeCase()[positionPersoX][positionPersoY+1] = caseMemoire;																								//On met le bloc Memoire dans C.
 						reserve = (reserve - 1);																						//On diminue la réserve de 1 bloc.
 					}
 				}	else System.out.println("LimiteHS  || Case non Normal/Memoire || Pas de case || réserve à 0");
@@ -129,7 +129,7 @@ public class PoserBloc extends Actions{
 			break;
 		case EAST :
 			if ((positionPersoX + 1) < (t.getLargeur())) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()+1][this.perso.getPositionY()];
+				Case C = this.perso.getTerrain().getEnsembleDeCase()[positionPersoX+1][positionPersoY];
 				if (C instanceof Memoire && ((C.getHauteur()) < t.getHauteurMax()) && (reserve > 0)) {							//Si C est un bloc Memoire et que sa hauteur est inférieure à la hauteurMax du terrain et que la réserve n'est pas vide,
 					C.setHauteur((C.getHauteur()+1));																				//on augmente la hauteur du bloc Memoire de 1.
 					reserve = (reserve - 1);																						//On diminue la réserve de 1 bloc.
@@ -138,7 +138,7 @@ public class PoserBloc extends Actions{
 					int pHauteurCase = C.getHauteur();																				//on récupère la hauteur de la case C.
 					if ((C.getHauteur() < t.getHauteurMax()) && (C.getHauteur() != 0) && (reserve > 0)) {							//Si la hauteur de C est inférieure à la hauteurMax du terrain, qu'il y a déjà une case Normal et que la réserve n'est pas vide,
 						Memoire caseMemoire = new Memoire((pHauteurCase+1), pHauteurCase);												//création d'un bloc Memoire qui a pour hauteur, la hauteur originale +1. On lui attribut en plus la hauteur original de la case Normal.
-						C = caseMemoire;																								//On met le bloc Memoire dans C.
+						t.getEnsembleDeCase()[positionPersoX+1][positionPersoY] = caseMemoire;																								//On met le bloc Memoire dans C.
 						reserve = (reserve - 1);																						//On diminue la réserve de 1 bloc.
 					}
 				}	else System.out.println("LimiteHE  || Case non Normal/Memoire || Pas de case || réserve à 0");
@@ -147,7 +147,7 @@ public class PoserBloc extends Actions{
 			break;
 		case WEST :
 			if ((positionPersoX - 1) >= 0) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()-1][this.perso.getPositionY()];
+				Case C = this.perso.getTerrain().getEnsembleDeCase()[positionPersoX-1][positionPersoY];
 				if (C instanceof Memoire && ((C.getHauteur()) < t.getHauteurMax()) && (reserve > 0)) {							//Si C est un bloc Memoire et que sa hauteur est inférieure à la hauteurMax du terrain et que la réserve n'est pas vide,
 					C.setHauteur((C.getHauteur()+1));																				//on augmente la hauteur du bloc Memoire de 1.
 					reserve = (reserve - 1);																						//On diminue la réserve de 1 bloc.
@@ -156,7 +156,7 @@ public class PoserBloc extends Actions{
 					int pHauteurCase = C.getHauteur();																				//on récupère la hauteur de la case C.
 					if ((C.getHauteur() < t.getHauteurMax()) && (C.getHauteur() != 0) && (reserve > 0)) {							//Si la hauteur de C est inférieure à la hauteurMax du terrain, qu'il y a déjà une case Normal et que la réserve n'est pas vide,
 						Memoire caseMemoire = new Memoire((pHauteurCase+1), pHauteurCase);												//création d'un bloc Memoire qui a pour hauteur, la hauteur originale +1. On lui attribut en plus la hauteur original de la case Normal.
-						C = caseMemoire;																								//On met le bloc Memoire dans C.
+						t.getEnsembleDeCase()[positionPersoX-1][positionPersoY] = caseMemoire;																								//On met le bloc Memoire dans C.
 						reserve = (reserve - 1);																						//On diminue la réserve de 1 bloc.
 					}
 				}	else System.out.println("LimiteHW  || Case non Normal/Memoire || Pas de case || réserve à 0");
