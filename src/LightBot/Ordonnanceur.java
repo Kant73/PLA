@@ -24,6 +24,7 @@ public class Ordonnanceur {
 	private ArrayList<LinkedList<Iterator<Object>>> listFifo;
 	private ArrayList<Personnage> listPers;
 	private Afficher_niveau affichage;
+	private int cptActions=0;
 	
 	public Ordonnanceur(ArrayList<Personnage> persos, Afficher_niveau affichage){
 		this.progs=new ArrayList<Programme>();
@@ -70,16 +71,19 @@ public class Ordonnanceur {
 			    }
 				else if(obj instanceof Actions && !(obj instanceof Break)){
 					int nbLampeAllumee=((Actions)obj).getPersonnage().getTerrain().getNbLampeAllumee();
-					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() || ((Actions)obj).getPersonnage().isMort()) {
-						this.progs.get(index).reset();
-						throw new ArrayIndexOutOfBoundsException();
-					}
+					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() 
+							|| ((Actions)obj).getPersonnage().isMort() 
+							|| cptActions > ((Actions)obj).getPersonnage().getTerrain().getNbActionsPossible()){
+							this.progs.get(index).reset();
+							throw new ArrayIndexOutOfBoundsException();
+						}
 					else{
 						
 						this.affichage.ancX[index]=this.listPers.get(index).getPositionX();
 						this.affichage.ancY[index]=this.listPers.get(index).getPositionY();
 						
 						((Actions)obj).agir();
+						cptActions++;
 						if((Actions)obj instanceof Avancer)
 						{
 							this.affichage.avancer(index);
