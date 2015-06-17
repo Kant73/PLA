@@ -10,7 +10,10 @@ public class CompareFront extends Actions {
 
 	public CompareFront(Personnage p) {
 		super(p);
-		// TODO Auto-generated constructor stub
+	}
+	
+	public CompareFront(Personnage p, Couleur c){
+		super(p,c);
 	}
 	
 	public void agir(){
