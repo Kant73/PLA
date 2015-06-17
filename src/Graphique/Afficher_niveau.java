@@ -839,8 +839,8 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.progSelect=0;
 		this.indexRobot=0;
 		couleurUtilisee = Color.WHITE;
-		couleurRose = new Color(226,102,180);
-		couleurViolet = new Color(187,137,193);
+		couleurRose = new Color(250, 0, 124);
+		couleurViolet = new Color(106, 0, 250);
 		conditionExiste=this.conditionExiste=niveauCharger.getTerrain().containConditionCase();
 		
 		int i=0,j=0;
