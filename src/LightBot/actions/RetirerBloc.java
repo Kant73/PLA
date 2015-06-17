@@ -29,7 +29,6 @@ public class RetirerBloc extends Actions {
 		int positionPersoX = this.perso.getPositionX();							//On récupère la position X du personnage.
 		int positionPersoY = this.perso.getPositionY();							//On récupère la position Y du personnage.
 		Terrain t = this.perso.getTerrain();									//On récupère le terrain.
-		int reserve = t.getReserveBloc();										//Réserve de blocs par rapport au terrain.
 		switch(orientationPerso) {
 		case NORTH :
 			if ((positionPersoY-1) >= 0) {
@@ -40,7 +39,7 @@ public class RetirerBloc extends Actions {
 					}else if(devant.getHauteur()-1 == devant.getHauteurOriginal()){
 						t.getEnsembleDeCase()[positionPersoX][positionPersoY-1] = new Normal(devant.getHauteurOriginal());
 					}
-					reserve++;
+					t.incrementReserve();
 				}
 			}else{
 				System.out.println("Hors tableau");
@@ -55,7 +54,7 @@ public class RetirerBloc extends Actions {
 					}else if(devant.getHauteur()-1 == devant.getHauteurOriginal()){
 						t.getEnsembleDeCase()[positionPersoX][positionPersoY+1] = new Normal(devant.getHauteurOriginal());
 					}
-					reserve++;
+					t.incrementReserve();
 				}
 			}else{
 				System.out.println("Hors tableau");
@@ -70,7 +69,7 @@ public class RetirerBloc extends Actions {
 					}else if(devant.getHauteur()-1 == devant.getHauteurOriginal()){
 						t.getEnsembleDeCase()[positionPersoX+1][positionPersoY] = new Normal(devant.getHauteurOriginal());
 					}
-					reserve++;
+					t.incrementReserve();
 				}
 			}else{
 				System.out.println("Hors tableau");
@@ -85,7 +84,7 @@ public class RetirerBloc extends Actions {
 					}else if(devant.getHauteur()-1 == devant.getHauteurOriginal()){
 						t.getEnsembleDeCase()[positionPersoX-1][positionPersoY] = new Normal(devant.getHauteurOriginal());
 					}
-					reserve++;
+					t.incrementReserve();
 				}
 			}else{
 				System.out.println("Hors tableau");
