@@ -154,6 +154,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		afficher_cadre_procedures();
 		this.afficher_boutons();
 		this.afficher_procedure();
+		this.afficher_verrou();
 		for(int i= NB_CASE_X-1;i>=0;i--)
 		{
 			for(int j= NB_CASE_Y-1;j>=0;j--)
@@ -570,6 +571,60 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		
 	}
+	
+	
+	/**
+	 * Permet d'afficher des symboles verrou là afin de limiter le nombre d'action 
+	 * possible par l'utilisteur pour chaque procédure
+	 */
+	public void afficher_verrou(){
+		
+		int nb_ligne=0;
+		switch (this.monNiveau.getProgrammes().size()) {
+			case 3:
+				nb_ligne=0;
+				for (int l = 10; l > this.monNiveau.getProgrammes().get(2).getNbMaxAction(); l--) {
+					
+					if(l%5==0 && l!=0 && l!=10)
+					{
+						nb_ligne++;
+					}
+					Sprite temp3 = new Sprite(Textures.TexVerrou);
+					//temp2.setPosition(290-5-(j%5)*65, 400-5-nb_ligne*65);
+					temp3.setPosition(spritesProcedures[2].getPosition().x+265-(((20-l)%5)*65), spritesProcedures[2].getPosition().y + 70-(nb_ligne*65));
+					Menu_principal.fenetre.draw(temp3);
+				}		
+				
+			case 2:
+				nb_ligne=0;
+				for (int k = 10; k > this.monNiveau.getProgrammes().get(1).getNbMaxAction(); k--) {
+					
+					if(k%5==0 && k!=0 && k!=10)
+					{
+						nb_ligne++;
+					}
+					Sprite temp4 = new Sprite(Textures.TexVerrou);
+					//temp2.setPosition(290-5-(j%5)*65, 400-5-nb_ligne*65);
+					temp4.setPosition(spritesProcedures[1].getPosition().x+265-(((20-k)%5)*65), spritesProcedures[1].getPosition().y + 70-(nb_ligne*65));
+					Menu_principal.fenetre.draw(temp4);				
+				}
+	
+			default:
+				for (int j = 20; j > this.monNiveau.getProgrammes().get(0).getNbMaxAction(); j--) {
+					if(j%5==0 && j!=0 && j!=20)
+					{
+						nb_ligne++;
+					}
+					Sprite temp2 = new Sprite(Textures.TexVerrou);
+					//temp2.setPosition(290-5-(j%5)*65, 400-5-nb_ligne*65);
+					temp2.setPosition(spritesProcedures[0].getPosition().x+265-(((20-j)%5)*65), spritesProcedures[0].getPosition().y+200-(nb_ligne*65));
+					Menu_principal.fenetre.draw(temp2);
+				}
+				break;
+		}
+		
+	}
+	
 	
 	/**
 	 * Permet d'afficher les proc�dures (le main et les deux autres sous proc�dures)
