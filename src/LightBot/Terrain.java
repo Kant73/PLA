@@ -193,7 +193,7 @@ public class Terrain {
 			for(int i=0;i<largeur;i++)
 				for(int j=0;j<longueur;j++)
 					if(this.ensembleDeCase[i][j] instanceof Condition 
-						&& this.ensembleDeCase[i][j] instanceof Transparente)return true;
+						|| this.ensembleDeCase[i][j] instanceof Transparente)return true;
 		return false;
 	}
 	
