@@ -21,6 +21,14 @@ public class Avancer extends Actions {
 		if(this.couleurCondition==Couleur.Violet || this.couleurCondition==Couleur.Rose)return "Avancer cond.";
 		return "Avancer";
 	}
+	
+	private boolean condition(Case devant, Case actuelle){
+		boolean peutAvancer;
+		peutAvancer = devant instanceof Transparente;
+		peutAvancer |= actuelle.getHauteur() == devant.getHauteur();
+		peutAvancer |= (actuelle instanceof Transparente && devant.getHauteur() == 1 );
+		return peutAvancer;
+	}
 
 	@Override
 	public void agir() {
@@ -28,14 +36,13 @@ public class Avancer extends Actions {
 			Terrain T = this.perso.getTerrain();
 			int x = this.perso.getPositionX();
 			int y = this.perso.getPositionY();
-			int h = T.getEnsembleDeCase()[x][y].getHauteur();
-			
+			Case actuelle = T.getEnsembleDeCase()[x][y];			
 			Case devant;
 			switch(this.perso.getOrientation()){
 			case EAST:
 				if((x+1) < T.getLargeur()){
 					devant = T.getEnsembleDeCase()[x+1][y];
-					if(devant instanceof Transparente || (h == devant.getHauteur())){
+					if(condition(devant, actuelle)){
 						this.perso.setPositionX(x+1);
 					}else if(devant.getHauteur() == 0){
 						this.perso.setMort(true);
@@ -47,7 +54,7 @@ public class Avancer extends Actions {
 			case SOUTH:
 				if((y+1) < T.getLongueur()){
 					devant = T.getEnsembleDeCase()[x][y+1];
-					if(devant instanceof Transparente || (h == devant.getHauteur())){
+					if(condition(devant, actuelle)){
 						this.perso.setPositionY(y+1);
 					}else if(devant.getHauteur() == 0){
 						this.perso.setMort(true);
@@ -59,7 +66,7 @@ public class Avancer extends Actions {
 			case WEST:
 				if ((x-1) >= 0){
 					devant = T.getEnsembleDeCase()[x-1][y];
-					if(devant instanceof Transparente || (h == devant.getHauteur())){
+					if(condition(devant, actuelle)){
 						this.perso.setPositionX(x-1);
 					}else if(devant.getHauteur() == 0){
 						this.perso.setMort(true);
@@ -71,7 +78,7 @@ public class Avancer extends Actions {
 			case NORTH:
 				if ((y-1) >= 0){
 					devant = T.getEnsembleDeCase()[x][y-1];
-					if(devant instanceof Transparente || (h == devant.getHauteur())){
+					if(condition(devant, actuelle)){
 						this.perso.setPositionY(y-1);
 					}else if(devant.getHauteur() == 0){
 						this.perso.setMort(true);
