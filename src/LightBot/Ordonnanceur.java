@@ -13,6 +13,7 @@ import LightBot.actions.Break;
 import LightBot.actions.PoserBloc;
 import LightBot.actions.RetirerBloc;
 import LightBot.actions.Sauter;
+import LightBot.actions.Swap;
 import LightBot.cases.Clonage;
 import LightBot.personnage.Personnage;
 
@@ -91,7 +92,7 @@ public class Ordonnanceur {
 						{
 							this.affichage.sauter(index);
 						}
-						else if((Actions)obj instanceof PoserBloc || (Actions)obj instanceof RetirerBloc )
+						else if((Actions)obj instanceof PoserBloc || (Actions)obj instanceof RetirerBloc || (Actions)obj instanceof Swap)
 						{
 							this.affichage.set_position_cases();
 						}

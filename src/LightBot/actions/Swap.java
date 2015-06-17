@@ -20,47 +20,46 @@ public class Swap extends Actions {
 		if(matchColor()){
 		// Mettre une gestion de la couleur pour ne pouvoir faire un swap que si on est colorisé		
 			Terrain t = this.perso.getTerrain();
-			Case[][] tableau = t.getEnsembleDeCase();
 			Case actuelle;
 			int x = this.perso.getPositionX();
 			int y = this.perso.getPositionY();
 			
-			actuelle = tableau[x][y];
+			actuelle = t.getEnsembleDeCase()[x][y];
 			if(actuelle instanceof Transparente){
 				switch(this.perso.getOrientation()){
 					case EAST :
 						if ((x+1) < t.getLargeur()){
-							Case devant = tableau[x+1][y];
+							Case devant = t.getEnsembleDeCase()[x+1][y];
 							if(devant instanceof Transparente){
-								tableau[x][y] = devant;
-								tableau[x+1][y] = actuelle;
+								t.getEnsembleDeCase()[x][y] = devant;
+								t.getEnsembleDeCase()[x+1][y] = actuelle;
 							}
 						}
 						break;
 					case SOUTH :
 						if ((y+1) < t.getLongueur()){
-							Case devant = tableau[x][y+1];
+							Case devant = t.getEnsembleDeCase()[x][y+1];
 							if(devant instanceof Transparente){
-								tableau[x][y] = devant;
-								tableau[x][y+1] = actuelle;
+								t.getEnsembleDeCase()[x][y] = devant;
+								t.getEnsembleDeCase()[x][y+1] = actuelle;
 							}
 						}
 						break;
 					case WEST : 
 						if ((x-1) >= 0){
-							Case devant = tableau[x-1][y];
+							Case devant = t.getEnsembleDeCase()[x-1][y];
 							if(devant instanceof Transparente){
-								tableau[x][y] = devant;
-								tableau[x-1][y] = actuelle;
+								t.getEnsembleDeCase()[x][y] = devant;
+								t.getEnsembleDeCase()[x-1][y] = actuelle;
 							}
 						}
 						break;
 					case NORTH :
 						if ((y-1) >= 0){
-							Case devant = tableau[x][y-1];
+							Case devant = t.getEnsembleDeCase()[x][y-1];
 							if(devant instanceof Transparente){
-								tableau[x][y] = devant;
-								tableau[x][y-1] = actuelle;
+								t.getEnsembleDeCase()[x][y] = devant;
+								t.getEnsembleDeCase()[x][y-1] = actuelle;
 							}
 						}
 						break;
