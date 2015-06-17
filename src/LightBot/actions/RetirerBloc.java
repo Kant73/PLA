@@ -25,6 +25,7 @@ public class RetirerBloc extends Actions {
 	 * Le nombre de blocs posés correspond à l'attribut fondation.
 	 */
 	public void agir() {
+		System.out.println("Je suis là");
 		Pcardinaux orientationPerso = this.perso.getOrientation();				//On récupère l'orientation du personnage.
 		int positionPersoX = this.perso.getPositionX();							//On récupère la position X du personnage.
 		int positionPersoY = this.perso.getPositionY();							//On récupère la position Y du personnage.
@@ -35,7 +36,7 @@ public class RetirerBloc extends Actions {
 				if (t.getEnsembleDeCase()[positionPersoX][positionPersoY-1] instanceof Memoire){
 					Memoire devant = (Memoire) t.getEnsembleDeCase()[positionPersoX][positionPersoY-1];
 					if(devant.getHauteur()-1 > devant.getHauteurOriginal()){
-						devant.setHauteur(devant.getHauteur()-1);
+						t.getEnsembleDeCase()[positionPersoX][positionPersoY-1].setHauteur(devant.getHauteur()-1);
 					}else if(devant.getHauteur()-1 == devant.getHauteurOriginal()){
 						t.getEnsembleDeCase()[positionPersoX][positionPersoY-1] = new Normal(devant.getHauteurOriginal());
 					}
@@ -46,11 +47,11 @@ public class RetirerBloc extends Actions {
 			}	
 			break;		
 		case SOUTH :
-			if ((positionPersoY-1) >= 0) {
+			if ((positionPersoY + 1) < t.getLongueur()) {
 				if (t.getEnsembleDeCase()[positionPersoX][positionPersoY+1] instanceof Memoire){
 					Memoire devant = (Memoire) t.getEnsembleDeCase()[positionPersoX][positionPersoY+1];
 					if(devant.getHauteur()-1 > devant.getHauteurOriginal()){
-						devant.setHauteur(devant.getHauteur()-1);
+						t.getEnsembleDeCase()[positionPersoX][positionPersoY+1].setHauteur(devant.getHauteur()-1);
 					}else if(devant.getHauteur()-1 == devant.getHauteurOriginal()){
 						t.getEnsembleDeCase()[positionPersoX][positionPersoY+1] = new Normal(devant.getHauteurOriginal());
 					}
@@ -61,11 +62,11 @@ public class RetirerBloc extends Actions {
 			}	
 			break;	
 		case EAST :
-			if ((positionPersoY-1) >= 0) {
+			if ((positionPersoX + 1) < t.getLargeur()) {
 				if (t.getEnsembleDeCase()[positionPersoX+1][positionPersoY] instanceof Memoire){
 					Memoire devant = (Memoire) t.getEnsembleDeCase()[positionPersoX+1][positionPersoY];
 					if(devant.getHauteur()-1 > devant.getHauteurOriginal()){
-						devant.setHauteur(devant.getHauteur()-1);
+						t.getEnsembleDeCase()[positionPersoX+1][positionPersoY].setHauteur(devant.getHauteur()-1);
 					}else if(devant.getHauteur()-1 == devant.getHauteurOriginal()){
 						t.getEnsembleDeCase()[positionPersoX+1][positionPersoY] = new Normal(devant.getHauteurOriginal());
 					}
@@ -76,11 +77,11 @@ public class RetirerBloc extends Actions {
 			}	
 			break;	
 		case WEST :
-			if ((positionPersoY-1) >= 0) {
+			if ((positionPersoX - 1) >= 0) {
 				if (t.getEnsembleDeCase()[positionPersoX-1][positionPersoY] instanceof Memoire){
 					Memoire devant = (Memoire) t.getEnsembleDeCase()[positionPersoX-1][positionPersoY];
 					if(devant.getHauteur()-1 > devant.getHauteurOriginal()){
-						devant.setHauteur(devant.getHauteur()-1);
+						t.getEnsembleDeCase()[positionPersoX-1][positionPersoY].setHauteur(devant.getHauteur()-1);
 					}else if(devant.getHauteur()-1 == devant.getHauteurOriginal()){
 						t.getEnsembleDeCase()[positionPersoX-1][positionPersoY] = new Normal(devant.getHauteurOriginal());
 					}
