@@ -27,13 +27,13 @@ public class Programme {
 		this.couleurCondition=couleur;
 	}
 	
-	public Boolean isMatchCouleur(){
+	public boolean isMatchCouleur(Couleur c){
 		boolean colorOK=false;
 		/* Marche bien pour n'avoir que 2 couleurs de conditions */
-		if(this.listActions!=null && this.listActions.size()>=1){
-			colorOK = this.couleurCondition == ((Actions)this.listActions.get(0)).getPersonnage().getCouleur(); 
-			colorOK |= (((Actions)this.listActions.get(0)).getPersonnage().getCouleur() == Couleur.Violet 	&& this.couleurCondition != Couleur.Rose);
-			colorOK |= (((Actions)this.listActions.get(0)).getPersonnage().getCouleur() == Couleur.Rose 	&& this.couleurCondition != Couleur.Violet);
+		if(this.listActions!=null){
+			colorOK = this.couleurCondition == c; 
+			colorOK |= (c == Couleur.Violet && this.couleurCondition != Couleur.Rose);
+			colorOK |= (c == Couleur.Rose && this.couleurCondition != Couleur.Violet);
 		}
 		return colorOK;
 	}

@@ -122,7 +122,7 @@ public class Ordonnanceur {
 					}
 				}
 				else if(obj instanceof Programme){
-					if(((Programme)obj).isMatchCouleur())this.setNewIterator(((Programme)obj).getActions().iterator(), index);
+					if(((Programme)obj).isMatchCouleur(this.listPers.get(index).getCouleur()))this.setNewIterator(((Programme)obj).getActions().iterator(), index);
 				}
 			}else{
 				this.restaureIterator(index);
