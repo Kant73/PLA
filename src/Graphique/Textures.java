@@ -113,6 +113,7 @@ public class Textures {
 			mesAnims[2].loadFromFile(Paths.get("src/Img/BB8_NO.png"));
 			mesAnims[3].loadFromFile(Paths.get("src/Img/BB8_SO.png"));
 			
+			
 			texPeinture.loadFromFile(Paths.get("src/Img/peinture.png"));
 			texBoutonReset.loadFromFile(Paths.get("src/Img/reset.png"));
 			
@@ -149,6 +150,7 @@ public class Textures {
 			TexSymboleSuppr.loadFromFile(Paths.get("src/Img/symbole_suppr.png"));
 			TexSymboleSwap.loadFromFile(Paths.get("src/Img/symbole_swap.png"));
 			TexSymboleWash.loadFromFile(Paths.get("src/Img/symbole_shower.png"));
+			TexSymboleComp.loadFromFile(Paths.get("src/Img/symbole_compare.png"));
 			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
