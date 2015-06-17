@@ -688,15 +688,15 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	private Couleur couleur_graphique_vers_couleur_case(Color coul)
 	{
-		if(couleurUtilisee == Color.WHITE)
+		if(coul == Color.WHITE) 
 		{
 			return Couleur.Blanc;
 		}
-		else if(couleurUtilisee == couleurRose )
+		else if(coul == couleurRose )
 		{
 			return Couleur.Rose;
 		}
-		else if(couleurUtilisee == couleurViolet)
+		else if(coul ==couleurViolet )
 		{
 			return Couleur.Violet;
 		}
@@ -748,7 +748,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		StructStringSprite temp;
 		monNiveau=mj.getNiveau(selection);
 		
-		int save_select = this.progSelect;
 		/*On supprime toute les actions qui existaient au cas où ?*/
 		for(int l=0;l<monNiveau.getProgrammes().size();l++)
 		{
@@ -756,22 +755,8 @@ public class Afficher_niveau extends Menu_niveaux{
 			{
 				monNiveau.getProgrammes().get(l).supprimer(k);
 			}
-		}
-		/*On réinsère les actions*/
-		for(int l=0;l<tabProgramme.length;l++)
-		{
-			this.progSelect=l;
-			if (!tabProgramme[this.progSelect].isEmpty()) {
-				for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
-					temp = (StructStringSprite) tabProgramme[this.progSelect].get(k);
-					StructStringSprite struct = new StructStringSprite(temp);
-					inserer_actions(struct);	
-				}
-			}
-		}
-		this.progSelect = save_select;	
+		}	
 		this.set_textures_cases();
-		monNiveau.getPersonnages().get(0).setCouleur(Couleur.Blanc);
 		set_pos_robot();
 	}
 	/**
@@ -829,7 +814,6 @@ public class Afficher_niveau extends Menu_niveaux{
 								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
 								{
 									tabProgramme[this.progSelect].remove(k);
-									this.monNiveau.getProgrammes().get(this.progSelect).supprimer(k);
 								}
 							}
 						}
@@ -838,20 +822,35 @@ public class Afficher_niveau extends Menu_niveaux{
 						if (!list_action_possible.isEmpty()) {
 							for (int k = 0; k < list_action_possible.size(); k++) {
 								temp = (StructStringSprite) list_action_possible.get(k);
-								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
+								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && !spritesProcedures[this.progSelect].getGlobalBounds().contains(pos.x,pos.y))
 								{
 									StructStringSprite struct = new StructStringSprite(temp);
 									//monNiveau.getProgrammes().add(struct);
 									if(this.tabProgramme[this.progSelect].size() < this.monNiveau.getProgrammes().get(this.progSelect).getNbMaxAction()){
-										inserer_actions(struct);
 										tabProgramme[this.progSelect].add(struct);
 									}
 								}
 							}
 						}
 						
+					
+						
+						
 						if(spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
 						{
+							int save_select = this.progSelect;
+							for(int l=0;l<tabProgramme.length;l++)
+							{
+								this.progSelect=l;
+								if (!tabProgramme[this.progSelect].isEmpty()) {
+									for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
+							
+										inserer_actions((StructStringSprite) tabProgramme[this.progSelect].get(k));	
+									}
+								}
+							}
+							this.progSelect = save_select;	
+							
 							for(int l = 0; l<monNiveau.getPersonnages().size();l++)	
 								monNiveau.getPersonnages().get(l).setProgramme(monNiveau.getProgrammes().get(l));
 								
@@ -876,7 +875,6 @@ public class Afficher_niveau extends Menu_niveaux{
 									}
 								}
 							}
-							
 						}
 						else if(this.spritePeinture.getGlobalBounds().contains(pos.x,pos.y))
 						{
@@ -903,7 +901,6 @@ public class Afficher_niveau extends Menu_niveaux{
 						}
 						if(spriteBoutonReset.getGlobalBounds().contains(pos.x,pos.y))
 						{
-							
 							reset_niveau(mj,selection);
 							unSeulPlay=true;
 						}
