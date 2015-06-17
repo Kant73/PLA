@@ -27,8 +27,7 @@
 	</personnes>
 	<programmes>
 		<programme name="main" t="12" />
-		<programme name="proc1" t="10" />
-		<programme name="proc2" t="10" />
+		<programme name="proc1" t="5" />
 	</programmes>
 	<actions>
 		<action name="Avancer" p="Robot" />
