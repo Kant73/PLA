@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import LightBot.actions.Actions;
 import LightBot.actions.Break;
+import LightBot.cases.Couleur;
 
 public class Programme {
 
@@ -11,12 +12,30 @@ public class Programme {
 	private Vector<Object> listActions;
 	private String nom;
 	private int currentIndex=0;
+	private Couleur couleurCondition;
 	
 	public Programme(String nom, int taille){
 		this.nbMaxAction= taille;	
 		this.nom=nom;
 		this.listActions=new Vector<Object>();
 		this.listActions.setSize(this.nbMaxAction);
+		this.couleurCondition=Couleur.Blanc;
+	}
+	
+	public Programme(String nom, int taille, Couleur couleur){
+		this(nom, taille);
+		this.couleurCondition=couleur;
+	}
+	
+	public Boolean isMatchCouleur(){
+		boolean colorOK=false;
+		/* Marche bien pour n'avoir que 2 couleurs de conditions */
+		if(this.listActions!=null && this.listActions.size()>=1){
+			colorOK = this.couleurCondition == ((Actions)this.listActions.get(0)).getPersonnage().getCouleur(); 
+			colorOK |= (((Actions)this.listActions.get(0)).getPersonnage().getCouleur() == Couleur.Violet 	&& this.couleurCondition != Couleur.Rose);
+			colorOK |= (((Actions)this.listActions.get(0)).getPersonnage().getCouleur() == Couleur.Rose 	&& this.couleurCondition != Couleur.Violet);
+		}
+		return colorOK;
 	}
 	
 	public int getNbMaxAction(){
