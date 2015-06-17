@@ -93,14 +93,15 @@ public class RetirerBloc extends Actions {
 		switch(orientationPerso) {
 		case NORTH :
 			if ((positionPersoY-1) >= 0) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()-1];		//On récupère la case adjacente en face du personnage.
+				Case C = t.getEnsembleDeCase()[positionPersoX][positionPersoY-1];		//On récupère la case adjacente en face du personnage.
 				if (C instanceof Memoire  && ((C.getHauteur()-1) > ((Memoire) C).getHauteurOriginal())) {								//Si le bloc est un bloc Memoire et que sa (hauteur-1) est supérieur à la hauteur originale de la case de base.
 					C.setHauteur((C.getHauteur()-1));																						//On diminue la hauteur du bloc Memoire de 1.
 					reserve = (reserve + 1);																							//On retire 1 bloc de la réserve.
 				}	
 				else if (C instanceof Memoire && ((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){													//Sinon si la (hauteur-1) du bloc Memoire est égal à la hauteur original,
-					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());													//on remplace la case Memoire par une case Normal avec son hauteur de base.
-					C = caseNormal;
+					System.out.println("Je suis là)");
+					Normal caseNormal = new Normal((((Memoire) C).getHauteurOriginal()));													//on remplace la case Memoire par une case Normal avec son hauteur de base.
+					t.getEnsembleDeCase()[positionPersoX][positionPersoY-1] = caseNormal;
 					reserve = (reserve + 1);																							//On retire 1 bloc de la réserve.
 				}
 			}	else {System.out.println("Hors tableau");
@@ -108,14 +109,15 @@ public class RetirerBloc extends Actions {
 			break;
 		case SOUTH : 
 			if ((positionPersoY+1) < t.getLongueur()) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()+1];
+				Case C = t.getEnsembleDeCase()[positionPersoX][positionPersoY+1];
 				if (C instanceof Memoire  && ((C.getHauteur()-1) > ((Memoire) C).getHauteurOriginal())) {		
 					C.setHauteur((C.getHauteur()-1));															
 					reserve = (reserve + 1);
 				}	
 				else if (C instanceof Memoire && ((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
-					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());
-					C = caseNormal;
+					System.out.println("Je suis là)");
+					Normal caseNormal = new Normal((((Memoire) C).getHauteurOriginal()));
+					t.getEnsembleDeCase()[positionPersoX][positionPersoY+1] = caseNormal;
 					reserve = (reserve + 1);
 				}
 			}	else {System.out.println("Hors tableau");
@@ -123,14 +125,15 @@ public class RetirerBloc extends Actions {
 			break;
 		case EAST :
 			if ((positionPersoX+1) < t.getLargeur()) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()+1][this.perso.getPositionY()];
+				Case C = t.getEnsembleDeCase()[positionPersoX+1][positionPersoY];
 				if (C instanceof Memoire  && ((C.getHauteur()-1) > ((Memoire) C).getHauteurOriginal())) {		
 					C.setHauteur((C.getHauteur()-1));															
 					reserve = (reserve + 1);
 				}	
 				else if (C instanceof Memoire && ((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
-					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());
-					C = caseNormal;
+					System.out.println("Je suis là)");
+					Normal caseNormal = new Normal((((Memoire) C).getHauteurOriginal()));
+					t.getEnsembleDeCase()[positionPersoX+1][positionPersoY] = caseNormal;
 					reserve = (reserve + 1);
 				}
 			}	else {System.out.println("Hors tableau");
@@ -138,14 +141,15 @@ public class RetirerBloc extends Actions {
 			break;
 		case WEST :
 			if ((positionPersoX-1) >= 0) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()-1][this.perso.getPositionY()];
+				Case C = t.getEnsembleDeCase()[positionPersoX-1][positionPersoY];
 				if (C instanceof Memoire  && ((C.getHauteur()-1) > ((Memoire) C).getHauteurOriginal())) {		
 					C.setHauteur((C.getHauteur()-1));															
 					reserve = (reserve + 1);
 				}	
 				else if (C instanceof Memoire && ((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
-					Normal caseNormal = new Normal(((Memoire) C).getHauteurOriginal());
-					C = caseNormal;
+					System.out.println("Je suis là)");
+					Normal caseNormal = new Normal((((Memoire) C).getHauteurOriginal()));
+					t.getEnsembleDeCase()[positionPersoX-1][positionPersoY] = caseNormal;
 					reserve = (reserve + 1);
 				}
 			}	else {System.out.println("Hors tableau");
