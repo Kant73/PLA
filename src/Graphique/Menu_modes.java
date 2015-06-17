@@ -59,7 +59,7 @@ public class Menu_modes extends Menu_principal{
 				fondMode.loadFromFile(Paths.get("src/Img/Battle.png"));
 				break;
 			case 8:
-				fondMode.loadFromFile(Paths.get("src/Img/Battle.png"));
+				fondMode.loadFromFile(Paths.get("src/Img/Tri.png"));
 				break;
 			default :
 				System.out.println("pas d'image de fond disponible");
