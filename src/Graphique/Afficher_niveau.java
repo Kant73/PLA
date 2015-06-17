@@ -180,7 +180,7 @@ public class Afficher_niveau extends Menu_niveaux{
 							if(monNiveau.getPersonnages().get(l).isMort())
 								spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][numAnim[l]].setColor(Color.TRANSPARENT);
 							else 
-								spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][numAnim[l]].setColor(Color.WHITE);
+								spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][numAnim[l]].setColor(couleur_case_vers_couleur_Graphique(monNiveau.getPersonnages().get(l).getCouleur()));
 							
 								Menu_principal.fenetre.draw(spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][numAnim[l]]);
 								
@@ -719,6 +719,25 @@ public class Afficher_niveau extends Menu_niveaux{
 			this.sprite = temp;
 			this.nom = struct.nom;
 		}	
+	}
+	
+	
+	private Color couleur_case_vers_couleur_Graphique(Couleur coul)
+	{
+		if(coul == Couleur.Blanc) 
+		{
+			return  Color.WHITE;
+		}
+		else if(coul == Couleur.Rose  )
+		{
+			return couleurRose;
+		}
+		else if(coul ==Couleur.Violet  )
+		{
+			return couleurViolet;
+		}
+		System.out.println("Erreur de couleur");
+		return null;
 	}
 	
 	private Couleur couleur_graphique_vers_couleur_case(Color coul)
