@@ -48,15 +48,13 @@ public class Textures {
 	public static Texture TexSymboleSwap;
 	public static Texture TexSymboleWash;
 	public static Texture TexSymboleComp;
-	public static Texture TexRobotNE;
-	public static Texture TexRobotNW;
-	public static Texture TexRobotSE;
-	public static Texture TexRobotSW;
+	public static Texture texSuivant;
 	
 	public static void initTextures()
 	{
 		texProcs = new Texture[6];
 		
+		texSuivant = new Texture();
 		texPeinture = new Texture();
 		TexVerrou = new Texture();
 		TexCaseBase = new Texture();
@@ -95,10 +93,6 @@ public class Textures {
 		TexSymboleComp = new Texture();
 
 		texBoutonReset=new Texture();
-		TexRobotNE= new Texture();
-		TexRobotNW= new Texture();
-		TexRobotSE= new Texture();
-		TexRobotSW= new Texture();
 		mesAnims = new Texture[4];
 		
 		for (int i=0;i< mesAnims.length;i++)
@@ -121,6 +115,8 @@ public class Textures {
 			
 			texPeinture.loadFromFile(Paths.get("src/Img/peinture.png"));
 			texBoutonReset.loadFromFile(Paths.get("src/Img/reset.png"));
+			
+			texSuivant.loadFromFile(Paths.get("src/Img/suivant.png"));
 			
 			TexVerrou.loadFromFile(Paths.get("src/Img/verrou.png"));
 			TexCaseBase.loadFromFile(Paths.get("src/Img/case0.png"));
@@ -153,13 +149,6 @@ public class Textures {
 			TexSymboleSuppr.loadFromFile(Paths.get("src/Img/symbole_suppr.png"));
 			TexSymboleSwap.loadFromFile(Paths.get("src/Img/symbole_swap.png"));
 			TexSymboleWash.loadFromFile(Paths.get("src/Img/symbole_shower.png"));
-			TexSymboleComp.loadFromFile(Paths.get("src/Img/symbole_compare.png"));;
-			
-			TexRobotNE.loadFromFile(Paths.get("src/Img/man_ne.png"));
-			TexRobotNW.loadFromFile(Paths.get("src/Img/man_nw.png"));
-			TexRobotSE.loadFromFile(Paths.get("src/Img/man_se.png"));
-			TexRobotSW.loadFromFile(Paths.get("src/Img/man_sw.png"));
-			
 			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
