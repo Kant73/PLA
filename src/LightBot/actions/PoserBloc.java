@@ -20,8 +20,8 @@ public class PoserBloc extends Actions{
 	
 	/**
 	 * Poser des blocs sur un terrain de base.
-	 * Chaque pose de bloc augmente la hauteur et le compteur de blocs posés de la case de +1.
-	 * Le nombre de blocs posés correspond à l'attribut fondation.
+	 * Si la case est de base, elle est transformée en case Memoire.
+	 * Sinon, la hauteur de la case Memoire est incrémentée.
 	 */
 	public void agir() {
 		int positionPersoX = this.perso.getPositionX();					// On récupère la position X du personnage.

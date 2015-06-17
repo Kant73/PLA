@@ -19,13 +19,12 @@ public class RetirerBloc extends Actions {
 	}
 
 	/**
-	 * Retirer des blocs sur une case.
+	 * Retirer des blocs Memoire du terrain.
 	 * Il n'est pas possible de retirer les cases de base du terrain.
-	 * Chaque retrait de bloc diminue la hauteur et le compteur de blocs posés de la case de 1.
-	 * Le nombre de blocs posés correspond à l'attribut fondation.
+	 * Chaque retrait de bloc diminue la hauteur du bloc Memoire. 
+	 * Si la hauteur initiale est atteinte dans le retrait de bloc, le bloc devient un bloc Normal.
 	 */
 	public void agir() {
-		System.out.println("Je suis là");
 		Pcardinaux orientationPerso = this.perso.getOrientation();				//On récupère l'orientation du personnage.
 		int positionPersoX = this.perso.getPositionX();							//On récupère la position X du personnage.
 		int positionPersoY = this.perso.getPositionY();							//On récupère la position Y du personnage.
