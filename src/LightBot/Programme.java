@@ -128,8 +128,9 @@ public class Programme {
 			}
 	}
 	
-	public Couleur geCouleur(){
-		return this.couleurCondition;
+	public void setCouleur(Couleur c){
+		if(c==Couleur.Rose && c==Couleur.Violet)
+			this.couleurCondition=c;
 	}
 	
 }
