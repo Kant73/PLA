@@ -128,4 +128,8 @@ public class Programme {
 			}
 	}
 	
+	public Couleur geCouleur(){
+		return this.couleurCondition;
+	}
+	
 }

@@ -64,7 +64,7 @@ public class Ordonnanceur {
 			
 			if(itActions.hasNext()){
 				Object obj=itActions.next();
-			    if(obj instanceof Break && ((Break)obj).getCouleur()==((Break)obj).getPersonnage().getCouleur()){
+			    if(obj instanceof Break && ((Break)obj).matchColor()){
 			    	throw new BreakException(Integer.toString(index));
 			    }
 				else if(obj instanceof Actions && !(obj instanceof Break)){
