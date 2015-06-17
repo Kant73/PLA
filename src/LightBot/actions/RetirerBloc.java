@@ -45,55 +45,52 @@ public class RetirerBloc extends Actions {
 			}else{
 				System.out.println("Hors tableau");
 			}	
-			break;
-		case SOUTH : 
-			if ((positionPersoY+1) < t.getLongueur()){
-				Case C = t.getEnsembleDeCase()[positionPersoX][positionPersoY+1];
-				if (C instanceof Memoire  && ((C.getHauteur()-1) > ((Memoire) C).getHauteurOriginal())) {		
-					C.setHauteur((C.getHauteur()-1));															
-					reserve = (reserve + 1);
-				}	
-				else if (C instanceof Memoire && ((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
-					System.out.println("Je suis là)");
-					Normal caseNormal = new Normal((((Memoire) C).getHauteurOriginal()));
-					t.getEnsembleDeCase()[positionPersoX][positionPersoY+1] = caseNormal;
-					reserve = (reserve + 1);
+			break;		
+		case SOUTH :
+			if ((positionPersoY-1) >= 0) {
+				if (t.getEnsembleDeCase()[positionPersoX][positionPersoY+1] instanceof Memoire){
+					Memoire devant = (Memoire) t.getEnsembleDeCase()[positionPersoX][positionPersoY-1];
+					if(devant.getHauteur()-1 > devant.getHauteurOriginal()){
+						devant.setHauteur(devant.getHauteur()-1);
+					}else if(devant.getHauteur()-1 == devant.getHauteurOriginal()){
+						t.getEnsembleDeCase()[positionPersoX][positionPersoY+1] = new Normal(devant.getHauteurOriginal());
+					}
+					reserve++;
 				}
-			}	else {System.out.println("Hors tableau");
-				}	
-			break;
+			}else{
+				System.out.println("Hors tableau");
+			}	
+			break;	
 		case EAST :
-			if ((positionPersoX+1) < t.getLargeur()) {
-				Case C = t.getEnsembleDeCase()[positionPersoX+1][positionPersoY];
-				if (C instanceof Memoire  && ((C.getHauteur()-1) > ((Memoire) C).getHauteurOriginal())) {		
-					C.setHauteur((C.getHauteur()-1));															
-					reserve = (reserve + 1);
-				}	
-				else if (C instanceof Memoire && ((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
-					System.out.println("Je suis là)");
-					Normal caseNormal = new Normal((((Memoire) C).getHauteurOriginal()));
-					t.getEnsembleDeCase()[positionPersoX+1][positionPersoY] = caseNormal;
-					reserve = (reserve + 1);
+			if ((positionPersoY-1) >= 0) {
+				if (t.getEnsembleDeCase()[positionPersoX+1][positionPersoY] instanceof Memoire){
+					Memoire devant = (Memoire) t.getEnsembleDeCase()[positionPersoX][positionPersoY-1];
+					if(devant.getHauteur()-1 > devant.getHauteurOriginal()){
+						devant.setHauteur(devant.getHauteur()-1);
+					}else if(devant.getHauteur()-1 == devant.getHauteurOriginal()){
+						t.getEnsembleDeCase()[positionPersoX+1][positionPersoY] = new Normal(devant.getHauteurOriginal());
+					}
+					reserve++;
 				}
-			}	else {System.out.println("Hors tableau");
-				}	
-			break;
+			}else{
+				System.out.println("Hors tableau");
+			}	
+			break;	
 		case WEST :
-			if ((positionPersoX-1) >= 0) {
-				Case C = t.getEnsembleDeCase()[positionPersoX-1][positionPersoY];
-				if (C instanceof Memoire  && ((C.getHauteur()-1) > ((Memoire) C).getHauteurOriginal())) {		
-					C.setHauteur((C.getHauteur()-1));															
-					reserve = (reserve + 1);
-				}	
-				else if (C instanceof Memoire && ((C.getHauteur()-1) == ((Memoire) C).getHauteurOriginal())){
-					System.out.println("Je suis là)");
-					Normal caseNormal = new Normal((((Memoire) C).getHauteurOriginal()));
-					t.getEnsembleDeCase()[positionPersoX-1][positionPersoY] = caseNormal;
-					reserve = (reserve + 1);
+			if ((positionPersoY-1) >= 0) {
+				if (t.getEnsembleDeCase()[positionPersoX-1][positionPersoY] instanceof Memoire){
+					Memoire devant = (Memoire) t.getEnsembleDeCase()[positionPersoX][positionPersoY-1];
+					if(devant.getHauteur()-1 > devant.getHauteurOriginal()){
+						devant.setHauteur(devant.getHauteur()-1);
+					}else if(devant.getHauteur()-1 == devant.getHauteurOriginal()){
+						t.getEnsembleDeCase()[positionPersoX-1][positionPersoY] = new Normal(devant.getHauteurOriginal());
+					}
+					reserve++;
 				}
-			}	else {System.out.println("Hors tableau");
-				}	
-			break;
+			}else{
+				System.out.println("Hors tableau");
+			}	
+			break;	
 		}
 	}
 }
