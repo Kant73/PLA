@@ -4,6 +4,7 @@ import LightBot.cases.Case;
 import LightBot.cases.Condition;
 import LightBot.cases.Lampe;
 import LightBot.cases.Normal;
+import LightBot.cases.Transparente;
 
 
 public class Terrain {
@@ -191,7 +192,8 @@ public class Terrain {
 		if(this.ensembleDeCase != null)
 			for(int i=0;i<largeur;i++)
 				for(int j=0;j<longueur;j++)
-					if(this.ensembleDeCase[i][j] instanceof Condition)return true;
+					if(this.ensembleDeCase[i][j] instanceof Condition 
+						&& this.ensembleDeCase[i][j] instanceof Transparente)return true;
 		return false;
 	}
 	
