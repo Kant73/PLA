@@ -610,6 +610,7 @@ public class Afficher_niveau extends Menu_niveaux{
 				}
 	
 			default:
+				nb_ligne = 0;
 				for (int j = 20; j > this.monNiveau.getProgrammes().get(0).getNbMaxAction(); j--) {
 					if(j%5==0 && j!=0 && j!=20)
 					{
