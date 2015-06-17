@@ -1,6 +1,7 @@
 package LightBot;
 
 import LightBot.cases.Case;
+import LightBot.cases.Condition;
 import LightBot.cases.Lampe;
 import LightBot.cases.Normal;
 
@@ -184,6 +185,14 @@ public class Terrain {
 			System.out.print("|\n");
 		}
 		System.out.println(ligne);
+	}
+	
+	public boolean containConditionCase(){
+		if(this.ensembleDeCase != null)
+			for(int i=0;i<largeur;i++)
+				for(int j=0;j<longueur;j++)
+					if(this.ensembleDeCase[i][j] instanceof Condition)return true;
+		return false;
 	}
 	
 	//Constructeur de l'objet Terrain
