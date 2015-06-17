@@ -22,9 +22,11 @@ import LightBot.Ordonnanceur;
 import LightBot.actions.Allumer;
 import LightBot.actions.Avancer;
 import LightBot.actions.Break;
+import LightBot.actions.CompareFront;
 import LightBot.actions.PoserBloc;
 import LightBot.actions.RetirerBloc;
 import LightBot.actions.Sauter;
+import LightBot.actions.Swap;
 import LightBot.actions.TournerDroite;
 import LightBot.actions.TournerGauche;
 import LightBot.actions.Wash;
@@ -523,8 +525,14 @@ public class Afficher_niveau extends Menu_niveaux{
 			else if(al.get(i) instanceof RetirerBloc) {
 				struct = this.new StructStringSprite(this.spriteSymboleSuppr, "suppr");
 			}
+			else if(al.get(i) instanceof CompareFront) {
+				struct = this.new StructStringSprite(this.spriteSymboleSuppr, "comp");
+			}
+			else if(al.get(i) instanceof Swap) {
+				struct = this.new StructStringSprite(this.spriteSymboleSuppr, "swap");
+			}
 			else if(al.get(i) instanceof Wash) {
-				System.out.println("Wash");
+				struct = this.new StructStringSprite(this.spriteSymboleSuppr, "wash");
 			}
 			
 			if(!action_deja_presente(struct))
