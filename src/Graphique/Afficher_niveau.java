@@ -190,19 +190,27 @@ public class Afficher_niveau extends Menu_niveaux{
 	 */
 	public void set_pos_robot()
 	{
-		int i,j;
+		int i,j,h;
 		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
 		{
 			 i=monNiveau.getPersonnages().get(l).getPositionX();
 			 j=monNiveau.getPersonnages().get(l).getPositionY();
+			 h=monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique();
 			
-			spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][0].setPosition(SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique()].getPosition().x 
-						+ reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique()].getTexture().getSize().x/2
-						- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][0].getLocalBounds().width/2
-						,SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique()].getPosition().y 
-						+reScale*SpriteCases[i][j][monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique()].getTexture().getSize().y/3 
-						- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][0].getLocalBounds().height
-						+ 10);	
+			if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Transparente)
+			{
+				h=0;
+			}
+
+			spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][0].setPosition(SpriteCases[i][j][h].getPosition().x 
+					+ reScale*SpriteCases[i][j][h].getTexture().getSize().x/2
+					- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][0].getLocalBounds().width/2
+					,SpriteCases[i][j][h].getPosition().y 
+					+reScale*SpriteCases[i][j][h].getTexture().getSize().y/3 
+					- reScaleRobot*spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][0].getLocalBounds().height
+					+ 10);	
+			
+		
 		}		
 	}
 	
@@ -553,9 +561,6 @@ public class Afficher_niveau extends Menu_niveaux{
 			else if(al.get(i) instanceof Wash) {
 				struct = this.new StructStringSprite(this.spriteSymboleWash, "wash");
 			}
-			
-			if(al.get(i) instanceof ConditionRose || al.get(i) instanceof ConditionViolet)
-				conditionExiste=true;
 			
 			if(!action_deja_presente(struct))
 				this.list_action_possible.add(struct);
