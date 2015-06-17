@@ -36,6 +36,7 @@ import LightBot.cases.ConditionViolet;
 import LightBot.cases.Couleur;
 import LightBot.cases.Lampe;
 import LightBot.cases.Pointeur;
+import LightBot.cases.Transparente;
 
 public class Afficher_niveau extends Menu_niveaux{
 	 
@@ -449,8 +450,9 @@ public class Afficher_niveau extends Menu_niveaux{
 							SpriteCases[i][j][k].setTexture(Textures.TexCasePointeur);
 						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Clonage  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Orange)
 							SpriteCases[i][j][k].setTexture(Textures.TexCaseClonage);
-						
 					}
+					if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Transparente && k!=0)
+						SpriteCases[i][j][k].setTexture(Textures.TexCaseTransp);
 
 					SpriteCases[i][j][k].setScale(reScale,reScale);
 
