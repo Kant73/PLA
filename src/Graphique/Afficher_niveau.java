@@ -31,6 +31,7 @@ import LightBot.actions.TournerDroite;
 import LightBot.actions.TournerGauche;
 import LightBot.actions.Wash;
 import LightBot.cases.Clonage;
+import LightBot.cases.Condition;
 import LightBot.cases.ConditionRose;
 import LightBot.cases.ConditionViolet;
 import LightBot.cases.Couleur;
@@ -75,6 +76,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	public int[] ancX,ancY;
 	public int[] numAnim;
 	public int indexRobot;
+	public boolean conditionExiste;
 	
 	public LinkedList list_action_possible;
 	public List[] tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
@@ -552,6 +554,9 @@ public class Afficher_niveau extends Menu_niveaux{
 				struct = this.new StructStringSprite(this.spriteSymboleWash, "wash");
 			}
 			
+			if(al.get(i) instanceof ConditionRose || al.get(i) instanceof ConditionViolet)
+				conditionExiste=true;
+			
 			if(!action_deja_presente(struct))
 				this.list_action_possible.add(struct);
 		}
@@ -568,6 +573,7 @@ public class Afficher_niveau extends Menu_niveaux{
 			struct = this.new StructStringSprite(this.spriteP2, "P2");
 			this.list_action_possible.add(struct);
 		}
+		
 		
 	}
 
@@ -592,9 +598,9 @@ public class Afficher_niveau extends Menu_niveaux{
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
 		Menu_principal.fenetre.draw(this.spriteBoutonPlay);
 		Menu_principal.fenetre.draw(this.spriteBoutonReset);
-		Menu_principal.fenetre.draw(this.spritePeinture);
 		
-		
+		if(conditionExiste)
+			Menu_principal.fenetre.draw(this.spritePeinture);	
 	}
 	
 	
@@ -757,8 +763,13 @@ public class Afficher_niveau extends Menu_niveaux{
 		case "swap":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Swap(this.monNiveau.getPersonnages().get(indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
+		case "break":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Break(this.monNiveau.getPersonnages().get(indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			break;
 		case "P1":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(1));
+//			this.monNiveau.getProgrammes().get(this.progSelect).;
+//			this.couleur_graphique_vers_couleur_case(struct.sprite.getColor())
 			break;
 			case "P2":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(2));
@@ -796,7 +807,8 @@ public class Afficher_niveau extends Menu_niveaux{
 		couleurUtilisee = Color.WHITE;
 		couleurRose = new Color(226,102,180);
 		couleurViolet = new Color(187,137,193);
-
+		conditionExiste=true;
+		
 		int i=0,j=0;
 		boolean unSeulPlay=true;
 		//Initialisation des textures
@@ -812,11 +824,18 @@ public class Afficher_niveau extends Menu_niveaux{
 		StructStringSprite temp= (StructStringSprite)this.list_action_possible.getLast();
 		afficher_boutons();
 		
-		spritePeinture.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+ 5,temp.sprite.getPosition().y);
-		spriteBoutonPlay.setPosition(spritePeinture.getPosition().x + spriteBoutonPlay.getTexture().getSize().x +5 ,temp.sprite.getPosition().y);
-		spriteBoutonReset.setPosition(spriteBoutonPlay.getPosition().x + spriteBoutonReset.getTexture().getSize().x + 5,spriteBoutonPlay.getPosition().y);
+		if(conditionExiste)
+		{
+			spritePeinture.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+ 5,temp.sprite.getPosition().y);
+			spriteBoutonPlay.setPosition(spritePeinture.getPosition().x + spriteBoutonPlay.getTexture().getSize().x +5 ,temp.sprite.getPosition().y);
+			spriteBoutonReset.setPosition(spriteBoutonPlay.getPosition().x + spriteBoutonReset.getTexture().getSize().x + 5,spriteBoutonPlay.getPosition().y);
+		}
+		else
+		{
+			spriteBoutonPlay.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+5 ,temp.sprite.getPosition().y);
+			spriteBoutonReset.setPosition(spriteBoutonPlay.getPosition().x + spriteBoutonReset.getTexture().getSize().x + 5,spriteBoutonPlay.getPosition().y);		
+		}
 		
-	
 		initProcedures();
 		afficher_carte();
 		
@@ -902,7 +921,7 @@ public class Afficher_niveau extends Menu_niveaux{
 								}
 							}
 						}
-						else if(this.spritePeinture.getGlobalBounds().contains(pos.x,pos.y))
+						else if(this.spritePeinture.getGlobalBounds().contains(pos.x,pos.y) && conditionExiste)
 						{
 							if(couleurUtilisee == Color.WHITE)
 							{
