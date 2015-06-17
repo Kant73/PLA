@@ -66,6 +66,9 @@ public class Afficher_niveau extends Menu_niveaux{
 	public Sprite spriteSymboleSauter;
 	public Sprite spriteSymboleAllumer;
 	public Sprite spriteSymboleBreak;
+	public Sprite spriteSymboleWash;
+	public Sprite spriteSymboleSwap;
+	public Sprite spriteSymboleComp;
 	public Sprite spriteSymbolePoser;
 	public Sprite spriteSymboleSuppr;
 	public int[] ancX,ancY;
@@ -391,12 +394,24 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		spriteSymboleSauter=new Sprite();
 		spriteSymboleSauter.setTexture(Textures.TexSymboleSauter);
-				
+		
 		this.spriteSymboleTournerDroite = new Sprite();
 		this.spriteSymboleTournerDroite.setTexture(Textures.TexSymboleTournerDroite);
 		
 		this.spriteSymboleTournerGauche = new Sprite();
 		this.spriteSymboleTournerGauche.setTexture(Textures.TexSymboleTournerGauche);
+		
+		this.spriteSymboleBreak = new Sprite();
+		this.spriteSymboleBreak.setTexture(Textures.TexSymboleBreak);
+		
+		this.spriteSymboleWash = new Sprite();
+		this.spriteSymboleWash.setTexture(Textures.TexSymboleWash);
+		
+		this.spriteSymboleSwap = new Sprite();
+		this.spriteSymboleSwap.setTexture(Textures.TexSymboleSwap);
+		
+		this.spriteSymboleComp = new Sprite();
+		this.spriteSymboleComp.setTexture(Textures.TexSymboleComp);
 		
 		SpriteCases=new Sprite[NB_CASE_X][NB_CASE_Y][NB_CASE_Z];
 		for(int i=0;i<  NB_CASE_X;i++)
@@ -526,13 +541,13 @@ public class Afficher_niveau extends Menu_niveaux{
 				struct = this.new StructStringSprite(this.spriteSymboleSuppr, "suppr");
 			}
 			else if(al.get(i) instanceof CompareFront) {
-				struct = this.new StructStringSprite(this.spriteSymboleSuppr, "comp");
+				struct = this.new StructStringSprite(this.spriteSymboleComp, "comp");
 			}
 			else if(al.get(i) instanceof Swap) {
-				struct = this.new StructStringSprite(this.spriteSymboleSuppr, "swap");
+				struct = this.new StructStringSprite(this.spriteSymboleSwap, "swap");
 			}
 			else if(al.get(i) instanceof Wash) {
-				struct = this.new StructStringSprite(this.spriteSymboleSuppr, "wash");
+				struct = this.new StructStringSprite(this.spriteSymboleWash, "wash");
 			}
 			
 			if(!action_deja_presente(struct))
@@ -730,6 +745,15 @@ public class Afficher_niveau extends Menu_niveaux{
 			break;
 		case "suppr":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new RetirerBloc(this.monNiveau.getPersonnages().get(indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			break;
+		case "wash":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Wash(this.monNiveau.getPersonnages().get(indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			break;
+		case "comp":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new CompareFront(this.monNiveau.getPersonnages().get(indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			break;
+		case "swap":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Swap(this.monNiveau.getPersonnages().get(indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "P1":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(1));
