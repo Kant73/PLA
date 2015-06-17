@@ -2,6 +2,7 @@ package LightBot.actions;
 
 import LightBot.Terrain;
 import LightBot.cases.Case;
+import LightBot.cases.Couleur;
 import LightBot.cases.Transparente;
 import LightBot.personnage.Personnage;
 
@@ -9,7 +10,10 @@ public class Swap extends Actions {
 
 	public Swap(Personnage p) {
 		super(p);
-		// TODO Auto-generated constructor stub
+	}
+	
+	public Swap(Personnage p, Couleur c){
+		super(p,c);
 	}
 
 	public void agir(){
