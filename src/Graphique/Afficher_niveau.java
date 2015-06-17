@@ -499,6 +499,13 @@ public class Afficher_niveau extends Menu_niveaux{
 		NB_CASE_Y =  monNiveau.getTerrain().getLongueur();
 		NB_CASE_Z =  monNiveau.getTerrain().getHauteurMax()+1;
 
+		this.progSelect=0;
+		this.indexRobot=0;
+		couleurUtilisee = Color.WHITE;
+		couleurRose = new Color(250, 0, 124);
+		couleurViolet = new Color(106, 0, 250);
+		conditionExiste=this.conditionExiste=monNiveau.getTerrain().containConditionCase();
+		
 		this.ancX=new int[monNiveau.getPersonnages().size()];
 		this.ancY=new int[monNiveau.getPersonnages().size()];
 		this.numAnim=new int [monNiveau.getPersonnages().size()];
@@ -619,13 +626,27 @@ public class Afficher_niveau extends Menu_niveaux{
 				Menu_principal.fenetre.draw(temp.sprite);
 			}
 		}
+		
+		StructStringSprite temp= (StructStringSprite)this.list_action_possible.getLast();
+		if(conditionExiste)
+		{
+			spritePeinture.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+ 5,temp.sprite.getPosition().y);
+			spriteBoutonPlay.setPosition(spritePeinture.getPosition().x + spriteBoutonPlay.getTexture().getSize().x +5 ,temp.sprite.getPosition().y);
+			spriteBoutonReset.setPosition(spriteBoutonPlay.getPosition().x + spriteBoutonReset.getTexture().getSize().x + 5,spriteBoutonPlay.getPosition().y);
+			Menu_principal.fenetre.draw(this.spritePeinture);	
+		}
+		else
+		{
+			spriteBoutonPlay.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+5 ,temp.sprite.getPosition().y);
+			spriteBoutonReset.setPosition(spriteBoutonPlay.getPosition().x + spriteBoutonReset.getTexture().getSize().x + 5,spriteBoutonPlay.getPosition().y);		
+		}
+		
 		Menu_principal.fenetre.draw(spriteJoueurSuivant);
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
 		Menu_principal.fenetre.draw(this.spriteBoutonPlay);
 		Menu_principal.fenetre.draw(this.spriteBoutonReset);
-		
-		if(conditionExiste)
-			Menu_principal.fenetre.draw(this.spritePeinture);	
+
+			
 	}
 	
 	
@@ -830,21 +851,48 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.set_textures_cases();
 		set_pos_robot();
 	}
+	
+	void setProgramme(List[] liste)
+	{
+		int save_select = this.progSelect;
+		for(int l=0;l<liste.length;l++)
+		{
+			this.progSelect=l;
+			if (!liste[this.progSelect].isEmpty()) {
+				for (int k = 0; k < liste[this.progSelect].size(); k++) {
+					inserer_actions((StructStringSprite) liste[this.progSelect].get(k));	
+				}
+			}
+		}
+		this.progSelect = save_select;
+	}
+	
+	
+	void setNextPeinture ()
+	{
+		if(couleurUtilisee == Color.WHITE)
+		{
+			couleurUtilisee = couleurRose;
+		}
+		else if(couleurUtilisee == couleurRose )
+		{
+			couleurUtilisee = couleurViolet ;
+		}
+		else if(couleurUtilisee == couleurViolet)
+		{
+			couleurUtilisee = Color.WHITE;
+		}
+		spritePeinture.setColor(couleurUtilisee);
+	}
 	/**
 	 * Méthode principale de la classe qui permet d'afficher tout un niveau avec les actions et procédures associée
 	 * @param niveauCharger Le niveau que l'on veut afficher
 	 */
 	public void afficher_niveau(Niveau niveauCharger,Mode_Jeu mj, int selection)
-	{
-		this.progSelect=0;
-		this.indexRobot=0;
-		couleurUtilisee = Color.WHITE;
-		couleurRose = new Color(250, 0, 124);
-		couleurViolet = new Color(106, 0, 250);
-		conditionExiste=this.conditionExiste=niveauCharger.getTerrain().containConditionCase();
-		
+	{		
 		int i=0,j=0;
 		boolean unSeulPlay=true;
+		boolean sortie=true;
 		//Initialisation des textures
 		Textures.initTextures();
 		monNiveau=niveauCharger;
@@ -853,27 +901,17 @@ public class Afficher_niveau extends Menu_niveaux{
 		set_position_cases();
 		set_pos_robot();
 		
+		 List[] tabCopie = new List[this.monNiveau.getProgrammes().size()];
+		 StructStringSprite temp;
 		
 		initActionsPossible();
-		StructStringSprite temp= (StructStringSprite)this.list_action_possible.getLast();
 		afficher_boutons();
-		
-		if(conditionExiste)
-		{
-			spritePeinture.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+ 5,temp.sprite.getPosition().y);
-			spriteBoutonPlay.setPosition(spritePeinture.getPosition().x + spriteBoutonPlay.getTexture().getSize().x +5 ,temp.sprite.getPosition().y);
-			spriteBoutonReset.setPosition(spriteBoutonPlay.getPosition().x + spriteBoutonReset.getTexture().getSize().x + 5,spriteBoutonPlay.getPosition().y);
-		}
-		else
-		{
-			spriteBoutonPlay.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+5 ,temp.sprite.getPosition().y);
-			spriteBoutonReset.setPosition(spriteBoutonPlay.getPosition().x + spriteBoutonReset.getTexture().getSize().x + 5,spriteBoutonPlay.getPosition().y);		
-		}
+
 		
 		initProcedures();
 		afficher_carte();
 		
-		boolean sortie=true;
+
 		while (Menu_principal.fenetre.isOpen() && sortie ) 
 		{
 				try {
@@ -912,18 +950,17 @@ public class Afficher_niveau extends Menu_niveaux{
 							}
 						}
 						if(spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
-						{
-							int save_select = this.progSelect;
-							for(int l=0;l<tabProgramme.length;l++)
+						{	
+							if(monNiveau.getPersonnages().size()>1)
 							{
-								this.progSelect=l;
-								if (!tabProgramme[this.progSelect].isEmpty()) {
-									for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
-										inserer_actions((StructStringSprite) tabProgramme[this.progSelect].get(k));	
-									}
-								}
+								this.indexRobot=0;
+								this.setProgramme(tabCopie);
+					
+								this.indexRobot=1;
+								this.setProgramme(tabProgramme);					
 							}
-							this.progSelect = save_select;	
+							else
+								this.setProgramme(tabProgramme);
 							
 							for(int l = 0; l<monNiveau.getPersonnages().size();l++)	
 								monNiveau.getPersonnages().get(l).setProgramme(monNiveau.getProgrammes().get(l));
@@ -952,56 +989,37 @@ public class Afficher_niveau extends Menu_niveaux{
 						}
 						else if(this.spritePeinture.getGlobalBounds().contains(pos.x,pos.y) && conditionExiste)
 						{
-							if(couleurUtilisee == Color.WHITE)
-							{
-								couleurUtilisee = couleurRose;
-							}
-							else if(couleurUtilisee == couleurRose )
-							{
-								couleurUtilisee = couleurViolet ;
-							}
-							else if(couleurUtilisee == couleurViolet)
-							{
-								couleurUtilisee = Color.WHITE;
-							}
-							spritePeinture.setColor(couleurUtilisee);
+							this.setNextPeinture();
 						}
 						else if(this.spriteJoueurSuivant.getGlobalBounds().contains(pos.x,pos.y))
 						{
 							
-							int save_select = this.progSelect;
-							for(int l=0;l<tabProgramme.length;l++)
-							{
-								this.progSelect=l;
-								if (!tabProgramme[this.progSelect].isEmpty()) {
-									for (int k = 0; k < tabProgramme[this.progSelect].size(); k++) {
-							
-										inserer_actions((StructStringSprite) tabProgramme[this.progSelect].get(k));	
-									}
+							for (i = 0; i < tabCopie.length; i++) {
+								tabCopie[i] = new LinkedList();
+								for(int l=0;l<tabProgramme[i].size();l++)
+								{
+									tabCopie[i].add(tabProgramme[i].get(l));
 								}
 							}
-							this.progSelect = save_select;	
 							
-							this.indexRobot=1;
 							for(int l=0;l<tabProgramme.length;l++)
 							{
-								tabProgramme[this.progSelect].clear();
-							}
-							
-							
+								tabProgramme[l].clear();
+							}	
+
 						}
-						else
-							sprite_selectionne(pos);
-						
-						if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
+						else if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
 						{
 							sortie=false;
 						}
-						if(spriteBoutonReset.getGlobalBounds().contains(pos.x,pos.y))
+						else if(spriteBoutonReset.getGlobalBounds().contains(pos.x,pos.y))
 						{
 							reset_niveau(mj,selection);
 							unSeulPlay=true;
 						}
+						else
+							sprite_selectionne(pos);
+						
 						afficher_carte();
 					}
 	
