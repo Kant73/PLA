@@ -3,7 +3,7 @@ package LightBot.cases;
 public class Pointeur extends Allumable {
 
 	
-	private Case suivante;
+	protected Case suivante;
 /********************************************* METHODES D'INSTANCE *********************************************/	
 	public Pointeur(int pHauteur) {			//Constructeur de la case pointée
 		super(Couleur.Vert, pHauteur);

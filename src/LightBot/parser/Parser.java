@@ -31,7 +31,7 @@ public class Parser {
 	
 	public static void main(String[] args) {
 		// Parser p = new Parser(args[0]); // pour utiliser le terminal en utilisant un jar
-		Parser p = new Parser("src/LightBot/levels/Niveau.xml"); // pour utiliser le terminal
+		Parser p = new Parser("src/LightBot/levels/tri/1.xml"); // pour utiliser le terminal
 		//System.out.println(Parser.class.getResource("../levels/Niveau.xml").getPath());
 		
 		p.lire();
@@ -102,12 +102,21 @@ public class Parser {
 	    		    		int x = getIntNodeAttribute(noeudCase, "x");
     		    			int y = getIntNodeAttribute(noeudCase, "y");
     		    			int h = getIntNodeAttribute(noeudCase, "h");
-    		    			t.getEnsembleDeCase()[x][y] = newInstanceCase(nomFonction, h);
+    		    			t.getEnsembleDeCase()[x][y] = newInstanceCase(nomFonction, h); // pour pointeur : suivante
     		    			if(nomFonction.equals("Pointeur")){
     		    				int xp = getIntNodeAttribute(noeudCase, "xp");
     		    				int yp = getIntNodeAttribute(noeudCase, "yp");
         		    			int hp = getIntNodeAttribute(noeudCase, "hp");
-        		    			t.getEnsembleDeCase()[xp][yp] = new Pointeur(hp,t.getEnsembleDeCase()[x][y]);
+        		    			t.getEnsembleDeCase()[xp][yp] = new Pointeur(hp,t.getEnsembleDeCase()[x][y]); // depart
+    		    			}else if(nomFonction.equals("PointeurTri")){
+    		    				int xp = getIntNodeAttribute(noeudCase, "xp");
+    		    				int yp = getIntNodeAttribute(noeudCase, "yp");
+        		    			int hp = getIntNodeAttribute(noeudCase, "hp");
+        		    			int xl = getIntNodeAttribute(noeudCase, "xl");
+    		    				int yl = getIntNodeAttribute(noeudCase, "yl");
+        		    			int hl = getIntNodeAttribute(noeudCase, "hl");
+        		    			t.getEnsembleDeCase()[xl][yl] = new Lampe(hl);
+        		    			t.getEnsembleDeCase()[xp][yp] = new PointeurTri(hp,t.getEnsembleDeCase()[x][y], (Lampe) t.getEnsembleDeCase()[xl][yl]);
     		    			}else{
     		    				String couleur=getNodeAttribute(noeudCase, "couleur"); // Permet d'allumer des cases dès la lecture du terrain
     		    				if(!couleur.equals("")){

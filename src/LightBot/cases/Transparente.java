@@ -6,4 +6,7 @@ public class Transparente extends Normal {
 		super(pHauteur);
 	}
 
+	public Normal toNormal(){
+		return new Normal(this.hauteur);
+	}
 }
