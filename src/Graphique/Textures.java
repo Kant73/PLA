@@ -10,7 +10,7 @@ public class Textures {
 	
 	public static Texture []texProcs;
 	public static Texture mesAnims[] ;
-
+	public static Texture texPeinture;
 	
 	public static Texture TexP1 ;
 	public static Texture TexP2 ;
@@ -54,6 +54,7 @@ public class Textures {
 	{
 		texProcs = new Texture[6];
 		
+		texPeinture = new Texture();
 		TexVerrou = new Texture();
 		TexCaseBase = new Texture();
 		TexCaseLumEteinte = new Texture();
@@ -112,6 +113,7 @@ public class Textures {
 			mesAnims[2].loadFromFile(Paths.get("src/Img/BB8_NO.png"));
 			mesAnims[3].loadFromFile(Paths.get("src/Img/BB8_SO.png"));
 			
+			texPeinture.loadFromFile(Paths.get("src/Img/peinture.png"));
 			texBoutonReset.loadFromFile(Paths.get("src/Img/reset.png"));
 			
 			TexVerrou.loadFromFile(Paths.get("src/Img/verrou.png"));
