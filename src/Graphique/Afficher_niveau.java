@@ -841,7 +841,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		couleurUtilisee = Color.WHITE;
 		couleurRose = new Color(226,102,180);
 		couleurViolet = new Color(187,137,193);
-		conditionExiste=true;
+		conditionExiste=this.conditionExiste=niveauCharger.getTerrain().containConditionCase();
 		
 		int i=0,j=0;
 		boolean unSeulPlay=true;
