@@ -176,7 +176,14 @@ public class Afficher_niveau extends Menu_niveaux{
 								&& etageActuel == monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique())
 						{
 							spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][numAnim[l]].setPosition(spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][0].getPosition());
-							Menu_principal.fenetre.draw(spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][numAnim[l]]);
+							
+							if(monNiveau.getPersonnages().get(l).isMort())
+								spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][numAnim[l]].setColor(Color.TRANSPARENT);
+							else 
+								spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][numAnim[l]].setColor(Color.WHITE);
+							
+								Menu_principal.fenetre.draw(spriteAnim[monNiveau.getPersonnages().get(l).getOrientationInt()][numAnim[l]]);
+								
 						}
 				}
 			}
