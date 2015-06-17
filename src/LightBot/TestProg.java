@@ -14,13 +14,13 @@ public class TestProg {
 		Programme[] progs={new Programme("main",5),new Programme ("Proc1",3),null};
 		Personnage robot=new Personnage("Robot", 0, 0, Pcardinaux.NORTH);
 		
-		progs[0].inserer(progs[1], 0);
-		progs[0].inserer(new TournerGauche(robot), 1);
-		progs[0].inserer(progs[1], 2);
+		progs[0].insererQueue(progs[1]);
+		progs[0].insererQueue(new TournerGauche(robot));
+		progs[0].insererQueue(progs[1]);
 		
-		progs[1].inserer(new Avancer(robot), 0);
-		progs[1].inserer(new Allumer(robot), 1);
-		progs[1].inserer(new TournerDroite(robot), 2);
+		progs[1].insererQueue(new Avancer(robot));
+		progs[1].insererQueue(new Allumer(robot));
+		progs[1].insererQueue(new TournerDroite(robot));
 		
 		robot.setProgramme(progs[0]);
 		robot.run();

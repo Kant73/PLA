@@ -1,5 +1,6 @@
 package LightBot;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import LightBot.actions.Actions;
@@ -9,16 +10,14 @@ import LightBot.cases.Couleur;
 public class Programme {
 
 	private int nbMaxAction;
-	private Vector<Object> listActions;
+	private ArrayList<Object> listActions;
 	private String nom;
-	private int currentIndex=0;
 	private Couleur couleurCondition;
 	
 	public Programme(String nom, int taille){
 		this.nbMaxAction= taille;	
 		this.nom=nom;
-		this.listActions=new Vector<Object>();
-		this.listActions.setSize(this.nbMaxAction);
+		this.listActions=new ArrayList<Object>();
 		this.couleurCondition=Couleur.Blanc;
 	}
 	
@@ -43,43 +42,25 @@ public class Programme {
 	}
 	
 	public int getNbElements(){
-		return this.currentIndex;
+		return this.listActions.size();
 	}
 	
-	public Vector<Object> getActions(){
+	public ArrayList<Object> getActions(){
 		return this.listActions;
 	}
 	
 	public void supprimer(int index){
 		if (index>=0 && index <this.nbMaxAction){
-			this.listActions.set(index, null);
-			this.currentIndex--;
+			this.listActions.remove(index);
 		}
 	}
 	
-	public void inserer(Object obj, int index){
-		if (index>=0 && index <this.nbMaxAction)
-			if (obj instanceof Programme){
-				this.listActions.set(index, (Programme)obj);
-				this.currentIndex++;
-			}
-			else if (obj instanceof Actions){
-				this.listActions.set(index, (Actions)obj);
-				this.currentIndex++;
-			}
-			
-	}
-	
 	public void insererQueue(Object obj){
-		if(this.currentIndex<this.nbMaxAction)
-			if (obj instanceof Programme){
-				this.listActions.set(this.currentIndex,(Programme)obj);
-				this.currentIndex++;
-			}
-			else if (obj instanceof Actions){
-				this.listActions.set(this.currentIndex ,(Actions)obj);
-				this.currentIndex++;
-			}
+		if(this.listActions.size()<this.nbMaxAction)
+			if (obj instanceof Programme)
+				this.listActions.add((Programme)obj);
+			else if (obj instanceof Actions)
+				this.listActions.add((Actions)obj);
 	}
 	
 	public void execute(){

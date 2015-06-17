@@ -38,15 +38,15 @@ public class TestProg4 extends Niveau{
 		this.getPersonnages().add(robot);
 		
 		Programme progMain=new Programme("main",10);
-		/*progMain.inserer(new Avancer(robot), 0);
-		progMain.inserer(new Avancer(robot), 1);
-		progMain.inserer(new PoserBloc(robot), 2);
-		progMain.inserer(new TournerGauche(robot), 3);
-		progMain.inserer(new Avancer(robot), 4);
-		progMain.inserer(new Allumer(robot), 5);*/
-		progMain.inserer(new PoserBloc(robot), 0);
-		progMain.inserer(new PoserBloc(robot), 1);
-		progMain.inserer(new RetirerBloc(robot), 2);
+		/*progMain.insererQueue(new Avancer(robot));
+		progMain.insererQueue(new Avancer(robot));
+		progMain.insererQueue(new PoserBloc(robot));
+		progMain.insererQueue(new TournerGauche(robot));
+		progMain.insererQueue(new Avancer(robot));
+		progMain.insererQueue(new Allumer(robot));*/
+		progMain.insererQueue(new PoserBloc(robot));
+		progMain.insererQueue(new PoserBloc(robot));
+		progMain.insererQueue(new RetirerBloc(robot));
 		this.getProgrammes().add(progMain);
 
 		robot.setProgramme(progMain);

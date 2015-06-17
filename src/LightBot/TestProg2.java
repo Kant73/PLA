@@ -1,5 +1,8 @@
 package LightBot;
 
+import java.util.Iterator;
+
+import LightBot.actions.Actions;
 import LightBot.actions.Allumer;
 import LightBot.actions.Avancer;
 import LightBot.actions.TournerGauche;
@@ -33,14 +36,24 @@ public class TestProg2 extends Niveau{
 		this.getPersonnages().add(robot);
 		
 		Programme progMain=new Programme("main",10);
-		progMain.inserer(new Avancer(robot), 0);
-		progMain.inserer(new Avancer(robot), 1);
-		progMain.inserer(new TournerGauche(robot), 2);
-		progMain.inserer(new Avancer(robot), 3);
-		progMain.inserer(new Allumer(robot), 4);
+		progMain.insererQueue(new Avancer(robot));
+		progMain.insererQueue(new Avancer(robot));
+		progMain.insererQueue(new TournerGauche(robot));
+		progMain.insererQueue(new Avancer(robot));
+		progMain.insererQueue(new Allumer(robot));
 		this.getProgrammes().add(progMain);
 
 		robot.setProgramme(progMain);
+		
+		
+		Iterator<Object> it=progMain.getActions().iterator();
+		while(it.hasNext()){
+			Actions act=(Actions) it.next();
+			if(act == null)System.out.println("Null");
+			else System.out.println(act);
+			
+		}
+		
 		
 		System.out.println("Terrain de base avant exécution");
 		System.out.println("Position du robot: (x="+robot.getPositionX()+",y="+robot.getPositionY()+")");

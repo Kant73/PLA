@@ -38,23 +38,23 @@ public class TestProg3 extends Niveau{
 		//this.getProgrammes().add(new Programme("Proc1",7));
 		
 		Programme progMain=this.getProgrammes().get(0);
-		progMain.inserer(new Allumer(robot), 0);
-		progMain.inserer(new TournerGauche(robot), 1);
-		progMain.inserer(new TournerGauche(robot), 2);
-		progMain.inserer(new Avancer(robot), 3);
-		progMain.inserer(new Allumer(robot), 4);
-		/*progMain.inserer(new Allumer(robot), 3);
-		progMain.inserer(new TournerGauche(robot,Couleur.Violet), 4);
-		progMain.inserer(new Avancer(robot), 5);
-		progMain.inserer(new Allumer(robot), 6);*/
+		progMain.insererQueue(new Allumer(robot));
+		progMain.insererQueue(new TournerGauche(robot));
+		progMain.insererQueue(new TournerGauche(robot));
+		progMain.insererQueue(new Avancer(robot));
+		progMain.insererQueue(new Allumer(robot));
+		/*progMain.insererQueue(new Allumer(robot));
+		progMain.insererQueue(new TournerGauche(robot,Couleur.Violet));
+		progMain.insererQueue(new Avancer(robot));
+		progMain.insererQueue(new Allumer(robot));*/
 		/*Programme proc1=this.getProgrammes().get(1);
 		
-		proc1.inserer(new Allumer(robot), 0);
-		proc1.inserer(new Allumer(robot), 1);
-		proc1.inserer(new TournerGauche(robot,Couleur.Violet), 2);
-		proc1.inserer(new Wash(robot,Couleur.Violet), 3);
-		proc1.inserer(proc1, 4);
-		progMain.inserer(proc1, 0);*/
+		proc1.insererQueue(new Allumer(robot));
+		proc1.insererQueue(new Allumer(robot));
+		proc1.insererQueue(new TournerGauche(robot,Couleur.Violet));
+		proc1.insererQueue(new Wash(robot,Couleur.Violet));
+		proc1.insererQueue(proc1);
+		progMain.insererQueue(proc1);*/
 
 		robot.setProgramme(progMain);
 
