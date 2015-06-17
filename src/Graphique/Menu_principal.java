@@ -34,7 +34,7 @@ public class Menu_principal {
 	private Sprite [] mesBoutons;
 	private Texture[] mesTextures ;
 	
-	private Sprite spriteFond;
+	public static Sprite spriteFond;
 	private Texture monFond;
 	private int selection;
 	

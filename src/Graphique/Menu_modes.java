@@ -25,9 +25,7 @@ public class Menu_modes extends Menu_principal{
 	private Texture[] mesTextures ;
 	public static Texture fondMode;
 	public static Sprite spritefondMode;
-	
-	private Sprite spriteFond;
-	private Texture monFond;
+
 
 	private void charger_fond_mode(int sel)
 	{	
@@ -37,28 +35,31 @@ public class Menu_modes extends Menu_principal{
 			switch (sel)
 			{
 			case 0:
-				fondMode.loadFromFile(Paths.get("src/Img/Basic.jpg"));
+				fondMode.loadFromFile(Paths.get("src/Img/Basic.png"));
 				break;
 			case 1:
-				fondMode.loadFromFile(Paths.get("src/Img/Procédure.jpg"));
+				fondMode.loadFromFile(Paths.get("src/Img/Procedure.png"));
 				break;
 			case 2:
-				fondMode.loadFromFile(Paths.get("src/Img/Loop.jpg"));
+				fondMode.loadFromFile(Paths.get("src/Img/Loop.png"));
 				break;
 			case 3:
-				fondMode.loadFromFile(Paths.get("src/Img/Condition.jpg"));
+				fondMode.loadFromFile(Paths.get("src/Img/Condition.png"));
 				break;
 			case 4:
-				fondMode.loadFromFile(Paths.get("src/Img/Star.jpg"));
+				fondMode.loadFromFile(Paths.get("src/Img/Star.png"));
 				break;
 			case 5:
-				fondMode.loadFromFile(Paths.get("src/Img/Memory.jpg"));
+				fondMode.loadFromFile(Paths.get("src/Img/Memory.png"));
 				break;
 			case 6:
-				fondMode.loadFromFile(Paths.get("src/Img/Clone.jpg"));
+				fondMode.loadFromFile(Paths.get("src/Img/Clone.png"));
 				break;
 			case 7:
-				fondMode.loadFromFile(Paths.get("src/Img/Battle.jpg"));
+				fondMode.loadFromFile(Paths.get("src/Img/Battle.png"));
+				break;
+			case 8:
+				fondMode.loadFromFile(Paths.get("src/Img/Battle.png"));
 				break;
 			default :
 				System.out.println("pas d'image de fond disponible");
@@ -78,19 +79,8 @@ public class Menu_modes extends Menu_principal{
 		int k=0;
 		int ecartPix = 30;
 		int nbMaxLigne=5;
-		monFond = new Texture();
 		mesBoutons = new Sprite[nbBoutons];
 		mesTextures = new Texture[nbBoutons*2];
-		
-		try {
-			
-			monFond.loadFromFile(Paths.get("src/Img/fond_menu.png"));
-			spriteFond=new Sprite ();
-			spriteFond.setTexture(monFond);
-			spriteFond.setPosition(0,0);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 		
 		for (int i=0; i< this.nbBoutons*2 ; i++)
 		{
@@ -199,7 +189,7 @@ public class Menu_modes extends Menu_principal{
 								charger_fond_mode(this.selection);
 								modes.afficher_menu(this.selection);
 								fondu();
-								fenetre.draw(spriteFond);
+								fenetre.draw(Menu_principal.spriteFond);
 								reinit_textures();
 								this.afficher_boutons();
 								fenetre.display();

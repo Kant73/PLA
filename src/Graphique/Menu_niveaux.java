@@ -164,8 +164,8 @@ public class Menu_niveaux extends Menu_modes{
 	{
 		for(int i=0;i<20;i++)
 		{
-			Menu_modes.spritefondMode.setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
-			fenetre.draw(Menu_modes.spritefondMode);
+			Menu_principal.spriteFond.setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
+			fenetre.draw(Menu_principal.spriteFond);
 			fenetre.display();
 			try {
 				Thread.sleep(10);
@@ -174,7 +174,7 @@ public class Menu_niveaux extends Menu_modes{
 				e.printStackTrace();
 			}		
 		}
-		Menu_modes.spritefondMode.setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
+		Menu_principal.spriteFond.setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
 	}
 	
 	public void afficher_menu(int modeSelectionne)
@@ -186,7 +186,7 @@ public class Menu_niveaux extends Menu_modes{
 		this.selection=-1;
 		this.init_images () ;
 		init_font();
-		Menu_principal.fenetre.draw(Menu_modes.spritefondMode);
+		fenetre.draw(Menu_principal.spriteFond);
 		this.afficher_boutons();
 	
 		Menu_principal.fenetre.display();
@@ -211,7 +211,7 @@ public class Menu_niveaux extends Menu_modes{
 								Niveau copie = mj.getNiveau(selection);
 								level.afficher_niveau(copie, mj,selection);
 								fondu();
-								fenetre.draw(Menu_modes.spritefondMode);
+								fenetre.draw(Menu_principal.spriteFond);
 								reinit_textures();
 								this.afficher_boutons();
 								fenetre.display();
@@ -237,7 +237,7 @@ public class Menu_niveaux extends Menu_modes{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
 							hover(pos);
 							
-							fenetre.draw(Menu_modes.spritefondMode);
+							fenetre.draw(Menu_principal.spriteFond);
 							this.afficher_boutons();
 							Menu_principal.fenetre.display();
 						}
