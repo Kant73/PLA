@@ -200,8 +200,9 @@ public class Afficher_niveau extends Menu_niveaux{
 							 
 							 	robots.get(l)[orientation][this.numAnim[l]].setPosition(robots.get(l)[orientation][0].getPosition());
 							 	if(!monNiveau.getPersonnages().get(l).isMort())
-							 	robots.get(l)[orientation][this.numAnim[l]].setColor(this.couleur_case_vers_couleur_Graphique(monNiveau.getPersonnages().get(l).getCouleur()));
-								Menu_principal.fenetre.draw(robots.get(l)[orientation][this.numAnim[l]]);
+							 		robots.get(l)[orientation][this.numAnim[l]].setColor(this.couleur_case_vers_couleur_Graphique(monNiveau.getPersonnages().get(l).getCouleur()));
+								
+							 	Menu_principal.fenetre.draw(robots.get(l)[orientation][this.numAnim[l]]);
 						}
 				}
 			}
@@ -218,16 +219,14 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void animMort(int index)
 	{
 		if(monNiveau.getPersonnages().get(index).isMort())
-			
-		for(int i=255;i>0;i-=10)
-		{
-			robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]]
-					.setColor(new Color (robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]].getColor(),i));
-			
-			afficher_carte();
-			pause(1);
-			
-		}
+			for(int i=255;i>0;i-=10)
+			{
+				robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]]
+						.setColor(new Color (robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]].getColor(),i));
+				
+				afficher_carte();
+				pause(1);	
+			}
 		robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]].setColor(Color.TRANSPARENT);
 	}
 	
@@ -563,10 +562,10 @@ public class Afficher_niveau extends Menu_niveaux{
 
 		this.progSelect=0;
 		this.indexRobot=0;
-		this.couleurUtilisee = Color.WHITE;
-		this.couleurRose = new Color(250, 0, 124);
-		this.couleurViolet = new Color(106, 0, 250);
-		this.conditionExiste=this.conditionExiste=monNiveau.getTerrain().containConditionCase();
+		couleurUtilisee = Color.WHITE;
+		couleurRose = new Color(250, 0, 124);
+		couleurViolet = new Color(106, 0, 250);
+		this.conditionExiste=monNiveau.getTerrain().containConditionCase();
 		
 		
 		this.ancX=new int[monNiveau.getPersonnages().size()];
@@ -849,11 +848,11 @@ public class Afficher_niveau extends Menu_niveaux{
 		}
 		else if(coul == Couleur.Rose  )
 		{
-			return this.couleurRose;
+			return couleurRose;
 		}
 		else if(coul ==Couleur.Violet  )
 		{
-			return this.couleurViolet;
+			return couleurViolet;
 		}
 		System.out.println("Erreur de couleur");
 		return null;
@@ -865,11 +864,11 @@ public class Afficher_niveau extends Menu_niveaux{
 		{
 			return Couleur.Blanc;
 		}
-		else if(coul == this.couleurRose )
+		else if(coul == couleurRose )
 		{
 			return Couleur.Rose;
 		}
-		else if(coul ==this.couleurViolet )
+		else if(coul ==couleurViolet )
 		{
 			return Couleur.Violet;
 		}
@@ -980,19 +979,19 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	void setNextPeinture ()
 	{
-		if(this.couleurUtilisee == Color.WHITE)
+		if(couleurUtilisee == Color.WHITE)
 		{
-			this.couleurUtilisee = this.couleurRose;
+			couleurUtilisee = couleurRose;
 		}
-		else if(this.couleurUtilisee == this.couleurRose )
+		else if(couleurUtilisee == couleurRose )
 		{
-			this.couleurUtilisee = this.couleurViolet ;
+			couleurUtilisee = couleurViolet ;
 		}
-		else if(this.couleurUtilisee == this.couleurViolet)
+		else if(couleurUtilisee == couleurViolet)
 		{
-			this.couleurUtilisee = Color.WHITE;
+			couleurUtilisee = Color.WHITE;
 		}
-		spritePeinture.setColor(this.couleurUtilisee);
+		spritePeinture.setColor(couleurUtilisee);
 	}
 	
 	private void pause (int p)
@@ -1000,7 +999,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		try {
 			Thread.sleep(p);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -1011,13 +1009,13 @@ public class Afficher_niveau extends Menu_niveaux{
 		if(monNiveau.getTerrain().getWinner()==0 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
 		{
 			this.afficherWin=true;
-			this.texteWin = new Text("Le joueur 1 a gagné !", police, 40);
+			this.texteWin = new Text("Le joueur 1 a gagne !", police, 40);
 			this.texteWin.setPosition(650,450);
 		}
 		else if(monNiveau.getTerrain().getWinner()==1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
 		{
 			this.afficherWin=true;
-			this.texteWin = new Text("Le joueur 2 a gagné !", police, 40);
+			this.texteWin = new Text("Le joueur 2 a gagne !", police, 40);
 			this.texteWin.setPosition(650,450);
 		}
 		else if(monNiveau.getTerrain().getWinner()==-1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
@@ -1031,12 +1029,12 @@ public class Afficher_niveau extends Menu_niveaux{
 			this.afficherWin=true;
 			if(monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee())
 			{
-				this.texteWin = new Text("             Félicitations !\nClic pour passer au niveau suivant", police, 40);
+				this.texteWin = new Text("             Felicitations !\nClic pour passer au niveau suivant", police, 40);
 				this.texteWin.setPosition(400,300);
 			}
 			else
 			{
-				this.texteWin = new Text("Dommage tu as perdu", police, 40);
+				this.texteWin = new Text("Algorithme termine", police, 40);
 				this.texteWin.setPosition(650,450);
 			}	
 		}
@@ -1109,7 +1107,6 @@ public class Afficher_niveau extends Menu_niveaux{
 								monNiveau.getPersonnages().get(this.indexRobot).setProgramme(((Niveau)monNiveau.clone()).getProgrammes().get(0));
 								monNiveau.viderListProgrammes();
 							} catch (CloneNotSupportedException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}	
 						}
@@ -1130,7 +1127,7 @@ public class Afficher_niveau extends Menu_niveaux{
 								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
 								{
 									temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);	
-									temp.sprite.setColor(this.couleurUtilisee);
+									temp.sprite.setColor(couleurUtilisee);
 								}
 							}
 						}
