@@ -1,6 +1,9 @@
 package LightBot.actions;
 
+import java.util.ArrayList;
+
 import LightBot.cases.Case;
+import LightBot.cases.Clonage;
 import LightBot.cases.Condition;
 import LightBot.cases.Couleur;
 import LightBot.cases.Lampe;
@@ -75,6 +78,10 @@ public class Allumer extends Actions {
 			else if(C instanceof Condition){
 				if(this.perso.getCouleur()!=Couleur.Blanc)this.perso.setCouleur(Couleur.Blanc);
 				else this.perso.setCouleur(C.getColor());
+			}else if(C instanceof Clonage){
+				System.out.println("Eh hop : un clone :)");
+				System.out.println("Enfin plutôt : "+((Clonage)C).getPops().size());
+				popClone((Clonage)C);
 			}
 		}
 	}
@@ -101,5 +108,21 @@ public class Allumer extends Actions {
 			}
 		}
 		new Allumer(this.perso).agir();
+	}
+	
+	private void popClone(Clonage cellule){
+		ArrayList<Clonage> pops = cellule.getPops();
+		for(int i=0 ; i<pops.size() ; i++){
+			Clonage courante = pops.get(i);
+			int x = this.perso.getTerrain().getPosCaseX(courante);
+			int y = this.perso.getTerrain().getPosCaseY(courante);
+			Personnage clone;
+			try {
+				clone = (Personnage) this.perso.clone();
+				
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

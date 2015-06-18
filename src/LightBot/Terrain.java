@@ -254,14 +254,17 @@ public class Terrain {
 				}
 			}
 		}
+		System.out.println(liste.size());
 		return liste;
 	}
 	
 	public void majCaseClonage(){
 		ArrayList<Clonage> liste = recupereClonage();
-		for(Clonage c : liste){
-			c.setPops(liste);
-		}
+		if(liste != null){
+			for(int i = 0 ; i<liste.size() ; i++){
+				liste.get(i).setPops((ArrayList<Clonage>)liste.clone());
+			}
+		}	
 	}
 
 }

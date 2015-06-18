@@ -116,6 +116,9 @@ public class Parser {
         		    			int hl = getIntNodeAttribute(noeudCase, "hl");
         		    			t.getEnsembleDeCase()[xl][yl] = new Lampe(hl);
         		    			t.getEnsembleDeCase()[xp][yp] = new PointeurTri(hp,t.getEnsembleDeCase()[x][y], (Lampe) t.getEnsembleDeCase()[xl][yl]);
+    		    			}else if(nomFonction.equals("Clonage")){
+    		    				String o = getNodeAttribute(noeudCase, "o");
+    		    				((Clonage)t.getEnsembleDeCase()[x][y]).setOrientation(Pcardinaux.valueOf(o));
     		    			}else{
     		    				String couleur=getNodeAttribute(noeudCase, "couleur"); // Permet d'allumer des cases dès la lecture du terrain
     		    				if(!couleur.equals("")){
@@ -143,7 +146,7 @@ public class Parser {
 					if(couleur.equals("")){
 						pers = new Personnage(nom,x,y,Pcardinaux.valueOf(oStr));
 					}else{
-						pers = new Personnage(nom,x,y,Pcardinaux.valueOf(oStr),couleur);
+						pers = new Personnage(nom,x,y,Pcardinaux.valueOf(oStr),Couleur.valueOf(couleur));
 					}
 					pers.setTerrain(this.n.getTerrain());
 					this.n.getPersonnages().add(pers);
