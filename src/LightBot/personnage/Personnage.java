@@ -27,6 +27,15 @@ public class Personnage implements Cloneable {
 		setCurrentToOriginPosition();
 	}
 	
+	public Personnage(String nom, int x, int y, Pcardinaux sens, Couleur c){
+		this.nom=nom;
+		this.positionInitial[0]=x;
+		this.positionInitial[1]=y;
+		this.orientation=sens;
+		this.couleur=c;
+		setCurrentToOriginPosition();
+	}
+	
 	public String getNom(){
 		return this.nom;
 	}

@@ -30,6 +30,20 @@ public class Allumer extends Actions {
 		}
 	}
 	
+	public void agirBattle(){
+		Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()];
+		Couleur color = this.perso.getCouleur();
+		int nbLampeAllumee=this.perso.getTerrain().getNbLampeAllumee();
+		if (C.getColor() == color){
+			C.setColor(Couleur.Bleu);
+			this.perso.getTerrain().setNbLampeAllumee(nbLampeAllumee-1);
+		}
+		else {
+			C.setColor(color);
+			this.perso.getTerrain().setNbLampeAllumee(nbLampeAllumee+1);
+		}
+	}
+	
 	@Override
 	public Allumer clone() throws CloneNotSupportedException{
 		Allumer copie=(Allumer)super.clone();
