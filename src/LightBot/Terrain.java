@@ -1,6 +1,9 @@
 package LightBot;
 
+import java.util.ArrayList;
+
 import LightBot.cases.Case;
+import LightBot.cases.Clonage;
 import LightBot.cases.Condition;
 import LightBot.cases.Lampe;
 import LightBot.cases.Normal;
@@ -217,6 +220,25 @@ public class Terrain {
 			for(int j=0; j<longueur ; j++){
 				this.ensembleDeCase[i][j] = new Normal(0);
 			}
+		}
+	}
+	
+	private ArrayList<Clonage> recupereClonage(){
+		ArrayList<Clonage> liste = new ArrayList<Clonage>();
+		for(int x=0 ; x<this.largeur ; x++){
+			for(int y=0 ; y<this.longueur ; y++){
+				if(this.ensembleDeCase[x][y] instanceof Clonage){
+					liste.add((Clonage)this.ensembleDeCase[x][y]);
+				}
+			}
+		}
+		return liste;
+	}
+	
+	public void majCaseClonage(){
+		ArrayList<Clonage> liste = recupereClonage();
+		for(Clonage c : liste){
+			c.setPops(liste);
 		}
 	}
 

@@ -16,7 +16,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import LightBot.Niveau;
-import LightBot.NomMode;
 import LightBot.Programme;
 import LightBot.Terrain;
 import LightBot.cases.*;
@@ -129,6 +128,7 @@ public class Parser {
 		    		}
 				}
     			t.setMaxLampe();
+    			t.majCaseClonage();
 				this.n.setTerrain(t);
 				break;
 			case "personnes" :
@@ -189,15 +189,6 @@ public class Parser {
 			e.printStackTrace();
 			return 0;
 		}		
-	}
-	
-	private boolean getBooleanNodeAttribute(Node noeud, String attr){
-		try{
-			return Boolean.parseBoolean(getNodeAttribute(noeud, attr));
-		}catch(Exception e){
-			e.printStackTrace();
-			return Boolean.FALSE ;
-		}
 	}
 	
 	private String getNodeAttribute(Node noeud, String attr){
