@@ -20,14 +20,12 @@ public class AllumerBattle extends Actions {
 	public void agir(){
 		Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()];
 		Couleur color = this.perso.getCouleur();
-		int nbLampeAllumee=this.perso.getTerrain().getNbLampeAllumee();
+		System.out.println(C.getColor().toString());
 		if (C.getColor() == color){
 			C.setColor(Couleur.Bleu);
-			this.perso.getTerrain().setNbLampeAllumee(nbLampeAllumee-1);
 		}
 		else {
 			C.setColor(color);
-			this.perso.getTerrain().setNbLampeAllumee(nbLampeAllumee+1);
 		}
 	}
 }

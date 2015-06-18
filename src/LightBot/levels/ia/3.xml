@@ -3,48 +3,48 @@
 	<terrain largeur="6" longueur="6" >
 		<nbActionsPossible>500</nbActionsPossible>
 		<ensembleDeCase>
-			<case type="Lampe" x="0" y="0" h="1" />
-			<case type="Lampe" x="1" y="0" h="2" />
-			<case type="Lampe" x="2" y="0" h="3" />
-			<case type="Lampe" x="3" y="0" h="3" />
-			<case type="Lampe" x="4" y="0" h="2" />
-			<case type="Lampe" x="5" y="0" h="1" />
+			<case type="LampeBattle" x="0" y="0" h="1" />
+			<case type="LampeBattle" x="1" y="0" h="2" />
+			<case type="LampeBattle" x="2" y="0" h="3" />
+			<case type="LampeBattle" x="3" y="0" h="3" />
+			<case type="LampeBattle" x="4" y="0" h="2" />
+			<case type="LampeBattle" x="5" y="0" h="1" />
 			
-			<case type="Lampe" x="0" y="1" h="2" />
-			<case type="Lampe" x="1" y="1" h="1" />
-			<case type="Lampe" x="2" y="1" h="1" />
-			<case type="Lampe" x="3" y="1" h="1" />
-			<case type="Lampe" x="4" y="1" h="1" />
-			<case type="Lampe" x="5" y="1" h="2" />
+			<case type="LampeBattle" x="0" y="1" h="2" />
+			<case type="LampeBattle" x="1" y="1" h="1" />
+			<case type="LampeBattle" x="2" y="1" h="1" />
+			<case type="LampeBattle" x="3" y="1" h="1" />
+			<case type="LampeBattle" x="4" y="1" h="1" />
+			<case type="LampeBattle" x="5" y="1" h="2" />
 
 			
-			<case type="Lampe" x="0" y="2" h="2" />
-			<case type="Lampe" x="1" y="2" h="1" />
-			<case type="Lampe" x="2" y="2" h="2" />
-			<case type="Lampe" x="3" y="2" h="2" />
-			<case type="Lampe" x="4" y="2" h="1" />
-			<case type="Lampe" x="5" y="2" h="2" />
+			<case type="LampeBattle" x="0" y="2" h="2" />
+			<case type="LampeBattle" x="1" y="2" h="1" />
+			<case type="LampeBattle" x="2" y="2" h="2" />
+			<case type="LampeBattle" x="3" y="2" h="2" />
+			<case type="LampeBattle" x="4" y="2" h="1" />
+			<case type="LampeBattle" x="5" y="2" h="2" />
 			
-			<case type="Lampe" x="0" y="3" h="2" />
-			<case type="Lampe" x="1" y="3" h="1" />
-			<case type="Lampe" x="2" y="3" h="2" />
-			<case type="Lampe" x="3" y="3" h="2" />
-			<case type="Lampe" x="4" y="3" h="1" />
-			<case type="Lampe" x="5" y="3" h="2" />
+			<case type="LampeBattle" x="0" y="3" h="2" />
+			<case type="LampeBattle" x="1" y="3" h="1" />
+			<case type="LampeBattle" x="2" y="3" h="2" />
+			<case type="LampeBattle" x="3" y="3" h="2" />
+			<case type="LampeBattle" x="4" y="3" h="1" />
+			<case type="LampeBattle" x="5" y="3" h="2" />
 			
-			<case type="Lampe" x="0" y="4" h="2" />
-			<case type="Lampe" x="1" y="4" h="1" />
-			<case type="Lampe" x="2" y="4" h="1" />
-			<case type="Lampe" x="3" y="4" h="1" />
-			<case type="Lampe" x="4" y="4" h="1" />
-			<case type="Lampe" x="5" y="4" h="2" />
+			<case type="LampeBattle" x="0" y="4" h="2" />
+			<case type="LampeBattle" x="1" y="4" h="1" />
+			<case type="LampeBattle" x="2" y="4" h="1" />
+			<case type="LampeBattle" x="3" y="4" h="1" />
+			<case type="LampeBattle" x="4" y="4" h="1" />
+			<case type="LampeBattle" x="5" y="4" h="2" />
 			
-			<case type="Lampe" x="0" y="5" h="1" />
-			<case type="Lampe" x="1" y="5" h="2" />
-			<case type="Lampe" x="2" y="5" h="3" />
-			<case type="Lampe" x="3" y="5" h="3" />
-			<case type="Lampe" x="4" y="5" h="2" />
-			<case type="Lampe" x="5" y="5" h="1" />
+			<case type="LampeBattle" x="0" y="5" h="1" />
+			<case type="LampeBattle" x="1" y="5" h="2" />
+			<case type="LampeBattle" x="2" y="5" h="3" />
+			<case type="LampeBattle" x="3" y="5" h="3" />
+			<case type="LampeBattle" x="4" y="5" h="2" />
+			<case type="LampeBattle" x="5" y="5" h="1" />
 			
 		</ensembleDeCase>
 	</terrain>
