@@ -84,12 +84,14 @@ public class Tuto extends Menu_niveaux{
 			this.spritesTutoTab[sprite_tuto].setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
 			fenetre.draw(this.spritesTutoTab[sprite_tuto]);
 			fenetre.display();
+			/*
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}		
+			}
+			*/
 		}
 		this.spritesTutoTab[sprite_tuto].setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
 	}
@@ -122,7 +124,11 @@ public class Tuto extends Menu_niveaux{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
 							
 							if (this.spritesTutoTab[tutoCourant].getGlobalBounds().contains(pos.x, pos.y)) {
+								fondu(tutoCourant);
+								Menu_principal.fenetre.draw(this.spritesTutoTab[tutoCourant]);
+								Menu_principal.fenetre.display();
 								tutoCourant++;
+								
 							}
 							
 							if (tutoCourant == nb_img) {
@@ -148,13 +154,14 @@ public class Tuto extends Menu_niveaux{
 						Menu_principal.fenetre.close();
 					}
 				}
-			
+				/*
 				try {
 					Thread.sleep(15);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}			
+				}	
+				*/		
 		}
 		
 		
