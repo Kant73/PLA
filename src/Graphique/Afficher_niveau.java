@@ -203,7 +203,6 @@ public class Afficher_niveau extends Menu_niveaux{
 			
 		for(int i=255;i>0;i-=10)
 		{
-			spriteFond.setColor(new Color(spriteFond.getColor(), 3*i));
 			robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]]
 					.setColor(new Color (robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]].getColor(),i));
 			
@@ -876,6 +875,10 @@ public class Afficher_niveau extends Menu_niveaux{
 		StructStringSprite temp;
 		monNiveau=mj.getNiveau(selection);
 		
+		for(int index=0;index< robots.size();index++)
+			robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]]
+				.setColor(Color.WHITE);
+		
 		this.set_textures_cases();
 		set_pos_robot();
 	}
@@ -1023,6 +1026,7 @@ public class Afficher_niveau extends Menu_niveaux{
 						}
 						else if(this.spriteJoueurSuivant.getGlobalBounds().contains(pos.x,pos.y))
 						{
+							this.indexRobot=1-this.indexRobot;
 							
 							for (i = 0; i < tabCopie.length; i++) {
 								tabCopie[i] = new LinkedList();
