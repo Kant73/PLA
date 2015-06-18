@@ -13,6 +13,12 @@ public class TournerGauche extends Actions {
 	public TournerGauche(Personnage p, Couleur c){
 		super(p,c);
 	}
+	
+	@Override
+	public TournerGauche clone() throws CloneNotSupportedException{
+		TournerGauche copie=(TournerGauche)super.clone();
+		return copie;
+	}
 
 	public String toString(){
 		if(this.couleurCondition==Couleur.Violet || this.couleurCondition==Couleur.Rose)return "TournerGauche cond.";

@@ -7,7 +7,7 @@ import LightBot.actions.Actions;
 import LightBot.actions.Break;
 import LightBot.cases.Couleur;
 
-public class Programme {
+public class Programme implements Cloneable{
 
 	private int nbMaxAction;
 	private ArrayList<Object> listActions;
@@ -53,6 +53,23 @@ public class Programme {
 		if (index>=0 && index <this.nbMaxAction){
 			this.listActions.remove(index);
 		}
+	}
+	
+	@Override
+	public Programme clone() throws CloneNotSupportedException{
+		Programme prg=(Programme)super.clone();
+		prg.couleurCondition=this.couleurCondition;
+		prg.listActions=new ArrayList<Object>();
+		for(Object obj:this.listActions){
+			if(obj instanceof Actions)prg.listActions.add(((Actions) obj).clone());
+			else if(obj instanceof Programme)prg.listActions.add(((Programme) obj).clone());
+		}
+		return prg;
+	}
+	
+	public void vider(){
+		for(int i=this.listActions.size()-1;i>=0;i--)
+			this.listActions.remove(i);
 	}
 	
 	public void insererQueue(Object obj){

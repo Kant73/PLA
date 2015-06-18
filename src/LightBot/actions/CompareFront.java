@@ -16,6 +16,12 @@ public class CompareFront extends Actions {
 		super(p,c);
 	}
 	
+	@Override
+	public CompareFront clone() throws CloneNotSupportedException{
+		CompareFront copie=(CompareFront)super.clone();
+		return copie;
+	}
+	
 	public void agir(){
 		if(super.matchColor()){
 			Case caseFront = this.perso.getCaseFrontHim();

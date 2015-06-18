@@ -19,6 +19,12 @@ public class Sauter extends Actions {
 		if(this.couleurCondition==Couleur.Violet || this.couleurCondition==Couleur.Rose)return "Sauter cond.";
 		return "Sauter";
 	}
+	
+	@Override
+	public Sauter clone() throws CloneNotSupportedException{
+		Sauter copie=(Sauter)super.clone();
+		return copie;
+	}
 
 	@Override
 	public void agir() {

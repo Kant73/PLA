@@ -6,7 +6,7 @@ import LightBot.actions.Actions;
 import LightBot.personnage.Personnage;
 
 
-public class Niveau {
+public class Niveau implements Cloneable {
 	
 	private ArrayList<Personnage> personnages;
 	private Terrain terrain;
@@ -56,6 +56,22 @@ public class Niveau {
 
 	public void setProgrammes(ArrayList<Programme> programmes) {
 		this.programmes = programmes;
+	}
+	
+	public void viderListProgrammes(){
+		for(Programme prg:this.programmes)
+			prg.vider();
+	}
+	
+	@Override
+	public Niveau clone() throws CloneNotSupportedException{
+		Niveau copie=(Niveau)super.clone();
+		copie.actions=(ArrayList<Actions>) this.actions.clone();
+		copie.personnages=(ArrayList<Personnage>) this.personnages.clone();
+		copie.programmes=new ArrayList<Programme>();
+		for(Programme prg:this.programmes)
+			copie.programmes.add(prg.clone());
+		return copie;
 	}
 	
 }

@@ -4,7 +4,7 @@ import LightBot.cases.Couleur;
 import LightBot.personnage.Personnage;
 
 
-public abstract class Actions {
+public abstract class Actions implements Cloneable{
 
 /********************************************* ATTRIBUTS *********************************************/
 	
@@ -50,5 +50,11 @@ public abstract class Actions {
 		colorOK |= (this.perso.getCouleur() == Couleur.Violet 	&& this.couleurCondition != Couleur.Rose);
 		colorOK |= (this.perso.getCouleur() == Couleur.Rose 	&& this.couleurCondition != Couleur.Violet);
 		return colorOK;
+	}
+	
+	@Override
+	public Actions clone() throws CloneNotSupportedException{
+		Actions copie=(Actions)super.clone();
+		return copie;
 	}
 }

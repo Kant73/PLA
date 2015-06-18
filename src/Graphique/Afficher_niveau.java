@@ -955,15 +955,17 @@ public class Afficher_niveau extends Menu_niveaux{
 							{
 								this.indexRobot=0;
 								this.setProgramme(tabCopie);
+								try{
+									monNiveau.getPersonnages().get(indexRobot).setProgramme(((Niveau)monNiveau.clone()).getProgrammes().get(0));
+									monNiveau.viderListProgrammes();
+								} catch (CloneNotSupportedException e) {}
 					
 								this.indexRobot=1;
-								this.setProgramme(tabProgramme);					
+								this.setProgramme(tabProgramme);
 							}
 							else
 								this.setProgramme(tabProgramme);
-							
-							for(int l = 0; l<monNiveau.getPersonnages().size();l++)	
-								monNiveau.getPersonnages().get(l).setProgramme(monNiveau.getProgrammes().get(l));
+							monNiveau.getPersonnages().get(indexRobot).setProgramme(monNiveau.getProgrammes().get(0));
 								
 							Ordonnanceur monOrdonnanceur = new Ordonnanceur (monNiveau.getPersonnages(),this);
 							monOrdonnanceur.run();

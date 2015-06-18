@@ -19,5 +19,11 @@ public class Wash extends Actions {
 			if(this.perso.getCouleur()!=Couleur.Blanc)this.perso.setCouleur(Couleur.Blanc);
 		}
 	}
+	
+	@Override
+	public Wash clone() throws CloneNotSupportedException{
+		Wash copie=(Wash)super.clone();
+		return copie;
+	}
 
 }

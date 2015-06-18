@@ -29,6 +29,12 @@ public class Avancer extends Actions {
 		peutAvancer |= (actuelle instanceof Transparente && devant.getHauteur() == 1 );
 		return peutAvancer;
 	}
+	
+	@Override
+	public Avancer clone() throws CloneNotSupportedException{
+		Avancer copie=(Avancer)super.clone();
+		return copie;
+	}
 
 	@Override
 	public void agir() {

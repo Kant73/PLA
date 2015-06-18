@@ -38,13 +38,15 @@ public class Ordonnanceur {
 			this.listItActions.add(persos.get(i).getProgramme().getActions().iterator());
 			this.listFifo.add(new LinkedList<Iterator<Object>>());
 			this.listFifo.get(i).add(this.listItActions.get(i));
+			
 		}
 	}
 	
 	public void run(){
 		try{
-			for(int i=0;i<this.listItActions.toArray().length;i++) //Execute une action pour chaque robot
-				this.execute((Iterator<Object>)this.listItActions.toArray()[i],i);
+			for(int i=0;i<this.listItActions.toArray().length;i++){ //Execute une action pour chaque robot
+				this.execute((Iterator<Object>)this.listItActions.toArray()[i],i);				
+			}
 			if(isListFifoEmpty())return;
 			this.run();
 		}catch(NullPointerException e){
@@ -64,9 +66,10 @@ public class Ordonnanceur {
 		int lastX,lastY;
 		try{			
 			
-			if(itActions.hasNext()){
+			if(itActions.hasNext() ){
 				Object obj=itActions.next();
-			    if(obj instanceof Break && ((Break)obj).matchColor()){
+			    
+				if(obj instanceof Break && ((Break)obj).matchColor()){
 			    	throw new BreakException(Integer.toString(index));
 			    }
 				else if(obj instanceof Actions && !(obj instanceof Break)){
@@ -123,7 +126,8 @@ public class Ordonnanceur {
 					}
 				}
 				else if(obj instanceof Programme){
-					if(((Programme)obj).isMatchCouleur(this.listPers.get(index).getCouleur()))this.setNewIterator(((Programme)obj).getActions().iterator(), index);
+					if(((Programme)obj).isMatchCouleur(this.listPers.get(index).getCouleur()))
+						this.setNewIterator(((Programme)obj).getActions().iterator(), index);
 				}
 			}else{
 				this.restaureIterator(index);
@@ -131,7 +135,9 @@ public class Ordonnanceur {
 		}catch(StackOverflowError e){
 			e.printStackTrace();
 		}catch(NoClassDefFoundError noDef){
+			noDef.printStackTrace();
 		}catch(NullPointerException nE){
+			nE.printStackTrace();
 			return;
 		}
 	}

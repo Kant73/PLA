@@ -6,7 +6,7 @@ import LightBot.cases.Case;
 import LightBot.cases.Couleur;
 
 
-public class Personnage {
+public class Personnage implements Cloneable {
 	
 	private int[] positionInitial=new int[2];
 	private int currentX;			//Position sur X du personnage.
@@ -135,6 +135,13 @@ public class Personnage {
 
 	public void setMort(boolean mort) {
 		this.mort = mort;
+	}
+	
+	@Override
+	public Personnage clone() throws CloneNotSupportedException{
+		Personnage copie=(Personnage)super.clone();
+		copie.prog=this.prog.clone();
+		return copie;
 	}
 
 }

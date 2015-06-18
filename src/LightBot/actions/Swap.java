@@ -15,6 +15,12 @@ public class Swap extends Actions {
 	public Swap(Personnage p, Couleur c){
 		super(p,c);
 	}
+	
+	@Override
+	public Swap clone() throws CloneNotSupportedException{
+		Swap copie=(Swap)super.clone();
+		return copie;
+	}
 
 	public void agir(){
 		if(matchColor()){

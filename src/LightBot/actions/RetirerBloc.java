@@ -17,6 +17,12 @@ public class RetirerBloc extends Actions {
 	public RetirerBloc(Personnage pPerso, Couleur pColor) {
 		super(pPerso, pColor);
 	}
+	
+	@Override
+	public RetirerBloc clone() throws CloneNotSupportedException{
+		RetirerBloc copie=(RetirerBloc)super.clone();
+		return copie;
+	}
 
 	/**
 	 * Retirer des blocs Memoire du terrain.

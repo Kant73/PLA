@@ -29,6 +29,12 @@ public class Allumer extends Actions {
 			return "Allumer";
 		}
 	}
+	
+	@Override
+	public Allumer clone() throws CloneNotSupportedException{
+		Allumer copie=(Allumer)super.clone();
+		return copie;
+	}
 
 	@Override
 	public void agir() {

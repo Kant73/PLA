@@ -18,6 +18,12 @@ public class TournerDroite extends Actions {
 		if(this.couleurCondition==Couleur.Violet || this.couleurCondition==Couleur.Rose)return "TournerDroite cond.";
 		return "TournerDroite";
 	}
+	
+	@Override
+	public TournerDroite clone() throws CloneNotSupportedException{
+		TournerDroite copie=(TournerDroite)super.clone();
+		return copie;
+	}
 
 	@Override
 	public void agir() {

@@ -18,6 +18,12 @@ public class PoserBloc extends Actions{
 		super(pPerso, pColor);
 	}
 	
+	@Override
+	public PoserBloc clone() throws CloneNotSupportedException{
+		PoserBloc copie=(PoserBloc)super.clone();
+		return copie;
+	}
+	
 	/**
 	 * Poser des blocs sur un terrain de base.
 	 * Si la case est de base, elle est transformée en case Memoire.
