@@ -180,6 +180,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.afficher_boutons();
 		this.afficher_procedure();
 		this.afficher_verrou();
+		
 		for(int i= this.NB_CASE_X-1;i>=0;i--)
 		{
 			for(int j= this.NB_CASE_Y-1;j>=0;j--)
@@ -195,9 +196,9 @@ public class Afficher_niveau extends Menu_niveaux{
 							 	orientation = monNiveau.getPersonnages().get(l).getOrientationInt();
 							 
 							 	robots.get(l)[orientation][this.numAnim[l]].setPosition(robots.get(l)[orientation][0].getPosition());
-							
+							 	if(!monNiveau.getPersonnages().get(l).isMort())
+							 	robots.get(l)[orientation][this.numAnim[l]].setColor(this.couleur_case_vers_couleur_Graphique(monNiveau.getPersonnages().get(l).getCouleur()));
 								Menu_principal.fenetre.draw(robots.get(l)[orientation][this.numAnim[l]]);
-								
 						}
 				}
 			}
@@ -1077,6 +1078,7 @@ public class Afficher_niveau extends Menu_niveaux{
 						}
 						else if(this.spriteJoueurSuivant.getGlobalBounds().contains(pos.x,pos.y) && this.monNiveau.getPersonnages().size()>1)
 						{
+							spriteJoueurSuivant.setColor(this.couleur_case_vers_couleur_Graphique(monNiveau.getPersonnages().get(this.indexRobot).getCouleur()));
 							reset_sprite_selectionne();
 							this.indexRobot=1-this.indexRobot;
 							
