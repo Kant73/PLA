@@ -22,6 +22,10 @@ public class Tuto extends Menu_niveaux{
 	
 	private int selection;
 	
+	public Sprite[] getSpritesTutoTab(){
+		return this.spritesTutoTab;
+	}
+	
 	public void init_tuto(String nom_niveau, int nb_img){
 		this.spritesTutoTab = new Sprite[nb_img];
 		this.texTutoTab = new Texture[nb_img];
@@ -79,9 +83,9 @@ public class Tuto extends Menu_niveaux{
 	
 	private void fondu(int sprite_tuto)
 	{
-		for(int i=0;i<20;i++)
+		for(int i=0;i<100;i+=2)
 		{
-			this.spritesTutoTab[sprite_tuto].setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
+			this.spritesTutoTab[sprite_tuto].setColor(new Color(Menu_modes.spritefondMode.getColor(), 2*i));
 			fenetre.draw(this.spritesTutoTab[sprite_tuto]);
 			fenetre.display();
 			/*
@@ -107,7 +111,7 @@ public class Tuto extends Menu_niveaux{
 		int tutoCourant = 0;
 		boolean temp = true;
 		Menu_principal.fenetre.clear();
-		this.init_tuto(nom_niveau, nb_img);
+		//this.init_tuto(nom_niveau, nb_img);
 		
 		Menu_principal.fenetre.display();
 		

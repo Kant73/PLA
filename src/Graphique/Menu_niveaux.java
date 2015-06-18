@@ -162,9 +162,9 @@ public class Menu_niveaux extends Menu_modes{
 	
 	private void fondu()
 	{
-		for(int i=0;i<20;i++)
+		for(int i=0;i<100;i+=2)
 		{
-			Menu_principal.spriteFond.setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
+			Menu_principal.spriteFond.setColor(new Color(Menu_modes.spritefondMode.getColor(), 2*i));
 			fenetre.draw(Menu_principal.spriteFond);
 			fenetre.display();
 			try {
@@ -175,6 +175,23 @@ public class Menu_niveaux extends Menu_modes{
 			}		
 		}
 		Menu_principal.spriteFond.setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
+	}
+	
+	private void fondu_tuto(Sprite sprite)
+	{
+		for(int i=0;i<100;i+=2)
+		{
+			sprite.setColor(new Color(sprite.getColor(), 2*i));
+			fenetre.draw(sprite);
+			fenetre.display();
+			/*try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		*/
+		}
+		Menu_principal.spriteFond.setColor(new Color(sprite.getColor(), 255));
 	}
 	
 	public void afficher_menu(int modeSelectionne)
@@ -202,17 +219,18 @@ public class Menu_niveaux extends Menu_modes{
 						{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
 							hover(pos);
-							
+							Tuto tuto = new Tuto();
+							tuto.init_tuto(mj.toString(), tuto.nb_image_par_mode(mj.toString()));
 							if(selection !=-1)
 							{
-								fondu();
-								Afficher_niveau level = new  Afficher_niveau();
 								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la r�solution du niveau.
 								if (selection == 0) {
-									Tuto tuto = new Tuto();
+									//Tuto tuto = new Tuto();
 									//System.out.println("mj.toString(): " + mj.toString());
+									//fondu_tuto(tuto.getSpritesTutoTab()[0]);
 									tuto.affiche_tuto(mj.toString());
 								}
+								Afficher_niveau level = new  Afficher_niveau();
 								Niveau copie = mj.getNiveau(selection);
 								level.afficher_niveau(copie, mj,selection);
 								fondu();
