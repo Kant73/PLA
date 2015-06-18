@@ -897,11 +897,13 @@ public class Afficher_niveau extends Menu_niveaux{
 		case "break":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Break(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
-		case "P1":
+		case "P1":			
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(1));
+			this.monNiveau.getProgrammes().get(1).setCouleur(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()));
 			break;
 			case "P2":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(2));
+			this.monNiveau.getProgrammes().get(2).setCouleur(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()));
 			break;
 		default:
 			break;
