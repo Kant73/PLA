@@ -57,8 +57,6 @@ public class TestProg2 extends Niveau{
 			
 		}
 		System.out.println(it.hasNext());
-		progMain.vider();
-		progMain.insererQueue(new TournerGauche(robot));
 		System.out.println(progMain.getIterator().hasNext());
 		
 		

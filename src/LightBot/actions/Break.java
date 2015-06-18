@@ -1,5 +1,6 @@
 package LightBot.actions;
 
+import LightBot.BreakException;
 import LightBot.cases.Couleur;
 import LightBot.personnage.Personnage;
 
@@ -19,5 +20,9 @@ public class Break extends Actions{
 		return copie;
 	}
 
-	// pas de Agir car actions qui fais juste remonter dans l'appelante
+
+	public void agir() throws BreakException{
+		if(matchColor())
+			throw new BreakException();
+	}
 }

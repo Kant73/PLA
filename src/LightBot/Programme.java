@@ -72,7 +72,6 @@ public class Programme implements Cloneable{
 	private Programme cloneRecursif(int n) throws CloneNotSupportedException{
 		if(n>=0){			
 			Programme prg=(Programme)super.clone();
-			System.out.println("n: "+n+" nom: "+prg.getNom());
 			prg.couleurCondition=this.couleurCondition;
 			prg.listActions=new ArrayList<Object>();
 			for(Object obj:this.listActions){
@@ -83,8 +82,7 @@ public class Programme implements Cloneable{
 					else{
 						Programme p=((Programme)obj).cloneRecursif(n-1);
 						if(p!=null)prg.listActions.add(p);
-					}
-						
+					}						
 				}
 			}
 			prg.itActions=prg.listActions.iterator();

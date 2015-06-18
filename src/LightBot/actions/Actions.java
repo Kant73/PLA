@@ -1,5 +1,6 @@
 package LightBot.actions;
 
+import LightBot.BreakException;
 import LightBot.cases.Couleur;
 import LightBot.personnage.Personnage;
 
@@ -37,7 +38,7 @@ public abstract class Actions implements Cloneable{
 		}
 	}
 	
-	public void agir() {}
+	public void agir() throws BreakException {}
 	
 	public Personnage getPersonnage(){
 		return this.perso;

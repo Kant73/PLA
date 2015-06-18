@@ -9,7 +9,6 @@ import Graphique.Afficher_niveau;
 import LightBot.actions.Actions;
 import LightBot.actions.Allumer;
 import LightBot.actions.Avancer;
-import LightBot.actions.Break;
 import LightBot.actions.PoserBloc;
 import LightBot.actions.RetirerBloc;
 import LightBot.actions.Sauter;
@@ -65,11 +64,7 @@ public class Ordonnanceur {
 		try{
 			if(itActions.hasNext() ){
 				Object obj=itActions.next();
-			    
-				if(obj instanceof Break && ((Break)obj).matchColor()){
-			    	throw new BreakException(Integer.toString(index));
-			    }
-				else if(obj instanceof Actions && !(obj instanceof Break)){
+				if(obj instanceof Actions){
 					int nbLampeAllumee=((Actions)obj).getPersonnage().getTerrain().getNbLampeAllumee();
 					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() 
 							|| ((Actions)obj).getPersonnage().isMort() 
@@ -139,6 +134,8 @@ public class Ordonnanceur {
 		}catch(NullPointerException nE){
 			nE.printStackTrace();
 			return;
+		}catch(BreakException bE){
+	    	throw new BreakException(Integer.toString(index));
 		}
 	}
 	
