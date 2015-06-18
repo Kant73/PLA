@@ -19,7 +19,7 @@ import LightBot.personnage.Personnage;
 
 public class Ordonnanceur {
 
-	private ArrayList<Programme> progs;
+	private ArrayList<Programme> listProgs;
 	private Vector<Iterator<Object>> listItActions;
 	private ArrayList<LinkedList<Iterator<Object>>> listFifo;
 	private ArrayList<Personnage> listPers;
@@ -27,18 +27,17 @@ public class Ordonnanceur {
 	private int cptActions=0;
 	
 	public Ordonnanceur(ArrayList<Personnage> persos, Afficher_niveau affichage){
-		this.progs=new ArrayList<Programme>();
+		this.listProgs=new ArrayList<Programme>();
 		this.listItActions=new Vector<Iterator<Object>>();
 		this.listFifo=new ArrayList<LinkedList<Iterator<Object>>>();
 		this.listPers=new ArrayList<Personnage>();
 		this.affichage=affichage;
 		for(int i=0;i<persos.toArray().length;i++){
-			this.progs.add(persos.get(i).getProgramme());
+			this.listProgs.add(persos.get(i).getProgramme());
 			this.listPers.add(persos.get(i));
-			this.listItActions.add(persos.get(i).getProgramme().getActions().iterator());
-			this.listFifo.add(new LinkedList<Iterator<Object>>());
-			this.listFifo.get(i).add(this.listItActions.get(i));
-			
+			this.listItActions.add(persos.get(i).getProgramme().getIterator());
+			if(this.listFifo.size()==i)this.listFifo.add(new LinkedList<Iterator<Object>>());
+			this.listFifo.get(i).add(this.listItActions.get(i));			
 		}
 	}
 	
@@ -63,9 +62,7 @@ public class Ordonnanceur {
 	}
 	
 	private void execute(Iterator<Object> itActions,int index) throws ArrayIndexOutOfBoundsException,BreakException{
-		int lastX,lastY;
-		try{			
-			
+		try{
 			if(itActions.hasNext() ){
 				Object obj=itActions.next();
 			    
@@ -77,13 +74,13 @@ public class Ordonnanceur {
 					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() 
 							|| ((Actions)obj).getPersonnage().isMort() 
 							|| cptActions > ((Actions)obj).getPersonnage().getTerrain().getNbActionsPossible()){
-							this.progs.get(index).reset();
+							this.listProgs.get(index).reset();
 							throw new ArrayIndexOutOfBoundsException();
 						}
 					else{
 						
-						this.affichage.ancX[index]=this.listPers.get(index).getPositionX();
-						this.affichage.ancY[index]=this.listPers.get(index).getPositionY();
+						this.affichage.animInfos.get(index).setX(this.listPers.get(index).getPositionX());
+						this.affichage.animInfos.get(index).setY(this.listPers.get(index).getPositionY());
 						
 						((Actions)obj).agir();
 						cptActions++;
@@ -107,8 +104,8 @@ public class Ordonnanceur {
 						}
 							
 						
-						this.affichage.ancX[index]=this.listPers.get(index).getPositionX();
-						this.affichage.ancY[index]=this.listPers.get(index).getPositionY();
+						this.affichage.animInfos.get(index).setX(this.listPers.get(index).getPositionX());
+						this.affichage.animInfos.get(index).setY(this.listPers.get(index).getPositionY());
 						this.affichage.set_pos_robot();
 						this.affichage.set_textures_cases();
 						this.affichage.afficher_carte();
@@ -130,7 +127,7 @@ public class Ordonnanceur {
 				}
 				else if(obj instanceof Programme){					
 					if(((Programme)obj).isMatchCouleur(this.listPers.get(index).getCouleur()))
-						this.setNewIterator(((Programme)obj).getActions().iterator(), index);
+						this.setNewIterator(((Programme)obj).getIterator(), index);
 				}
 			}else{
 				this.restaureIterator(index);

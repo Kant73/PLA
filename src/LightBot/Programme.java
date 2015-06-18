@@ -1,6 +1,7 @@
 package LightBot;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Vector;
 
 import LightBot.actions.Actions;
@@ -13,17 +14,24 @@ public class Programme implements Cloneable{
 	private ArrayList<Object> listActions;
 	private String nom;
 	private Couleur couleurCondition;
+	private Iterator<Object> itActions;
 	
 	public Programme(String nom, int taille){
 		this.nbMaxAction= taille;	
 		this.nom=nom;
 		this.listActions=new ArrayList<Object>();
 		this.couleurCondition=Couleur.Blanc;
+		this.itActions=this.listActions.iterator();
 	}
 	
 	public Programme(String nom, int taille, Couleur couleur){
 		this(nom, taille);
 		this.couleurCondition=couleur;
+	}
+	
+	public Iterator<Object> getIterator(){
+		this.itActions=this.listActions.iterator();
+		return this.itActions;
 	}
 	
 	public boolean isMatchCouleur(Couleur c){
@@ -52,6 +60,7 @@ public class Programme implements Cloneable{
 	public void supprimer(int index){
 		if (index>=0 && index <this.listActions.size()){
 			this.listActions.remove(index);
+			this.itActions=this.listActions.iterator();
 		}
 	}
 	
@@ -69,20 +78,24 @@ public class Programme implements Cloneable{
 					prg.listActions.add(((Programme)obj).clone());
 			}
 		}
+		prg.itActions=prg.listActions.iterator();
 		return prg;
 	}
 	
 	public void vider(){
 		for(int i=this.listActions.size()-1;i>=0;i--)
 			this.listActions.remove(i);
+		this.itActions=this.listActions.iterator();
 	}
 	
 	public void insererQueue(Object obj){
-		if(this.listActions.size()<this.nbMaxAction)
+		if(this.listActions.size()<this.nbMaxAction){
 			if (obj instanceof Programme)
 				this.listActions.add((Programme)obj);
 			else if (obj instanceof Actions)
 				this.listActions.add((Actions)obj);
+			this.itActions=this.listActions.iterator();
+		}
 	}
 	
 	public void execute(){

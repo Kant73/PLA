@@ -41,18 +41,25 @@ public class TestProg2 extends Niveau{
 		progMain.insererQueue(new TournerGauche(robot));
 		progMain.insererQueue(new Avancer(robot));
 		progMain.insererQueue(new Allumer(robot));
+		progMain.insererQueue(progMain);
 		this.getProgrammes().add(progMain);
 
 		robot.setProgramme(progMain);
 		
 		
-		Iterator<Object> it=progMain.getActions().iterator();
+		
+		Iterator<Object> it=progMain.getIterator();
+		System.out.println(it.hasNext());
 		while(it.hasNext()){
-			Actions act=(Actions) it.next();
+			Object act=it.next();
 			if(act == null)System.out.println("Null");
 			else System.out.println(act);
 			
 		}
+		System.out.println(it.hasNext());
+		progMain.vider();
+		progMain.insererQueue(new TournerGauche(robot));
+		System.out.println(progMain.getIterator().hasNext());
 		
 		
 		System.out.println("Terrain de base avant exécution");
