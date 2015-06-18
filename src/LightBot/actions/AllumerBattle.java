@@ -10,6 +10,10 @@ public class AllumerBattle extends Actions {
 		super(p);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public AllumerBattle(Personnage p, Couleur c){
+		super(p,c);
+	}
 
 	
 	@Override
