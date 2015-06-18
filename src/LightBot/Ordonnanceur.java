@@ -101,7 +101,11 @@ public class Ordonnanceur {
 						}
 						
 						if(this.listPers.get(index).isMort())
+						{
 							this.affichage.animMort( index );
+							this.affichage.supprimer_programme(index);
+						}
+							
 						
 						this.affichage.ancX[index]=this.listPers.get(index).getPositionX();
 						this.affichage.ancY[index]=this.listPers.get(index).getPositionY();

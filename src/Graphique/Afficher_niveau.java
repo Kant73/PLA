@@ -407,6 +407,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	
+	
 	/**
 	 * Permet d'initialiser tous les sprites avec leur textures
 	 */
@@ -963,6 +964,15 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.progSelect = save_select;
 	}
 	
+	
+	public void supprimer_programme(int ind)
+	{
+		for(int i=0;i<this.tabProgramme.get(ind).length;i++)
+		{
+			this.tabProgramme.get(ind)[i].clear();
+		}
+		
+	}
 	
 	void setNextPeinture ()
 	{
