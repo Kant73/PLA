@@ -85,8 +85,9 @@ public class Afficher_niveau extends Menu_niveaux{
 	public Sprite spriteSymboleComp;
 	public Sprite spriteSymbolePoser;
 	public Sprite spriteSymboleSuppr;
-	public int[] ancX,ancY;
-	public int[] numAnim;
+	
+	public List<Animation> animInfos;
+	
 	public int indexRobot;
 	public boolean conditionExiste;
 	public boolean afficherWin;
@@ -193,16 +194,16 @@ public class Afficher_niveau extends Menu_niveaux{
 					Menu_principal.fenetre.draw(this.SpriteCases[i][j][etageActuel]);
 
 					for(int l = 0; l<monNiveau.getPersonnages().size();l++)
-						if((i==monNiveau.getPersonnages().get(l).getPositionX() && j == monNiveau.getPersonnages().get(l).getPositionY() || i==this.ancX[l] && j == this.ancY[l] ) 
+						if((i==monNiveau.getPersonnages().get(l).getPositionX() && j == monNiveau.getPersonnages().get(l).getPositionY() || i==this.animInfos.get(l).getX() && j == this.animInfos.get(l).getY() ) 
 								&& etageActuel == monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique())
 						{
 							 	orientation = monNiveau.getPersonnages().get(l).getOrientationInt();
-							 
-							 	robots.get(l)[orientation][this.numAnim[l]].setPosition(robots.get(l)[orientation][0].getPosition());
+							 	
+							 	robots.get(l)[orientation][this.animInfos.get(l).getNum()].setPosition(robots.get(l)[orientation][0].getPosition());
 							 	if(!monNiveau.getPersonnages().get(l).isMort())
-							 		robots.get(l)[orientation][this.numAnim[l]].setColor(this.couleur_case_vers_couleur_Graphique(monNiveau.getPersonnages().get(l).getCouleur()));
+							 		robots.get(l)[orientation][this.animInfos.get(l).getNum()].setColor(this.couleur_case_vers_couleur_Graphique(monNiveau.getPersonnages().get(l).getCouleur()));
 								
-							 	Menu_principal.fenetre.draw(robots.get(l)[orientation][this.numAnim[l]]);
+							 	Menu_principal.fenetre.draw(robots.get(l)[orientation][this.animInfos.get(l).getNum()]);
 						}
 				}
 			}
@@ -221,13 +222,13 @@ public class Afficher_niveau extends Menu_niveaux{
 		if(monNiveau.getPersonnages().get(index).isMort())
 			for(int i=255;i>0;i-=10)
 			{
-				robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]]
-						.setColor(new Color (robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]].getColor(),i));
+				robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.animInfos.get(index).getNum()]
+						.setColor(new Color (robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.animInfos.get(index).getNum()].getColor(),i));
 				
 				afficher_carte();
 				pause(1);	
 			}
-		robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]].setColor(Color.TRANSPARENT);
+		robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.animInfos.get(index).getNum()].setColor(Color.TRANSPARENT);
 	}
 	
 	/**
@@ -260,8 +261,8 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	public void avancer(int index)
 	{
-		int lastX=this.ancX[index];
-		int lastY=this.ancY[index];
+		int lastX=this.animInfos.get(index).getX() ;
+		int lastY=this.animInfos.get(index).getY() ;
 		int newX=monNiveau.getPersonnages().get(index).getPositionX(),newY=monNiveau.getPersonnages().get(index).getPositionY();
 		float deplX=0,deplY = 0;
 		float coeff = 2;
@@ -323,10 +324,12 @@ public class Afficher_niveau extends Menu_niveaux{
 						  && posActuelle.y <= posFinale.y)						  
 				  )
 			{
+			
+
+				this.animInfos.get(index).setNum(this.animInfos.get(index).getNum()+1);
 				
-				this.numAnim[index]++;
-				if(this.numAnim[index]>=robots.get(index)[orientation].length)
-					this.numAnim[index]=0;
+				if(this.animInfos.get(index).getNum()>=robots.get(index)[orientation].length)
+					this.animInfos.get(index).setNum(0);
 					
 				robots.get(index)[orientation][0].setPosition(robots.get(index)[orientation][0].getPosition().x+deplX,robots.get(index)[orientation][0].getPosition().y+deplY);
 				posActuelle=robots.get(index)[orientation][0].getPosition();
@@ -340,8 +343,8 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	public void sauter(int index)
 	{
-		int lastX=this.ancX[index];
-		int lastY=this.ancY[index];
+		int lastX=this.animInfos.get(index).getX() ;
+		int lastY=this.animInfos.get(index).getY() ;
 		int newX=monNiveau.getPersonnages().get(index).getPositionX(),newY=monNiveau.getPersonnages().get(index).getPositionY();
 		int hAct,hNew;
 		int orientation = monNiveau.getPersonnages().get(index).getOrientationInt();
@@ -566,19 +569,14 @@ public class Afficher_niveau extends Menu_niveaux{
 		couleurRose = new Color(250, 0, 124);
 		couleurViolet = new Color(106, 0, 250);
 		this.conditionExiste=monNiveau.getTerrain().containConditionCase();
+
 		
-		
-		this.ancX=new int[monNiveau.getPersonnages().size()];
-		this.ancY=new int[monNiveau.getPersonnages().size()];
-		this.numAnim=new int [monNiveau.getPersonnages().size()];
+		this.animInfos = new ArrayList<Animation>();
 		
 		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
 		{
-			this.ancX[l]=monNiveau.getPersonnages().get(l).getPositionX();
-			this.ancY[l]=monNiveau.getPersonnages().get(l).getPositionY();
-			this.numAnim[l]=0;
+			this.animInfos.add(new Animation(monNiveau.getPersonnages().get(l).getPositionX(),monNiveau.getPersonnages().get(l).getPositionY(),0) ) ;
 		}
-		
 		
 		this.reScale=Scale;
 		this.reScaleRobot=Scale;
@@ -939,7 +937,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		monNiveau=mj.getNiveau(selection);
 		
 		for(int index=0;index< robots.size();index++)
-			robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]]
+			robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.animInfos.get(index).getNum()]
 				.setColor(Color.WHITE);
 		
 		this.set_textures_cases();
@@ -947,8 +945,9 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
 		{
-			this.ancX[l]=monNiveau.getPersonnages().get(l).getPositionX();
-			this.ancY[l]=monNiveau.getPersonnages().get(l).getPositionY();
+			this.animInfos.get(l).setX(monNiveau.getPersonnages().get(l).getPositionX());
+			this.animInfos.get(l).setY(monNiveau.getPersonnages().get(l).getPositionY());
+			this.animInfos.get(l).setNum(0);
 		}
 	}
 	
