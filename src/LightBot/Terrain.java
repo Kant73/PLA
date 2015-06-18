@@ -116,7 +116,7 @@ public class Terrain {
 		}
 		if (cptr>cptv)
 			return 0;
-		else return 1;
+		else return -1;
 	}
 	
 /********************************************* MUTATEURS *********************************************/
