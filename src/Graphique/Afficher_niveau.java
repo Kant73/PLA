@@ -50,6 +50,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	private Font police;
 	private Text texteNbCase;
+	private Text texteWin;
 	
 	static int NB_CASE_X ;
 	static int NB_CASE_Y ;
@@ -88,6 +89,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	public int[] numAnim;
 	public int indexRobot;
 	public boolean conditionExiste;
+	public boolean afficherWin;
 	
 	
 	public LinkedList list_action_possible;
@@ -96,7 +98,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	public float reScale,reScaleRobot;
 	int progSelect;
 		
-	private void initialiser_anim()
+	public void initialiser_anim()
 	{
 		robots=new LinkedList<Sprite[][]>();
 		int y0=0,tailleX=128,tailleY=118;
@@ -133,18 +135,18 @@ public class Afficher_niveau extends Menu_niveaux{
 		float divX = (float) (2.0/this.reScale);
 		float divY = (float) (3.0/this.reScale);
 		
-		float Xinit = (referenceCentreX - this.NB_CASE_X*this.reScale*this.SpriteCases[0][0][0].getTexture().getSize().x)/2;
+		float Xinit = (referenceCentreX - NB_CASE_X*this.reScale*this.SpriteCases[0][0][0].getTexture().getSize().x)/2;
 		float Yinit = (referenceCentreY/2)-this.reScale*this.SpriteCases[0][0][0].getTexture().getSize().x/2;
 
 		float ActX;
 		float ActY;
 		
 		
-		for(int i= this.NB_CASE_X-1;i>=0;i--)
+		for(int i= NB_CASE_X-1;i>=0;i--)
 		{
 			ActX=Xinit + (i-1)*(this.SpriteCases[0][0][0].getTexture().getSize().x/divX);
 			ActY=Yinit-i*(this.SpriteCases[0][0][0].getTexture().getSize().y/divY);
-			for(int j= this.NB_CASE_Y-1;j>=0;j--)
+			for(int j= NB_CASE_Y-1;j>=0;j--)
 			{
 				ActX=ActX +  this.SpriteCases[0][0][0].getTexture().getSize().x/divX;
 				ActY=ActY +  this.SpriteCases[0][0][0].getTexture().getSize().y/divY;
@@ -165,7 +167,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	 */
 	public void afficher_cadre_procedures()
 	{
-		for (int i=0; i< this.monNiveau.getProgrammes().size(); i++)
+		for (int i=0; i< monNiveau.getProgrammes().size(); i++)
 			Menu_principal.fenetre.draw(this.spritesProcedures[i]);
 	}
 	
@@ -182,9 +184,9 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.afficher_procedure();
 		this.afficher_verrou();
 		
-		for(int i= this.NB_CASE_X-1;i>=0;i--)
+		for(int i= NB_CASE_X-1;i>=0;i--)
 		{
-			for(int j= this.NB_CASE_Y-1;j>=0;j--)
+			for(int j= NB_CASE_Y-1;j>=0;j--)
 			{
 				for(int etageActuel = 0; etageActuel <=monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique();etageActuel ++)
 				{	
@@ -204,6 +206,11 @@ public class Afficher_niveau extends Menu_niveaux{
 				}
 			}
 		}
+		if(this.afficherWin)
+		{
+			this.texteWin.setColor(Color.YELLOW);
+			Menu_principal.fenetre.draw(this.texteWin);	
+		}
 		Menu_principal.fenetre.display();
 	}
 	
@@ -218,12 +225,7 @@ public class Afficher_niveau extends Menu_niveaux{
 					.setColor(new Color (robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]].getColor(),i));
 			
 			afficher_carte();
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			pause(1);
 			
 		}
 		robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]].setColor(Color.TRANSPARENT);
@@ -383,7 +385,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void reset_sprite_selectionne()
 	{
 		this.progSelect=0;
-		for (int i=1; i< this.monNiveau.getProgrammes().size() ; i++)
+		for (int i=1; i< monNiveau.getProgrammes().size() ; i++)
 		{
 				this.spritesProcedures[i].setTexture(Textures.texProcs[i]);
 		}	
@@ -394,7 +396,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	{	
 		int last_select = this.progSelect;
 		
-		for (int i=0; i< this.monNiveau.getProgrammes().size() ; i++)
+		for (int i=0; i< monNiveau.getProgrammes().size() ; i++)
 		{
 			if(this.spritesProcedures[i].getGlobalBounds().contains(pos.x,pos.y) && i!=this.progSelect)
 			{	
@@ -432,6 +434,7 @@ public class Afficher_niveau extends Menu_niveaux{
 
 		
 		this.texteNbCase = new Text();
+		this.texteWin = new Text();
 		
 		this.spritePeinture = new Sprite();
 		this.spritePeinture.setTexture(Textures.texPeinture);
@@ -493,10 +496,10 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.spriteSymboleComp = new Sprite();
 		this.spriteSymboleComp.setTexture(Textures.TexSymboleComp);
 		
-		this.SpriteCases=new Sprite[this.NB_CASE_X][this.NB_CASE_Y][this.NB_CASE_Z];
-		for(int i=0;i<  this.NB_CASE_X;i++)
-			for(int j=0;j<  this.NB_CASE_Y;j++)
-				for(int k=0;k<  this.NB_CASE_Z;k++)
+		this.SpriteCases=new Sprite[NB_CASE_X][NB_CASE_Y][NB_CASE_Z];
+		for(int i=0;i<  NB_CASE_X;i++)
+			for(int j=0;j<  NB_CASE_Y;j++)
+				for(int k=0;k<  NB_CASE_Z;k++)
 				{
 					this.SpriteCases[i][j][k]=new Sprite();
 				}
@@ -506,9 +509,9 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	public void set_textures_cases()
 	{
-		for(int i=0;i<  this.NB_CASE_X;i++)
-			for(int j=0;j<  this.NB_CASE_Y;j++)
-				for(int k=0;k<  this.NB_CASE_Z;k++)
+		for(int i=0;i<  NB_CASE_X;i++)
+			for(int j=0;j<  NB_CASE_Y;j++)
+				for(int k=0;k<  NB_CASE_Z;k++)
 				{
 					
 					this.SpriteCases[i][j][k].setTexture(Textures.TexCaseBase);
@@ -553,10 +556,10 @@ public class Afficher_niveau extends Menu_niveaux{
 		    //Failed to load font
 		    ex.printStackTrace();
 		}
-		
-		this.NB_CASE_X = monNiveau.getTerrain().getLargeur();
-		this.NB_CASE_Y =  monNiveau.getTerrain().getLongueur();
-		this.NB_CASE_Z =  monNiveau.getTerrain().getHauteurMax()+1;
+		this.afficherWin=false;
+		NB_CASE_X = monNiveau.getTerrain().getLargeur();
+		NB_CASE_Y =  monNiveau.getTerrain().getLongueur();
+		NB_CASE_Z=  monNiveau.getTerrain().getHauteurMax()+1;
 
 		this.progSelect=0;
 		this.indexRobot=0;
@@ -656,13 +659,13 @@ public class Afficher_niveau extends Menu_niveaux{
 				this.list_action_possible.add(struct);
 		}
 		
-		if(this.monNiveau.getProgrammes().size()>=2)
+		if(monNiveau.getProgrammes().size()>=2)
 		{
 			StructStringSprite struct = null;
 			struct = this.new StructStringSprite(this.spriteP1, "P1");
 			this.list_action_possible.add(struct);
 		}
-		if(this.monNiveau.getProgrammes().size()>=3)
+		if(monNiveau.getProgrammes().size()>=3)
 		{
 			StructStringSprite struct = null;
 			struct = this.new StructStringSprite(this.spriteP2, "P2");
@@ -678,7 +681,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		for(int k = 0; k< monNiveau.getPersonnages().size();k++)
 		{
-			tabProgramme.add(new List[this.monNiveau.getProgrammes().size()]);
+			tabProgramme.add(new List[monNiveau.getProgrammes().size()]);
 			
 			for (int i = 0; i < this.tabProgramme.get(k).length; i++) {
 				this.tabProgramme.get(k)[i] = new LinkedList();
@@ -718,7 +721,7 @@ public class Afficher_niveau extends Menu_niveaux{
 			this.spriteBoutonPlay.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+5 ,temp.sprite.getPosition().y);
 			this.spriteBoutonReset.setPosition(this.spriteBoutonPlay.getPosition().x + this.spriteBoutonReset.getTexture().getSize().x + 5,this.spriteBoutonPlay.getPosition().y);		
 		}
-		if (this.monNiveau.getPersonnages().size()>1)
+		if (monNiveau.getPersonnages().size()>1)
 		{
 			temp = (StructStringSprite)this.list_action_possible.getFirst();
 			spriteJoueurSuivant.setPosition(temp.sprite.getPosition().x, temp.sprite.getPosition().y+temp.sprite.getTexture().getSize().y+5);
@@ -739,10 +742,10 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void afficher_verrou(){
 		
 		int nb_ligne=0;
-		switch (this.monNiveau.getProgrammes().size()) {
+		switch (monNiveau.getProgrammes().size()) {
 			case 3:
 				nb_ligne=0;
-				for (int l = 10; l > this.monNiveau.getProgrammes().get(2).getNbMaxAction(); l--) {
+				for (int l = 10; l > monNiveau.getProgrammes().get(2).getNbMaxAction(); l--) {
 					
 					if(l%5==0 && l!=0 && l!=10)
 					{
@@ -756,7 +759,7 @@ public class Afficher_niveau extends Menu_niveaux{
 				
 			case 2:
 				nb_ligne=0;
-				for (int k = 10; k > this.monNiveau.getProgrammes().get(1).getNbMaxAction(); k--) {
+				for (int k = 10; k > monNiveau.getProgrammes().get(1).getNbMaxAction(); k--) {
 					
 					if(k%5==0 && k!=0 && k!=10)
 					{
@@ -770,7 +773,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 			default:
 				nb_ligne = 0;
-				for (int j = 20; j > this.monNiveau.getProgrammes().get(0).getNbMaxAction(); j--) {
+				for (int j = 20; j > monNiveau.getProgrammes().get(0).getNbMaxAction(); j--) {
 					if(j%5==0 && j!=0 && j!=20)
 					{
 						nb_ligne++;
@@ -790,7 +793,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	 * Permet d'afficher les proc�dures (le main et les deux autres sous proc�dures)
 	 */
 	public void afficher_procedure(){
-		for(int i=0;i< this.monNiveau.getProgrammes().size(); i++ )
+		for(int i=0;i< monNiveau.getProgrammes().size(); i++ )
 		{
 			if (!this.tabProgramme.get(indexRobot)[i].isEmpty()) {
 				int cpty=0;
@@ -881,48 +884,48 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void inserer_actions(StructStringSprite struct){
 		switch (struct.nom) {
 		case "avancer":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Avancer(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor())   ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Avancer(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor())   ));
 			break;
 		case "gauche":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerGauche(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerGauche(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "droite":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerDroite(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerDroite(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "sauter":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Sauter(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Sauter(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "allumer":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "allumerBattle":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new AllumerBattle(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new AllumerBattle(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "poser":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new PoserBloc(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new PoserBloc(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "suppr":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new RetirerBloc(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new RetirerBloc(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "wash":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Wash(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Wash(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "comp":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new CompareFront(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new CompareFront(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "swap":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Swap(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Swap(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "break":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Break(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Break(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "P1":			
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(1));
-			this.monNiveau.getProgrammes().get(1).setCouleur(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(monNiveau.getProgrammes().get(1));
+			monNiveau.getProgrammes().get(1).setCouleur(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()));
 			break;
 			case "P2":
-			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(this.monNiveau.getProgrammes().get(2));
-			this.monNiveau.getProgrammes().get(2).setCouleur(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(monNiveau.getProgrammes().get(2));
+			monNiveau.getProgrammes().get(2).setCouleur(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()));
 			break;
 		default:
 			break;
@@ -932,6 +935,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	void reset_niveau(Mode_Jeu mj, int selection)
 	{
+		this.afficherWin=false;
 		StructStringSprite temp;
 		monNiveau=mj.getNiveau(selection);
 		
@@ -965,13 +969,13 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	
+	
 	public void supprimer_programme(int ind)
 	{
 		for(int i=0;i<this.tabProgramme.get(ind).length;i++)
 		{
 			this.tabProgramme.get(ind)[i].clear();
-		}
-		
+		}	
 	}
 	
 	void setNextPeinture ()
@@ -990,6 +994,54 @@ public class Afficher_niveau extends Menu_niveaux{
 		}
 		spritePeinture.setColor(this.couleurUtilisee);
 	}
+	
+	private void pause (int p)
+	{
+		try {
+			Thread.sleep(p);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	private void afficher_phrase_fin()
+	{
+		if(monNiveau.getTerrain().getWinner()==0 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
+		{
+			this.afficherWin=true;
+			this.texteWin = new Text("Le joueur 1 a gagné !", police, 40);
+			this.texteWin.setPosition(650,450);
+		}
+		else if(monNiveau.getTerrain().getWinner()==1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
+		{
+			this.afficherWin=true;
+			this.texteWin = new Text("Le joueur 2 a gagné !", police, 40);
+			this.texteWin.setPosition(650,450);
+		}
+		else if(monNiveau.getTerrain().getWinner()==-1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
+		{
+			this.afficherWin=true;
+			this.texteWin = new Text("Match nul !", police, 40);
+			this.texteWin.setPosition(780,450);
+		}
+		else 
+		{
+			this.afficherWin=true;
+			if(monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee())
+			{
+				this.texteWin = new Text("             Félicitations !\nClic pour passer au niveau suivant", police, 40);
+				this.texteWin.setPosition(400,300);
+			}
+			else
+			{
+				this.texteWin = new Text("Dommage tu as perdu", police, 40);
+				this.texteWin.setPosition(650,450);
+			}	
+		}
+	}
+	
 	/**
 	 * Méthode principale de la classe qui permet d'afficher tout un niveau avec les actions et procédures associée
 	 * @param niveauCharger Le niveau que l'on veut afficher
@@ -999,6 +1051,8 @@ public class Afficher_niveau extends Menu_niveaux{
 		int i=0,j=0;
 		boolean unSeulPlay=true;
 		boolean sortie=true;
+		StructStringSprite temp;
+		
 		//Initialisation des textures
 		Textures.initTextures();
 		monNiveau=niveauCharger;
@@ -1006,129 +1060,120 @@ public class Afficher_niveau extends Menu_niveaux{
 		initialiser_anim();
 		set_position_cases();
 		set_pos_robot();
-		
-		 StructStringSprite temp;
-		
 		initActionsPossible();
 		afficher_boutons();
-
-		
 		initProcedures();
 		afficher_carte();
 		
 
 		while (Menu_principal.fenetre.isOpen() && sortie ) 
 		{
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				for (Event event : Menu_principal.fenetre.pollEvents()) {					
-					if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) { 
-						Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
+			pause(10);
+			for (Event event : Menu_principal.fenetre.pollEvents()) {					
+				if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) { 
+					Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
+					
+					//Si clique droit sur un élément du main, on le supprime
+					if (!this.tabProgramme.get(indexRobot)[this.progSelect].isEmpty()) {
+						for (int k = 0; k < this.tabProgramme.get(indexRobot)[this.progSelect].size(); k++) {
+							temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);
+							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
+							{
+								this.tabProgramme.get(indexRobot)[this.progSelect].remove(k);
+							}
+						}
+					}
+					
+					//Ajout des éléments qu'on a cliqué dans le main
+					if (!this.list_action_possible.isEmpty()) {
+						for (int k = 0; k < this.list_action_possible.size(); k++) {
+							temp = (StructStringSprite) this.list_action_possible.get(k);
+							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && !this.spritesProcedures[this.progSelect].getGlobalBounds().contains(pos.x,pos.y))
+							{
+								StructStringSprite struct = new StructStringSprite(temp);
+								//monNiveau.getProgrammes().add(struct);
+								if(this.tabProgramme.get(indexRobot)[this.progSelect].size() < monNiveau.getProgrammes().get(this.progSelect).getNbMaxAction()){
+									this.tabProgramme.get(indexRobot)[this.progSelect].add(struct);
+								}
+							}
+						}
+					}
+					
+					if(this.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
+					{	
+						for (j=0;j<this.tabProgramme.size();j++)
+						{
+							this.indexRobot=j;
+							this.setProgramme(this.tabProgramme.get(indexRobot));
+							try {
+								monNiveau.getPersonnages().get(this.indexRobot).setProgramme(((Niveau)monNiveau.clone()).getProgrammes().get(0));
+								monNiveau.viderListProgrammes();
+							} catch (CloneNotSupportedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}	
+						}
+						Ordonnanceur monOrdonnanceur = new Ordonnanceur (monNiveau.getPersonnages(),this);
+						monOrdonnanceur.run();
+
+						if (!this.tabProgramme.get(indexRobot)[0].isEmpty())
+							unSeulPlay=false;
 						
+						afficher_phrase_fin();				
+					}
+					else if(this.spritesProcedures[this.progSelect].getGlobalBounds().contains(pos.x,pos.y) )
+					{
 						//Si clique droit sur un élément du main, on le supprime
 						if (!this.tabProgramme.get(indexRobot)[this.progSelect].isEmpty()) {
 							for (int k = 0; k < this.tabProgramme.get(indexRobot)[this.progSelect].size(); k++) {
 								temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);
-								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
+								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
 								{
-									this.tabProgramme.get(indexRobot)[this.progSelect].remove(k);
+									temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);	
+									temp.sprite.setColor(this.couleurUtilisee);
 								}
 							}
 						}
-						
-						//Ajout des éléments qu'on a cliqué dans le main
-						if (!this.list_action_possible.isEmpty()) {
-							for (int k = 0; k < this.list_action_possible.size(); k++) {
-								temp = (StructStringSprite) this.list_action_possible.get(k);
-								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && !this.spritesProcedures[this.progSelect].getGlobalBounds().contains(pos.x,pos.y))
-								{
-									StructStringSprite struct = new StructStringSprite(temp);
-									//monNiveau.getProgrammes().add(struct);
-									if(this.tabProgramme.get(indexRobot)[this.progSelect].size() < this.monNiveau.getProgrammes().get(this.progSelect).getNbMaxAction()){
-										this.tabProgramme.get(indexRobot)[this.progSelect].add(struct);
-									}
-								}
-							}
-						}
-						if(this.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
-						{	
-							for (j=0;j<this.tabProgramme.size();j++)
-							{
-								this.indexRobot=j;
-								this.setProgramme(this.tabProgramme.get(indexRobot));
-								try {
-									monNiveau.getPersonnages().get(this.indexRobot).setProgramme(((Niveau)monNiveau.clone()).getProgrammes().get(0));
-									monNiveau.viderListProgrammes();
-								} catch (CloneNotSupportedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								
-							}
+					}
+					else if(this.spritePeinture.getGlobalBounds().contains(pos.x,pos.y) && this.conditionExiste)
+					{
+						this.setNextPeinture();
+					}
+					else if(this.spriteJoueurSuivant.getGlobalBounds().contains(pos.x,pos.y) && monNiveau.getPersonnages().size()>1)
+					{
+						reset_sprite_selectionne();
+						this.indexRobot=1-this.indexRobot;
+					}
+					else if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
+					{
+						sortie=false;
+					}
+					else if(this.spriteBoutonReset.getGlobalBounds().contains(pos.x,pos.y))
+					{			
+						reset_niveau(mj,selection);
+						unSeulPlay=true;
+					}
+					else if(monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee() )
+					{sortie=false;}
+					else
+						sprite_selectionne(pos);
+					
+					afficher_carte();
+				}
 
-							Ordonnanceur monOrdonnanceur = new Ordonnanceur (monNiveau.getPersonnages(),this);
-							monOrdonnanceur.run();
-	
-							if (!this.tabProgramme.get(indexRobot)[0].isEmpty())
-								unSeulPlay=false;
-							if(monNiveau.getTerrain().getMaxLampe() == 	monNiveau.getTerrain().getNbLampeAllumee())
-								sortie=false;
-						}
-						else if(this.spritesProcedures[this.progSelect].getGlobalBounds().contains(pos.x,pos.y) )
-						{
-							//Si clique droit sur un élément du main, on le supprime
-							if (!this.tabProgramme.get(indexRobot)[this.progSelect].isEmpty()) {
-								for (int k = 0; k < this.tabProgramme.get(indexRobot)[this.progSelect].size(); k++) {
-									temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);
-									if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
-									{
-										temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);	
-										temp.sprite.setColor(this.couleurUtilisee);
-									}
-								}
-							}
-						}
-						else if(this.spritePeinture.getGlobalBounds().contains(pos.x,pos.y) && this.conditionExiste)
-						{
-							this.setNextPeinture();
-						}
-						else if(this.spriteJoueurSuivant.getGlobalBounds().contains(pos.x,pos.y) && this.monNiveau.getPersonnages().size()>1)
-						{
-							reset_sprite_selectionne();
-							this.indexRobot=1-this.indexRobot;
-						}
-						else if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
-						{
-							sortie=false;
-						}
-						else if(this.spriteBoutonReset.getGlobalBounds().contains(pos.x,pos.y))
-						{			
-							reset_niveau(mj,selection);
-							unSeulPlay=true;
-						}
-						else
-							sprite_selectionne(pos);
-						
-						afficher_carte();
-					}
-	
-					if (event.type == Event.Type.CLOSED) {
-						Menu_principal.fenetre.close();
-					}
-					 else if (event.type == Event.Type.KEY_PRESSED) {
-					 if (Keyboard.isKeyPressed(Key.ESCAPE))
-						{
-						 	//this.playMusic("Zarnakand.ogg");		//Relancement de la musique de menu.
-							sortie=false;
-						}	
-					}
+				if (event.type == Event.Type.CLOSED) {
+					Menu_principal.fenetre.close();
+				}
+				 else if (event.type == Event.Type.KEY_PRESSED) {
+				 if (Keyboard.isKeyPressed(Key.ESCAPE))
+					{
+					 	//this.playMusic("Zarnakand.ogg");		//Relancement de la musique de menu.
+						sortie=false;
+					}	
 				}
 			}
-		if(selection<mj.getNbNiveaux()-1 && monNiveau.getTerrain().getMaxLampe() == 	monNiveau.getTerrain().getNbLampeAllumee())
+		}
+		if(selection<mj.getNbNiveaux()-1 && monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee())
 		{
 			Afficher_niveau level = new  Afficher_niveau();
 			Niveau copie = mj.getNiveau(selection+1);
