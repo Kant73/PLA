@@ -3,6 +3,7 @@ package Graphique;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2i;
@@ -29,7 +30,7 @@ public class Tuto extends Menu_niveaux{
 			try {
 				this.texTutoTab[i] = new Texture();
 				this.spritesTutoTab[i] = new Sprite();
-				System.out.println("src/Img/"+ nom_niveau + "_lvl1_" + (i+1) + ".png");
+				//System.out.println("src/Img/"+ nom_niveau + "_lvl1_" + (i+1) + ".png");
 				texTutoTab[i].loadFromFile(Paths.get("src/Img/"+ nom_niveau + "_lvl1_" + (i+1) + ".png"));
 				this.spritesTutoTab[i].setTexture(texTutoTab[i]);
 			} catch (IOException e1) {
@@ -67,7 +68,6 @@ public class Tuto extends Menu_niveaux{
 			nb_image = 6;
 			break;
 		case "Tri":
-			
 			break;
 
 		default:
@@ -75,9 +75,31 @@ public class Tuto extends Menu_niveaux{
 		}
 		return nb_image;
 	}
+	
+	
+	private void fondu(int sprite_tuto)
+	{
+		for(int i=0;i<20;i++)
+		{
+			this.spritesTutoTab[sprite_tuto].setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
+			fenetre.draw(this.spritesTutoTab[sprite_tuto]);
+			fenetre.display();
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+		}
+		this.spritesTutoTab[sprite_tuto].setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
+	}
+	
 
 	public void affiche_tuto(String nom_niveau){
 		int nb_img = this.nb_image_par_mode(nom_niveau);
+		if (nb_img == 0) {
+			return;
+		}
 		int tutoCourant = 0;
 		Menu_principal.fenetre.clear();
 		this.init_tuto(nom_niveau, nb_img);
@@ -87,6 +109,7 @@ public class Tuto extends Menu_niveaux{
 		boolean sortie=true;
 		while (Menu_principal.fenetre.isOpen() && sortie  ) 
 		{
+				fondu(tutoCourant);
 				Menu_principal.fenetre.draw(this.spritesTutoTab[tutoCourant]);
 				Menu_principal.fenetre.display();
 				for (Event event : Menu_principal.fenetre.pollEvents()) 
@@ -105,24 +128,7 @@ public class Tuto extends Menu_niveaux{
 							if (tutoCourant == nb_img) {
 								sortie=false;
 							}
-							/*
-							hover(pos);
-							
-							if(selection !=-1)
-							{
-								fondu();
-								Afficher_niveau level = new  Afficher_niveau();
-								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la r�solution du niveau.
-								Niveau copie = mj.getNiveau(selection);
-								level.afficher_niveau(copie, mj,selection);
-								fondu();
-								fenetre.draw(Menu_principal.spriteFond);
-								reinit_textures();
-								this.afficher_boutons();
-								fenetre.display();
-								
-							}
-							*/
+			
 							if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
 							{
 								sortie=false;
@@ -136,20 +142,8 @@ public class Tuto extends Menu_niveaux{
 						{
 							sortie=false;
 						}
-						
 					}
-					else if (event.type == Event.Type.MOUSE_MOVED) 
-						{
-							/*
-							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							hover(pos);
-							
-							fenetre.draw(Menu_principal.spriteFond);
-							this.afficher_boutons();
-							Menu_principal.fenetre.display();
-							*/
-						}
-					
+
 					else if (event.type == Event.Type.CLOSED) {
 						Menu_principal.fenetre.close();
 					}
