@@ -940,6 +940,12 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		this.set_textures_cases();
 		set_pos_robot();
+		
+		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
+		{
+			this.ancX[l]=monNiveau.getPersonnages().get(l).getPositionX();
+			this.ancY[l]=monNiveau.getPersonnages().get(l).getPositionY();
+		}
 	}
 	
 	void setProgramme(List[] liste)
@@ -1090,7 +1096,7 @@ public class Afficher_niveau extends Menu_niveaux{
 							sortie=false;
 						}
 						else if(this.spriteBoutonReset.getGlobalBounds().contains(pos.x,pos.y))
-						{
+						{			
 							reset_niveau(mj,selection);
 							unSeulPlay=true;
 						}
