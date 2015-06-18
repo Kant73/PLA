@@ -109,7 +109,7 @@ public class Menu_niveaux extends Menu_modes{
 	}
 	
 	
-	private void afficher_boutons()
+	protected void afficher_boutons()
 	{
 		monTexte = new Text();
 		Text monTexte = new Text("", police, 50);
@@ -152,7 +152,7 @@ public class Menu_niveaux extends Menu_modes{
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
 	}
 	
-	private void reinit_textures()
+	protected void reinit_textures()
 	{
 		for (int i=0; i< this.nbBoutons; i++)
 		{
@@ -208,6 +208,11 @@ public class Menu_niveaux extends Menu_modes{
 								fondu();
 								Afficher_niveau level = new  Afficher_niveau();
 								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la r�solution du niveau.
+								if (selection == 0) {
+									Tuto tuto = new Tuto();
+									//System.out.println("mj.toString(): " + mj.toString());
+									tuto.affiche_tuto(mj.toString());
+								}
 								Niveau copie = mj.getNiveau(selection);
 								level.afficher_niveau(copie, mj,selection);
 								fondu();

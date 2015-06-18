@@ -10,6 +10,7 @@ import LightBot.parser.Parser;
 public class Mode_Jeu {	
 
 	private ArrayList<String> noms; 
+	private String modeStr;
 	
 	public static void main(String[] pArgs){
 		new Mode_Jeu(NomMode.Basic);
@@ -17,6 +18,7 @@ public class Mode_Jeu {
 	
 	public Mode_Jeu(NomMode mode){
 		this.noms=new ArrayList<String>();
+		this.modeStr=mode.toString();
 		this.setNoms(mode);
 	}	
 	
@@ -41,6 +43,10 @@ public class Mode_Jeu {
 		    }
 		    this.noms.sort(String.CASE_INSENSITIVE_ORDER);
 		}
+	}
+	
+	public String toString(){
+		return this.modeStr;
 	}
 		
 }
