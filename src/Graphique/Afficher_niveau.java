@@ -325,7 +325,6 @@ public class Afficher_niveau extends Menu_niveaux{
 				  )
 			{
 			
-
 				this.animInfos.get(index).setNum(this.animInfos.get(index).getNum()+1);
 				
 				if(this.animInfos.get(index).getNum()>=robots.get(index)[orientation].length)
@@ -1009,19 +1008,19 @@ public class Afficher_niveau extends Menu_niveaux{
 		{
 			this.afficherWin=true;
 			this.texteWin = new Text("Le joueur 1 a gagne !", police, 40);
-			this.texteWin.setPosition(650,450);
+			this.texteWin.setPosition(650,150);
 		}
 		else if(monNiveau.getTerrain().getWinner()==1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
 		{
 			this.afficherWin=true;
 			this.texteWin = new Text("Le joueur 2 a gagne !", police, 40);
-			this.texteWin.setPosition(650,450);
+			this.texteWin.setPosition(650,150);
 		}
 		else if(monNiveau.getTerrain().getWinner()==-1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
 		{
 			this.afficherWin=true;
 			this.texteWin = new Text("Match nul !", police, 40);
-			this.texteWin.setPosition(780,450);
+			this.texteWin.setPosition(780,150);
 		}
 		else 
 		{
@@ -1029,12 +1028,12 @@ public class Afficher_niveau extends Menu_niveaux{
 			if(monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee())
 			{
 				this.texteWin = new Text("             Felicitations !\nClic pour passer au niveau suivant", police, 40);
-				this.texteWin.setPosition(400,300);
+				this.texteWin.setPosition(400,150);
 			}
 			else
 			{
 				this.texteWin = new Text("Algorithme termine", police, 40);
-				this.texteWin.setPosition(650,450);
+				this.texteWin.setPosition(650,150);
 			}	
 		}
 	}
