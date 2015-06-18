@@ -20,7 +20,6 @@ public class AllumerBattle extends Actions {
 	public void agir(){
 		Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()];
 		Couleur color = this.perso.getCouleur();
-		System.out.println(C.getColor().toString());
 		if (C.getColor() == color){
 			C.setColor(Couleur.Bleu);
 		}
