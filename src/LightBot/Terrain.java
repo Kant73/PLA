@@ -97,6 +97,27 @@ public class Terrain {
 		
 	}
 	
+	
+	/**
+	 * Renvoit si le rose gagne on renvoit 0 sinon 1
+	 */
+	public int getWinner(){
+		int cptr = 0,cptv = 0;
+		for(int i=0;i<largeur;i++){
+			for(int j=0;j<longueur;i++){
+				if(ensembleDeCase[i][j].getColor() == Couleur.Rose){
+					cptr++;
+				}
+				else if (ensembleDeCase[i][j].getColor() == Couleur.Violet){
+					cptv++;
+				}
+			}
+		}
+		if (cptr>cptv)
+			return 0;
+		else return 1;
+	}
+	
 /********************************************* MUTATEURS *********************************************/
 
 	public void setLargeur(int pLargeur) {
