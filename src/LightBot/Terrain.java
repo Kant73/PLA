@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import LightBot.cases.Case;
 import LightBot.cases.Clonage;
 import LightBot.cases.Condition;
+import LightBot.cases.Couleur;
 import LightBot.cases.Lampe;
 import LightBot.cases.Normal;
 import LightBot.cases.Transparente;
