@@ -59,12 +59,12 @@
 	</programmes>
 	<actions>
 		<action name="Avancer" p="Robot1" />
-		<action name="Allumer" p="Robot1" />
+		<action name="AllumerBattle" p="Robot1" />
 		<action name="Sauter" p="Robot1" />
 		<action name="TournerGauche" p="Robot1" />
 		<action name="TournerDroite" p="Robot1" />
 		<action name="Avancer" p="Robot2" />
-		<action name="Allumer" p="Robot2" />
+		<action name="AllumerBattle" p="Robot2" />
 		<action name="Sauter" p="Robot2" />
 		<action name="TournerGauche" p="Robot2" />
 		<action name="TournerDroite" p="Robot2" />
