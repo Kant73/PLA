@@ -89,8 +89,9 @@ public class Afficher_niveau extends Menu_niveaux{
 	public int indexRobot;
 	public boolean conditionExiste;
 	
+	
 	public LinkedList list_action_possible;
-	public List[] tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
+	public ArrayList <List[]> tabProgramme;	//Tableau de liste de sprite (qui représente les actions du main et des proc)
 
 	public float reScale,reScaleRobot;
 	int progSelect;
@@ -427,7 +428,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		this.spriteJoueurSuivant  = new Sprite();
 		this.spriteJoueurSuivant.setTexture(Textures.texSuivant);
-		this.spriteJoueurSuivant.setPosition(500, 130);
+
 		
 		this.texteNbCase = new Text();
 		
@@ -666,17 +667,21 @@ public class Afficher_niveau extends Menu_niveaux{
 			struct = this.new StructStringSprite(this.spriteP2, "P2");
 			this.list_action_possible.add(struct);
 		}
-		
-		
 	}
 
 	/**
 	 * Permet d'initialiser toutes les procédures (dont le main)
 	 */
 	public void initProcedures(){
-		this.tabProgramme = new List[this.monNiveau.getProgrammes().size()];
-		for (int i = 0; i < this.tabProgramme.length; i++) {
-			this.tabProgramme[i] = new LinkedList();
+		this.tabProgramme = new ArrayList <List[]>();
+		
+		for(int k = 0; k< monNiveau.getPersonnages().size();k++)
+		{
+			tabProgramme.add(new List[this.monNiveau.getProgrammes().size()]);
+			
+			for (int i = 0; i < this.tabProgramme.get(k).length; i++) {
+				this.tabProgramme.get(k)[i] = new LinkedList();
+			}
 		}
 	}
 	
@@ -684,7 +689,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 		this.texteNbCase = new Text(""+monNiveau.getTerrain().getReserveBloc(), police, 40);
 		this.texteNbCase.setColor(Color.YELLOW);
-		
 		
 		if (!this.list_action_possible.isEmpty()) {
 			for (int k = 0; k < this.list_action_possible.size(); k++) {
@@ -714,13 +718,16 @@ public class Afficher_niveau extends Menu_niveaux{
 			this.spriteBoutonReset.setPosition(this.spriteBoutonPlay.getPosition().x + this.spriteBoutonReset.getTexture().getSize().x + 5,this.spriteBoutonPlay.getPosition().y);		
 		}
 		if (this.monNiveau.getPersonnages().size()>1)
+		{
+			temp = (StructStringSprite)this.list_action_possible.getFirst();
+			spriteJoueurSuivant.setPosition(temp.sprite.getPosition().x, temp.sprite.getPosition().y+temp.sprite.getTexture().getSize().y+5);
+			spriteJoueurSuivant.setColor(this.couleur_case_vers_couleur_Graphique(monNiveau.getPersonnages().get(this.indexRobot).getCouleur()));
 			Menu_principal.fenetre.draw(this.spriteJoueurSuivant);
+		}
 		
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
 		Menu_principal.fenetre.draw(this.spriteBoutonPlay);
 		Menu_principal.fenetre.draw(this.spriteBoutonReset);
-
-			
 	}
 	
 	
@@ -784,17 +791,17 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void afficher_procedure(){
 		for(int i=0;i< this.monNiveau.getProgrammes().size(); i++ )
 		{
-			if (!this.tabProgramme[i].isEmpty()) {
+			if (!this.tabProgramme.get(indexRobot)[i].isEmpty()) {
 				int cpty=0;
 				
-				for (int k = 0; k < this.tabProgramme[i].size(); k++) {
+				for (int k = 0; k < this.tabProgramme.get(indexRobot)[i].size(); k++) {
 					
 					if(k%5==0 && k!=0)
 					{
 						cpty++;
 					}
 						
-					StructStringSprite temp = (StructStringSprite) this.tabProgramme[i].get(k);
+					StructStringSprite temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[i].get(k);
 					temp.sprite.setPosition(this.spritesProcedures[i].getPosition().x+5+(k%5)*65
 										   ,this.spritesProcedures[i].getPosition().y+5+cpty*65);
 					Menu_principal.fenetre.draw(temp.sprite);
@@ -984,7 +991,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		set_position_cases();
 		set_pos_robot();
 		
-		 List[] tabCopie = new List[this.monNiveau.getProgrammes().size()];
 		 StructStringSprite temp;
 		
 		initActionsPossible();
@@ -1008,12 +1014,12 @@ public class Afficher_niveau extends Menu_niveaux{
 						Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
 						
 						//Si clique droit sur un élément du main, on le supprime
-						if (!this.tabProgramme[this.progSelect].isEmpty()) {
-							for (int k = 0; k < this.tabProgramme[this.progSelect].size(); k++) {
-								temp = (StructStringSprite) this.tabProgramme[this.progSelect].get(k);
+						if (!this.tabProgramme.get(indexRobot)[this.progSelect].isEmpty()) {
+							for (int k = 0; k < this.tabProgramme.get(indexRobot)[this.progSelect].size(); k++) {
+								temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);
 								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
 								{
-									this.tabProgramme[this.progSelect].remove(k);
+									this.tabProgramme.get(indexRobot)[this.progSelect].remove(k);
 								}
 							}
 						}
@@ -1026,34 +1032,32 @@ public class Afficher_niveau extends Menu_niveaux{
 								{
 									StructStringSprite struct = new StructStringSprite(temp);
 									//monNiveau.getProgrammes().add(struct);
-									if(this.tabProgramme[this.progSelect].size() < this.monNiveau.getProgrammes().get(this.progSelect).getNbMaxAction()){
-										this.tabProgramme[this.progSelect].add(struct);
+									if(this.tabProgramme.get(indexRobot)[this.progSelect].size() < this.monNiveau.getProgrammes().get(this.progSelect).getNbMaxAction()){
+										this.tabProgramme.get(indexRobot)[this.progSelect].add(struct);
 									}
 								}
 							}
 						}
 						if(this.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
 						{	
-							if(monNiveau.getPersonnages().size()>1)
+							for (j=0;j<this.tabProgramme.size();j++)
 							{
-								this.indexRobot=0;
-								this.setProgramme(tabCopie);
-								try{
+								this.indexRobot=j;
+								this.setProgramme(this.tabProgramme.get(indexRobot));
+								try {
 									monNiveau.getPersonnages().get(this.indexRobot).setProgramme(((Niveau)monNiveau.clone()).getProgrammes().get(0));
 									monNiveau.viderListProgrammes();
-								} catch (CloneNotSupportedException e) {}
-					
-								this.indexRobot=1;
-								this.setProgramme(this.tabProgramme);
-							}
-							else
-								this.setProgramme(this.tabProgramme);
-							monNiveau.getPersonnages().get(this.indexRobot).setProgramme(monNiveau.getProgrammes().get(0));
+								} catch (CloneNotSupportedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 								
+							}
+
 							Ordonnanceur monOrdonnanceur = new Ordonnanceur (monNiveau.getPersonnages(),this);
 							monOrdonnanceur.run();
 	
-							if (!this.tabProgramme[0].isEmpty())
+							if (!this.tabProgramme.get(indexRobot)[0].isEmpty())
 								unSeulPlay=false;
 							if(monNiveau.getTerrain().getMaxLampe() == 	monNiveau.getTerrain().getNbLampeAllumee())
 								sortie=false;
@@ -1061,12 +1065,12 @@ public class Afficher_niveau extends Menu_niveaux{
 						else if(this.spritesProcedures[this.progSelect].getGlobalBounds().contains(pos.x,pos.y) )
 						{
 							//Si clique droit sur un élément du main, on le supprime
-							if (!this.tabProgramme[this.progSelect].isEmpty()) {
-								for (int k = 0; k < this.tabProgramme[this.progSelect].size(); k++) {
-									temp = (StructStringSprite) this.tabProgramme[this.progSelect].get(k);
+							if (!this.tabProgramme.get(indexRobot)[this.progSelect].isEmpty()) {
+								for (int k = 0; k < this.tabProgramme.get(indexRobot)[this.progSelect].size(); k++) {
+									temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);
 									if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
 									{
-										temp = (StructStringSprite) this.tabProgramme[this.progSelect].get(k);	
+										temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);	
 										temp.sprite.setColor(this.couleurUtilisee);
 									}
 								}
@@ -1078,23 +1082,8 @@ public class Afficher_niveau extends Menu_niveaux{
 						}
 						else if(this.spriteJoueurSuivant.getGlobalBounds().contains(pos.x,pos.y) && this.monNiveau.getPersonnages().size()>1)
 						{
-							spriteJoueurSuivant.setColor(this.couleur_case_vers_couleur_Graphique(monNiveau.getPersonnages().get(this.indexRobot).getCouleur()));
 							reset_sprite_selectionne();
 							this.indexRobot=1-this.indexRobot;
-							
-							for (i = 0; i < tabCopie.length; i++) {
-								tabCopie[i] = new LinkedList();
-								for(int l=0;l<this.tabProgramme[i].size();l++)
-								{
-									tabCopie[i].add(this.tabProgramme[i].get(l));
-								}
-							}
-							
-							for(int l=0;l<this.tabProgramme.length;l++)
-							{
-								this.tabProgramme[l].clear();
-							}	
-
 						}
 						else if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
 						{
