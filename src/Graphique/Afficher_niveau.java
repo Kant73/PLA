@@ -88,7 +88,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		
 	private void initialiser_anim()
 	{
-		
 		robots=new LinkedList<Sprite[][]>();
 		int y0=0,tailleX=128,tailleY=118;
 		
@@ -184,14 +183,9 @@ public class Afficher_niveau extends Menu_niveaux{
 						if((i==monNiveau.getPersonnages().get(l).getPositionX() && j == monNiveau.getPersonnages().get(l).getPositionY() || i==this.ancX[l] && j == this.ancY[l] ) 
 								&& etageActuel == monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique())
 						{
-							 orientation = monNiveau.getPersonnages().get(l).getOrientationInt();
+							 	orientation = monNiveau.getPersonnages().get(l).getOrientationInt();
 							 
-							robots.get(l)[orientation][this.numAnim[l]].setPosition(robots.get(l)[orientation][0].getPosition());
-							
-							if(monNiveau.getPersonnages().get(l).isMort())
-								robots.get(l)[orientation][this.numAnim[l]].setColor(Color.TRANSPARENT);
-							else 
-								robots.get(l)[orientation][this.numAnim[l]].setColor(couleur_case_vers_couleur_Graphique(monNiveau.getPersonnages().get(l).getCouleur()));
+							 	robots.get(l)[orientation][this.numAnim[l]].setPosition(robots.get(l)[orientation][0].getPosition());
 							
 								Menu_principal.fenetre.draw(robots.get(l)[orientation][this.numAnim[l]]);
 								
@@ -202,6 +196,28 @@ public class Afficher_niveau extends Menu_niveaux{
 		Menu_principal.fenetre.display();
 	}
 	
+	
+	public void animMort(int index)
+	{
+		if(monNiveau.getPersonnages().get(index).isMort())
+			
+		for(int i=255;i>0;i-=10)
+		{
+			spriteFond.setColor(new Color(spriteFond.getColor(), 3*i));
+			robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]]
+					.setColor(new Color (robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]].getColor(),i));
+			
+			afficher_carte();
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.numAnim[index]].setColor(Color.TRANSPARENT);
+	}
 	
 	/**
 	 * Permet de changer la position du robot
@@ -226,8 +242,7 @@ public class Afficher_niveau extends Menu_niveaux{
 					,this.SpriteCases[i][j][h].getPosition().y 
 					+this.reScale*this.SpriteCases[i][j][h].getTexture().getSize().y/3 
 					- this.reScaleRobot*robots.get(l)[orientation][0].getLocalBounds().height
-					+ 10);	
-			
+					+ 10);
 		}		
 	}
 	

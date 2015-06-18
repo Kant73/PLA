@@ -91,10 +91,6 @@ public class Ordonnanceur {
 						{
 							this.affichage.avancer(index);
 						}
-						/*else if((Actions)obj instanceof Clonage)
-						{
-							this.affichage.avancer(index);
-						}*/
 						else if((Actions)obj instanceof Sauter)
 						{
 							this.affichage.sauter(index);
@@ -103,6 +99,10 @@ public class Ordonnanceur {
 						{
 							this.affichage.set_position_cases();
 						}
+						
+						if(this.listPers.get(index).isMort())
+							this.affichage.animMort( index );
+						
 						this.affichage.ancX[index]=this.listPers.get(index).getPositionX();
 						this.affichage.ancY[index]=this.listPers.get(index).getPositionY();
 						this.affichage.set_pos_robot();
