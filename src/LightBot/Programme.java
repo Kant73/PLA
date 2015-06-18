@@ -62,7 +62,12 @@ public class Programme implements Cloneable{
 		prg.listActions=new ArrayList<Object>();
 		for(Object obj:this.listActions){
 			if(obj instanceof Actions)prg.listActions.add(((Actions) obj).clone());
-			else if(obj instanceof Programme)prg.listActions.add(((Programme) obj).clone());
+			else if(obj instanceof Programme){				
+				if(((Programme)obj).getNom().equals(prg.getNom()))
+					prg.listActions.add(prg);
+				else
+					prg.listActions.add(((Programme)obj).clone());
+			}
 		}
 		return prg;
 	}
@@ -99,7 +104,7 @@ public class Programme implements Cloneable{
 		}
 	}
 	
-	public String toString(){
+	/*public String toString(){
 		String str="";
 		str+=this.nom+" : ";
 		for(Object obj:this.listActions){
@@ -107,7 +112,7 @@ public class Programme implements Cloneable{
 			else if(obj instanceof Programme)str+=((Programme)obj).getNom()+" ";			
 		}		
 		return str;
-	}
+	}*/
 	
 	public String getNom(){
 		return this.nom;
@@ -127,7 +132,7 @@ public class Programme implements Cloneable{
 	}
 	
 	public void setCouleur(Couleur c){
-		if(c==Couleur.Rose && c==Couleur.Violet)
+		if(c==Couleur.Rose || c==Couleur.Violet || c==Couleur.Blanc)
 			this.couleurCondition=c;
 	}
 	

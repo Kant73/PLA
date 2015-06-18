@@ -114,7 +114,6 @@ public class Ordonnanceur {
 							try {
 								Thread.sleep(300);
 							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
@@ -125,7 +124,7 @@ public class Ordonnanceur {
 						System.out.println(this.pers.getOrientation());*/
 					}
 				}
-				else if(obj instanceof Programme){
+				else if(obj instanceof Programme){					
 					if(((Programme)obj).isMatchCouleur(this.listPers.get(index).getCouleur()))
 						this.setNewIterator(((Programme)obj).getActions().iterator(), index);
 				}
