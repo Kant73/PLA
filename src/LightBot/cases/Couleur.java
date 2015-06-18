@@ -22,4 +22,30 @@ public enum Couleur{
 		return this.codeCouleur;
 	}
 	
+	public Couleur fromString(String c){
+		switch(c){
+			case "Rose" : 
+				return Rose;
+			case "Bleu" : 
+				return Bleu;
+			case "Jaune" : 
+				return Jaune;
+			case "Blanc" : 
+				return Blanc;
+			case "Vert" : 
+				return Vert;
+			case "Orange" : 
+				return Orange;
+			case "Noir" : 
+				return Noir;
+			case "Violet" : 
+				return Violet;
+			case "Incolore" : 
+				return Incolore;
+			case "Rouge" : 
+				return Rouge;
+			default : 
+				return Blanc;
+		}
+	}
 }
