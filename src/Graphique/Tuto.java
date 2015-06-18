@@ -92,6 +92,7 @@ public class Tuto extends Menu_niveaux{
 				e.printStackTrace();
 			}
 			*/
+			
 		}
 		this.spritesTutoTab[sprite_tuto].setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
 	}
@@ -102,69 +103,64 @@ public class Tuto extends Menu_niveaux{
 		if (nb_img == 0) {
 			return;
 		}
+		
 		int tutoCourant = 0;
+		boolean temp = true;
 		Menu_principal.fenetre.clear();
 		this.init_tuto(nom_niveau, nb_img);
 		
 		Menu_principal.fenetre.display();
 		
 		boolean sortie=true;
-		while (Menu_principal.fenetre.isOpen() && sortie  ) 
+		while (Menu_principal.fenetre.isOpen() && sortie) 
 		{
+			if (temp) {
 				fondu(tutoCourant);
-				Menu_principal.fenetre.draw(this.spritesTutoTab[tutoCourant]);
-				Menu_principal.fenetre.display();
-				for (Event event : Menu_principal.fenetre.pollEvents()) 
-				{					
-					if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) 
-					{ 
-						if(event.asMouseButtonEvent().button == Button.LEFT)
-						{
-							
-							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							
-							if (this.spritesTutoTab[tutoCourant].getGlobalBounds().contains(pos.x, pos.y)) {
-								fondu(tutoCourant);
-								Menu_principal.fenetre.draw(this.spritesTutoTab[tutoCourant]);
-								Menu_principal.fenetre.display();
-								tutoCourant++;
-								
-							}
-							
-							if (tutoCourant == nb_img) {
-								sortie=false;
-							}
+				temp = false;
+			}
 			
-							if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
-							{
-								sortie=false;
-							}
-								
-						}
-					}
-					else if (event.type == Event.Type.KEY_PRESSED) 
-					{ 
-						if (Keyboard.isKeyPressed(Key.ESCAPE))
-						{
-							sortie=false;
-						}
-					}
-
-					else if (event.type == Event.Type.CLOSED) {
-						Menu_principal.fenetre.close();
+			
+			for (Event event : Menu_principal.fenetre.pollEvents()) 
+			{	
+				if (event.type == Event.Type.KEY_PRESSED) 
+				{ 
+					if (Keyboard.isKeyPressed(Key.ESCAPE))
+					{
+						sortie=false;
 					}
 				}
-				/*
-				try {
-					Thread.sleep(15);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-				*/		
+
+				else if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) 
+				{ 
+					if(event.asMouseButtonEvent().button == Button.LEFT)
+					{
+						Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
+						
+						if (this.spritesTutoTab[tutoCourant].getGlobalBounds().contains(pos.x, pos.y)) {
+							tutoCourant++;
+							temp = true;
+						}
+						
+						if (tutoCourant == nb_img) {
+							sortie=false;
+						}
+							
+					}
+				}
+
+				else if (event.type == Event.Type.CLOSED) {
+					Menu_principal.fenetre.close();
+				}
+			}
+			
+			try {
+				Thread.sleep(15);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		
 		}
-		
-		
-		
+
 	}
 }
