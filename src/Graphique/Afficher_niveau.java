@@ -104,8 +104,12 @@ public class Afficher_niveau extends Menu_niveaux{
 		robots=new LinkedList<Sprite[][]>();
 		int y0=0,tailleX=128,tailleY=118;
 		
+		this.animInfos = new ArrayList<Animation>();
+		
 		for(int n=0;n<monNiveau.getPersonnages().size();n++)
 		{
+			this.animInfos.add(new Animation(monNiveau.getPersonnages().get(n).getPositionX(),monNiveau.getPersonnages().get(n).getPositionY(),0) ) ;
+			
 			this.spriteAnim = new Sprite[4][26];
 			for(int i=0;i<this.spriteAnim.length;i++)
 			{
@@ -568,14 +572,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		couleurRose = new Color(250, 0, 124);
 		couleurViolet = new Color(106, 0, 250);
 		this.conditionExiste=monNiveau.getTerrain().containConditionCase();
-
-		
-		this.animInfos = new ArrayList<Animation>();
-		
-		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
-		{
-			this.animInfos.add(new Animation(monNiveau.getPersonnages().get(l).getPositionX(),monNiveau.getPersonnages().get(l).getPositionY(),0) ) ;
-		}
 		
 		this.reScale=Scale;
 		this.reScaleRobot=Scale;
