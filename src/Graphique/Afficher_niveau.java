@@ -672,7 +672,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	public void afficher_boutons(){
 		
-		this.texteNbCase = new Text(""+monNiveau.getTerrain().getReserveBloc(), police, 50);
+		this.texteNbCase = new Text(""+monNiveau.getTerrain().getReserveBloc(), police, 40);
 		this.texteNbCase.setColor(Color.YELLOW);
 		
 		
@@ -684,7 +684,7 @@ public class Afficher_niveau extends Menu_niveaux{
 				if(temp.nom=="poser")
 				{
 					this.texteNbCase.setPosition(temp.sprite.getPosition());
-					this.texteNbCase.move(0,-temp.sprite.getTexture().getSize().y);
+					this.texteNbCase.move(temp.sprite.getTexture().getSize().x/2-this.texteNbCase.getCharacterSize()/4,temp.sprite.getTexture().getSize().y-5);
 					Menu_principal.fenetre.draw(texteNbCase);
 				}
 			}
