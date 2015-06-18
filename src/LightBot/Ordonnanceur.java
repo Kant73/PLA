@@ -64,11 +64,12 @@ public class Ordonnanceur {
 		try{
 			if(itActions.hasNext() ){
 				Object obj=itActions.next();
+				
 				if(obj instanceof Actions){
 					int nbLampeAllumee=((Actions)obj).getPersonnage().getTerrain().getNbLampeAllumee();
-					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() 
-							|| ((Actions)obj).getPersonnage().isMort() 
-							|| cptActions > ((Actions)obj).getPersonnage().getTerrain().getNbActionsPossible()){
+					if( nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() ||
+						((Actions)obj).getPersonnage().isMort() ||
+						cptActions > ((Actions)obj).getPersonnage().getTerrain().getNbActionsPossible()){
 							this.listProgs.get(index).reset();
 							throw new ArrayIndexOutOfBoundsException();
 						}
@@ -79,25 +80,18 @@ public class Ordonnanceur {
 						
 						((Actions)obj).agir();
 						cptActions++;
-						if((Actions)obj instanceof Avancer)
-						{
-							this.affichage.avancer(index);
-						}
-						else if((Actions)obj instanceof Sauter)
-						{
-							this.affichage.sauter(index);
-						}
-						else if((Actions)obj instanceof PoserBloc || (Actions)obj instanceof RetirerBloc || (Actions)obj instanceof Swap)
-						{
-							this.affichage.set_position_cases();
-						}
 						
-						if(this.listPers.get(index).isMort())
-						{
+						if((Actions)obj instanceof Avancer)
+							this.affichage.avancer(index);
+						else if((Actions)obj instanceof Sauter)
+							this.affichage.sauter(index);
+						else if((Actions)obj instanceof PoserBloc || (Actions)obj instanceof RetirerBloc || (Actions)obj instanceof Swap)
+							this.affichage.set_position_cases();
+						
+						if(this.listPers.get(index).isMort()){
 							this.affichage.animMort( index );
 							this.affichage.supprimer_programme(index);
-						}
-							
+						}							
 						
 						this.affichage.animInfos.get(index).setX(this.listPers.get(index).getPositionX());
 						this.affichage.animInfos.get(index).setY(this.listPers.get(index).getPositionY());
@@ -105,13 +99,10 @@ public class Ordonnanceur {
 						this.affichage.set_textures_cases();
 						this.affichage.afficher_carte();
 						
-						if((Actions)obj instanceof Allumer || (Actions)obj instanceof PoserBloc || (Actions)obj instanceof RetirerBloc)
-						{
+						if((Actions)obj instanceof Allumer || (Actions)obj instanceof PoserBloc || (Actions)obj instanceof RetirerBloc){
 							try {
 								Thread.sleep(300);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
+							} catch (InterruptedException e) {}
 						}
 						
 						/*
@@ -119,8 +110,7 @@ public class Ordonnanceur {
 						System.out.println(this.pers.getPositionX()+" "+this.pers.getPositionY());
 						System.out.println(this.pers.getOrientation());*/
 					}
-				}
-				else if(obj instanceof Programme){					
+				}else if(obj instanceof Programme){					
 					if(((Programme)obj).isMatchCouleur(this.listPers.get(index).getCouleur()))
 						this.setNewIterator(((Programme)obj).getIterator(), index);
 				}
