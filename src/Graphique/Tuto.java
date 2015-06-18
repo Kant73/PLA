@@ -51,16 +51,16 @@ public class Tuto extends Menu_niveaux{
 			nb_image = 7;
 			break;
 		case "Procedure":
-			nb_image = 3;
+			nb_image = 4;
 			break;
 		case "Loop":
-			nb_image = 1;
+			nb_image = 5;
 			break;
 		case "Condition":
 			nb_image = 5;
 			break;
 		case "Pointeur":
-			nb_image = 6;
+			nb_image = 5;
 			break;
 		case "Memory":
 			nb_image = 8;
@@ -72,8 +72,8 @@ public class Tuto extends Menu_niveaux{
 			nb_image = 6;
 			break;
 		case "Tri":
+			nb_image = 7;
 			break;
-
 		default:
 			break;
 		}
