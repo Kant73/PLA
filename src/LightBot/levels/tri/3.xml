@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <niveau>
-	<terrain largeur="4" longueur="3" >
+	<terrain largeur="6" longueur="3" >
 		<nbActionsPossible>100</nbActionsPossible>
 		<ensembleDeCase>			
-			<case type="PointeurTri"	x="0" y="2" h="1" xp="3" yp="2" hp="1" xl="0" yl="0" hl="1"/>
-			<case type="Transparente"	x="1" y="2" h="2" />
-			<case type="Transparente"	x="2" y="2" h="1" />
+			<case type="PointeurTri"	x="0" y="2" h="1" xp="5" yp="2" hp="1" xl="0" yl="0" hl="1"/>
+			<case type="Transparente"	x="1" y="2" h="4" />
+			<case type="Transparente"	x="2" y="2" h="3" />
+			<case type="Transparente"	x="3" y="2" h="1" />
+			<case type="Transparente"	x="4" y="2" h="2" />
 		</ensembleDeCase>
 	</terrain>
 	<personnes>
@@ -13,6 +15,8 @@
 	</personnes>
 	<programmes>
 		<programme name="main" t="20" />
+		<programme name="proc1" t="10" />
+		<programme name="proc2" t="10" />
 	</programmes>
 	<actions>
 		<action name="Avancer" 		p="Robot" />
