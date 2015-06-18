@@ -1,13 +1,17 @@
 package Graphique;
 
 
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.Font;
 import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
+import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -20,6 +24,7 @@ import LightBot.Mode_Jeu;
 import LightBot.Niveau;
 import LightBot.Ordonnanceur;
 import LightBot.actions.Allumer;
+import LightBot.actions.AllumerBattle;
 import LightBot.actions.Avancer;
 import LightBot.actions.Break;
 import LightBot.actions.CompareFront;
@@ -43,12 +48,16 @@ public class Afficher_niveau extends Menu_niveaux{
 	 
 	static Niveau monNiveau;
 	
+	private Font police;
+	private Text texteNbCase;
+	
 	static int NB_CASE_X ;
 	static int NB_CASE_Y ;
 	static int NB_CASE_Z ;
 	static Color couleurRose;
 	static Color couleurViolet;
 	static Color couleurUtilisee;
+	
 
 	public Sprite[][][] SpriteCases;
 	public Sprite [] spritesProcedures;
@@ -410,8 +419,10 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.spriteJoueurSuivant.setTexture(Textures.texSuivant);
 		this.spriteJoueurSuivant.setPosition(500, 130);
 		
-		spritePeinture = new Sprite();
-		spritePeinture.setTexture(Textures.texPeinture);
+		this.texteNbCase = new Text();
+		
+		this.spritePeinture = new Sprite();
+		this.spritePeinture.setTexture(Textures.texPeinture);
 		
 		this.spriteBoutonPlay=new Sprite();
 		this.spriteBoutonPlay.setTexture(Textures.TexBoutonPlay);
@@ -496,9 +507,9 @@ public class Afficher_niveau extends Menu_niveaux{
 							this.SpriteCases[i][j][k].setTexture(Textures.TexCaseLumEteinte); 
 						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Jaune)
 							this.SpriteCases[i][j][k].setTexture(Textures.TexCaseLumAllum);
-						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof ConditionViolet  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Violet)
+						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Violet)
 							this.SpriteCases[i][j][k].setTexture(Textures.TexCaseViolet);
-						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof ConditionRose  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Rose)
+						else if( monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Rose)
 							this.SpriteCases[i][j][k].setTexture(Textures.TexCaseRose);
 						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Pointeur  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Vert && ((Pointeur) monNiveau.getTerrain().getEnsembleDeCase()[i][j]).estPointee())
 							this.SpriteCases[i][j][k].setTexture(Textures.TexCasePointee);
@@ -522,6 +533,15 @@ public class Afficher_niveau extends Menu_niveaux{
 	 */
 	public void init_niveau(float Scale)
 	{
+		police = new Font();
+		
+		try {
+			police.loadFromFile(Paths.get("src/Fonts/Starjedi.ttf"));
+		} catch(IOException ex) {
+		    //Failed to load font
+		    ex.printStackTrace();
+		}
+		
 		this.NB_CASE_X = monNiveau.getTerrain().getLargeur();
 		this.NB_CASE_Y =  monNiveau.getTerrain().getLongueur();
 		this.NB_CASE_Z =  monNiveau.getTerrain().getHauteurMax()+1;
@@ -532,6 +552,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.couleurRose = new Color(250, 0, 124);
 		this.couleurViolet = new Color(106, 0, 250);
 		this.conditionExiste=this.conditionExiste=monNiveau.getTerrain().containConditionCase();
+		
 		
 		this.ancX=new int[monNiveau.getPersonnages().size()];
 		this.ancY=new int[monNiveau.getPersonnages().size()];
@@ -587,6 +608,9 @@ public class Afficher_niveau extends Menu_niveaux{
 			else if(al.get(i) instanceof Allumer) {
 				struct = this.new StructStringSprite(this.spriteSymboleAllumer, "allumer");
 			}
+			else if(al.get(i) instanceof AllumerBattle) {
+				struct = this.new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle");
+			}
 			else if(al.get(i) instanceof Break) {
 				struct = this.new StructStringSprite(this.spriteSymboleBreak, "break");	
 			}
@@ -614,6 +638,7 @@ public class Afficher_niveau extends Menu_niveaux{
 			else if(al.get(i) instanceof Wash) {
 				struct = this.new StructStringSprite(this.spriteSymboleWash, "wash");
 			}
+			
 			
 			if(!action_deja_presente(struct))
 				this.list_action_possible.add(struct);
@@ -646,11 +671,22 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	public void afficher_boutons(){
+		
+		this.texteNbCase = new Text(""+monNiveau.getTerrain().getReserveBloc(), police, 50);
+		this.texteNbCase.setColor(Color.YELLOW);
+		
+		
 		if (!this.list_action_possible.isEmpty()) {
 			for (int k = 0; k < this.list_action_possible.size(); k++) {
 				StructStringSprite temp = (StructStringSprite) this.list_action_possible.get(k);
 				temp.sprite.setPosition(450+k*65, 50);
 				Menu_principal.fenetre.draw(temp.sprite);
+				if(temp.nom=="poser")
+				{
+					this.texteNbCase.setPosition(temp.sprite.getPosition());
+					this.texteNbCase.move(0,-temp.sprite.getTexture().getSize().y);
+					Menu_principal.fenetre.draw(texteNbCase);
+				}
 			}
 		}
 		
@@ -839,6 +875,9 @@ public class Afficher_niveau extends Menu_niveaux{
 			break;
 		case "allumer":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			break;
+		case "allumerBattle":
+			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new AllumerBattle(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "poser":
 			this.monNiveau.getProgrammes().get(this.progSelect).insererQueue(new PoserBloc(this.monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
