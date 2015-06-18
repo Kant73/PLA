@@ -50,7 +50,7 @@ public class Programme implements Cloneable{
 	}
 	
 	public void supprimer(int index){
-		if (index>=0 && index <this.nbMaxAction){
+		if (index>=0 && index <this.listActions.size()){
 			this.listActions.remove(index);
 		}
 	}
@@ -115,7 +115,7 @@ public class Programme implements Cloneable{
 	
 	public void reset(){
 		if(this.listActions.get(0)!=null)
-			for(int i=0;i<this.nbMaxAction;i++){
+			for(int i=0;i<this.listActions.size();i++){
 				if(this.listActions.get(i) instanceof Actions){
 					this.supprimer(i);
 				}
