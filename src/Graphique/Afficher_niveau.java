@@ -378,6 +378,15 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.avancer(index);
 	}
 	
+	public void reset_sprite_selectionne()
+	{
+		this.progSelect=0;
+		for (int i=1; i< this.monNiveau.getProgrammes().size() ; i++)
+		{
+				this.spritesProcedures[i].setTexture(Textures.texProcs[i]);
+		}	
+		this.spritesProcedures[0].setTexture(Textures.texProcs[this.spritesProcedures.length]);
+	}
 	
 	public void sprite_selectionne(Vector2i pos)
 	{	
@@ -1066,8 +1075,9 @@ public class Afficher_niveau extends Menu_niveaux{
 						{
 							this.setNextPeinture();
 						}
-						else if(this.spriteJoueurSuivant.getGlobalBounds().contains(pos.x,pos.y))
+						else if(this.spriteJoueurSuivant.getGlobalBounds().contains(pos.x,pos.y) && this.monNiveau.getPersonnages().size()>1)
 						{
+							reset_sprite_selectionne();
 							this.indexRobot=1-this.indexRobot;
 							
 							for (i = 0; i < tabCopie.length; i++) {
