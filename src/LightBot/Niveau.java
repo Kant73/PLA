@@ -69,8 +69,7 @@ public class Niveau implements Cloneable {
 		copie.actions=(ArrayList<Actions>) this.actions.clone();
 		copie.personnages=(ArrayList<Personnage>) this.personnages.clone();
 		copie.programmes=new ArrayList<Programme>();
-		for(Programme prg:this.programmes)
-			copie.programmes.add(prg.clone());
+		copie.programmes.add(this.programmes.get(0).clone());
 		return copie;
 	}
 	

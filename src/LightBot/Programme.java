@@ -66,20 +66,31 @@ public class Programme implements Cloneable{
 	
 	@Override
 	public Programme clone() throws CloneNotSupportedException{
-		Programme prg=(Programme)super.clone();
-		prg.couleurCondition=this.couleurCondition;
-		prg.listActions=new ArrayList<Object>();
-		for(Object obj:this.listActions){
-			if(obj instanceof Actions)prg.listActions.add(((Actions) obj).clone());
-			else if(obj instanceof Programme){				
-				if(((Programme)obj).getNom().equals(prg.getNom()))
-					prg.listActions.add(prg);
-				else
-					prg.listActions.add(((Programme)obj).clone());
+		return cloneRecursif(2);
+	}
+		
+	private Programme cloneRecursif(int n) throws CloneNotSupportedException{
+		if(n>=0){			
+			Programme prg=(Programme)super.clone();
+			System.out.println("n: "+n+" nom: "+prg.getNom());
+			prg.couleurCondition=this.couleurCondition;
+			prg.listActions=new ArrayList<Object>();
+			for(Object obj:this.listActions){
+				if(obj instanceof Actions)prg.listActions.add(((Actions) obj).clone());
+				else if(obj instanceof Programme){				
+					if(((Programme)obj).getNom().equals(prg.getNom()))
+						prg.listActions.add(prg);
+					else{
+						Programme p=((Programme)obj).cloneRecursif(n-1);
+						if(p!=null)prg.listActions.add(p);
+					}
+						
+				}
 			}
+			prg.itActions=prg.listActions.iterator();
+			return prg;
 		}
-		prg.itActions=prg.listActions.iterator();
-		return prg;
+		return null;
 	}
 	
 	public void vider(){

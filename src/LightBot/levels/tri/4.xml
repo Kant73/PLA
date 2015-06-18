@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <niveau>
 	<terrain largeur="7" longueur="3" >
-		<nbActionsPossible>100</nbActionsPossible>
+		<nbActionsPossible>150</nbActionsPossible>
 		<ensembleDeCase>			
 			<case type="PointeurTri"	x="0" y="2" h="1" xp="6" yp="2" hp="1" xl="0" yl="0" hl="1"/>
 			<case type="Transparente"	x="1" y="2" h="5" />
