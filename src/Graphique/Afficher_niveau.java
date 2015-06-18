@@ -703,8 +703,9 @@ public class Afficher_niveau extends Menu_niveaux{
 			this.spriteBoutonPlay.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+5 ,temp.sprite.getPosition().y);
 			this.spriteBoutonReset.setPosition(this.spriteBoutonPlay.getPosition().x + this.spriteBoutonReset.getTexture().getSize().x + 5,this.spriteBoutonPlay.getPosition().y);		
 		}
+		if (this.monNiveau.getPersonnages().size()>1)
+			Menu_principal.fenetre.draw(this.spriteJoueurSuivant);
 		
-		Menu_principal.fenetre.draw(this.spriteJoueurSuivant);
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
 		Menu_principal.fenetre.draw(this.spriteBoutonPlay);
 		Menu_principal.fenetre.draw(this.spriteBoutonReset);
