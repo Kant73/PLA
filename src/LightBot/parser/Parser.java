@@ -133,12 +133,18 @@ public class Parser {
 				break;
 			case "personnes" :
 				//System.out.println("Nous sommes dans personnes");
-				for(Node noeudPers:getChildren(noeud)){	
-					int x=getIntNodeAttribute(noeudPers, "x");
-					int y=getIntNodeAttribute(noeudPers, "y");
-					String oStr=getNodeAttribute(noeudPers, "o");
-					String nom=getNodeAttribute(noeudPers, "name");
-					Personnage pers=new Personnage(nom,x,y,Pcardinaux.valueOf(oStr));
+				for(Node noeudPers:getChildren(noeud)){
+					Personnage pers;
+					int x = 			getIntNodeAttribute(noeudPers, "x");
+					int y = 			getIntNodeAttribute(noeudPers, "y");
+					String oStr = 		getNodeAttribute(noeudPers, "o");
+					String nom = 		getNodeAttribute(noeudPers, "name");
+					String couleur =	getNodeAttribute(noeudPers, "c");
+					if(couleur.equals("")){
+						pers = new Personnage(nom,x,y,Pcardinaux.valueOf(oStr));
+					}else{
+						pers = new Personnage(nom,x,y,Pcardinaux.valueOf(oStr),couleur);
+					}
 					pers.setTerrain(this.n.getTerrain());
 					this.n.getPersonnages().add(pers);
 				}
