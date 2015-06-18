@@ -105,7 +105,7 @@ public class Terrain {
 	public int getWinner(){
 		int cptr = 0,cptv = 0;
 		for(int i=0;i<largeur;i++){
-			for(int j=0;j<longueur;i++){
+			for(int j=0;j<longueur;j++){
 				if(ensembleDeCase[i][j].getColor() == Couleur.Rose){
 					cptr++;
 				}
@@ -254,14 +254,17 @@ public class Terrain {
 				}
 			}
 		}
+		System.out.println(liste.size());
 		return liste;
 	}
 	
 	public void majCaseClonage(){
 		ArrayList<Clonage> liste = recupereClonage();
-		for(Clonage c : liste){
-			c.setPops(liste);
-		}
+		if(liste != null){
+			for(int i = 0 ; i<liste.size() ; i++){
+				liste.get(i).setPops((ArrayList<Clonage>)liste.clone());
+			}
+		}	
 	}
 
 }

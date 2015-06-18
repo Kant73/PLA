@@ -3,22 +3,22 @@
 	<terrain largeur="6" longueur="6" >
 		<nbActionsPossible>20</nbActionsPossible>
 		<ensembleDeCase>
-			<case type="Clonage" x="1" y="1" h="1" />
+			<case type="Clonage" x="1" y="1" h="1" o="WEST" />
 			<case type="Lampe"   x="1" y="0" h="1" />
 			<case type="Lampe"   x="0" y="1" h="1" />
 			<case type="Lampe"   x="0" y="0" h="1" />
 
-			<case type="Clonage" x="5" y="1" h="1" />
+			<case type="Clonage" x="5" y="1" h="1" o="WEST" />
 			<case type="Lampe"   x="5" y="0" h="1" />
 			<case type="Lampe"   x="4" y="1" h="1" />
 			<case type="Lampe"   x="4" y="0" h="1" />
 
-			<case type="Clonage" x="5" y="5" h="1" />
+			<case type="Clonage" x="5" y="5" h="1" o="WEST" />
 			<case type="Lampe"   x="5" y="4" h="1" />
 			<case type="Lampe"   x="4" y="5" h="1" />
 			<case type="Lampe"   x="4" y="4" h="1" />
 
-			<case type="Clonage" x="1" y="5" h="1" />
+			<case type="Clonage" x="1" y="5" h="1" o="WEST" />
 			<case type="Lampe"   x="1" y="4" h="1" />
 			<case type="Lampe"   x="0" y="5" h="1" />
 			<case type="Lampe"   x="0" y="4" h="1" />		
