@@ -50,6 +50,11 @@ public class Textures {
 	public static Texture TexSymboleComp;
 	public static Texture texSuivant;
 	
+	public static Texture texTabMain;
+	public static Texture texTabP1;
+	public static Texture texTabP2;
+	
+	
 	public static void initTextures()
 	{
 		texProcs = new Texture[6];
@@ -91,6 +96,10 @@ public class Textures {
 		TexSymboleSwap = new Texture();
 		TexSymboleWash = new Texture();
 		TexSymboleComp = new Texture();
+		texTabMain = new Texture();
+		texTabP1 = new Texture();
+		texTabP2 = new Texture();
+		
 
 		texBoutonReset=new Texture();
 		mesAnims = new Texture[4];
@@ -151,6 +160,10 @@ public class Textures {
 			TexSymboleSwap.loadFromFile(Paths.get("src/Img/symbole_swap.png"));
 			TexSymboleWash.loadFromFile(Paths.get("src/Img/symbole_shower.png"));
 			TexSymboleComp.loadFromFile(Paths.get("src/Img/symbole_compare.png"));
+			
+			texTabP1.loadFromFile(Paths.get("src/Img/tabP1.png"));
+			texTabP2.loadFromFile(Paths.get("src/Img/tabP2.png"));
+			texTabMain.loadFromFile(Paths.get("src/Img/tabMain.png"));
 			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

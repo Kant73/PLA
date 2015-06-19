@@ -26,6 +26,11 @@ public class Tuto extends Menu_niveaux{
 		return this.spritesTutoTab;
 	}
 	
+	/**
+	 * Initialisation du tuto en chargeant toutes les images nécéssaires
+	 * @param nom_niveau
+	 * @param nb_img
+	 */
 	public void init_tuto(String nom_niveau, int nb_img){
 		this.spritesTutoTab = new Sprite[nb_img];
 		this.texTutoTab = new Texture[nb_img];
@@ -44,6 +49,11 @@ public class Tuto extends Menu_niveaux{
 		
 	}
 	
+	/**
+	 * Défini le nombre d'image que le tuto contient pour chaque mode de jeu
+	 * @param nom_mode
+	 * @return  Le nombre d'image que le tuto contient pour le mode de jeu nom_mode
+	 */
 	public int nb_image_par_mode(String nom_mode){
 		int nb_image = 0;
 		switch (nom_mode) {
@@ -80,7 +90,10 @@ public class Tuto extends Menu_niveaux{
 		return nb_image;
 	}
 	
-	
+	/**
+	 * Permet de créer un fondu entre les différentes images qui consituent un tuto 
+	 * @param sprite_tuto
+	 */
 	private void fondu(int sprite_tuto)
 	{
 		for(int i=0;i<100;i+=2)
@@ -102,6 +115,10 @@ public class Tuto extends Menu_niveaux{
 	}
 	
 
+	/**
+	 * Permet d'afficher le tuto d'un mode de jeu
+	 * @param nom_niveau Le nom du mode de jeu dont on veut afficher le tuto
+	 */
 	public void affiche_tuto(String nom_niveau){
 		int nb_img = this.nb_image_par_mode(nom_niveau);
 		if (nb_img == 0) {
@@ -139,10 +156,8 @@ public class Tuto extends Menu_niveaux{
 				{ 
 					if(event.asMouseButtonEvent().button == Button.LEFT)
 					{
-
 							tutoCourant++;
 							temp = true;
-						
 						
 						if (tutoCourant >= nb_img) {
 							sortie=false;

@@ -86,6 +86,10 @@ public class Afficher_niveau extends Menu_niveaux{
 	public Sprite spriteSymbolePoser;
 	public Sprite spriteSymboleSuppr;
 	
+	public Sprite spriteTabMain;
+	public Sprite spriteTabP1;
+	public Sprite spriteTabP2;
+	
 	public List<Animation> animInfos;
 	
 	public int indexRobot;
@@ -192,6 +196,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	{
 		int orientation;
 		fenetre.draw(Menu_modes.spritefondMode);
+		this.afficher_tab_procedures();
 		afficher_cadre_procedures();
 		this.afficher_boutons();
 		this.afficher_procedure();
@@ -510,6 +515,15 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.spriteSymboleComp = new Sprite();
 		this.spriteSymboleComp.setTexture(Textures.TexSymboleComp);
 		
+		this.spriteTabMain = new Sprite();
+		this.spriteTabMain.setTexture(Textures.texTabMain);
+		
+		this.spriteTabP1 = new Sprite();
+		this.spriteTabP1.setTexture(Textures.texTabP1);
+		
+		this.spriteTabP2 = new Sprite();
+		this.spriteTabP2.setTexture(Textures.texTabP2);
+		
 		this.SpriteCases=new Sprite[NB_CASE_X][NB_CASE_Y][NB_CASE_Z];
 		for(int i=0;i<  NB_CASE_X;i++)
 			for(int j=0;j<  NB_CASE_Y;j++)
@@ -812,6 +826,32 @@ public class Afficher_niveau extends Menu_niveaux{
 					Menu_principal.fenetre.draw(temp.sprite);
 				}
 			}
+		}
+	}
+	
+	/**
+	 * Permet d'afficher les petits symboles de Main, P1 et P2 
+	 */
+	public void afficher_tab_procedures(){
+		float fScale = 0.4f;
+		
+		switch (monNiveau.getProgrammes().size()) {
+		case 3:
+			this.spriteTabP2.setPosition(this.spritesProcedures[2].getPosition().x + this.spritesProcedures[2].getTexture().getSize().x - this.spriteTabP2.getTexture().getSize().x*fScale , this.spritesProcedures[2].getPosition().y - this.spriteTabP2.getTexture().getSize().y*fScale + 10);
+			this.spriteTabP2.setScale(fScale, fScale);
+			Menu_principal.fenetre.draw(this.spriteTabP2);
+			
+		case 2:
+			this.spriteTabP1.setPosition(this.spritesProcedures[1].getPosition().x + this.spritesProcedures[1].getTexture().getSize().x - this.spriteTabP1.getTexture().getSize().x*fScale , this.spritesProcedures[1].getPosition().y - this.spriteTabP1.getTexture().getSize().y*fScale + 10);
+			this.spriteTabP1.setScale(fScale, fScale);
+			Menu_principal.fenetre.draw(this.spriteTabP1);
+			
+
+		default:
+			this.spriteTabMain.setPosition(this.spritesProcedures[0].getPosition().x + this.spritesProcedures[0].getTexture().getSize().x - this.spriteTabMain.getTexture().getSize().x*fScale , this.spritesProcedures[0].getPosition().y - this.spriteTabMain.getTexture().getSize().y*fScale + 10);
+			this.spriteTabMain.setScale(fScale, fScale);
+			Menu_principal.fenetre.draw(this.spriteTabMain);
+			break;
 		}
 	}
 	

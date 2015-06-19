@@ -28,7 +28,6 @@ public class TestProg6{
 		
 		Personnage robot=new Personnage("Robot",1, 0, Pcardinaux.SOUTH);
 		robot.setTerrain(n.getTerrain());
-		robot.setNiveau(n);
 		n.getPersonnages().add(robot);
 		
 		Programme progMain=new Programme("main",10);
