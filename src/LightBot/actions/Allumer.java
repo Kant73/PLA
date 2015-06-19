@@ -83,7 +83,6 @@ public class Allumer extends Actions {
 				System.out.println("Eh hop : un clone :)");
 				System.out.println("Enfin plutôt : "+((Clonage)C).getPops().size());
 				popClone((Clonage)C);
-				throw new CloneException();
 			}
 		}
 	}
@@ -112,8 +111,10 @@ public class Allumer extends Actions {
 		new Allumer(this.perso).agir();
 	}
 	
-	private void popClone(Clonage cellule){
+	private void popClone(Clonage cellule) throws CloneException{
 		ArrayList<Clonage> pops = cellule.getPops();
+		ArrayList<Personnage> clones=new ArrayList<Personnage>();
+		clones.add(this.perso);
 		for(int i=0 ; i<pops.size() ; i++){
 			Clonage courante = pops.get(i);
 			int x = this.perso.getTerrain().getPosCaseX(courante);
@@ -128,7 +129,8 @@ public class Allumer extends Actions {
 				e.printStackTrace();
 			}
 			
-			this.perso.getNiveau().getPersonnages().add(clone);
+			clones.add(clone);
 		}
+		throw new CloneException(clones);
 	}
 }

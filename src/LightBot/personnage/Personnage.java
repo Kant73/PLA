@@ -46,7 +46,6 @@ public class Personnage implements Cloneable {
 		try{
 			if(itActions.hasNext() ){
 				obj=itActions.next();
-				
 				if(obj instanceof Actions){
 					int nbLampeAllumee=this.getTerrain().getNbLampeAllumee();
 					if( nbLampeAllumee >= this.getTerrain().getMaxLampe() || this.isMort() ||
@@ -55,11 +54,11 @@ public class Personnage implements Cloneable {
 							throw new ArrayIndexOutOfBoundsException();
 						}
 					else{
+						System.out.println(((Actions)obj).toString());
 						this.getTerrain().setNbActionsrestantes(this.getTerrain().getNbActionsRestantes()-1);
 						((Actions)obj).agir();												
 					}
-				}else if(obj instanceof Programme){		
-					System.out.println(("prog"+((Programme)obj).getNom()));
+				}else if(obj instanceof Programme){
 					if(((Programme)obj).isMatchCouleur(this.couleur))
 						this.setNewIterator(((Programme)obj).getIterator());
 				}

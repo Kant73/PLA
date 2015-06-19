@@ -14,19 +14,19 @@ import LightBot.exceptions.*;
 
 public class Ordonnanceur {
 
-	private ArrayList<Personnage> listPers;
+	private Niveau niveau;
 	private Afficher_niveau affichage;
 	
-	public Ordonnanceur(ArrayList<Personnage> persos, Afficher_niveau affichage){
-		this.listPers=persos;
+	public Ordonnanceur(Niveau niv, Afficher_niveau affichage){
+		this.niveau=niv;
 		this.affichage=affichage;
 	}
 	
 	public void run(){
 		try{
 			System.out.println();
-			for(int i=0;i<this.listPers.toArray().length;i++){ //Execute une action pour chaque robot
-				majGraphique(this.listPers.get(i),i);				
+			for(int i=0;i<this.niveau.getPersonnages().toArray().length;i++){ //Execute une action pour chaque robot
+				majGraphique(this.niveau.getPersonnages().get(i),i);				
 			}
 			if(isListFifoEmpty())return;
 			this.run();
@@ -40,13 +40,13 @@ public class Ordonnanceur {
 		}catch (BreakException e) {			
 			this.run();
 		} catch (CloneException e) {
-			if(this.listPers.size()>0)this.listPers=this.listPers.get(0).getNiveau().getPersonnages();
+			if(this.niveau.getPersonnages().size()>0)this.niveau.setPersonnages(e.getListPesonnage());
 		}			
 	}
 	
 	private void majGraphique(Personnage perso,int index) throws ArrayIndexOutOfBoundsException, BreakException, CloneException{
-		this.affichage.animInfos.get(index).setX(this.listPers.get(index).getPositionX());
-		this.affichage.animInfos.get(index).setY(this.listPers.get(index).getPositionY());
+		this.affichage.animInfos.get(index).setX(this.niveau.getPersonnages().get(index).getPositionX());
+		this.affichage.animInfos.get(index).setY(this.niveau.getPersonnages().get(index).getPositionY());
 		
 		Object obj=perso.execute();
 		
@@ -57,13 +57,13 @@ public class Ordonnanceur {
 		else if(obj instanceof PoserBloc || obj instanceof RetirerBloc || obj instanceof Swap)
 			this.affichage.set_position_cases();
 		
-		if(this.listPers.get(index).isMort()){
+		if(this.niveau.getPersonnages().get(index).isMort()){
 			this.affichage.animMort( index );
 			this.affichage.supprimer_programme(index);
 		}							
 		
-		this.affichage.animInfos.get(index).setX(this.listPers.get(index).getPositionX());
-		this.affichage.animInfos.get(index).setY(this.listPers.get(index).getPositionY());
+		this.affichage.animInfos.get(index).setX(this.niveau.getPersonnages().get(index).getPositionX());
+		this.affichage.animInfos.get(index).setY(this.niveau.getPersonnages().get(index).getPositionY());
 		this.affichage.set_pos_robot();
 		this.affichage.set_textures_cases();
 		this.affichage.afficher_carte();
@@ -77,8 +77,8 @@ public class Ordonnanceur {
 		
 	private boolean isListFifoEmpty(){
 		Boolean bool=true;
-		for(int i=0;i<this.listPers.toArray().length;i++){
-			bool&=this.listPers.get(i).isListFifoEmpty();
+		for(int i=0;i<this.niveau.getPersonnages().toArray().length;i++){
+			bool&=this.niveau.getPersonnages().get(i).isListFifoEmpty();
 		}			
 		return bool;
 	}
