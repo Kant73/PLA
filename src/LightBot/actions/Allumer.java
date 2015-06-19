@@ -131,6 +131,6 @@ public class Allumer extends Actions {
 			
 			clones.add(clone);
 		}
-		throw new CloneException(clones);
+		throw new CloneException(clones,this);
 	}
 }

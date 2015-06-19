@@ -16,6 +16,7 @@ public class Ordonnanceur {
 
 	private Niveau niveau;
 	private Afficher_niveau affichage;
+	private int numeroRobot;
 	
 	public Ordonnanceur(Niveau niv, Afficher_niveau affichage){
 		this.niveau=niv;
@@ -39,8 +40,9 @@ public class Ordonnanceur {
 		}catch (ArrayIndexOutOfBoundsException aE){//Sorti du terrain
 		}catch (BreakException e) {			
 			this.run();
-		} catch (CloneException e) {
-			if(this.niveau.getPersonnages().size()>0)this.niveau.setPersonnages(e.getListPesonnage());
+		} catch (CloneException cE) {
+			majGraphiqueApresExec(cE.getCommandeEnCours(),this.numeroRobot);
+			if(this.niveau.getPersonnages().size()>0)this.niveau.setPersonnages(cE.getListPesonnage());
 		}			
 	}
 	
@@ -48,13 +50,22 @@ public class Ordonnanceur {
 		this.affichage.animInfos.get(index).setX(this.niveau.getPersonnages().get(index).getPositionX());
 		this.affichage.animInfos.get(index).setY(this.niveau.getPersonnages().get(index).getPositionY());
 		
-		Object obj=perso.execute();
-		
-		if(obj instanceof Avancer)
+		Object commande=null;
+		try{
+			commande=perso.execute();			
+		}catch(CloneException cE){
+			this.numeroRobot=index;
+			throw new CloneException(cE.getListPesonnage(),cE.getCommandeEnCours());
+		}
+		majGraphiqueApresExec(commande,this.numeroRobot);		
+	}
+	
+	private void majGraphiqueApresExec(Object commande, int index){
+		if(commande instanceof Avancer)
 			this.affichage.avancer(index);
-		else if(obj instanceof Sauter)
+		else if(commande instanceof Sauter)
 			this.affichage.sauter(index);
-		else if(obj instanceof PoserBloc || obj instanceof RetirerBloc || obj instanceof Swap)
+		else if(commande instanceof PoserBloc || commande instanceof RetirerBloc || commande instanceof Swap)
 			this.affichage.set_position_cases();
 		
 		if(this.niveau.getPersonnages().get(index).isMort()){
@@ -68,7 +79,7 @@ public class Ordonnanceur {
 		this.affichage.set_textures_cases();
 		this.affichage.afficher_carte();
 		
-		if(obj instanceof Allumer || obj instanceof PoserBloc || obj instanceof RetirerBloc){
+		if(commande instanceof Allumer || commande instanceof PoserBloc || commande instanceof RetirerBloc){
 			try {
 				Thread.sleep(300);
 			} catch (InterruptedException e) {}

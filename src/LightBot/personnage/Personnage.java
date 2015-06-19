@@ -42,11 +42,11 @@ public class Personnage implements Cloneable {
 	}
 	
 	public Object execute() throws ArrayIndexOutOfBoundsException,BreakException, CloneException{
-		Object obj = null;
+		Object commande = null;
 		try{
 			if(itActions.hasNext() ){
-				obj=itActions.next();
-				if(obj instanceof Actions){
+				commande=itActions.next();
+				if(commande instanceof Actions){
 					int nbLampeAllumee=this.getTerrain().getNbLampeAllumee();
 					if( nbLampeAllumee >= this.getTerrain().getMaxLampe() || this.isMort() ||
 						this.getTerrain().getNbActionsRestantes() <= 0 ){
@@ -54,13 +54,13 @@ public class Personnage implements Cloneable {
 							throw new ArrayIndexOutOfBoundsException();
 						}
 					else{
-						System.out.println(((Actions)obj).toString());
+						System.out.println(((Actions)commande).toString());
 						this.getTerrain().setNbActionsrestantes(this.getTerrain().getNbActionsRestantes()-1);
-						((Actions)obj).agir();												
+						((Actions)commande).agir();												
 					}
-				}else if(obj instanceof Programme){
-					if(((Programme)obj).isMatchCouleur(this.couleur))
-						this.setNewIterator(((Programme)obj).getIterator());
+				}else if(commande instanceof Programme){
+					if(((Programme)commande).isMatchCouleur(this.couleur))
+						this.setNewIterator(((Programme)commande).getIterator());
 				}
 			}else{
 				this.restaureIterator();
@@ -76,7 +76,7 @@ public class Personnage implements Cloneable {
 			this.restaureIterator();
 	    	throw new BreakException();
 		}
-		return obj;
+		return commande;
 	}
 	
 	private void setNewIterator(ListIterator<Object> iterator){
