@@ -98,33 +98,42 @@ public class Afficher_niveau extends Menu_niveaux{
 
 	public float reScale,reScaleRobot;
 	int progSelect;
-		
+	
+	public void reinitialiser_anim()
+	{
+			this.animInfos.clear();
+			this.robots.clear();	
+	}
+	
+	private void initialiser_images_anim()
+	{
+		int y0=0,tailleX=128,tailleY=118;
+		this.spriteAnim = new Sprite[4][26];
+		for(int i=0;i<this.spriteAnim.length;i++)
+		{
+			y0=0;
+			for(int j = 0; j <this.spriteAnim[i].length;j++)
+			{
+				this.spriteAnim[i][j]=new Sprite();
+				this.spriteAnim[i][j].setTexture(Textures.mesAnims[i]);
+				
+				this.spriteAnim[i][j].setTextureRect(new IntRect((j%6)*tailleX, y0*tailleY, tailleX, tailleY));
+				if(j%6==0 && j!=0)
+					y0++;
+				//this.spriteAnim[i][j].setScale(this.reScaleRobot,this.reScaleRobot);
+			}
+		}
+	}
+	
 	public void initialiser_anim()
 	{
 		robots=new LinkedList<Sprite[][]>();
-		int y0=0,tailleX=128,tailleY=118;
 		
 		this.animInfos = new ArrayList<Animation>();
 		
 		for(int n=0;n<monNiveau.getPersonnages().size();n++)
 		{
 			this.animInfos.add(new Animation(monNiveau.getPersonnages().get(n).getPositionX(),monNiveau.getPersonnages().get(n).getPositionY(),0) ) ;
-			
-			this.spriteAnim = new Sprite[4][26];
-			for(int i=0;i<this.spriteAnim.length;i++)
-			{
-				y0=0;
-				for(int j = 0; j <this.spriteAnim[i].length;j++)
-				{
-					this.spriteAnim[i][j]=new Sprite();
-					this.spriteAnim[i][j].setTexture(Textures.mesAnims[i]);
-					
-					this.spriteAnim[i][j].setTextureRect(new IntRect((j%6)*tailleX, y0*tailleY, tailleX, tailleY));
-					if(j%6==0 && j!=0)
-						y0++;
-					//this.spriteAnim[i][j].setScale(this.reScaleRobot,this.reScaleRobot);
-				}
-			}	
 			robots.add(this.spriteAnim);
 		}
 	}
@@ -1049,6 +1058,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		Textures.initTextures();
 		monNiveau=niveauCharger;
 		init_niveau(1.0f);
+		initialiser_images_anim();
 		initialiser_anim();
 		set_position_cases();
 		set_pos_robot();
@@ -1104,7 +1114,7 @@ public class Afficher_niveau extends Menu_niveaux{
 								e.printStackTrace();
 							}	
 						}
-						Ordonnanceur monOrdonnanceur = new Ordonnanceur (monNiveau.getPersonnages(),this);
+						Ordonnanceur monOrdonnanceur = new Ordonnanceur (monNiveau,this);
 						monOrdonnanceur.run();
 
 						if (!this.tabProgramme.get(indexRobot)[0].isEmpty())
