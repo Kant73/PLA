@@ -133,6 +133,8 @@ public class Menu_modes extends Menu_principal{
 			Menu_principal.fenetre.draw(mesBoutons[i]);
 		}
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
+		Menu_principal.fenetre.draw(Menu_principal.spriteSon[sonOn]);
+
 	}
 	
 	private void reinit_textures()
@@ -199,6 +201,14 @@ public class Menu_modes extends Menu_principal{
 							if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
 							{
 								sortie=false;
+							}
+							else if (Menu_principal.spriteSon[sonOn].getGlobalBounds().contains(pos.x,pos.y))
+							{
+								sonOn=1-sonOn;
+								music.setVolume((1-sonOn)*100);
+								Menu_principal.fenetre.draw(spriteFond);
+								this.afficher_boutons();
+								Menu_principal.fenetre.display();
 							}
 							
 						}

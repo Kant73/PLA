@@ -27,6 +27,9 @@ public class Menu_principal {
 	public static final RenderWindow fenetre = new RenderWindow(); 
 	public static Texture texRetour;
 	public static Sprite spriteRetour;
+	public static Sprite[] spriteSon;
+	public static Texture[] texSon;
+	public static int sonOn;
 	
 	public static Musique music = new Musique();
 	
@@ -68,7 +71,19 @@ public class Menu_principal {
 		mesTextures = new Texture[nbBoutons*2];
 		texRetour = new Texture();
 		spriteRetour = new Sprite();
+		
+		spriteSon=new Sprite[2];
+		spriteSon[0] = new Sprite();
+		spriteSon[1] = new Sprite();
+		
+		texSon=new Texture[2];
+		texSon[0] = new Texture();
+		texSon[1] = new Texture();
+		
+		
 		try {
+			texSon[0].loadFromFile(Paths.get("src/Img/son.png"));
+			texSon[1].loadFromFile(Paths.get("src/Img/son_coupe.png"));
 			monFond.loadFromFile(Paths.get("src/Img/fond_menu.png"));
 			texRetour.loadFromFile(Paths.get("src/Img/retour2.png"));
 			spriteFond=new Sprite ();
@@ -79,6 +94,11 @@ public class Menu_principal {
 		}
 		spriteRetour.setTexture(texRetour);
 		spriteRetour.setPosition(0, 0);
+		
+		spriteSon[0].setTexture(texSon[0]);
+		spriteSon[0].setPosition(0,0);
+		spriteSon[1].setTexture(texSon[1]);
+		spriteSon[1].setPosition(0,0);
 		
 		for (int i=0; i< this.nbBoutons*2 ; i++)
 		{
@@ -124,10 +144,9 @@ public class Menu_principal {
 	{
 		for (int i=0; i< this.nbBoutons; i++)
 		{
-				mesBoutons[i].setTexture(mesTextures[i]);
+			mesBoutons[i].setTexture(mesTextures[i]);
 		}
 	}
-	
 	
 	private void afficher_boutons()
 	{
@@ -135,6 +154,8 @@ public class Menu_principal {
 		{
 			fenetre.draw(mesBoutons[i]);
 		}
+		fenetre.draw(spriteSon[sonOn]);
+		
 	}
 	
 
@@ -182,24 +203,39 @@ public class Menu_principal {
 							
 							if(selection != -1)
 							{
+								spriteSon[0].setPosition(0+texRetour.getSize().x + 5,0);
+								spriteSon[1].setPosition(spriteSon[0].getPosition());
 								fondu();
 								switch (selection)
 								{
 								case jouer : 
 									Menu_modes modes = new  Menu_modes();
 									modes.afficher_menu();
+									
 									break;
 								case credits :
-									music.playMusic(10);		//Musique sur les crédits.
+									music.playMusic(10);
 									Credits credit = new  Credits();
 									credit.afficher_credits();
 								}
 								fondu();
+								spriteSon[0].setPosition(0,0);
+								spriteSon[1].setPosition(0,0);
+								
 								fenetre.draw(spriteFond);
 								reinit_textures();
 								this.afficher_boutons();
 								fenetre.display();
 								}
+							
+							if (Menu_principal.spriteSon[sonOn].getGlobalBounds().contains(pos.x,pos.y))
+							{
+								sonOn=1-sonOn;
+								music.setVolume((1-sonOn)*100);
+								fenetre.draw(spriteFond);
+								this.afficher_boutons();
+								fenetre.display();
+							}
 						}
 					}
 					else if (event.type == Event.Type.MOUSE_MOVED) 
@@ -232,25 +268,26 @@ public class Menu_principal {
 		try {SFMLNative.loadNativeLibraries();} 
 		catch (JSFMLError err) {/*things*/}
 	
-	
-			fenetre.create(new VideoMode(1366, 768), "StarBot");
-			Menu_principal monMenu = new Menu_principal();
-			
-			fenetre.setFramerateLimit(60);
-			fenetre.setVerticalSyncEnabled(true);
-			
-			Image icon = new Image();
-			try {
-				icon.loadFromFile(Paths.get("src/Img/BB8_tete.png"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			fenetre.setIcon(icon);
-			
-			music.playMusic(9);
+		sonOn = 0;
+		fenetre.create(new VideoMode(1366, 768), "StarBot");
+		Menu_principal monMenu = new Menu_principal();
+		
+		fenetre.setFramerateLimit(60);
+		fenetre.setVerticalSyncEnabled(true);
+		
+		Image icon = new Image();
+		try {
+			icon.loadFromFile(Paths.get("src/Img/BB8_tete.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		fenetre.setIcon(icon);
+		
+		music.setVolume(100);
+		music.playMusic(9);
 
-			monMenu.afficher_menu();
+		monMenu.afficher_menu();
 	}
 }
 

@@ -18,7 +18,7 @@ import LightBot.NomMode;
 public class Credits extends Menu_principal{
 
 	private static final int nbBoutons = 6;
-	private static final int rotMax = 60;
+	private static final int rotMax = 30;
 	private static final int rotMin = -rotMax;
 
 	
@@ -110,6 +110,7 @@ public class Credits extends Menu_principal{
 			Menu_principal.fenetre.draw(mesBoutons[i]);
 		}
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
+		fenetre.draw(spriteSon[sonOn]);
 	}
 	
 
@@ -138,6 +139,11 @@ public class Credits extends Menu_principal{
 								sortie=false;
 								music.playMusic(9);
 							}
+							else if (Menu_principal.spriteSon[sonOn].getGlobalBounds().contains(pos.x,pos.y))
+							{
+								sonOn=1-sonOn;
+								music.setVolume((1-sonOn)*100);
+							}	
 						}
 					}
 					else if (event.type == Event.Type.KEY_PRESSED) 

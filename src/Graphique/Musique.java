@@ -60,9 +60,14 @@ public class Musique {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		music.setVolume(100);
+		
 		music.setLoop(true);
 		music.play();
+	}
+
+	public void setVolume(int i) {
+		music.setVolume(i);
+		
 	}
 	
 }

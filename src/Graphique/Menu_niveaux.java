@@ -150,6 +150,7 @@ public class Menu_niveaux extends Menu_modes{
 					,mesBoutons[i].getPosition().y+mesBoutons[i].getTexture().getSize().y/2-monTexte.getLocalBounds().height/2-10 - 85);
 			Menu_principal.fenetre.draw(monTexte);
 		}
+		fenetre.draw(spriteSon[sonOn]);
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
 	}
 	
@@ -249,7 +250,15 @@ public class Menu_niveaux extends Menu_modes{
 								sortie=false;
 								music.playMusic(9);			//Retour à la musique principale (Retour).
 							}
-								
+							else if (Menu_principal.spriteSon[sonOn].getGlobalBounds().contains(pos.x,pos.y))
+							{
+								sonOn=1-sonOn;
+								music.setVolume((1-sonOn)*100);
+								fenetre.draw(Menu_principal.spriteFond);
+								reinit_textures();
+								this.afficher_boutons();
+								fenetre.display();
+							}	
 						}
 					}
 					else if (event.type == Event.Type.KEY_PRESSED) 

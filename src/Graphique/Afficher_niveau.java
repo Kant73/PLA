@@ -747,6 +747,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		Menu_principal.fenetre.draw(Menu_principal.spriteRetour);
 		Menu_principal.fenetre.draw(this.spriteBoutonPlay);
 		Menu_principal.fenetre.draw(this.spriteBoutonReset);
+		Menu_principal.fenetre.draw(spriteSon[sonOn]);
 	}
 	
 	
@@ -1200,6 +1201,11 @@ public class Afficher_niveau extends Menu_niveaux{
 					}
 					else if(monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee() )
 					{sortie=false;}
+					else if (Menu_principal.spriteSon[sonOn].getGlobalBounds().contains(pos.x,pos.y))
+					{
+						sonOn=1-sonOn;
+						music.setVolume((1-sonOn)*100);
+					}
 					else
 						sprite_selectionne(pos);
 					
