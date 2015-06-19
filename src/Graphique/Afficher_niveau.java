@@ -249,7 +249,6 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void set_pos_robot()
 	{
 		int i,j,h, orientation;
-		 System.out.println("------------");
 		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
 		{
 			 orientation = monNiveau.getPersonnages().get(l).getOrientationInt();
@@ -268,20 +267,8 @@ public class Afficher_niveau extends Menu_niveaux{
 					+this.reScale*this.SpriteCases[i][j][h].getTexture().getSize().y/3 
 					- this.reScaleRobot*robots.get(l)[orientation][0].getLocalBounds().height
 					+ 10);
-			
-			//System.out.println( robots.get(l)[orientation][0].getPosition().x + "   " + robots.get(l)[orientation][0].getPosition().y);
-			
-			 
-		}	
-
-		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
-		{
-			 orientation = monNiveau.getPersonnages().get(l).getOrientationInt();
-
-			 System.out.println( robots.get(l)[orientation][0].getPosition().x + "   " + robots.get(l)[orientation][0].getPosition().y);
-		}
-	
-			
+				 
+		}				
 	}
 	
 	
@@ -735,7 +722,7 @@ public class Afficher_niveau extends Menu_niveaux{
 			this.spriteBoutonPlay.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+5 ,temp.sprite.getPosition().y);
 			this.spriteBoutonReset.setPosition(this.spriteBoutonPlay.getPosition().x + this.spriteBoutonReset.getTexture().getSize().x + 5,this.spriteBoutonPlay.getPosition().y);		
 		}
-		if (monNiveau.getPersonnages().size()>1)
+		if ( action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle")))
 		{
 			temp = (StructStringSprite)this.list_action_possible.getFirst();
 			spriteJoueurSuivant.setPosition(temp.sprite.getPosition().x, temp.sprite.getPosition().y+temp.sprite.getTexture().getSize().y+5);
