@@ -105,28 +105,10 @@ public class Afficher_niveau extends Menu_niveaux{
 			this.robots.clear();	
 	}
 	
-	private void initialiser_images_anim()
-	{
-		int y0=0,tailleX=128,tailleY=118;
-		this.spriteAnim = new Sprite[4][26];
-		for(int i=0;i<this.spriteAnim.length;i++)
-		{
-			y0=0;
-			for(int j = 0; j <this.spriteAnim[i].length;j++)
-			{
-				this.spriteAnim[i][j]=new Sprite();
-				this.spriteAnim[i][j].setTexture(Textures.mesAnims[i]);
-				
-				this.spriteAnim[i][j].setTextureRect(new IntRect((j%6)*tailleX, y0*tailleY, tailleX, tailleY));
-				if(j%6==0 && j!=0)
-					y0++;
-				//this.spriteAnim[i][j].setScale(this.reScaleRobot,this.reScaleRobot);
-			}
-		}
-	}
 	
 	public void initialiser_anim()
 	{
+		int y0=0,tailleX=128,tailleY=118;
 		robots=new LinkedList<Sprite[][]>();
 		
 		this.animInfos = new ArrayList<Animation>();
@@ -134,6 +116,23 @@ public class Afficher_niveau extends Menu_niveaux{
 		for(int n=0;n<monNiveau.getPersonnages().size();n++)
 		{
 			this.animInfos.add(new Animation(monNiveau.getPersonnages().get(n).getPositionX(),monNiveau.getPersonnages().get(n).getPositionY(),0) ) ;
+			this.spriteAnim = new Sprite[4][26];
+			for(int i=0;i<this.spriteAnim.length;i++)
+			{
+				y0=0;
+				for(int j = 0; j <this.spriteAnim[i].length;j++)
+				{
+					this.spriteAnim[i][j]=new Sprite();
+					this.spriteAnim[i][j].setTexture(Textures.mesAnims[i]);
+					
+					this.spriteAnim[i][j].setTextureRect(new IntRect((j%6)*tailleX, y0*tailleY, tailleX, tailleY));
+					if(j%6==0 && j!=0)
+						y0++;
+					//this.spriteAnim[i][j].setScale(this.reScaleRobot,this.reScaleRobot);
+				}
+			}
+			
+			
 			robots.add(this.spriteAnim);
 		}
 	}
@@ -250,16 +249,17 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void set_pos_robot()
 	{
 		int i,j,h, orientation;
+		 System.out.println("------------");
 		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
 		{
 			 orientation = monNiveau.getPersonnages().get(l).getOrientationInt();
+
 			 i=monNiveau.getPersonnages().get(l).getPositionX();
 			 j=monNiveau.getPersonnages().get(l).getPositionY();
 			 h=monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique();
 			
 			if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Transparente)
 				{h=0;}
-			
 
 			robots.get(l)[orientation][0].setPosition(this.SpriteCases[i][j][h].getPosition().x 
 					+ this.reScale*this.SpriteCases[i][j][h].getTexture().getSize().x/2
@@ -268,7 +268,20 @@ public class Afficher_niveau extends Menu_niveaux{
 					+this.reScale*this.SpriteCases[i][j][h].getTexture().getSize().y/3 
 					- this.reScaleRobot*robots.get(l)[orientation][0].getLocalBounds().height
 					+ 10);
-		}		
+			
+			//System.out.println( robots.get(l)[orientation][0].getPosition().x + "   " + robots.get(l)[orientation][0].getPosition().y);
+			
+			 
+		}	
+
+		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
+		{
+			 orientation = monNiveau.getPersonnages().get(l).getOrientationInt();
+
+			 System.out.println( robots.get(l)[orientation][0].getPosition().x + "   " + robots.get(l)[orientation][0].getPosition().y);
+		}
+	
+			
 	}
 	
 	
@@ -940,10 +953,14 @@ public class Afficher_niveau extends Menu_niveaux{
 		StructStringSprite temp;
 		monNiveau=mj.getNiveau(selection);
 		
+		reinitialiser_anim();
+		initialiser_anim();
+		
 		for(int index=0;index< robots.size();index++)
 			robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.animInfos.get(index).getNum()]
 				.setColor(Color.WHITE);
 		
+
 		this.set_textures_cases();
 		set_pos_robot();
 		
@@ -1042,7 +1059,7 @@ public class Afficher_niveau extends Menu_niveaux{
 			}	
 		}
 	}
-	
+
 	/**
 	 * Méthode principale de la classe qui permet d'afficher tout un niveau avec les actions et procédures associée
 	 * @param niveauCharger Le niveau que l'on veut afficher
@@ -1058,7 +1075,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		Textures.initTextures();
 		monNiveau=niveauCharger;
 		init_niveau(1.0f);
-		initialiser_images_anim();
 		initialiser_anim();
 		set_position_cases();
 		set_pos_robot();
@@ -1119,6 +1135,7 @@ public class Afficher_niveau extends Menu_niveaux{
 
 						if (!this.tabProgramme.get(indexRobot)[0].isEmpty())
 							unSeulPlay=false;
+						
 						
 						afficher_phrase_fin();				
 					}

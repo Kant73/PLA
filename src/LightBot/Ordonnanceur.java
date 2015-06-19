@@ -43,6 +43,13 @@ public class Ordonnanceur {
 		} catch (CloneException cE) {
 			majGraphiqueApresExec(cE.getCommandeEnCours(),this.numeroRobot);
 			if(this.niveau.getPersonnages().size()>0)this.niveau.setPersonnages(cE.getListPesonnage());
+			{
+				this.affichage.reinitialiser_anim();
+				this.affichage.initialiser_anim();
+				this.affichage.set_pos_robot();
+		
+				
+			}
 		}			
 	}
 	
