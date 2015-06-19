@@ -211,7 +211,6 @@ public class Menu_principal {
 								case jouer : 
 									Menu_modes modes = new  Menu_modes();
 									modes.afficher_menu();
-									
 									break;
 								case credits :
 									music.playMusic(10);
@@ -244,11 +243,12 @@ public class Menu_principal {
 							Vector2f posRedim = fenetre.mapPixelToCoords(pos); 
 							hover(posRedim);
 							
-								fenetre.draw(spriteFond);
+							fenetre.draw(spriteFond);
 							this.afficher_boutons();
 							fenetre.display();
 						}
 					else if (event.type == Event.Type.CLOSED ||  ((event.type == Event.Type.KEY_PRESSED)  && (Keyboard.isKeyPressed(Key.ESCAPE)))) {
+						Musique.music.stop();
 						fenetre.close();	
 					}
 				}

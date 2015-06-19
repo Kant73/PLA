@@ -167,6 +167,7 @@ public class Tuto extends Menu_niveaux{
 				}
 
 				else if (event.type == Event.Type.CLOSED) {
+					Musique.music.stop();
 					Menu_principal.fenetre.close();
 				}
 			}

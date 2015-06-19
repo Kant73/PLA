@@ -7,7 +7,7 @@ import org.jsfml.audio.Music;
 
 public class Musique {
 
-	public Music music = new Music();
+	public static Music music = new Music();
 	
 	/**
 	 * Lancer la musique en param�tre comme par exemple "musique.ogg".
@@ -16,7 +16,6 @@ public class Musique {
 	 * @param pNomMusique
 	 */
 	public void playMusic(int pSelectMode) {
-		
 		try {
 			switch (pSelectMode)
 			{

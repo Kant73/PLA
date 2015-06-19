@@ -282,6 +282,7 @@ public class Menu_niveaux extends Menu_modes{
 						}
 					
 					else if (event.type == Event.Type.CLOSED) {
+						Musique.music.stop();
 						Menu_principal.fenetre.close();
 					}
 				}
