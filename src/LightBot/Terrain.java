@@ -21,6 +21,7 @@ public class Terrain {
 	private int reserveBloc;					//Réserve de blocs que peut poser le robot.
 	private int nbLampeAllumee=0;
 	private int maxAllumee;
+	private int nbActionRestantes;
 	private Case[][] ensembleDeCase;			//Tableau à 2 dimensions de cases représentant le terrain
 	
 /********************************************* ACCESSEURS *********************************************/
@@ -35,6 +36,10 @@ public class Terrain {
 
 	public int getNbActionsPossible() {
 		return nbActionsPossible;
+	}
+	
+	public int getNbActionsRestantes(){
+		return this.nbActionRestantes;
 	}
 	
 	/**
@@ -134,6 +139,11 @@ public class Terrain {
 
 	public void setNbActionsPossible(int pNbActionsPossible) {
 		this.nbActionsPossible = pNbActionsPossible;
+		this.nbActionRestantes=pNbActionsPossible;
+	}
+	
+	public void setNbActionsrestantes(int n){
+		this.nbActionRestantes=n;
 	}
 	
 	/**
@@ -145,7 +155,7 @@ public class Terrain {
 	}
 	
 	public void incrementReserve(){
-		this.reserveBloc ++;
+		this.reserveBloc++;
 	}
 	
 	public void decrementReserve(){
@@ -227,10 +237,11 @@ public class Terrain {
 	
 	//Constructeur de l'objet Terrain
 	public Terrain(int pLargeur, int pLongueur, int pNbActionsPossible, Case[][] pEnsembleDeCase){
-		largeur = pLargeur;
-		longueur = pLongueur;
-		nbActionsPossible = pNbActionsPossible;
-		ensembleDeCase = pEnsembleDeCase;
+		this.largeur = pLargeur;
+		this.longueur = pLongueur;
+		this.nbActionsPossible = pNbActionsPossible;
+		this.ensembleDeCase = pEnsembleDeCase;
+		this.nbActionRestantes=pNbActionsPossible;
 	}
 	
 	public Terrain(int largeur, int longueur){

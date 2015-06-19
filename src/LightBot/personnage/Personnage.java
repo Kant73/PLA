@@ -1,7 +1,16 @@
 package LightBot.personnage;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.ListIterator;
+
+import LightBot.exceptions.BreakException;
+import LightBot.exceptions.CloneException;
+import LightBot.Niveau;
 import LightBot.Programme;
 import LightBot.Terrain;
+import LightBot.actions.Actions;
 import LightBot.cases.Case;
 import LightBot.cases.Couleur;
 
@@ -14,9 +23,13 @@ public class Personnage implements Cloneable {
 	private Pcardinaux orientation; 	//Orientation du personnage.
 	private Programme prog;			//Programme associé au personnage.
 	private Terrain terrain;
+	private Niveau niveau;
 	private Couleur couleur;
 	private String nom;
 	private boolean mort=false;
+	private LinkedList<ListIterator<Object>> fifo;
+	private ListIterator<Object> itActions;
+	
 	
 	public Personnage(String nom, int x, int y, Pcardinaux sens){
 		this.nom=nom;
@@ -24,7 +37,61 @@ public class Personnage implements Cloneable {
 		this.positionInitial[1]=y;
 		this.orientation=sens;
 		this.couleur=Couleur.Blanc;
+		this.fifo=new LinkedList<ListIterator<Object>>();
 		setCurrentToOriginPosition();
+	}
+	
+	public Object execute() throws ArrayIndexOutOfBoundsException,BreakException, CloneException{
+		Object obj = null;
+		try{
+			if(itActions.hasNext() ){
+				obj=itActions.next();
+				
+				if(obj instanceof Actions){
+					int nbLampeAllumee=this.getTerrain().getNbLampeAllumee();
+					if( nbLampeAllumee >= this.getTerrain().getMaxLampe() || this.isMort() ||
+						this.getTerrain().getNbActionsRestantes() <= 0 ){
+							this.prog.reset();
+							throw new ArrayIndexOutOfBoundsException();
+						}
+					else{
+						this.getTerrain().setNbActionsrestantes(this.getTerrain().getNbActionsRestantes()-1);
+						((Actions)obj).agir();												
+					}
+				}else if(obj instanceof Programme){		
+					System.out.println(("prog"+((Programme)obj).getNom()));
+					if(((Programme)obj).isMatchCouleur(this.couleur))
+						this.setNewIterator(((Programme)obj).getIterator());
+				}
+			}else{
+				this.restaureIterator();
+			}
+		}catch(StackOverflowError e){
+			e.printStackTrace();
+		}catch(NoClassDefFoundError noDef){
+			noDef.printStackTrace();
+		}catch(NullPointerException nE){
+			nE.printStackTrace();
+			return null;
+		}catch(BreakException bE){
+			this.restaureIterator();
+	    	throw new BreakException();
+		}
+		return obj;
+	}
+	
+	private void setNewIterator(ListIterator<Object> iterator){
+		this.fifo.add(this.itActions);
+		this.itActions=iterator;
+	}
+	
+	private void restaureIterator(){
+		if(!this.fifo.isEmpty())
+			this.itActions=this.fifo.removeLast();
+	}
+	
+	public boolean isListFifoEmpty(){		
+		return this.fifo.size()==0 && !((Iterator<Object>) this.itActions).hasNext();
 	}
 	
 	public Personnage(String nom, int x, int y, Pcardinaux sens, Couleur color){
@@ -34,6 +101,10 @@ public class Personnage implements Cloneable {
 	
 	public String getNom(){
 		return this.nom;
+	}
+	
+	public void setNom(String nom){
+		this.nom=nom;
 	}
 	
 	public Couleur getCouleur(){
@@ -92,6 +163,10 @@ public class Personnage implements Cloneable {
 		return this.terrain;
 	}	
 	
+	public Niveau getNiveau() {
+		return niveau;
+	}
+	
 	public void setCouleur(Couleur c){
 		if(Couleur.Rose == c || Couleur.Violet == c || Couleur.Blanc == c){
 			this.couleur = c;
@@ -117,6 +192,7 @@ public class Personnage implements Cloneable {
 	
 	public void setProgramme(Programme pProg) {
 		this.prog = pProg;
+		this.itActions=this.prog.getIterator();
 	}
 	
 	public void setTerrain(Terrain pTerrain) {
@@ -126,6 +202,10 @@ public class Personnage implements Cloneable {
 	public void setCurrentToOriginPosition(){			//Initialiser la position initiale du personnage.
 		this.currentX = positionInitial[0];
 		this.currentY = positionInitial[1];
+	}
+
+	public void setNiveau(Niveau niveau) {
+		this.niveau = niveau;
 	}
 	
 	public void run(){
@@ -146,6 +226,18 @@ public class Personnage implements Cloneable {
 	public Personnage clone() throws CloneNotSupportedException{
 		Personnage copie=(Personnage)super.clone();
 		copie.prog=this.prog.clone();
+		copie.fifo=new LinkedList<ListIterator<Object>>();
+		for(int i=0;i<this.fifo.toArray().length;i++)
+			copie.fifo.add((ListIterator<Object>) this.fifo.toArray()[i]);
+		
+		ArrayList<Object> tmp=new ArrayList<Object>();
+		int nextIndexIt=this.itActions.nextIndex();
+		while(this.itActions.hasPrevious())this.itActions.previous(); //Remise a zero
+		
+		while(this.itActions.hasNext())tmp.add(this.itActions.next()); 
+		
+		copie.itActions=tmp.listIterator(nextIndexIt);
+		
 		return copie;
 	}
 

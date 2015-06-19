@@ -1,6 +1,6 @@
 package LightBot.actions;
 
-import LightBot.BreakException;
+import LightBot.exceptions.BreakException;
 import LightBot.cases.Couleur;
 import LightBot.personnage.Personnage;
 

@@ -2,6 +2,7 @@ package LightBot;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Vector;
 
 import LightBot.actions.Actions;
@@ -14,14 +15,14 @@ public class Programme implements Cloneable{
 	private ArrayList<Object> listActions;
 	private String nom;
 	private Couleur couleurCondition;
-	private Iterator<Object> itActions;
+	private ListIterator<Object> itActions;
 	
 	public Programme(String nom, int taille){
 		this.nbMaxAction= taille;	
 		this.nom=nom;
 		this.listActions=new ArrayList<Object>();
 		this.couleurCondition=Couleur.Blanc;
-		this.itActions=this.listActions.iterator();
+		this.itActions=this.listActions.listIterator();
 	}
 	
 	public Programme(String nom, int taille, Couleur couleur){
@@ -29,8 +30,8 @@ public class Programme implements Cloneable{
 		this.couleurCondition=couleur;
 	}
 	
-	public Iterator<Object> getIterator(){
-		this.itActions=this.listActions.iterator();
+	public ListIterator<Object> getIterator(){
+		this.itActions=this.listActions.listIterator();
 		return this.itActions;
 	}
 	
@@ -60,7 +61,7 @@ public class Programme implements Cloneable{
 	public void supprimer(int index){
 		if (index>=0 && index <this.listActions.size()){
 			this.listActions.remove(index);
-			this.itActions=this.listActions.iterator();
+			this.itActions=this.listActions.listIterator();
 		}
 	}
 	
@@ -85,7 +86,7 @@ public class Programme implements Cloneable{
 					}						
 				}
 			}
-			prg.itActions=prg.listActions.iterator();
+			prg.itActions=prg.listActions.listIterator();
 			return prg;
 		}
 		return null;
@@ -94,7 +95,7 @@ public class Programme implements Cloneable{
 	public void vider(){
 		for(int i=this.listActions.size()-1;i>=0;i--)
 			this.listActions.remove(i);
-		this.itActions=this.listActions.iterator();
+		this.itActions=this.listActions.listIterator();
 	}
 	
 	public void insererQueue(Object obj){
@@ -103,7 +104,7 @@ public class Programme implements Cloneable{
 				this.listActions.add((Programme)obj);
 			else if (obj instanceof Actions)
 				this.listActions.add((Actions)obj);
-			this.itActions=this.listActions.iterator();
+			this.itActions=this.listActions.listIterator();
 		}
 	}
 	

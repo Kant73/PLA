@@ -10,6 +10,7 @@ import LightBot.cases.Lampe;
 import LightBot.cases.Pointeur;
 import LightBot.cases.PointeurTri;
 import LightBot.cases.Transparente;
+import LightBot.exceptions.CloneException;
 import LightBot.personnage.Personnage;
 
 
@@ -40,7 +41,7 @@ public class Allumer extends Actions {
 	}
 
 	@Override
-	public void agir() {
+	public void agir() throws CloneException{
 		if(super.matchColor()){
 			Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()];
 			int nbLampeAllumee=this.perso.getTerrain().getNbLampeAllumee();
@@ -82,6 +83,7 @@ public class Allumer extends Actions {
 				System.out.println("Eh hop : un clone :)");
 				System.out.println("Enfin plutôt : "+((Clonage)C).getPops().size());
 				popClone((Clonage)C);
+				throw new CloneException();
 			}
 		}
 	}
@@ -100,7 +102,7 @@ public class Allumer extends Actions {
 		return estTrie;
 	}
 
-	private void victoire(){
+	private void victoire() throws CloneException{
 		for(int x = 0; x<this.perso.getTerrain().getLargeur(); x++){
 			Case courante = this.perso.getTerrain().getEnsembleDeCase()[x][2];
 			if(courante instanceof Transparente){
@@ -116,13 +118,17 @@ public class Allumer extends Actions {
 			Clonage courante = pops.get(i);
 			int x = this.perso.getTerrain().getPosCaseX(courante);
 			int y = this.perso.getTerrain().getPosCaseY(courante);
-			Personnage clone;
+			Personnage clone=null;
 			try {
 				clone = (Personnage) this.perso.clone();
-				
+				clone.setNom("Clone "+(i+1));
+				clone.setPosition(x,y);
+				clone.setOrientation(courante.getOrientation());
 			} catch (CloneNotSupportedException e) {
 				e.printStackTrace();
 			}
+			
+			this.perso.getNiveau().getPersonnages().add(clone);
 		}
 	}
 }

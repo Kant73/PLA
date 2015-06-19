@@ -150,6 +150,7 @@ public class Parser {
 					}
 					pers.setTerrain(this.n.getTerrain());
 					this.n.getPersonnages().add(pers);
+					pers.setNiveau(this.n);
 				}
 				break;
 			case "programmes" :
