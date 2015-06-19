@@ -3,6 +3,7 @@ package Graphique;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import org.jsfml.audio.Music;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Image;
 import org.jsfml.graphics.IntRect;
@@ -26,6 +27,8 @@ public class Menu_principal {
 	public static final RenderWindow fenetre = new RenderWindow(); 
 	public static Texture texRetour;
 	public static Sprite spriteRetour;
+	
+	public static Musique music = new Musique();
 	
 	private static final int nbBoutons = 2;
 	private static final int jouer = 0;
@@ -187,6 +190,7 @@ public class Menu_principal {
 									modes.afficher_menu();
 									break;
 								case credits :
+									music.playMusic(10);		//Musique sur les crédits.
 									Credits credit = new  Credits();
 									credit.afficher_credits();
 								}
@@ -244,7 +248,8 @@ public class Menu_principal {
 			}
 			fenetre.setIcon(icon);
 			
-			//monMenu.playMusic("Zarnakand.ogg");
+			music.playMusic(9);
+
 			monMenu.afficher_menu();
 	}
 }

@@ -247,6 +247,7 @@ public class Menu_niveaux extends Menu_modes{
 							if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
 							{
 								sortie=false;
+								music.playMusic(9);			//Retour à la musique principale (Retour).
 							}
 								
 						}
@@ -256,6 +257,7 @@ public class Menu_niveaux extends Menu_modes{
 						if (Keyboard.isKeyPressed(Key.ESCAPE))
 						{
 							sortie=false;
+							music.playMusic(9);			//Retoure à la musique principale (Echap).
 						}
 						
 					}

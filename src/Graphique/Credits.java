@@ -15,7 +15,7 @@ import org.jsfml.window.event.Event;
 
 import LightBot.NomMode;
 
-public class Credits {
+public class Credits extends Menu_principal{
 
 	private static final int nbBoutons = 6;
 	private static final int rotMax = 60;
@@ -136,6 +136,7 @@ public class Credits {
 							if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
 							{
 								sortie=false;
+								music.playMusic(9);
 							}
 						}
 					}
@@ -144,6 +145,7 @@ public class Credits {
 						if (Keyboard.isKeyPressed(Key.ESCAPE))
 						{
 							sortie=false;
+							music.playMusic(9);
 						}	
 					}
 					else if (event.type == Event.Type.CLOSED) {
