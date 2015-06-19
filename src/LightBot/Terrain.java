@@ -268,7 +268,6 @@ public class Terrain {
 				}
 			}
 		}
-		System.out.println(liste.size());
 		return liste;
 	}
 	
