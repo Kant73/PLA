@@ -110,6 +110,7 @@ public class Tuto extends Menu_niveaux{
 		
 		int tutoCourant = 0;
 		boolean temp = true;
+		boolean first_fondu = true;
 		Menu_principal.fenetre.clear();
 		//this.init_tuto(nom_niveau, nb_img);
 		

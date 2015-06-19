@@ -8,6 +8,7 @@ import org.jsfml.graphics.Font;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Text;
 import org.jsfml.graphics.Texture;
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.Keyboard.Key;
@@ -92,7 +93,7 @@ public class Menu_niveaux extends Menu_modes{
 	}
 
 	
-	private void hover(Vector2i pos)
+	private void hover(Vector2f pos)
 	{	
 		int last_select = this.selection;
 		this.selection=-1;
@@ -164,17 +165,18 @@ public class Menu_niveaux extends Menu_modes{
 	{
 		for(int i=0;i<20;i++)
 		{
-			Menu_principal.spriteFond.setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
-			fenetre.draw(Menu_principal.spriteFond);
+			Menu_modes.spritefondMode.setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
+			fenetre.draw(Menu_modes.spritefondMode);
 			fenetre.display();
-			try {
+			/*try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}		
+			*/
 		}
-		Menu_principal.spriteFond.setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
+		Menu_modes.spritefondMode.setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
 	}
 	
 	private void fondu_tuto(Sprite sprite)
@@ -218,9 +220,9 @@ public class Menu_niveaux extends Menu_modes{
 						if(event.asMouseButtonEvent().button == Button.LEFT)
 						{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							hover(pos);
-							Tuto tuto = new Tuto();
-							tuto.init_tuto(mj.toString(), tuto.nb_image_par_mode(mj.toString()));
+							Vector2f posRedim = fenetre.mapPixelToCoords(pos); 
+							hover(posRedim);
+							
 							if(selection !=-1)
 							{
 								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la r�solution du niveau.
@@ -228,6 +230,8 @@ public class Menu_niveaux extends Menu_modes{
 									//Tuto tuto = new Tuto();
 									//System.out.println("mj.toString(): " + mj.toString());
 									//fondu_tuto(tuto.getSpritesTutoTab()[0]);
+									Tuto tuto = new Tuto();
+									tuto.init_tuto(mj.toString(), tuto.nb_image_par_mode(mj.toString()));
 									tuto.affiche_tuto(mj.toString());
 								}
 								Afficher_niveau level = new  Afficher_niveau();
@@ -258,7 +262,8 @@ public class Menu_niveaux extends Menu_modes{
 					else if (event.type == Event.Type.MOUSE_MOVED) 
 						{
 							Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-							hover(pos);
+							Vector2f posRedim = fenetre.mapPixelToCoords(pos); 
+							hover(posRedim);
 							
 							fenetre.draw(Menu_principal.spriteFond);
 							this.afficher_boutons();
