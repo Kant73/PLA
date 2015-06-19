@@ -124,7 +124,6 @@ public class Tuto extends Menu_niveaux{
 				temp = false;
 			}
 			
-			
 			for (Event event : Menu_principal.fenetre.pollEvents()) 
 			{	
 				if (event.type == Event.Type.KEY_PRESSED) 
@@ -132,6 +131,7 @@ public class Tuto extends Menu_niveaux{
 					if (Keyboard.isKeyPressed(Key.ESCAPE))
 					{
 						sortie=false;
+						Menu_principal.fenetre.clear();
 					}
 				}
 
@@ -139,14 +139,12 @@ public class Tuto extends Menu_niveaux{
 				{ 
 					if(event.asMouseButtonEvent().button == Button.LEFT)
 					{
-						Vector2i pos = Mouse.getPosition(Menu_principal.fenetre); 
-						
-						if (this.spritesTutoTab[tutoCourant].getGlobalBounds().contains(pos.x, pos.y)) {
+
 							tutoCourant++;
 							temp = true;
-						}
 						
-						if (tutoCourant == nb_img) {
+						
+						if (tutoCourant >= nb_img) {
 							sortie=false;
 						}
 							

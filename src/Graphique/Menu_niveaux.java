@@ -165,8 +165,8 @@ public class Menu_niveaux extends Menu_modes{
 	{
 		for(int i=0;i<20;i++)
 		{
-			Menu_modes.spritefondMode.setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
-			fenetre.draw(Menu_modes.spritefondMode);
+			Menu_principal.spriteFond.setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
+			fenetre.draw(Menu_principal.spriteFond);
 			fenetre.display();
 			/*try {
 				Thread.sleep(10);
@@ -176,7 +176,7 @@ public class Menu_niveaux extends Menu_modes{
 			}		
 			*/
 		}
-		Menu_modes.spritefondMode.setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
+		Menu_principal.spriteFond.setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
 	}
 	
 	private void fondu_tuto(Sprite sprite)
