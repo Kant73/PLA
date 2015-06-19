@@ -23,7 +23,6 @@ public class Personnage implements Cloneable {
 	private Pcardinaux orientation; 	//Orientation du personnage.
 	private Programme prog;			//Programme associé au personnage.
 	private Terrain terrain;
-	private Niveau niveau;
 	private Couleur couleur;
 	private String nom;
 	private boolean mort=false;
@@ -162,10 +161,6 @@ public class Personnage implements Cloneable {
 		return this.terrain;
 	}	
 	
-	public Niveau getNiveau() {
-		return niveau;
-	}
-	
 	public void setCouleur(Couleur c){
 		if(Couleur.Rose == c || Couleur.Violet == c || Couleur.Blanc == c){
 			this.couleur = c;
@@ -201,10 +196,6 @@ public class Personnage implements Cloneable {
 	public void setCurrentToOriginPosition(){			//Initialiser la position initiale du personnage.
 		this.currentX = positionInitial[0];
 		this.currentY = positionInitial[1];
-	}
-
-	public void setNiveau(Niveau niveau) {
-		this.niveau = niveau;
 	}
 	
 	public void run(){

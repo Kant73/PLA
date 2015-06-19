@@ -101,14 +101,16 @@ public class Allumer extends Actions {
 		return estTrie;
 	}
 
-	private void victoire() throws CloneException{
+	private void victoire() {
 		for(int x = 0; x<this.perso.getTerrain().getLargeur(); x++){
 			Case courante = this.perso.getTerrain().getEnsembleDeCase()[x][2];
 			if(courante instanceof Transparente){
 				this.perso.getTerrain().getEnsembleDeCase()[x][2] = ((Transparente)courante).toNormal();
 			}
 		}
-		new Allumer(this.perso).agir();
+		try {
+			new Allumer(this.perso).agir();
+		} catch (CloneException e) {}
 	}
 	
 	private void popClone(Clonage cellule) throws CloneException{
