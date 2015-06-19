@@ -53,7 +53,6 @@ public class Personnage implements Cloneable {
 							throw new ArrayIndexOutOfBoundsException();
 						}
 					else{
-						System.out.println(((Actions)commande).toString());
 						this.getTerrain().setNbActionsrestantes(this.getTerrain().getNbActionsRestantes()-1);
 						((Actions)commande).agir();												
 					}

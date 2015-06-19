@@ -8,7 +8,6 @@ public class AllumerBattle extends Actions {
 
 	public AllumerBattle(Personnage p) {
 		super(p);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public AllumerBattle(Personnage p, Couleur c){

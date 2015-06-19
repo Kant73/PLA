@@ -4,7 +4,6 @@ public class LampeBattle extends Lampe{
 
 	public LampeBattle(int pHauteur) {
 		super(pHauteur);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
