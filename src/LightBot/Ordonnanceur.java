@@ -24,7 +24,6 @@ public class Ordonnanceur {
 	public void run(){
 		try{
 			for(int i=0;i<this.niveau.getPersonnages().toArray().length;i++){ //Execute une action pour chaque robot
-				System.out.println(this.niveau.getPersonnages().get(i).getNom());
 				majGraphique(this.niveau.getPersonnages().get(i),i);				
 			}
 			if(isListFifoEmpty())return;

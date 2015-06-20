@@ -10,12 +10,12 @@ import LightBot.personnage.Personnage;
 
 public class RetirerBloc extends Actions {
 
-	public RetirerBloc(Personnage pPerso) {
-		super(pPerso);
+	public RetirerBloc() {
+		super();
 	}
 	
-	public RetirerBloc(Personnage pPerso, Couleur pColor) {
-		super(pPerso, pColor);
+	public RetirerBloc(Couleur pColor) {
+		super(pColor);
 	}
 	
 	@Override
@@ -30,11 +30,11 @@ public class RetirerBloc extends Actions {
 	 * Chaque retrait de bloc diminue la hauteur du bloc Memoire. 
 	 * Si la hauteur initiale est atteinte dans le retrait de bloc, le bloc devient un bloc Normal.
 	 */
-	public void agir() {
-		Pcardinaux orientationPerso = this.perso.getOrientation();				//On récupère l'orientation du personnage.
-		int positionPersoX = this.perso.getPositionX();							//On récupère la position X du personnage.
-		int positionPersoY = this.perso.getPositionY();							//On récupère la position Y du personnage.
-		Terrain t = this.perso.getTerrain();									//On récupère le terrain.
+	public void agir(Personnage perso) {
+		Pcardinaux orientationPerso = perso.getOrientation();				//On récupère l'orientation du personnage.
+		int positionPersoX = perso.getPositionX();							//On récupère la position X du personnage.
+		int positionPersoY = perso.getPositionY();							//On récupère la position Y du personnage.
+		Terrain t = perso.getTerrain();									//On récupère le terrain.
 		switch(orientationPerso) {
 		case NORTH :
 			if ((positionPersoY-1) >= 0) {

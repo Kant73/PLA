@@ -6,19 +6,19 @@ import LightBot.personnage.Personnage;
 
 public class AllumerBattle extends Actions {
 
-	public AllumerBattle(Personnage p) {
-		super(p);
+	public AllumerBattle() {
+		super();
 	}
 	
-	public AllumerBattle(Personnage p, Couleur c){
-		super(p,c);
+	public AllumerBattle(Couleur c){
+		super(c);
 	}
 
 	
 	@Override
-	public void agir(){
-		Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()];
-		Couleur color = this.perso.getCouleur();
+	public void agir(Personnage perso){
+		Case C = perso.getTerrain().getEnsembleDeCase()[perso.getPositionX()][perso.getPositionY()];
+		Couleur color = perso.getCouleur();
 		if (C.getColor() == color){
 			C.setColor(Couleur.Bleu);
 		}

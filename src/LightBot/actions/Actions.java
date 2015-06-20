@@ -10,7 +10,6 @@ public abstract class Actions implements Cloneable{
 
 /********************************************* ATTRIBUTS *********************************************/
 	
-	protected Personnage perso;
 	protected Couleur couleurCondition;
 	
 /********************************************* ACCESSEURS *********************************************/	
@@ -37,8 +36,7 @@ public abstract class Actions implements Cloneable{
 	 * Construit une action et l'associe à un personnage
 	 * @param personnage
 	 */
-	public Actions(Personnage personnage){
-		this.perso=personnage;
+	public Actions(){
 		this.couleurCondition=Couleur.Blanc;
 	}
 	
@@ -47,8 +45,8 @@ public abstract class Actions implements Cloneable{
 	 * @param personnage
 	 * @param couleur
 	 */
-	public Actions(Personnage personnage,Couleur couleur){
-		this(personnage);
+	public Actions(Couleur couleur){
+		this();
 		if(couleur==Couleur.Violet || couleur==Couleur.Rose){
 			this.couleurCondition=couleur;
 		}
@@ -59,30 +57,19 @@ public abstract class Actions implements Cloneable{
 	 * @throws BreakException
 	 * @throws CloneException
 	 */
-	public void agir() throws BreakException,CloneException {}
+	public void agir(Personnage perso) throws BreakException,CloneException {}
 	
-	/**
-	 * Obtiens le Personnage associé à l'action
-	 * @return Personnage
-	 */
-	public Personnage getPersonnage(){
-		return this.perso;
-	}
-	
-	public void setPersonnage(Personnage perso){
-		this.perso=perso;
-	}
 	
 	/**
 	 * Retourne true si la couleur du personnage correspond aux couleurs de conditions
 	 * @return boolean
 	 */
-	public boolean matchColor (){
+	public boolean matchColor(Personnage perso){
 		boolean colorOK;
 		/* Marche bien pour n'avoir que 2 couleurs de conditions */
-		colorOK = this.couleurCondition == this.perso.getCouleur(); 
-		colorOK |= (this.perso.getCouleur() == Couleur.Violet 	&& this.couleurCondition != Couleur.Rose);
-		colorOK |= (this.perso.getCouleur() == Couleur.Rose 	&& this.couleurCondition != Couleur.Violet);
+		colorOK = this.couleurCondition == perso.getCouleur(); 
+		colorOK |= (perso.getCouleur() == Couleur.Violet 	&& this.couleurCondition != Couleur.Rose);
+		colorOK |= (perso.getCouleur() == Couleur.Rose 	&& this.couleurCondition != Couleur.Violet);
 		return colorOK;
 	}
 	

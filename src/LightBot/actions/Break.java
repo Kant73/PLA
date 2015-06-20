@@ -6,12 +6,12 @@ import LightBot.personnage.Personnage;
 
 public class Break extends Actions{
 
-	public Break(Personnage p) {
-		super(p);
+	public Break() {
+		super();
 	}
 	
-	public Break(Personnage p,Couleur c) {
-		super(p,c);
+	public Break(Couleur c) {
+		super(c);
 	}
 	
 	@Override
@@ -21,8 +21,8 @@ public class Break extends Actions{
 	}
 
 
-	public void agir() throws BreakException{
-		if(matchColor())
+	public void agir(Personnage perso) throws BreakException{
+		if(matchColor(perso))
 			throw new BreakException();
 	}
 }

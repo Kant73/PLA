@@ -10,12 +10,12 @@ import LightBot.personnage.Pcardinaux;
 
 public class PoserBloc extends Actions{
 
-	public PoserBloc(Personnage pPerso) {
-		super(pPerso);
+	public PoserBloc() {
+		super();
 	}
 	
-	public PoserBloc(Personnage pPerso, Couleur pColor) {
-		super(pPerso, pColor);
+	public PoserBloc(Couleur pColor) {
+		super(pColor);
 	}
 	
 	@Override
@@ -29,14 +29,14 @@ public class PoserBloc extends Actions{
 	 * Si la case est de base, elle est transformée en case Memoire.
 	 * Sinon, la hauteur de la case Memoire est incrémentée.
 	 */
-	public void agir() {
-		int positionPersoX = this.perso.getPositionX();					// On récupère la position X du personnage.
-		int positionPersoY = this.perso.getPositionY();					// On récupère la position Y du personnage.
-		Terrain t = this.perso.getTerrain();							// On récupère le terrain.
-		switch(this.perso.getOrientation()) {
+	public void agir(Personnage perso) {
+		int positionPersoX = perso.getPositionX();					// On récupère la position X du personnage.
+		int positionPersoY = perso.getPositionY();					// On récupère la position Y du personnage.
+		Terrain t = perso.getTerrain();							// On récupère le terrain.
+		switch(perso.getOrientation()) {
 		case NORTH :
 			if ((positionPersoY - 1) >= 0) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[positionPersoX][positionPersoY-1];					// On récupère la case adjacente en face du personnage.
+				Case C = perso.getTerrain().getEnsembleDeCase()[positionPersoX][positionPersoY-1];					// On récupère la case adjacente en face du personnage.
 				if (C instanceof Memoire && (C.getHauteur() < t.getHauteurMax()) && (t.getReserveBloc() > 0)) {			// Si C est un bloc Memoire et que sa hauteur est inférieure à la hauteurMax du terrain et que la réserve n'est pas vide,
 					C.setHauteur(C.getHauteur()+1);																		// on augmente la hauteur du bloc Memoire de 1.
 					t.decrementReserve();;																				// On diminue la réserve de 1 bloc.
@@ -56,7 +56,7 @@ public class PoserBloc extends Actions{
 			break;
 		case SOUTH :
 			if ((positionPersoY + 1) < t.getLongueur()) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[positionPersoX][positionPersoY+1];
+				Case C = perso.getTerrain().getEnsembleDeCase()[positionPersoX][positionPersoY+1];
 				if (C instanceof Memoire && (C.getHauteur() < t.getHauteurMax()) && (t.getReserveBloc() > 0)) {			// Si C est un bloc Memoire et que sa hauteur est inférieure à la hauteurMax du terrain et que la réserve n'est pas vide,
 					C.setHauteur(C.getHauteur()+1);																		// on augmente la hauteur du bloc Memoire de 1.
 					t.decrementReserve();																				// On diminue la réserve de 1 bloc.
@@ -76,7 +76,7 @@ public class PoserBloc extends Actions{
 			break;
 		case EAST :
 			if ((positionPersoX + 1) < t.getLargeur()) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[positionPersoX+1][positionPersoY];
+				Case C = perso.getTerrain().getEnsembleDeCase()[positionPersoX+1][positionPersoY];
 				if (C instanceof Memoire && (C.getHauteur() < t.getHauteurMax()) && (t.getReserveBloc() > 0)) {			// Si C est un bloc Memoire et que sa hauteur est inférieure à la hauteurMax du terrain et que la réserve n'est pas vide,
 					C.setHauteur(C.getHauteur()+1);																		// on augmente la hauteur du bloc Memoire de 1.
 					t.decrementReserve();																				// On diminue la réserve de 1 bloc.
@@ -96,7 +96,7 @@ public class PoserBloc extends Actions{
 			break;
 		case WEST :
 			if ((positionPersoX - 1) >= 0) {
-				Case C = this.perso.getTerrain().getEnsembleDeCase()[positionPersoX-1][positionPersoY];
+				Case C = perso.getTerrain().getEnsembleDeCase()[positionPersoX-1][positionPersoY];
 				if (C instanceof Memoire && (C.getHauteur() < t.getHauteurMax()) && (t.getReserveBloc() > 0)) {			// Si C est un bloc Memoire et que sa hauteur est inférieure à la hauteurMax du terrain et que la réserve n'est pas vide,
 					C.setHauteur(C.getHauteur()+1);																		// on augmente la hauteur du bloc Memoire de 1.
 					t.decrementReserve();																				// On diminue la réserve de 1 bloc.

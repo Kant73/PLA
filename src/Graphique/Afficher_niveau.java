@@ -926,40 +926,40 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void inserer_actions(StructStringSprite struct){
 		switch (struct.nom) {
 		case "avancer":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Avancer(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor())   ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Avancer(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor())   ));
 			break;
 		case "gauche":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerGauche(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerGauche(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "droite":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerDroite(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new TournerDroite(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "sauter":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Sauter(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Sauter(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "allumer":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Allumer(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "allumerBattle":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new AllumerBattle(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new AllumerBattle(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "poser":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new PoserBloc(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new PoserBloc(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "suppr":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new RetirerBloc(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new RetirerBloc(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "wash":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Wash(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Wash(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "comp":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new CompareFront(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new CompareFront(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "swap":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Swap(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Swap(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "break":
-			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Break(monNiveau.getPersonnages().get(this.indexRobot), this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
+			monNiveau.getProgrammes().get(this.progSelect).insererQueue(new Break(this.couleur_graphique_vers_couleur_case(struct.sprite.getColor()) ));
 			break;
 		case "P1":			
 			monNiveau.getProgrammes().get(this.progSelect).insererQueue(monNiveau.getProgrammes().get(1));

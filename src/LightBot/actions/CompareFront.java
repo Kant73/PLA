@@ -8,12 +8,12 @@ import LightBot.personnage.Personnage;
 
 public class CompareFront extends Actions {
 
-	public CompareFront(Personnage p) {
-		super(p);
+	public CompareFront() {
+		super();
 	}
 	
-	public CompareFront(Personnage p, Couleur c){
-		super(p,c);
+	public CompareFront(Couleur c){
+		super(c);
 	}
 	
 	@Override
@@ -22,16 +22,16 @@ public class CompareFront extends Actions {
 		return copie;
 	}
 	
-	public void agir(){
-		if(super.matchColor()){
-			Case caseFront = this.perso.getCaseFrontHim();
-			Case caseCurrent = this.perso.getCaseCurrent();
+	public void agir(Personnage perso){
+		if(super.matchColor(perso)){
+			Case caseFront = perso.getCaseFrontHim();
+			Case caseCurrent = perso.getCaseCurrent();
 			if (caseFront != null){ // On ne doit pas chercher à comparer une case qui n'est pas dans le terrain
 				if(caseFront instanceof Pointeur){ // Si on arrive à la case de retour au début on change de couleur pour pouvoir faire les actions de retour
-					this.perso.setCouleur(Couleur.Violet);
+					perso.setCouleur(Couleur.Violet);
 				}else if(caseFront instanceof Transparente && caseCurrent instanceof Transparente){
 					if(caseCurrent.getHauteur() > caseFront.getHauteur()){
-						this.perso.setCouleur(Couleur.Rose);
+						perso.setCouleur(Couleur.Rose);
 					}
 				}
 			}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <niveau>
 	<terrain largeur="6" longueur="6" >
-		<nbActionsPossible>20</nbActionsPossible>
+		<nbActionsPossible>60</nbActionsPossible>
 		<ensembleDeCase>
 			<case type="Clonage" x="1" y="1" h="1" o="WEST" />
 			<case type="Lampe"   x="1" y="0" h="1" />

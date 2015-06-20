@@ -109,26 +109,7 @@ public class Programme implements Cloneable{
 		}
 	}
 	
-	public void execute(){
-		try{
-			for(Object obj:this.listActions){
-			    if(obj instanceof Break && ((Break)obj).getCouleur()==((Break)obj).getPersonnage().getCouleur())return;
-				else if(obj instanceof Actions){
-					int nbLampeAllumee=((Actions)obj).getPersonnage().getTerrain().getNbLampeAllumee();
-					if(nbLampeAllumee >= ((Actions)obj).getPersonnage().getTerrain().getMaxLampe() || ((Actions)obj).getPersonnage().isMort())return;
-					else((Actions)obj).agir();
-				}
-				else if(obj instanceof Programme)((Programme)obj).execute();			
-			}
-		}catch(StackOverflowError e){
-			e.printStackTrace();
-		}catch(NoClassDefFoundError noDef){
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	
-	public void changePersonnage(Personnage pers){
+	/*public void changePersonnage(Personnage pers){
 		changePersonnageRecursif(pers,2);
 	}
 		
@@ -142,7 +123,7 @@ public class Programme implements Cloneable{
 				}
 			}
 		}
-	}
+	}*/
 	
 	public String toString(){
 		return toStringRecursive(2);

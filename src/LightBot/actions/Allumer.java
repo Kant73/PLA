@@ -16,12 +16,12 @@ import LightBot.personnage.Personnage;
 
 public class Allumer extends Actions {
 
-	public Allumer(Personnage p) {
-		super(p);
+	public Allumer() {
+		super();
 	}
 	
-	public Allumer(Personnage p, Couleur c){
-		super(p,c);
+	public Allumer(Couleur c){
+		super(c);
 	}
 	
 	public String toString(){
@@ -41,32 +41,32 @@ public class Allumer extends Actions {
 	}
 
 	@Override
-	public void agir() throws CloneException{
-		if(super.matchColor()){
-			Case C = this.perso.getTerrain().getEnsembleDeCase()[this.perso.getPositionX()][this.perso.getPositionY()];
-			int nbLampeAllumee=this.perso.getTerrain().getNbLampeAllumee();
+	public void agir(Personnage perso) throws CloneException{
+		if(super.matchColor(perso)){
+			Case C = perso.getTerrain().getEnsembleDeCase()[perso.getPositionX()][perso.getPositionY()];
+			int nbLampeAllumee=perso.getTerrain().getNbLampeAllumee();
 			if (C instanceof Lampe){
 				switch(C.getColor()){
 				case Bleu:
 					C.setColor(Couleur.Jaune);
-					this.perso.getTerrain().setNbLampeAllumee(nbLampeAllumee+1);
+					perso.getTerrain().setNbLampeAllumee(nbLampeAllumee+1);
 					break;
 				case Jaune:
 					C.setColor(Couleur.Bleu);
-					this.perso.getTerrain().setNbLampeAllumee(nbLampeAllumee-1);
+					perso.getTerrain().setNbLampeAllumee(nbLampeAllumee-1);
 					break;
 				default:break;
 				}
 			}else if (C instanceof PointeurTri){
 				if(((PointeurTri)C).estDepart()){
-					if(tableauTrie(C)){
+					if(tableauTrie(perso,C)){
 						Lampe arrivee = ((PointeurTri) C).getArrivee();
-						this.perso.setPosition(this.perso.getTerrain().getPosCaseX(arrivee), this.perso.getTerrain().getPosCaseY(arrivee));
-						victoire();
+						perso.setPosition(perso.getTerrain().getPosCaseX(arrivee), perso.getTerrain().getPosCaseY(arrivee));
+						victoire(perso);
 					}else{
 						Case suivante = ((Pointeur) C).getSuivante();
 						if(suivante != null){
-							this.perso.setPosition(this.perso.getTerrain().getPosCaseX(suivante), this.perso.getTerrain().getPosCaseY(suivante));
+							perso.setPosition(perso.getTerrain().getPosCaseX(suivante), perso.getTerrain().getPosCaseY(suivante));
 						}
 					}
 				}
@@ -74,62 +74,60 @@ public class Allumer extends Actions {
 				Case temp;
 				temp = ((Pointeur) C).getSuivante();
 				if (temp != null)
-					this.perso.setPosition(this.perso.getTerrain().getPosCaseX(temp), this.perso.getTerrain().getPosCaseY(temp));
+					perso.setPosition(perso.getTerrain().getPosCaseX(temp), perso.getTerrain().getPosCaseY(temp));
 			}
 			else if(C instanceof Condition){
-				if(this.perso.getCouleur()!=Couleur.Blanc)this.perso.setCouleur(Couleur.Blanc);
-				else this.perso.setCouleur(C.getColor());
+				if(perso.getCouleur()!=Couleur.Blanc)perso.setCouleur(Couleur.Blanc);
+				else perso.setCouleur(C.getColor());
 			}else if(C instanceof Clonage){
 				System.out.println("Eh hop : un clone :)");
 				System.out.println("Enfin plutôt : "+((Clonage)C).getPops().size());
-				popClone((Clonage)C);
+				popClone(perso,(Clonage)C);
 			}
 		}
 	}
 	
 	/* Convention : le terrain d'un tri doit avoir le tableau à trier en y = 2 et la lampe en (0,0) */
-	private boolean tableauTrie(Case pointeur){
+	private boolean tableauTrie(Personnage perso, Case pointeur){
 		boolean estTrie = true;
 		int xInit = 1;
-		int xFin = this.perso.getTerrain().getPosCaseX(pointeur);
+		int xFin = perso.getTerrain().getPosCaseX(pointeur);
 		while(estTrie && (xInit < xFin-1)){
-			Case courante = this.perso.getTerrain().getEnsembleDeCase()[xInit][2];
-			Case prochaine = this.perso.getTerrain().getEnsembleDeCase()[xInit+1][2];
+			Case courante = perso.getTerrain().getEnsembleDeCase()[xInit][2];
+			Case prochaine = perso.getTerrain().getEnsembleDeCase()[xInit+1][2];
 			estTrie &= courante.getHauteur()+1 == prochaine.getHauteur();
 			xInit++;
 		}
 		return estTrie;
 	}
 
-	private void victoire() {
-		for(int x = 0; x<this.perso.getTerrain().getLargeur(); x++){
-			Case courante = this.perso.getTerrain().getEnsembleDeCase()[x][2];
+	private void victoire(Personnage perso) {
+		for(int x = 0; x<perso.getTerrain().getLargeur(); x++){
+			Case courante = perso.getTerrain().getEnsembleDeCase()[x][2];
 			if(courante instanceof Transparente){
-				this.perso.getTerrain().getEnsembleDeCase()[x][2] = ((Transparente)courante).toNormal();
+				perso.getTerrain().getEnsembleDeCase()[x][2] = ((Transparente)courante).toNormal();
 			}
 		}
 		try {
-			new Allumer(this.perso).agir();
+			new Allumer().agir(perso);
 		} catch (CloneException e) {}
 	}
 	
-	private void popClone(Clonage cellule) throws CloneException{
+	private void popClone(Personnage perso,Clonage cellule) throws CloneException{
 		ArrayList<Clonage> pops = cellule.getPops();
 		ArrayList<Personnage> clones=new ArrayList<Personnage>();
-		clones.add(this.perso);
+		clones.add(perso);
 		for(int i=0 ; i<pops.size() ; i++){
 			Clonage courante = pops.get(i);
-			int x = this.perso.getTerrain().getPosCaseX(courante);
-			int y = this.perso.getTerrain().getPosCaseY(courante);
+			int x = perso.getTerrain().getPosCaseX(courante);
+			int y = perso.getTerrain().getPosCaseY(courante);
 			Personnage clone=null;
 			try {
-				clone = (Personnage) this.perso.clone();
+				clone = (Personnage) perso.clone();
 				clone.setNom("Clone "+(i+1));
 				clone.setPosition(x,y);
 				clone.setOrientation(courante.getOrientation());
-				clone.getProgramme().changePersonnage(clone);
-				clone.changeOwner();
-				clone.resetItActions(this.perso.getItActions());
+
 			} catch (CloneNotSupportedException e){}
 			
 			clones.add(clone);

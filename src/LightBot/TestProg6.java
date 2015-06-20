@@ -31,10 +31,10 @@ public class TestProg6{
 		n.getPersonnages().add(robot);
 		
 		Programme progMain=new Programme("main",10);
-		progMain.insererQueue(new Allumer(robot));
-		progMain.insererQueue(new Sauter(robot));
-		progMain.insererQueue(new Sauter(robot));
-		progMain.insererQueue(new Allumer(robot));
+		progMain.insererQueue(new Allumer());
+		progMain.insererQueue(new Sauter());
+		progMain.insererQueue(new Sauter());
+		progMain.insererQueue(new Allumer());
 		n.getProgrammes().add(progMain);
 
 		robot.setProgramme(progMain);

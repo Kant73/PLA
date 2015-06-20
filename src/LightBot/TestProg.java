@@ -15,15 +15,14 @@ public class TestProg {
 		Personnage robot=new Personnage("Robot", 0, 0, Pcardinaux.NORTH);
 		
 		progs[0].insererQueue(progs[1]);
-		progs[0].insererQueue(new TournerGauche(robot));
+		progs[0].insererQueue(new TournerGauche());
 		progs[0].insererQueue(progs[1]);
 		
-		progs[1].insererQueue(new Avancer(robot));
-		progs[1].insererQueue(new Allumer(robot));
-		progs[1].insererQueue(new TournerDroite(robot));
+		progs[1].insererQueue(new Avancer());
+		progs[1].insererQueue(new Allumer());
+		progs[1].insererQueue(new TournerDroite());
 		
 		robot.setProgramme(progs[0]);
-		robot.run();
 		
 	}
 }

@@ -167,7 +167,7 @@ public class Parser {
 					String nomPers=getNodeAttribute(noeudAction, "p");
 					Personnage pers=this.n.getPersonnageByName(nomPers);
 					String nomFonction=getNodeAttribute(noeudAction, "name");
-					this.n.getActions().add(newInstanceAction(nomFonction,pers));
+					this.n.getActions().add(newInstanceAction(nomFonction));
 				}
 				break;
 			default :
@@ -223,11 +223,11 @@ public class Parser {
 		return null;
 	}
 	
-	private Actions newInstanceAction(String type, Personnage p){
+	private Actions newInstanceAction(String type){
 		try{
 			String classPath = "LightBot.actions."+type;
 			Class<?> classe = Class.forName (classPath);
-			return (Actions)classe.getConstructor(Personnage.class).newInstance(p);
+			return (Actions)classe.getConstructor().newInstance();
 		}catch (Exception e){
 	    	e.printStackTrace();
 	    }

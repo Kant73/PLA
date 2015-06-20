@@ -5,18 +5,18 @@ import LightBot.personnage.Personnage;
 
 public class Wash extends Actions {
 
-	public Wash(Personnage p) {
-		super(p);
+	public Wash() {
+		super();
 	}
 	
-	public Wash(Personnage p, Couleur c) {
-		super(p, c);
+	public Wash(Couleur c) {
+		super(c);
 	}
 	
 	@Override
-	public void agir(){
-		if(matchColor()){
-			if(this.perso.getCouleur()!=Couleur.Blanc)this.perso.setCouleur(Couleur.Blanc);
+	public void agir(Personnage perso){
+		if(matchColor(perso)){
+			if(perso.getCouleur()!=Couleur.Blanc)perso.setCouleur(Couleur.Blanc);
 		}
 	}
 	

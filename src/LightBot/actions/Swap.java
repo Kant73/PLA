@@ -8,12 +8,12 @@ import LightBot.personnage.Personnage;
 
 public class Swap extends Actions {
 
-	public Swap(Personnage p) {
-		super(p);
+	public Swap() {
+		super();
 	}
 	
-	public Swap(Personnage p, Couleur c){
-		super(p,c);
+	public Swap(Couleur c){
+		super(c);
 	}
 	
 	@Override
@@ -22,17 +22,17 @@ public class Swap extends Actions {
 		return copie;
 	}
 
-	public void agir(){
-		if(matchColor()){
+	public void agir(Personnage perso){
+		if(matchColor(perso)){
 		// Mettre une gestion de la couleur pour ne pouvoir faire un swap que si on est colorisé		
-			Terrain t = this.perso.getTerrain();
+			Terrain t = perso.getTerrain();
 			Case actuelle;
-			int x = this.perso.getPositionX();
-			int y = this.perso.getPositionY();
+			int x = perso.getPositionX();
+			int y = perso.getPositionY();
 			
 			actuelle = t.getEnsembleDeCase()[x][y];
 			if(actuelle instanceof Transparente){
-				switch(this.perso.getOrientation()){
+				switch(perso.getOrientation()){
 					case EAST :
 						if ((x+1) < t.getLargeur()){
 							Case devant = t.getEnsembleDeCase()[x+1][y];

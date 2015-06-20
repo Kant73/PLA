@@ -6,12 +6,12 @@ import LightBot.personnage.Personnage;
 
 public class TournerGauche extends Actions {
 
-	public TournerGauche(Personnage p) {
-		super(p);
+	public TournerGauche() {
+		super();
 	}
 	
-	public TournerGauche(Personnage p, Couleur c){
-		super(p,c);
+	public TournerGauche(Couleur c){
+		super(c);
 	}
 	
 	@Override
@@ -26,19 +26,19 @@ public class TournerGauche extends Actions {
 	}
 	
 	@Override
-	public void agir() {
-		if(matchColor()){
-			if (this.perso.getOrientation() == Pcardinaux.EAST){
-				this.perso.setOrientation(Pcardinaux.SOUTH);
+	public void agir(Personnage perso) {
+		if(matchColor(perso)){
+			if (perso.getOrientation() == Pcardinaux.EAST){
+				perso.setOrientation(Pcardinaux.SOUTH);
 			}
-			else if (this.perso.getOrientation() == Pcardinaux.NORTH){
-				this.perso.setOrientation(Pcardinaux.EAST);
+			else if (perso.getOrientation() == Pcardinaux.NORTH){
+				perso.setOrientation(Pcardinaux.EAST);
 			}
-			else if (this.perso.getOrientation() == Pcardinaux.WEST){
-				this.perso.setOrientation(Pcardinaux.NORTH);
+			else if (perso.getOrientation() == Pcardinaux.WEST){
+				perso.setOrientation(Pcardinaux.NORTH);
 			}
 			else {
-				this.perso.setOrientation(Pcardinaux.WEST);
+				perso.setOrientation(Pcardinaux.WEST);
 			}
 		}
 	}

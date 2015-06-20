@@ -44,9 +44,9 @@ public class TestProg4 extends Niveau{
 		progMain.insererQueue(new TournerGauche(robot));
 		progMain.insererQueue(new Avancer(robot));
 		progMain.insererQueue(new Allumer(robot));*/
-		progMain.insererQueue(new PoserBloc(robot));
-		progMain.insererQueue(new PoserBloc(robot));
-		progMain.insererQueue(new RetirerBloc(robot));
+		progMain.insererQueue(new PoserBloc());
+		progMain.insererQueue(new PoserBloc());
+		progMain.insererQueue(new RetirerBloc());
 		this.getProgrammes().add(progMain);
 
 		robot.setProgramme(progMain);
