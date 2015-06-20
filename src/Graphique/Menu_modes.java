@@ -23,6 +23,7 @@ public class Menu_modes extends Menu_principal{
 	private int selection;
 	private Sprite [] mesBoutons;
 	private Texture[] mesTextures ;
+	
 	public static Texture fondMode;
 	public static Sprite spritefondMode;
 

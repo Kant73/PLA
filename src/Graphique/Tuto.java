@@ -129,17 +129,12 @@ public class Tuto extends Menu_niveaux{
 		boolean temp = true;
 		boolean first_fondu = true;
 		Menu_principal.fenetre.clear();
-		//this.init_tuto(nom_niveau, nb_img);
-		
+		fondu(tutoCourant);
 		Menu_principal.fenetre.display();
 		
 		boolean sortie=true;
 		while (Menu_principal.fenetre.isOpen() && sortie) 
 		{
-			if (temp) {
-				fondu(tutoCourant);
-				temp = false;
-			}
 			
 			for (Event event : Menu_principal.fenetre.pollEvents()) 
 			{	
@@ -156,13 +151,13 @@ public class Tuto extends Menu_niveaux{
 				{ 
 					if(event.asMouseButtonEvent().button == Button.LEFT)
 					{
-							tutoCourant++;
-							temp = true;
-						
+						tutoCourant++;
+						if (tutoCourant < nb_img) {
+							fondu(tutoCourant);
+						}
 						if (tutoCourant >= nb_img) {
 							sortie=false;
-						}
-							
+						}		
 					}
 				}
 

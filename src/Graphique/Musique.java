@@ -7,7 +7,7 @@ import org.jsfml.audio.Music;
 
 public class Musique {
 
-	public static Music music = new Music();
+	public static Music music;
 	
 	/**
 	 * Lancer la musique en param�tre comme par exemple "musique.ogg".
@@ -16,8 +16,13 @@ public class Musique {
 	 * @param pNomMusique
 	 */
 	public void playMusic(int pSelectMode) {
-		if(pSelectMode!=2)
-		music.stop();
+
+		if(music!=null)
+		{
+			music.stop();
+		}
+		music = new Music();
+		music.setVolume((1-Menu_principal.sonOn)*100);
 		try {
 			switch (pSelectMode)
 			{
@@ -28,7 +33,7 @@ public class Musique {
 				music.openFromFile(Paths.get("src/Music/ModeProcedure.ogg"));
 				break;
 			case 2:
-				//music.openFromFile(Paths.get("src/Music/Menu.ogg"));
+				music.openFromFile(Paths.get("src/Music/StarWarsIntro.ogg"));
 				break;
 			case 3:
 				music.openFromFile(Paths.get("src/Music/Zarnakand.ogg"));
