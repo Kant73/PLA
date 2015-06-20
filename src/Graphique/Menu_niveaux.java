@@ -164,10 +164,10 @@ public class Menu_niveaux extends Menu_modes{
 	
 	private void fondu()
 	{
-		for(int i=0;i<20;i++)
+		for(int i=10;i<80;i+=2)
 		{
-			Menu_principal.spriteFond.setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
-			fenetre.draw(Menu_principal.spriteFond);
+			Menu_modes.spritefondMode.setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
+			fenetre.draw(Menu_modes.spritefondMode);
 			fenetre.display();
 			/*try {
 				Thread.sleep(10);
@@ -177,22 +177,22 @@ public class Menu_niveaux extends Menu_modes{
 			}		
 			*/
 		}
-		Menu_principal.spriteFond.setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
+		Menu_modes.spritefondMode.setColor(new Color(Menu_modes.spritefondMode.getColor(), 255));
 	}
 	
 	private void fondu_tuto(Sprite sprite)
 	{
-		for(int i=0;i<100;i+=2)
+		for(int i=10;i<80;i+=2)
 		{
-			sprite.setColor(new Color(sprite.getColor(), 2*i));
+			sprite.setColor(new Color(sprite.getColor(), 3*i));
 			fenetre.draw(sprite);
 			fenetre.display();
-			/*try {
+			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}		*/
+			}		
 		}
 		Menu_principal.spriteFond.setColor(new Color(sprite.getColor(), 255));
 	}
@@ -229,11 +229,9 @@ public class Menu_niveaux extends Menu_modes{
 							{
 								//level.playMusic("StarWarsCantina8Bits.ogg");		//Musique lors de la r�solution du niveau.
 								if (selection == 0) {
-									//Tuto tuto = new Tuto();
-									//System.out.println("mj.toString(): " + mj.toString());
-									//fondu_tuto(tuto.getSpritesTutoTab()[0]);
 									Tuto tuto = new Tuto();
 									tuto.init_tuto(mj.toString(), tuto.nb_image_par_mode(mj.toString()));
+									fondu_tuto(tuto.getSpritesTutoTab()[0]);
 									tuto.affiche_tuto(mj.toString());
 								}
 								
@@ -241,6 +239,7 @@ public class Menu_niveaux extends Menu_modes{
 								{
 									Afficher_niveau level = new  Afficher_niveau();
 									Niveau copie = mj.getNiveau(selection);
+									fondu();
 									gagner=level.afficher_niveau(copie, mj,selection);
 									selection ++;
 									

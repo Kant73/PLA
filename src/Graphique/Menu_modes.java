@@ -148,7 +148,7 @@ public class Menu_modes extends Menu_principal{
 	
 	private void fondu()
 	{
-		for(int i=10;i<40;i++)
+		for(int i=10;i<80;i+=2)
 		{
 			spriteFond.setColor(new Color(spriteFond.getColor(), 3*i));
 			fenetre.draw(spriteFond);

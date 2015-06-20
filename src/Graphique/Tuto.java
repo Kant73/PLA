@@ -96,9 +96,9 @@ public class Tuto extends Menu_niveaux{
 	 */
 	private void fondu(int sprite_tuto)
 	{
-		for(int i=0;i<100;i+=2)
+		for(int i=10;i<80;i+=2)
 		{
-			this.spritesTutoTab[sprite_tuto].setColor(new Color(Menu_modes.spritefondMode.getColor(), 2*i));
+			this.spritesTutoTab[sprite_tuto].setColor(new Color(Menu_modes.spritefondMode.getColor(), 3*i));
 			fenetre.draw(this.spritesTutoTab[sprite_tuto]);
 			fenetre.display();
 			/*
@@ -128,9 +128,9 @@ public class Tuto extends Menu_niveaux{
 		int tutoCourant = 0;
 		boolean temp = true;
 		boolean first_fondu = true;
-		Menu_principal.fenetre.clear();
-		fondu(tutoCourant);
-		Menu_principal.fenetre.display();
+		//Menu_principal.fenetre.clear();
+		//fondu(tutoCourant);
+		//Menu_principal.fenetre.display();
 		
 		boolean sortie=true;
 		while (Menu_principal.fenetre.isOpen() && sortie) 
