@@ -8,6 +8,7 @@ import java.util.Vector;
 import LightBot.actions.Actions;
 import LightBot.actions.Break;
 import LightBot.cases.Couleur;
+import LightBot.personnage.Personnage;
 
 public class Programme implements Cloneable{
 
@@ -127,15 +128,40 @@ public class Programme implements Cloneable{
 		}
 	}
 	
-	/*public String toString(){
-		String str="";
-		str+=this.nom+" : ";
-		for(Object obj:this.listActions){
-			if(obj instanceof Actions) str+=((Actions)obj).toString()+" ";
-			else if(obj instanceof Programme)str+=((Programme)obj).getNom()+" ";			
-		}		
-		return str;
-	}*/
+	public void changePersonnage(Personnage pers){
+		changePersonnageRecursif(pers,2);
+	}
+		
+	private void changePersonnageRecursif(Personnage pers,int n){
+		if(n>=0){
+			for(Object obj:this.listActions){
+				if(obj instanceof Actions) ((Actions)obj).setPersonnage(pers);
+				else if(obj instanceof Programme){				
+					if(!((Programme)obj).getNom().equals(this.nom))
+						((Programme)obj).changePersonnageRecursif(pers, n-1);					
+				}
+			}
+		}
+	}
+	
+	public String toString(){
+		return toStringRecursive(2);
+	}
+	
+	private String toStringRecursive(int n){
+		if(n>=0){
+			String str="";
+			str+=this.nom+" : ";
+			for(Object obj:this.listActions){
+				if(obj instanceof Actions) str+=((Actions)obj).toString()+" ";
+				else if(obj instanceof Programme)
+					if(this.nom.equals(((Programme)obj).getNom()))str+=((Programme)obj).getNom()+" ";	
+					else str+=((Programme)obj).toStringRecursive(n-1);
+			}		
+			return str;
+		}
+		return "";
+	}
 	
 	public String getNom(){
 		return this.nom;

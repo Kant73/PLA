@@ -1,7 +1,5 @@
 package LightBot;
 
-import java.util.ArrayList;
-
 import Graphique.Afficher_niveau;
 import LightBot.actions.Allumer;
 import LightBot.actions.Avancer;
@@ -25,8 +23,8 @@ public class Ordonnanceur {
 	
 	public void run(){
 		try{
-			System.out.println();
 			for(int i=0;i<this.niveau.getPersonnages().toArray().length;i++){ //Execute une action pour chaque robot
+				System.out.println(this.niveau.getPersonnages().get(i).getNom());
 				majGraphique(this.niveau.getPersonnages().get(i),i);				
 			}
 			if(isListFifoEmpty())return;
@@ -42,14 +40,16 @@ public class Ordonnanceur {
 			this.run();
 		} catch (CloneException cE) {
 			majGraphiqueApresExec(cE.getCommandeEnCours(),this.numeroRobot);
-			if(this.niveau.getPersonnages().size()>0)this.niveau.setPersonnages(cE.getListPesonnage());
-			{
+			if(this.niveau.getPersonnages().size()>0){
+				this.niveau.setPersonnages(cE.getListPesonnage());
+				/*for(Personnage pers:this.niveau.getPersonnages())
+					for(Object obj:pers.getProgramme().getActions())
+						if(obj instanceof Actions)System.out.println(pers.getNom()+" : "+obj.toString()+((Actions)obj).getPersonnage().getNom());*/
 				this.affichage.reinitialiser_anim();
 				this.affichage.initialiser_anim();
 				this.affichage.set_pos_robot();
-		
-				
 			}
+			this.run();
 		}			
 	}
 	
@@ -59,12 +59,12 @@ public class Ordonnanceur {
 		
 		Object commande=null;
 		try{
-			commande=perso.execute();			
+			commande=perso.execute();
 		}catch(CloneException cE){
 			this.numeroRobot=index;
 			throw new CloneException(cE.getListPesonnage(),cE.getCommandeEnCours());
 		}
-		majGraphiqueApresExec(commande,this.numeroRobot);		
+		majGraphiqueApresExec(commande,index);		
 	}
 	
 	private void majGraphiqueApresExec(Object commande, int index){

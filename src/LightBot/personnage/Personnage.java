@@ -40,12 +40,47 @@ public class Personnage implements Cloneable {
 		setCurrentToOriginPosition();
 	}
 	
+	public void changeOwner(){
+		LinkedList<ListIterator<Object>> fifoTmp=new LinkedList<ListIterator<Object>>();
+		for(int i=0;i<this.fifo.toArray().length;i++){
+			ListIterator<Object> listIt=(ListIterator<Object>) this.fifo.toArray()[i];			
+			fifoTmp.add((ListIterator<Object>) changeOwnerInterator(listIt));
+		}
+		this.fifo=fifoTmp;
+		resetItActions(null);
+	}
+	
+	private Iterator<Object> changeOwnerInterator(ListIterator<Object> listIt){
+		ArrayList<Object> tmp=new ArrayList<Object>();
+		int nextIndexIt=listIt.nextIndex();
+		
+		while(listIt.hasPrevious())listIt.previous(); //Remise a zero
+		
+		while(listIt.hasNext()){
+			Object commande=listIt.next();
+			try {
+				if(commande instanceof Programme)commande = ((Programme)commande).clone();
+				else commande = ((Actions)commande).clone();
+			} catch (CloneNotSupportedException e) {}
+			if(commande instanceof Actions){
+				((Actions)commande).setPersonnage(this);
+				//System.out.println("Change Owner: "+((Actions)commande).toString()+" "+((Actions)commande).getPersonnage().getNom());
+			}
+			tmp.add(commande); 
+		}
+		while(listIt.hasPrevious())listIt.previous();		
+		for(int i=0;i<nextIndexIt;i++)listIt.next();
+		
+		return tmp.listIterator(nextIndexIt);
+	}
+	
 	public Object execute() throws ArrayIndexOutOfBoundsException,BreakException, CloneException{
 		Object commande = null;
 		try{
 			if(itActions.hasNext() ){
 				commande=itActions.next();
 				if(commande instanceof Actions){
+					//System.out.println(this.nom+" : "+commande.toString()+" "+((Actions)commande).getPersonnage().getNom());
 					int nbLampeAllumee=this.getTerrain().getNbLampeAllumee();
 					if( nbLampeAllumee >= this.getTerrain().getMaxLampe() || this.isMort() ||
 						this.getTerrain().getNbActionsRestantes() <= 0 ){
@@ -89,6 +124,15 @@ public class Personnage implements Cloneable {
 	
 	public boolean isListFifoEmpty(){		
 		return this.fifo.size()==0 && !((Iterator<Object>) this.itActions).hasNext();
+	}
+	
+	public ListIterator<Object> getItActions(){
+		return this.itActions;
+	}
+	
+	public void resetItActions(ListIterator<Object> it){
+		if(!this.fifo.isEmpty())this.itActions=this.fifo.getLast();
+		else if(it!=null)this.itActions=(ListIterator<Object>) changeOwnerInterator(it);
 	}
 	
 	public Personnage(String nom, int x, int y, Pcardinaux sens, Couleur color){
@@ -221,9 +265,13 @@ public class Personnage implements Cloneable {
 		
 		ArrayList<Object> tmp=new ArrayList<Object>();
 		int nextIndexIt=this.itActions.nextIndex();
+		
 		while(this.itActions.hasPrevious())this.itActions.previous(); //Remise a zero
 		
-		while(this.itActions.hasNext())tmp.add(this.itActions.next()); 
+		while(this.itActions.hasNext())tmp.add(this.itActions.next());
+		
+		while(this.itActions.hasPrevious())this.itActions.previous();//Retour début itérator
+		for(int i=0;i<nextIndexIt;i++)this.itActions.next();// Repositionne le curseur
 		
 		copie.itActions=tmp.listIterator(nextIndexIt);
 		

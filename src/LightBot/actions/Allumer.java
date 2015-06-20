@@ -127,9 +127,10 @@ public class Allumer extends Actions {
 				clone.setNom("Clone "+(i+1));
 				clone.setPosition(x,y);
 				clone.setOrientation(courante.getOrientation());
-			} catch (CloneNotSupportedException e) {
-				e.printStackTrace();
-			}
+				clone.getProgramme().changePersonnage(clone);
+				clone.changeOwner();
+				clone.resetItActions(this.perso.getItActions());
+			} catch (CloneNotSupportedException e){}
 			
 			clones.add(clone);
 		}
