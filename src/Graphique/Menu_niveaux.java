@@ -203,6 +203,7 @@ public class Menu_niveaux extends Menu_modes{
 		Mode_Jeu mj=new Mode_Jeu(NomMode.values()[modeSelectionne]);
 		nbBoutons=mj.getNbNiveaux();
 		
+		boolean gagner = false;
 		this.selection=-1;
 		this.init_images () ;
 		init_font();
@@ -235,9 +236,19 @@ public class Menu_niveaux extends Menu_modes{
 									tuto.init_tuto(mj.toString(), tuto.nb_image_par_mode(mj.toString()));
 									tuto.affiche_tuto(mj.toString());
 								}
-								Afficher_niveau level = new  Afficher_niveau();
-								Niveau copie = mj.getNiveau(selection);
-								level.afficher_niveau(copie, mj,selection);
+								
+								do
+								{
+									Afficher_niveau level = new  Afficher_niveau();
+									Niveau copie = mj.getNiveau(selection);
+									gagner=level.afficher_niveau(copie, mj,selection);
+									selection ++;
+									
+								}while(gagner && selection<mj.getNbNiveaux());
+								
+								if(selection>=mj.getNbNiveaux())
+									selection=mj.getNbNiveaux()-1;
+								
 								fondu();
 								fenetre.draw(Menu_principal.spriteFond);
 								reinit_textures();
@@ -248,7 +259,6 @@ public class Menu_niveaux extends Menu_modes{
 							if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
 							{
 								sortie=false;
-								music.playMusic(9);			//Retour à la musique principale (Retour).
 							}
 							else if (Menu_principal.spriteSon[sonOn].getGlobalBounds().contains(pos.x,pos.y))
 							{
@@ -263,10 +273,9 @@ public class Menu_niveaux extends Menu_modes{
 					}
 					else if (event.type == Event.Type.KEY_PRESSED) 
 					{ 
-						if (Keyboard.isKeyPressed(Key.ESCAPE))
+						if (Keyboard.isKeyPressed(Key.ESCAPE) || Keyboard.isKeyPressed(Key.BACKSPACE) )
 						{
 							sortie=false;
-							music.playMusic(9);			//Retoure à la musique principale (Echap).
 						}
 						
 					}
@@ -294,6 +303,8 @@ public class Menu_niveaux extends Menu_modes{
 					e.printStackTrace();
 				}			
 		}
+		Musique.music.stop();
+		music.playMusic(9);			//Retour à la musique principale (Retour).
 	}
 	
 }

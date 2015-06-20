@@ -187,6 +187,7 @@ public class Menu_modes extends Menu_principal{
 							if(this.selection !=-1)
 							{
 								Menu_niveaux modes = new  Menu_niveaux();
+								Musique.music.stop();
 								music.playMusic(this.selection);		//Joue la musique en fonction du mode.
 								fondu();
 								charger_fond_mode(this.selection);
@@ -209,13 +210,12 @@ public class Menu_modes extends Menu_principal{
 								Menu_principal.fenetre.draw(spriteFond);
 								this.afficher_boutons();
 								Menu_principal.fenetre.display();
-							}
-							
+							}	
 						}
 					}
 					else if (event.type == Event.Type.KEY_PRESSED) 
 					{ 
-						if (Keyboard.isKeyPressed(Key.ESCAPE))
+						if (Keyboard.isKeyPressed(Key.ESCAPE) || Keyboard.isKeyPressed(Key.ESCAPE))
 						{
 							sortie=false;
 						}	

@@ -1092,7 +1092,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	 * Méthode principale de la classe qui permet d'afficher tout un niveau avec les actions et procédures associée
 	 * @param niveauCharger Le niveau que l'on veut afficher
 	 */
-	public void afficher_niveau(Niveau niveauCharger,Mode_Jeu mj, int selection)
+	public boolean afficher_niveau(Niveau niveauCharger,Mode_Jeu mj, int selection)
 	{		
 		int i=0,j=0;
 		boolean unSeulPlay=true;
@@ -1200,7 +1200,7 @@ public class Afficher_niveau extends Menu_niveaux{
 						unSeulPlay=true;
 					}
 					else if(monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee() )
-					{sortie=false;}
+						{sortie=false;}
 					else if (Menu_principal.spriteSon[sonOn].getGlobalBounds().contains(pos.x,pos.y))
 					{
 						sonOn=1-sonOn;
@@ -1226,9 +1226,9 @@ public class Afficher_niveau extends Menu_niveaux{
 		}
 		if(selection<mj.getNbNiveaux()-1 && monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee())
 		{
-			Afficher_niveau level = new  Afficher_niveau();
-			Niveau copie = mj.getNiveau(selection+1);
-			level.afficher_niveau(copie, mj,selection+1);
+			return true;
 		}
+		return false;
 	}
+
 }
