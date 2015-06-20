@@ -141,6 +141,15 @@ public class Menu_niveaux extends Menu_modes{
 			case 7:
 				monTexte.setString("vii");
 				break;
+			case 8:
+				monTexte.setString("viii");
+				break;
+			case 9:
+				monTexte.setString("ix");
+				break;
+			case 10:
+				monTexte.setString("x");
+				break;
 			default:
 				break;
 			}
@@ -213,6 +222,7 @@ public class Menu_niveaux extends Menu_modes{
 		Menu_principal.fenetre.display();
 		
 		boolean sortie=true;
+		boolean tuto_joue = false;
 		while (Menu_principal.fenetre.isOpen() && sortie  ) 
 		{
 				for (Event event : Menu_principal.fenetre.pollEvents()) 
@@ -233,13 +243,17 @@ public class Menu_niveaux extends Menu_modes{
 									tuto.init_tuto(mj.toString(), tuto.nb_image_par_mode(mj.toString()));
 									fondu_tuto(tuto.getSpritesTutoTab()[0]);
 									tuto.affiche_tuto(mj.toString());
+									tuto_joue = true;
 								}
 								
 								do
 								{
 									Afficher_niveau level = new  Afficher_niveau();
 									Niveau copie = mj.getNiveau(selection);
-									fondu();
+									if (!tuto_joue) {
+										fondu();
+										tuto_joue = false;
+									}
 									gagner=level.afficher_niveau(copie, mj,selection);
 									selection ++;
 									

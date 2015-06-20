@@ -126,11 +126,6 @@ public class Tuto extends Menu_niveaux{
 		}
 		
 		int tutoCourant = 0;
-		boolean temp = true;
-		boolean first_fondu = true;
-		//Menu_principal.fenetre.clear();
-		//fondu(tutoCourant);
-		//Menu_principal.fenetre.display();
 		
 		boolean sortie=true;
 		while (Menu_principal.fenetre.isOpen() && sortie) 

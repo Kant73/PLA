@@ -163,7 +163,6 @@ public class Menu_modes extends Menu_principal{
 		spriteFond.setColor(new Color(spriteFond.getColor(), 255));
 	}
 
-	
 	public void afficher_menu()
 	{
 		Menu_principal.fenetre.clear();
