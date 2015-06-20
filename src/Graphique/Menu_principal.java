@@ -286,6 +286,7 @@ public class Menu_principal {
 		
 		music.playMusic(9);
 		music.setVolume(100);
+		Textures.initTextures();
 		monMenu.afficher_menu();
 	}
 }

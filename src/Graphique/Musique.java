@@ -16,6 +16,7 @@ public class Musique {
 	 * @param pNomMusique
 	 */
 	public void playMusic(int pSelectMode) {
+		if(pSelectMode!=2)
 		music.stop();
 		try {
 			switch (pSelectMode)
@@ -27,7 +28,7 @@ public class Musique {
 				music.openFromFile(Paths.get("src/Music/ModeProcedure.ogg"));
 				break;
 			case 2:
-				music.openFromFile(Paths.get("src/Music/Menu.ogg"));
+				//music.openFromFile(Paths.get("src/Music/Menu.ogg"));
 				break;
 			case 3:
 				music.openFromFile(Paths.get("src/Music/Zarnakand.ogg"));
@@ -54,7 +55,7 @@ public class Musique {
 				music.openFromFile(Paths.get("src/Music/star_wars_cantina.ogg"));
 				break;
 			default :
-				System.out.println("pas d'image de fond disponible");
+				System.out.println("pas d'image de son disponible");
 				break;
 		}
 		} catch (IOException e) {

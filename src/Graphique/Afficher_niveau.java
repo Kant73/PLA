@@ -1100,7 +1100,6 @@ public class Afficher_niveau extends Menu_niveaux{
 		StructStringSprite temp;
 		
 		//Initialisation des textures
-		Textures.initTextures();
 		monNiveau=niveauCharger;
 		init_niveau(1.0f);
 		initialiser_anim();
