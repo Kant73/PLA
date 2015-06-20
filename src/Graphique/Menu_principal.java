@@ -284,9 +284,8 @@ public class Menu_principal {
 		}
 		fenetre.setIcon(icon);
 		
-		music.setVolume(100);
 		music.playMusic(9);
-
+		music.setVolume(100);
 		monMenu.afficher_menu();
 	}
 }

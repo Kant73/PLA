@@ -16,6 +16,7 @@ public class Musique {
 	 * @param pNomMusique
 	 */
 	public void playMusic(int pSelectMode) {
+		music.stop();
 		try {
 			switch (pSelectMode)
 			{
@@ -59,7 +60,6 @@ public class Musique {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		music.setLoop(true);
 		music.play();
 	}

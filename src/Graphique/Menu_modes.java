@@ -187,7 +187,6 @@ public class Menu_modes extends Menu_principal{
 							if(this.selection !=-1)
 							{
 								Menu_niveaux modes = new  Menu_niveaux();
-								Musique.music.stop();
 								music.playMusic(this.selection);		//Joue la musique en fonction du mode.
 								fondu();
 								charger_fond_mode(this.selection);
