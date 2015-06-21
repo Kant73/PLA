@@ -1,15 +1,17 @@
 package LightBot;
 
+import LightBot.outils.Utils;
+
 public enum NomMode {
-		Basic(NomMode.class.getResource("levels/basic/").getPath()),
-		Procedure(NomMode.class.getResource("levels/procedure/").getPath()),
-		Loop(NomMode.class.getResource("levels/loop/").getPath()),
-		Condition(NomMode.class.getResource("levels/condition/").getPath()),
-		Pointeur(NomMode.class.getResource("levels/pointeur/").getPath()),
-		Memory(NomMode.class.getResource("levels/memory/").getPath()),
-		Fork(NomMode.class.getResource("levels/fork/").getPath()),
-		Versus_IA(NomMode.class.getResource("levels/ia/").getPath()),
-		Tri(NomMode.class.getResource("levels/tri/").getPath());
+		Basic(Utils.getStringPath("LightBot/levels/basic/")),
+		Procedure(Utils.getStringPath("LightBot/levels/procedure/")),
+		Loop(Utils.getStringPath("LightBot/levels/loop/")),
+		Condition(Utils.getStringPath("LightBot/levels/condition/")),
+		Pointeur(Utils.getStringPath("LightBot/levels/pointeur/")),
+		Memory(Utils.getStringPath("LightBot/levels/memory/")),
+		Fork(Utils.getStringPath("LightBot/levels/fork/")),
+		Versus_IA(Utils.getStringPath("LightBot/levels/ia/")),
+		Tri(Utils.getStringPath("LightBot/levels/tri/"));
 		
 		private String path;
 		
