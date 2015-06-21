@@ -7,7 +7,6 @@ import java.util.ListIterator;
 
 import LightBot.exceptions.BreakException;
 import LightBot.exceptions.CloneException;
-import LightBot.Niveau;
 import LightBot.Programme;
 import LightBot.Terrain;
 import LightBot.actions.Actions;
@@ -40,6 +39,12 @@ public class Personnage implements Cloneable {
 		setCurrentToOriginPosition();
 	}
 	
+	
+	public Personnage(String nom, int x, int y, Pcardinaux sens, Couleur color){
+		this(nom, x, y, sens);
+		this.setCouleur(color);
+	}
+	
 	public Object execute() throws ArrayIndexOutOfBoundsException,BreakException, CloneException{
 		Object commande = null;
 		try{
@@ -57,11 +62,13 @@ public class Personnage implements Cloneable {
 						((Actions)commande).agir(this);												
 					}
 				}else if(commande instanceof Programme){
-					if(((Programme)commande).isMatchCouleur(this.couleur))
-						this.setNewIterator(((Programme)commande).getIterator());
+					if(((Programme)commande).isMatchCouleur(this.couleur)){
+						this.fifo.add(this.itActions); //
+						this.itActions=((Programme)commande).getIterator();
+					}
 				}
 			}else{
-				this.restaureIterator();
+				if(!this.fifo.isEmpty()) this.itActions=this.fifo.removeLast(); //Restaure l'iterator précédent
 			}
 		}catch(StackOverflowError e){
 			e.printStackTrace();
@@ -71,37 +78,14 @@ public class Personnage implements Cloneable {
 			nE.printStackTrace();
 			return null;
 		}catch(BreakException bE){
-			this.restaureIterator();
+			if(!this.fifo.isEmpty()) this.itActions=this.fifo.removeLast(); //Restaure l'iterator précédent
 	    	throw new BreakException();
 		}
 		return commande;
 	}
-	
-	private void setNewIterator(ListIterator<Object> iterator){
-		this.fifo.add(this.itActions);
-		this.itActions=iterator;
-	}
-	
-	private void restaureIterator(){
-		if(!this.fifo.isEmpty())
-			this.itActions=this.fifo.removeLast();
-	}
-	
+
 	public boolean isListFifoEmpty(){		
 		return this.fifo.size()==0 && !((Iterator<Object>) this.itActions).hasNext();
-	}
-	
-	public ListIterator<Object> getItActions(){
-		return this.itActions;
-	}
-	
-	public void resetItActions(){
-		if(!this.fifo.isEmpty())this.itActions=this.fifo.getLast();
-	}
-	
-	public Personnage(String nom, int x, int y, Pcardinaux sens, Couleur color){
-		this(nom, x, y, sens);
-		this.setCouleur(color);
 	}
 	
 	public String getNom(){
@@ -224,16 +208,16 @@ public class Personnage implements Cloneable {
 			copie.fifo.add((ListIterator<Object>) this.fifo.toArray()[i]);
 		
 		ArrayList<Object> tmp=new ArrayList<Object>();
-		int nextIndexIt=this.itActions.nextIndex();
+		int nextIndexIt=this.itActions.nextIndex(); //Sauvegarde position du curseur
 		
 		while(this.itActions.hasPrevious())this.itActions.previous(); //Remise a zero
 		
-		while(this.itActions.hasNext())tmp.add(this.itActions.next());
+		while(this.itActions.hasNext())tmp.add(this.itActions.next()); //Copie de l'iterator
 		
 		while(this.itActions.hasPrevious())this.itActions.previous();//Retour début itérator
 		for(int i=0;i<nextIndexIt;i++)this.itActions.next();// Repositionne le curseur
 		
-		copie.itActions=tmp.listIterator(nextIndexIt);
+		copie.itActions=tmp.listIterator(nextIndexIt);// set itAction avec l'iterator copié avec le curseur positionné correctement
 		
 		return copie;
 	}
