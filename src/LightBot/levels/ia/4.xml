@@ -72,15 +72,10 @@
 		<programme name="proc2" t="8" />
 	</programmes>
 	<actions>
-		<action name="Avancer" p="Robot1" />
-		<action name="AllumerBattle" p="Robot1" />
-		<action name="Sauter" p="Robot1" />
-		<action name="TournerGauche" p="Robot1" />
-		<action name="TournerDroite" p="Robot1" />
-		<action name="Avancer" p="Robot2" />
-		<action name="AllumerBattle" p="Robot2" />
-		<action name="Sauter" p="Robot2" />
-		<action name="TournerGauche" p="Robot2" />
-		<action name="TournerDroite" p="Robot2" />
+		<action name="Avancer" />
+		<action name="AllumerBattle" />
+		<action name="Sauter" />
+		<action name="TournerGauche" />
+		<action name="TournerDroite" />
 	</actions>
 </niveau>

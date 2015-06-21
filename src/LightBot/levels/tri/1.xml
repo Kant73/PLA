@@ -15,11 +15,11 @@
 		<programme name="main" t="20" />
 	</programmes>
 	<actions>
-		<action name="Avancer" 		p="Robot" />
-		<action name="Allumer" 		p="Robot" />
-		<action name="Swap"			p="Robot" />
-		<action name="CompareFront"	p="Robot" />
-		<action name="Wash"			p="Robot" />
-		<action name="Break"		p="Robot" />
+		<action name="Avancer" />
+		<action name="Allumer" />
+		<action name="Swap" />
+		<action name="CompareFront"	/>
+		<action name="Wash"	/>
+		<action name="Break" />
 	</actions>
 </niveau>

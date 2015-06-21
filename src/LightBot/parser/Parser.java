@@ -164,8 +164,6 @@ public class Parser {
 			case "actions" :
 				//System.out.println("Nous sommes dans actions");		
 				for(Node noeudAction:getChildren(noeud)){
-					String nomPers=getNodeAttribute(noeudAction, "p");
-					Personnage pers=this.n.getPersonnageByName(nomPers);
 					String nomFonction=getNodeAttribute(noeudAction, "name");
 					this.n.getActions().add(newInstanceAction(nomFonction));
 				}

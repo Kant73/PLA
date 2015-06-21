@@ -45,12 +45,12 @@
 		<programme name="proc2" t="8" />
 	</programmes>
 	<actions>
-		<action name="Avancer" p="Robot" />
-		<action name="Allumer" p="Robot" />
-		<action name="Sauter" p="Robot" />
-		<action name="TournerGauche" p="Robot" />
-		<action name="TournerDroite" p="Robot" />
-		<action name="PoserBloc" p="Robot" />
-		<action name="RetirerBloc" p="Robot" />
+		<action name="Avancer" />
+		<action name="Allumer" />
+		<action name="Sauter" />
+		<action name="TournerGauche" />
+		<action name="TournerDroite" />
+		<action name="PoserBloc" />
+		<action name="RetirerBloc" />
 	</actions>
 </niveau>
