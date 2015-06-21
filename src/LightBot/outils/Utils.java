@@ -16,7 +16,7 @@ import java.util.jar.JarFile;
 public class Utils {
 	
 	public static void main(String[] pArgs){
-		System.out.println(Utils.getPath("Img/case0.png"));
+		System.out.println(Utils.getPath("LightBot/Img/case0.png"));
 	}
 	
 	public static String getStringFullPath(String relativeFilename){
@@ -65,7 +65,8 @@ public class Utils {
 	    	        try {
 	    	            final File apps = new File(url.toURI());
 	    	            for (File app : apps.listFiles()) {
-	    	                listFiles.add(app.toPath().toString().replace("\\", "/"));
+	    	            	String nomFichier=app.toPath().toString().replace("\\", "/");
+	    	                listFiles.add(nomFichier.substring(nomFichier.lastIndexOf("/")-path.length()+1));
 	    	            }
 	    	        } catch (URISyntaxException ex) {}
 	    	    }
