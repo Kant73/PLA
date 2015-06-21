@@ -1,6 +1,6 @@
 package LightBot;
 
-import Graphique.Afficher_niveau;
+import LightBot.Graphique.Afficher_niveau;
 import LightBot.actions.Allumer;
 import LightBot.actions.Avancer;
 import LightBot.actions.PoserBloc;
