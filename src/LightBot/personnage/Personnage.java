@@ -76,7 +76,7 @@ public class Personnage implements Cloneable {
 		}catch(BreakException bE){
 			if(!this.fifo.isEmpty()) this.itActions=this.fifo.removeLast(); //Restaure l'iterator précédent
 	    	throw new BreakException();
-		}catch(Exception e){}
+		}
 		return commande;
 	}
 
