@@ -1057,13 +1057,13 @@ public class Afficher_niveau extends Menu_niveaux{
 		if(monNiveau.getTerrain().getWinner()==0 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
 		{
 			this.afficherWin=true;
-			this.texteWin = new Text("Le joueur 1 a gagne !", police, 40);
+			this.texteWin = new Text("Le joueur rose a gagne !", police, 40);
 			this.texteWin.setPosition(650,150);
 		}
 		else if(monNiveau.getTerrain().getWinner()==1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
 		{
 			this.afficherWin=true;
-			this.texteWin = new Text("Le joueur 2 a gagne !", police, 40);
+			this.texteWin = new Text("Le joueur violet a gagne !", police, 40);
 			this.texteWin.setPosition(650,150);
 		}
 		else if(monNiveau.getTerrain().getWinner()==-1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
@@ -1150,6 +1150,7 @@ public class Afficher_niveau extends Menu_niveaux{
 					
 					else if(this.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
 					{	
+						int saveIndex = this.indexRobot;
 						for (j=0;j<this.tabProgramme.size();j++)
 						{
 							this.indexRobot=j;
@@ -1163,6 +1164,7 @@ public class Afficher_niveau extends Menu_niveaux{
 								}
 							} catch (CloneNotSupportedException e){}	
 						}
+						this.indexRobot=saveIndex;
 						Ordonnanceur monOrdonnanceur = new Ordonnanceur (monNiveau,this);
 						monOrdonnanceur.run();
 
