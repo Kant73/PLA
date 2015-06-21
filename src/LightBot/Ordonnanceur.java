@@ -26,35 +26,32 @@ public class Ordonnanceur {
 			for(int i=0;i<this.niveau.getPersonnages().toArray().length;i++){ //Execute une action pour chaque robot
 				majGraphique(this.niveau.getPersonnages().get(i),i);				
 			}
-			if(isListFifoEmpty())return;
+			if(isListFifoEmpty())return; //Stop run() si les tous les programmes des robots sont finis
 			this.run();
 		}catch(NullPointerException e){
-			e.printStackTrace();
 			return;		
-		}catch(StackOverflowError e){
-			e.printStackTrace();
-		}catch(NoClassDefFoundError noDef){	
-		}catch (ArrayIndexOutOfBoundsException aE){//Sorti du terrain
 		}catch (BreakException e) {			
 			this.run();
 		} catch (CloneException cE) {
 			majGraphiqueApresExec(cE.getCommandeEnCours(),this.numeroRobot);
 			if(this.niveau.getPersonnages().size()>0){
 				this.niveau.setPersonnages(cE.getListPesonnage());
-				/*for(Personnage pers:this.niveau.getPersonnages())
-					for(Object obj:pers.getProgramme().getActions())
-						if(obj instanceof Actions)System.out.println(pers.getNom()+" : "+obj.toString()+((Actions)obj).getPersonnage().getNom());*/
-				this.affichage.reinitialiser_anim();
-				this.affichage.initialiser_anim();
-				this.affichage.set_pos_robot();
+				if(this.affichage!=null){
+					this.affichage.reinitialiser_anim();
+					this.affichage.initialiser_anim();
+					this.affichage.set_pos_robot();
+				}
 			}
 			this.run();
-		}			
+		}catch(ArrayIndexOutOfBoundsException aE){
+		}catch(Exception e){e.printStackTrace();}			
 	}
 	
 	private void majGraphique(Personnage perso,int index) throws ArrayIndexOutOfBoundsException, BreakException, CloneException{
-		this.affichage.animInfos.get(index).setX(this.niveau.getPersonnages().get(index).getPositionX());
-		this.affichage.animInfos.get(index).setY(this.niveau.getPersonnages().get(index).getPositionY());
+		if(this.affichage!=null){
+			this.affichage.animInfos.get(index).setX(this.niveau.getPersonnages().get(index).getPositionX());
+			this.affichage.animInfos.get(index).setY(this.niveau.getPersonnages().get(index).getPositionY());
+		}
 		
 		Object commande=null;
 		try{
@@ -67,28 +64,30 @@ public class Ordonnanceur {
 	}
 	
 	private void majGraphiqueApresExec(Object commande, int index){
-		if(commande instanceof Avancer)
-			this.affichage.avancer(index);
-		else if(commande instanceof Sauter)
-			this.affichage.sauter(index);
-		else if(commande instanceof PoserBloc || commande instanceof RetirerBloc || commande instanceof Swap)
-			this.affichage.set_position_cases();
-		
-		if(this.niveau.getPersonnages().get(index).isMort()){
-			this.affichage.animMort( index );
-			this.affichage.supprimer_programme(index);
-		}							
-		
-		this.affichage.animInfos.get(index).setX(this.niveau.getPersonnages().get(index).getPositionX());
-		this.affichage.animInfos.get(index).setY(this.niveau.getPersonnages().get(index).getPositionY());
-		this.affichage.set_pos_robot();
-		this.affichage.set_textures_cases();
-		this.affichage.afficher_carte();
-		
-		if(commande instanceof Allumer || commande instanceof PoserBloc || commande instanceof RetirerBloc){
-			try {
-				Thread.sleep(300);
-			} catch (InterruptedException e) {}
+		if(this.affichage!=null){
+			if(commande instanceof Avancer)
+				this.affichage.avancer(index);
+			else if(commande instanceof Sauter)
+				this.affichage.sauter(index);
+			else if(commande instanceof PoserBloc || commande instanceof RetirerBloc || commande instanceof Swap)
+				this.affichage.set_position_cases();
+			
+			if(this.niveau.getPersonnages().get(index).isMort()){
+				this.affichage.animMort( index );
+				this.affichage.supprimer_programme(index);
+			}							
+			
+			this.affichage.animInfos.get(index).setX(this.niveau.getPersonnages().get(index).getPositionX());
+			this.affichage.animInfos.get(index).setY(this.niveau.getPersonnages().get(index).getPositionY());
+			this.affichage.set_pos_robot();
+			this.affichage.set_textures_cases();
+			this.affichage.afficher_carte();
+			
+			if(commande instanceof Allumer || commande instanceof PoserBloc || commande instanceof RetirerBloc){
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {}
+			}
 		}
 	}
 		

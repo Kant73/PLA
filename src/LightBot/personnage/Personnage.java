@@ -16,7 +16,7 @@ import LightBot.cases.Couleur;
 
 public class Personnage implements Cloneable {
 	
-	private int[] positionInitial=new int[2];
+	private int[] positionInitial=new int[2]; // 0:x, 1:y
 	private int currentX;			//Position sur X du personnage.
 	private int currentY;			//Position sur Y du personnage.
 	private Pcardinaux orientation; 	//Orientation du personnage.
@@ -25,8 +25,8 @@ public class Personnage implements Cloneable {
 	private Couleur couleur;
 	private String nom;
 	private boolean mort=false;
-	private LinkedList<ListIterator<Object>> fifo;
-	private ListIterator<Object> itActions;
+	private LinkedList<ListIterator<Object>> fifo; //Pile de Programmes
+	private ListIterator<Object> itActions; //Programme en cours
 	
 	
 	public Personnage(String nom, int x, int y, Pcardinaux sens){
@@ -51,9 +51,9 @@ public class Personnage implements Cloneable {
 			if(itActions.hasNext() ){
 				commande=itActions.next();
 				if(commande instanceof Actions){
-					int nbLampeAllumee=this.getTerrain().getNbLampeAllumee();
-					if( nbLampeAllumee >= this.getTerrain().getMaxLampe() || this.isMort() ||
-						this.getTerrain().getNbActionsRestantes() <= 0 ){
+					int nbLampeAllumee=this.terrain.getNbLampeAllumee();
+					if( nbLampeAllumee >= this.terrain.getMaxLampe() || this.isMort() ||
+						this.terrain.getNbActionsRestantes() <= 0 ){
 							this.prog.reset();
 							throw new ArrayIndexOutOfBoundsException();
 						}
@@ -70,17 +70,13 @@ public class Personnage implements Cloneable {
 			}else{
 				if(!this.fifo.isEmpty()) this.itActions=this.fifo.removeLast(); //Restaure l'iterator précédent
 			}
-		}catch(StackOverflowError e){
-			e.printStackTrace();
-		}catch(NoClassDefFoundError noDef){
-			noDef.printStackTrace();
 		}catch(NullPointerException nE){
 			nE.printStackTrace();
 			return null;
 		}catch(BreakException bE){
 			if(!this.fifo.isEmpty()) this.itActions=this.fifo.removeLast(); //Restaure l'iterator précédent
 	    	throw new BreakException();
-		}
+		}catch(Exception e){}
 		return commande;
 	}
 
@@ -167,8 +163,8 @@ public class Personnage implements Cloneable {
 	}
 	
 	public void setPosition(int x, int y){
-		setPositionX(x);
-		setPositionY(y);
+		this.setPositionX(x);
+		this.setPositionY(y);
 	}
 	
 	public void setOrientation( Pcardinaux pOrientation) {
@@ -188,8 +184,6 @@ public class Personnage implements Cloneable {
 		this.currentX = positionInitial[0];
 		this.currentY = positionInitial[1];
 	}
-	
-	public void printTerm(){}
 
 	public boolean isMort() {
 		return mort;
