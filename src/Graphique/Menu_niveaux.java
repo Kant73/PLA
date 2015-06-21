@@ -316,7 +316,6 @@ public class Menu_niveaux extends Menu_modes{
 					e.printStackTrace();
 				}			
 		}
-		music.playMusic(9);			//Retour à la musique principale (Retour).
 	}
 	
 }

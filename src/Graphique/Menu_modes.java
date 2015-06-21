@@ -196,6 +196,7 @@ public class Menu_modes extends Menu_principal{
 								reinit_textures();
 								this.afficher_boutons();
 								fenetre.display();
+								music.playMusic(9);			//Retour à la musique principale (Retour).
 							}
 							
 							if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))

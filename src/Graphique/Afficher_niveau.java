@@ -91,7 +91,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	public Sprite spriteTabP2;
 	
 	public List<Animation> animInfos;
-	
+	public int nbRobotsInit;
 	public int indexRobot;
 	public boolean conditionExiste;
 	public boolean afficherWin;
@@ -236,7 +236,6 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	public void animMort(int index)
 	{
-		if(monNiveau.getPersonnages().get(index).isMort())
 			for(int i=255;i>0;i-=10)
 			{
 				robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.animInfos.get(index).getNum()]
@@ -1019,10 +1018,11 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	public void supprimer_programme(int ind)
 	{
-		for(int i=0;i<this.tabProgramme.get(ind).length;i++)
-		{
-			this.tabProgramme.get(ind)[i].clear();
-		}	
+		if(ind<this.nbRobotsInit)
+			for(int i=0;i<this.tabProgramme.get(ind).length;i++)
+			{
+				this.tabProgramme.get(ind)[i].clear();
+			}	
 	}
 	
 	void setNextPeinture ()
@@ -1109,7 +1109,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		afficher_boutons();
 		initProcedures();
 		afficher_carte();
-		
+		this.nbRobotsInit=monNiveau.getPersonnages().size();
 
 		while (Menu_principal.fenetre.isOpen() && sortie ) 
 		{
@@ -1143,8 +1143,12 @@ public class Afficher_niveau extends Menu_niveaux{
 							}
 						}
 					}
+					if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
+					{
+						sortie=false;
+					}
 					
-					if(this.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
+					else if(this.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
 					{	
 						for (j=0;j<this.tabProgramme.size();j++)
 						{
@@ -1191,10 +1195,6 @@ public class Afficher_niveau extends Menu_niveaux{
 						reset_sprite_selectionne();
 						this.indexRobot=1-this.indexRobot;
 					}
-					else if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
-					{
-						sortie=false;
-					}
 					else if(this.spriteBoutonReset.getGlobalBounds().contains(pos.x,pos.y))
 					{			
 						reset_niveau(mj,selection);
@@ -1210,6 +1210,7 @@ public class Afficher_niveau extends Menu_niveaux{
 					else
 						sprite_selectionne(pos);
 					
+					if(!Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
 					afficher_carte();
 				}
 

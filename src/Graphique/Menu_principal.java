@@ -182,7 +182,8 @@ public class Menu_principal {
 		
 		this.selection=-1;
 		this.init_images () ;
-		
+		music.playMusic(9);
+		music.setVolume(100);
 		
 		fenetre.draw(spriteFond);
 		this.afficher_boutons();
@@ -260,6 +261,7 @@ public class Menu_principal {
 					e.printStackTrace();
 				}			
 		}
+		Musique.music.stop();
 	}
 	
 
@@ -284,8 +286,6 @@ public class Menu_principal {
 		}
 		fenetre.setIcon(icon);
 		
-		music.playMusic(9);
-		music.setVolume(100);
 		Textures.initTextures();
 		monMenu.afficher_menu();
 	}
