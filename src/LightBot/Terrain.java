@@ -175,7 +175,11 @@ public class Terrain {
 		this.maxAllumee=0;
 		for(int i=0;i<largeur;i++)
 			for(int j=0;j<longueur;j++)
-				if(this.ensembleDeCase[i][j] instanceof Lampe)this.maxAllumee++;
+				if(this.ensembleDeCase[i][j] instanceof Lampe){
+					this.maxAllumee++;
+					if(((Lampe)this.ensembleDeCase[i][j]).getColor()==Couleur.Jaune)this.nbLampeAllumee++; 
+				}
+		
 	}
 	
 	public void setNbLampeAllumee(int i){
