@@ -101,40 +101,32 @@ public class Afficher_niveau extends Menu_niveaux{
 	public float reScale,reScaleRobot;
 	int progSelect;
 	
-	public void reinitialiser_anim()
-	{
+	public void reinitialiser_anim(){
 			this.animInfos.clear();
 			this.robots.clear();	
 	}
 	
 	
-	public void initialiser_anim()
-	{
+	public void initialiser_anim(){
 		int y0=0,tailleX=128,tailleY=118;
 		robots=new LinkedList<Sprite[][]>();
 		
 		this.animInfos = new ArrayList<Animation>();
 		
-		for(int n=0;n<monNiveau.getPersonnages().size();n++)
-		{
+		for(int n=0;n<monNiveau.getPersonnages().size();n++){
 			this.animInfos.add(new Animation(monNiveau.getPersonnages().get(n).getPositionX(),monNiveau.getPersonnages().get(n).getPositionY(),0) ) ;
 			this.spriteAnim = new Sprite[4][26];
-			for(int i=0;i<this.spriteAnim.length;i++)
-			{
+			for(int i=0;i<this.spriteAnim.length;i++){
 				y0=0;
-				for(int j = 0; j <this.spriteAnim[i].length;j++)
-				{
+				for(int j = 0; j <this.spriteAnim[i].length;j++){
 					this.spriteAnim[i][j]=new Sprite();
 					this.spriteAnim[i][j].setTexture(Textures.mesAnims[i]);
 					
 					this.spriteAnim[i][j].setTextureRect(new IntRect((j%6)*tailleX, y0*tailleY, tailleX, tailleY));
 					if(j%6==0 && j!=0)
 						y0++;
-					//this.spriteAnim[i][j].setScale(this.reScaleRobot,this.reScaleRobot);
 				}
-			}
-			
-			
+			}			
 			robots.add(this.spriteAnim);
 		}
 	}
@@ -143,8 +135,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	/**
 	 * Permet de determiner la position des cases
 	 */
-	public void set_position_cases()
-	{
+	public void set_position_cases(){
 		float referenceCentreX=Menu_principal.fenetre.getSize().x+450;
 		float referenceCentreY=Menu_principal.fenetre.getSize().y+250;
 		float divX = (float) (2.0/this.reScale);
@@ -157,21 +148,17 @@ public class Afficher_niveau extends Menu_niveaux{
 		float ActY;
 		
 		
-		for(int i= NB_CASE_X-1;i>=0;i--)
-		{
+		for(int i= NB_CASE_X-1;i>=0;i--){
 			ActX=Xinit + (i-1)*(this.SpriteCases[0][0][0].getTexture().getSize().x/divX);
 			ActY=Yinit-i*(this.SpriteCases[0][0][0].getTexture().getSize().y/divY);
-			for(int j= NB_CASE_Y-1;j>=0;j--)
-			{
+			for(int j= NB_CASE_Y-1;j>=0;j--){
 				ActX=ActX +  this.SpriteCases[0][0][0].getTexture().getSize().x/divX;
 				ActY=ActY +  this.SpriteCases[0][0][0].getTexture().getSize().y/divY;
 				
 				this.SpriteCases[i][j][0].setPosition(ActX ,ActY );
 
 				for(int etageActuel = 1; etageActuel <= monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique();etageActuel ++)
-				{
-						this.SpriteCases[i][j][etageActuel].setPosition(this.SpriteCases[i][j][etageActuel-1].getPosition().x ,this.SpriteCases[i][j][etageActuel-1].getPosition().y- this.SpriteCases[i][j][etageActuel-1].getTexture().getSize().y/divY);
-				}
+					this.SpriteCases[i][j][etageActuel].setPosition(this.SpriteCases[i][j][etageActuel-1].getPosition().x ,this.SpriteCases[i][j][etageActuel-1].getPosition().y- this.SpriteCases[i][j][etageActuel-1].getTexture().getSize().y/divY);
 			}		
 		}	
 	}
@@ -180,8 +167,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	/**
 	 * Permet d'afficher les cadres pour les procédures (dont le main)
 	 */
-	public void afficher_cadre_procedures()
-	{
+	public void afficher_cadre_procedures(){
 		for (int i=0; i< monNiveau.getProgrammes().size(); i++)
 			Menu_principal.fenetre.draw(this.spritesProcedures[i]);
 	}
@@ -190,8 +176,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	/**
 	 * Permet d'afficher notre terrain ainsi que le fond dégradé, les boutons d'action dispo pour un niveau et les actions qui sont dans les procédures (dont le main)
 	 */
-	public void afficher_carte()
-	{
+	public void afficher_carte(){
 		int orientation;
 		fenetre.draw(Menu_modes.spritefondMode);
 		this.afficher_tab_procedures();
@@ -200,18 +185,14 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.afficher_procedure();
 		this.afficher_verrou();
 		
-		for(int i= NB_CASE_X-1;i>=0;i--)
-		{
-			for(int j= NB_CASE_Y-1;j>=0;j--)
-			{
-				for(int etageActuel = 0; etageActuel <=monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique();etageActuel ++)
-				{	
+		for(int i= NB_CASE_X-1;i>=0;i--){
+			for(int j= NB_CASE_Y-1;j>=0;j--){
+				for(int etageActuel = 0; etageActuel <=monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique();etageActuel ++){	
 					Menu_principal.fenetre.draw(this.SpriteCases[i][j][etageActuel]);
 
 					for(int l = 0; l<monNiveau.getPersonnages().size();l++)
 						if((i==monNiveau.getPersonnages().get(l).getPositionX() && j == monNiveau.getPersonnages().get(l).getPositionY() || i==this.animInfos.get(l).getX() && j == this.animInfos.get(l).getY() ) 
-								&& etageActuel == monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique())
-						{
+								&& etageActuel == monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique()){
 							 	orientation = monNiveau.getPersonnages().get(l).getOrientationInt();
 							 	
 							 	robots.get(l)[orientation][this.animInfos.get(l).getNum()].setPosition(robots.get(l)[orientation][0].getPosition());
@@ -223,8 +204,7 @@ public class Afficher_niveau extends Menu_niveaux{
 				}
 			}
 		}
-		if(this.afficherWin)
-		{
+		if(this.afficherWin){
 			this.texteWin.setColor(Color.YELLOW);
 			Menu_principal.fenetre.draw(this.texteWin);	
 		}
@@ -232,27 +212,23 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	
-	public void animMort(int index)
-	{
-			for(int i=255;i>0;i-=10)
-			{
-				robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.animInfos.get(index).getNum()]
-						.setColor(new Color (robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.animInfos.get(index).getNum()].getColor(),i));
-				
-				afficher_carte();
-				pause(1);	
-			}
+	public void animMort(int index){
+		for(int i=255;i>0;i-=10){
+			robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.animInfos.get(index).getNum()]
+					.setColor(new Color (robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.animInfos.get(index).getNum()].getColor(),i));
+			
+			afficher_carte();
+			pause(1);	
+		}
 		robots.get(index)[monNiveau.getPersonnages().get(index).getOrientationInt()][this.animInfos.get(index).getNum()].setColor(Color.TRANSPARENT);
 	}
 	
 	/**
 	 * Permet de changer la position du robot
 	 */
-	public void set_pos_robot()
-	{
+	public void set_pos_robot(){
 		int i,j,h, orientation;
-		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
-		{
+		for(int l = 0; l<monNiveau.getPersonnages().size();l++){
 			 orientation = monNiveau.getPersonnages().get(l).getOrientationInt();
 
 			 i=monNiveau.getPersonnages().get(l).getPositionX();
@@ -274,16 +250,14 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	
-	public void avancer(int index)
-	{
+	public void avancer(int index){
 		int lastX=this.animInfos.get(index).getX() ;
 		int lastY=this.animInfos.get(index).getY() ;
 		int newX=monNiveau.getPersonnages().get(index).getPositionX(),newY=monNiveau.getPersonnages().get(index).getPositionY();
 		float deplX=0,deplY = 0;
 		float coeff = 2;
 		
-		switch (monNiveau.getPersonnages().get(index).getOrientation())
-		{
+		switch (monNiveau.getPersonnages().get(index).getOrientation()){
 		case  SOUTH:
 				deplX=-1;
 				deplY=-0.5f;
@@ -303,8 +277,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		}
 		deplX=deplX*coeff;
 		deplY=deplY*coeff;
-		if(lastY!=newY || lastX != newX)
-		{
+		if(lastY!=newY || lastX != newX){
 			Vector2f posFinale,posInit,posActuelle;
 			
 			int orientation = monNiveau.getPersonnages().get(index).getOrientationInt();
@@ -355,8 +328,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	
-	public void sauter(int index)
-	{
+	public void sauter(int index){
 		int lastX=this.animInfos.get(index).getX() ;
 		int lastY=this.animInfos.get(index).getY() ;
 		int newX=monNiveau.getPersonnages().get(index).getPositionX(),newY=monNiveau.getPersonnages().get(index).getPositionY();
@@ -370,8 +342,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		posActuelle=robots.get(index)[orientation][0].getPosition();
 		hAct=monNiveau.getTerrain().getEnsembleDeCase()[newX][newY].getHauteurGraphique();
 		hNew=monNiveau.getTerrain().getEnsembleDeCase()[lastX][lastY].getHauteurGraphique();
-		if(hNew!=hAct)
-		{	
+		if(hNew!=hAct){	
 			deplSaut=-3*coeff;
 			
 			boolean b =  newX>lastX || newY>lastY ;
@@ -398,24 +369,18 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.avancer(index);
 	}
 	
-	public void reset_sprite_selectionne()
-	{
+	public void reset_sprite_selectionne(){
 		this.progSelect=0;
 		for (int i=1; i< monNiveau.getProgrammes().size() ; i++)
-		{
-				this.spritesProcedures[i].setTexture(Textures.texProcs[i]);
-		}	
+			this.spritesProcedures[i].setTexture(Textures.texProcs[i]);
 		this.spritesProcedures[0].setTexture(Textures.texProcs[this.spritesProcedures.length]);
 	}
 	
-	public void sprite_selectionne(Vector2i pos)
-	{	
+	public void sprite_selectionne(Vector2i pos){	
 		int last_select = this.progSelect;
 		
-		for (int i=0; i< monNiveau.getProgrammes().size() ; i++)
-		{
-			if(this.spritesProcedures[i].getGlobalBounds().contains(pos.x,pos.y) && i!=this.progSelect)
-			{	
+		for (int i=0; i< monNiveau.getProgrammes().size() ; i++){
+			if(this.spritesProcedures[i].getGlobalBounds().contains(pos.x,pos.y) && i!=this.progSelect){	
 				this.spritesProcedures[i].setTexture(Textures.texProcs[i+this.spritesProcedures.length]);	
 				this.progSelect=i;
 			}
@@ -429,13 +394,11 @@ public class Afficher_niveau extends Menu_niveaux{
 	/**
 	 * Permet d'initialiser tous les sprites avec leur textures
 	 */
-	public void SetSprites()
-	{
+	public void SetSprites(){
 		int ecart=70;
 		
 		this.spritesProcedures = new Sprite[3];
-		for (int i=0;i<this.spritesProcedures.length;i++)
-		{
+		for (int i=0;i<this.spritesProcedures.length;i++){
 			this.spritesProcedures[i]=new Sprite();
 			this.spritesProcedures[i].setTexture(Textures.texProcs[i]);	
 		}
@@ -525,24 +488,19 @@ public class Afficher_niveau extends Menu_niveaux{
 		for(int i=0;i<  NB_CASE_X;i++)
 			for(int j=0;j<  NB_CASE_Y;j++)
 				for(int k=0;k<  NB_CASE_Z;k++)
-				{
 					this.SpriteCases[i][j][k]=new Sprite();
-				}
 		set_textures_cases();
 		
 	}
 	
-	public void set_textures_cases()
-	{
+	public void set_textures_cases(){
 		for(int i=0;i<  NB_CASE_X;i++)
 			for(int j=0;j<  NB_CASE_Y;j++)
-				for(int k=0;k<  NB_CASE_Z;k++)
-				{
+				for(int k=0;k<  NB_CASE_Z;k++){
 					
 					this.SpriteCases[i][j][k].setTexture(Textures.TexCaseBase);
 					
-					if(k==monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique())
-					{
+					if(k==monNiveau.getTerrain().getEnsembleDeCase()[i][j].getHauteurGraphique()){
 						if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Bleu)
 							this.SpriteCases[i][j][k].setTexture(Textures.TexCaseLumEteinte); 
 						else if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Lampe  && monNiveau.getTerrain().getEnsembleDeCase()[i][j].getColor() == Couleur.Jaune)
@@ -560,9 +518,7 @@ public class Afficher_niveau extends Menu_niveaux{
 					}
 					if(monNiveau.getTerrain().getEnsembleDeCase()[i][j] instanceof Transparente && k!=0)
 						this.SpriteCases[i][j][k].setTexture(Textures.TexCaseTransp);
-
 					this.SpriteCases[i][j][k].setScale(this.reScale,this.reScale);
-
 				}
 	}
 
@@ -571,8 +527,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	 * @param Scale
 	 * @param niveauPourParser
 	 */
-	public void init_niveau(float Scale)
-	{
+	public void init_niveau(float Scale){
 		police = new Font();
 		
 		try {
@@ -604,16 +559,11 @@ public class Afficher_niveau extends Menu_niveaux{
 	 * @param compare
 	 * @return true si l'action est d�j� pr�sente, false sinon
 	 */
-	public boolean action_deja_presente(StructStringSprite compare)
-	{
+	public boolean action_deja_presente(StructStringSprite compare){
 		StructStringSprite temp = null;
-		for (int i = 0; i < this.list_action_possible.size(); i++) 
-		{
+		for (int i = 0; i < this.list_action_possible.size(); i++){
 			temp=(StructStringSprite) this.list_action_possible.get(i);
-			if (temp.nom.equals(compare.nom))
-			{
-				return true;
-			}	
+			if (temp.nom.equals(compare.nom)) return true;
 		}
 		return false;
 	}
@@ -621,8 +571,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	/**
 	 * Initialise la liste des sprites avec uniquement les actions possible pour un niveau donn�
 	 */
-	public void initActionsPossible()
-	{
+	public void initActionsPossible(){
 		this.list_action_possible = new LinkedList();
 		ArrayList al = monNiveau.getActions() ;
 		
@@ -631,54 +580,40 @@ public class Afficher_niveau extends Menu_niveaux{
 			StructStringSprite struct = null;
 			if (al.get(i) instanceof Avancer) {
 				struct = this.new StructStringSprite(this.spriteSymboleAvancer, "avancer");
-			}
-			else if(al.get(i) instanceof Allumer) {
+			}else if(al.get(i) instanceof Allumer) {
 				struct = this.new StructStringSprite(this.spriteSymboleAllumer, "allumer");
-			}
-			else if(al.get(i) instanceof AllumerBattle) {
+			}else if(al.get(i) instanceof AllumerBattle) {
 				struct = this.new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle");
-			}
-			else if(al.get(i) instanceof Break) {
+			}else if(al.get(i) instanceof Break) {
 				struct = this.new StructStringSprite(this.spriteSymboleBreak, "break");	
-			}
-			else if(al.get(i) instanceof Sauter) {
+			}else if(al.get(i) instanceof Sauter) {
 				struct = this.new StructStringSprite(this.spriteSymboleSauter, "sauter");
-			}
-			else if(al.get(i) instanceof TournerDroite) {
+			}else if(al.get(i) instanceof TournerDroite) {
 				struct = this.new StructStringSprite(this.spriteSymboleTournerDroite, "droite");
-			}
-			else if(al.get(i) instanceof TournerGauche) {
+			}else if(al.get(i) instanceof TournerGauche) {
 				struct = this.new StructStringSprite(this.spriteSymboleTournerGauche, "gauche");
-			}
-			else if(al.get(i) instanceof PoserBloc) {
+			}else if(al.get(i) instanceof PoserBloc) {
 				struct = this.new StructStringSprite(this.spriteSymbolePoser, "poser");
-			}
-			else if(al.get(i) instanceof RetirerBloc) {
+			}else if(al.get(i) instanceof RetirerBloc) {
 				struct = this.new StructStringSprite(this.spriteSymboleSuppr, "suppr");
-			}
-			else if(al.get(i) instanceof CompareFront) {
+			}else if(al.get(i) instanceof CompareFront) {
 				struct = this.new StructStringSprite(this.spriteSymboleComp, "comp");
-			}
-			else if(al.get(i) instanceof Swap) {
+			}else if(al.get(i) instanceof Swap) {
 				struct = this.new StructStringSprite(this.spriteSymboleSwap, "swap");
-			}
-			else if(al.get(i) instanceof Wash) {
+			}else if(al.get(i) instanceof Wash) {
 				struct = this.new StructStringSprite(this.spriteSymboleWash, "wash");
-			}
-			
+			}		
 			
 			if(!action_deja_presente(struct))
 				this.list_action_possible.add(struct);
 		}
 		
-		if(monNiveau.getProgrammes().size()>=2)
-		{
+		if(monNiveau.getProgrammes().size()>=2){
 			StructStringSprite struct = null;
 			struct = this.new StructStringSprite(this.spriteP1, "P1");
 			this.list_action_possible.add(struct);
 		}
-		if(monNiveau.getProgrammes().size()>=3)
-		{
+		if(monNiveau.getProgrammes().size()>=3){
 			StructStringSprite struct = null;
 			struct = this.new StructStringSprite(this.spriteP2, "P2");
 			this.list_action_possible.add(struct);
@@ -691,13 +626,10 @@ public class Afficher_niveau extends Menu_niveaux{
 	public void initProcedures(){
 		this.tabProgramme = new ArrayList <List[]>();
 		
-		for(int k = 0; k< monNiveau.getPersonnages().size();k++)
-		{
-			tabProgramme.add(new List[monNiveau.getProgrammes().size()]);
-			
-			for (int i = 0; i < this.tabProgramme.get(k).length; i++) {
+		for(int k = 0; k< monNiveau.getPersonnages().size();k++){
+			tabProgramme.add(new List[monNiveau.getProgrammes().size()]);			
+			for (int i = 0; i < this.tabProgramme.get(k).length; i++) 
 				this.tabProgramme.get(k)[i] = new LinkedList();
-			}
 		}
 	}
 	
@@ -711,8 +643,7 @@ public class Afficher_niveau extends Menu_niveaux{
 				StructStringSprite temp = (StructStringSprite) this.list_action_possible.get(k);
 				temp.sprite.setPosition(450+k*65, 50);
 				Menu_principal.fenetre.draw(temp.sprite);
-				if(temp.nom=="poser")
-				{
+				if(temp.nom=="poser"){
 					this.texteNbCase.setPosition(temp.sprite.getPosition());
 					this.texteNbCase.move(temp.sprite.getTexture().getSize().x/2-this.texteNbCase.getCharacterSize()/4,temp.sprite.getTexture().getSize().y-5);
 					Menu_principal.fenetre.draw(texteNbCase);
@@ -721,20 +652,17 @@ public class Afficher_niveau extends Menu_niveaux{
 		}
 		
 		StructStringSprite temp= (StructStringSprite)this.list_action_possible.getLast();
-		if(this.conditionExiste)
-		{
+		if(this.conditionExiste){
 			spritePeinture.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+ 5,temp.sprite.getPosition().y);
 			this.spriteBoutonPlay.setPosition(spritePeinture.getPosition().x + this.spriteBoutonPlay.getTexture().getSize().x +5 ,temp.sprite.getPosition().y);
 			this.spriteBoutonReset.setPosition(this.spriteBoutonPlay.getPosition().x + this.spriteBoutonReset.getTexture().getSize().x + 5,this.spriteBoutonPlay.getPosition().y);
 			Menu_principal.fenetre.draw(this.spritePeinture);	
 		}
-		else
-		{
+		else{
 			this.spriteBoutonPlay.setPosition(temp.sprite.getPosition().x + spritePeinture.getTexture().getSize().x * 3+5 ,temp.sprite.getPosition().y);
 			this.spriteBoutonReset.setPosition(this.spriteBoutonPlay.getPosition().x + this.spriteBoutonReset.getTexture().getSize().x + 5,this.spriteBoutonPlay.getPosition().y);		
 		}
-		if ( action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle")))
-		{
+		if ( action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))){
 			temp = (StructStringSprite)this.list_action_possible.getFirst();
 			spriteJoueurSuivant.setPosition(temp.sprite.getPosition().x, temp.sprite.getPosition().y+temp.sprite.getTexture().getSize().y+5);
 			spriteJoueurSuivant.setColor(this.couleur_case_vers_couleur_Graphique(monNiveau.getPersonnages().get(this.indexRobot).getCouleur()));
@@ -759,11 +687,7 @@ public class Afficher_niveau extends Menu_niveaux{
 			case 3:
 				nb_ligne=0;
 				for (int l = 10; l > monNiveau.getProgrammes().get(2).getNbMaxAction(); l--) {
-					
-					if(l%5==0 && l!=0 && l!=10)
-					{
-						nb_ligne++;
-					}
+					if(l%5==0 && l!=0 && l!=10)	nb_ligne++;
 					Sprite temp3 = new Sprite(Textures.TexVerrou);
 					//temp2.setPosition(290-5-(j%5)*65, 400-5-nb_ligne*65);
 					temp3.setPosition(this.spritesProcedures[2].getPosition().x+265-(((20-l)%5)*65), this.spritesProcedures[2].getPosition().y + 70-(nb_ligne*65));
@@ -773,11 +697,7 @@ public class Afficher_niveau extends Menu_niveaux{
 			case 2:
 				nb_ligne=0;
 				for (int k = 10; k > monNiveau.getProgrammes().get(1).getNbMaxAction(); k--) {
-					
-					if(k%5==0 && k!=0 && k!=10)
-					{
-						nb_ligne++;
-					}
+					if(k%5==0 && k!=0 && k!=10)	nb_ligne++;
 					Sprite temp4 = new Sprite(Textures.TexVerrou);
 					//temp2.setPosition(290-5-(j%5)*65, 400-5-nb_ligne*65);
 					temp4.setPosition(this.spritesProcedures[1].getPosition().x+265-(((20-k)%5)*65), this.spritesProcedures[1].getPosition().y + 70-(nb_ligne*65));
@@ -787,10 +707,7 @@ public class Afficher_niveau extends Menu_niveaux{
 			default:
 				nb_ligne = 0;
 				for (int j = 20; j > monNiveau.getProgrammes().get(0).getNbMaxAction(); j--) {
-					if(j%5==0 && j!=0 && j!=20)
-					{
-						nb_ligne++;
-					}
+					if(j%5==0 && j!=0 && j!=20)	nb_ligne++;
 					Sprite temp2 = new Sprite(Textures.TexVerrou);
 					//temp2.setPosition(290-5-(j%5)*65, 400-5-nb_ligne*65);
 					temp2.setPosition(this.spritesProcedures[0].getPosition().x+265-(((20-j)%5)*65), this.spritesProcedures[0].getPosition().y+200-(nb_ligne*65));
@@ -806,17 +723,13 @@ public class Afficher_niveau extends Menu_niveaux{
 	 * Permet d'afficher les proc�dures (le main et les deux autres sous proc�dures)
 	 */
 	public void afficher_procedure(){
-		for(int i=0;i< monNiveau.getProgrammes().size(); i++ )
-		{
+		for(int i=0;i< monNiveau.getProgrammes().size(); i++ ){
 			if (!this.tabProgramme.get(indexRobot)[i].isEmpty()) {
 				int cpty=0;
 				
 				for (int k = 0; k < this.tabProgramme.get(indexRobot)[i].size(); k++) {
 					
-					if(k%5==0 && k!=0)
-					{
-						cpty++;
-					}
+					if(k%5==0 && k!=0) cpty++;
 						
 					StructStringSprite temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[i].get(k);
 					temp.sprite.setPosition(this.spritesProcedures[i].getPosition().x+5+(k%5)*65
@@ -864,15 +777,13 @@ public class Afficher_niveau extends Menu_niveaux{
 		public Sprite sprite;
 		public String nom;
 		
-		public StructStringSprite(Sprite sprite, String string)
-		{
+		public StructStringSprite(Sprite sprite, String string){
 			Sprite temp = new Sprite(sprite.getTexture());
 			this.sprite = temp;
 			this.nom = string;
 		}
 		
-		public StructStringSprite(StructStringSprite struct)
-		{
+		public StructStringSprite(StructStringSprite struct){
 			Sprite temp = new Sprite(struct.sprite.getTexture());
 			this.sprite = temp;
 			this.nom = struct.nom;
@@ -880,38 +791,18 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	
-	private Color couleur_case_vers_couleur_Graphique(Couleur coul)
-	{
-		if(coul == Couleur.Blanc) 
-		{
-			return  Color.WHITE;
-		}
-		else if(coul == Couleur.Rose  )
-		{
-			return couleurRose;
-		}
-		else if(coul ==Couleur.Violet  )
-		{
-			return couleurViolet;
-		}
+	private Color couleur_case_vers_couleur_Graphique(Couleur coul){
+		if(coul == Couleur.Blanc) return  Color.WHITE;
+		else if(coul == Couleur.Rose) return couleurRose;
+		else if(coul ==Couleur.Violet) return couleurViolet;
 		System.out.println("Erreur de couleur");
 		return null;
 	}
 	
-	private Couleur couleur_graphique_vers_couleur_case(Color coul)
-	{
-		if(coul == Color.WHITE) 
-		{
-			return Couleur.Blanc;
-		}
-		else if(coul == couleurRose )
-		{
-			return Couleur.Rose;
-		}
-		else if(coul ==couleurViolet )
-		{
-			return Couleur.Violet;
-		}
+	private Couleur couleur_graphique_vers_couleur_case(Color coul){
+		if(coul == Color.WHITE) return Couleur.Blanc;
+		else if(coul == couleurRose )return Couleur.Rose;
+		else if(coul ==couleurViolet ) return Couleur.Violet;
 		System.out.println("Erreur de couleur");
 		return null;
 	}
@@ -972,8 +863,7 @@ public class Afficher_niveau extends Menu_niveaux{
 	}
 	
 	
-	void reset_niveau(Mode_Jeu mj, int selection)
-	{
+	void reset_niveau(Mode_Jeu mj, int selection){
 		this.afficherWin=false;
 		StructStringSprite temp;
 		monNiveau=mj.getNiveau(selection);
@@ -989,19 +879,16 @@ public class Afficher_niveau extends Menu_niveaux{
 		this.set_textures_cases();
 		set_pos_robot();
 		
-		for(int l = 0; l<monNiveau.getPersonnages().size();l++)
-		{
+		for(int l = 0; l<monNiveau.getPersonnages().size();l++){
 			this.animInfos.get(l).setX(monNiveau.getPersonnages().get(l).getPositionX());
 			this.animInfos.get(l).setY(monNiveau.getPersonnages().get(l).getPositionY());
 			this.animInfos.get(l).setNum(0);
 		}
 	}
 	
-	void setProgramme(List[] liste)
-	{
+	void setProgramme(List[] liste){
 		int save_select = this.progSelect;
-		for(int l=0;l<liste.length;l++)
-		{
+		for(int l=0;l<liste.length;l++){
 			this.progSelect=l;
 			if (!liste[this.progSelect].isEmpty()) {
 				for (int k = 0; k < liste[this.progSelect].size(); k++) {
@@ -1014,72 +901,46 @@ public class Afficher_niveau extends Menu_niveaux{
 	
 	
 	
-	public void supprimer_programme(int ind)
-	{
+	public void supprimer_programme(int ind){
 		if(ind<this.nbRobotsInit)
 			for(int i=0;i<this.tabProgramme.get(ind).length;i++)
-			{
-				this.tabProgramme.get(ind)[i].clear();
-			}	
+				this.tabProgramme.get(ind)[i].clear();	
 	}
 	
-	void setNextPeinture ()
-	{
-		if(couleurUtilisee == Color.WHITE)
-		{
-			couleurUtilisee = couleurRose;
-		}
-		else if(couleurUtilisee == couleurRose )
-		{
-			couleurUtilisee = couleurViolet ;
-		}
-		else if(couleurUtilisee == couleurViolet)
-		{
-			couleurUtilisee = Color.WHITE;
-		}
+	void setNextPeinture (){
+		if(couleurUtilisee == Color.WHITE) couleurUtilisee = couleurRose;
+		else if(couleurUtilisee == couleurRose ) couleurUtilisee = couleurViolet ;
+		else if(couleurUtilisee == couleurViolet)	couleurUtilisee = Color.WHITE;
 		spritePeinture.setColor(couleurUtilisee);
 	}
 	
-	private void pause (int p)
-	{
+	private void pause (int p){
 		try {
 			Thread.sleep(p);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		} catch (InterruptedException e){}
 	}
 	
 	
-	private void afficher_phrase_fin()
-	{
-		if(monNiveau.getTerrain().getWinner()==0 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
-		{
+	private void afficher_phrase_fin(){
+		if(monNiveau.getTerrain().getWinner()==0 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  ){
 			this.afficherWin=true;
 			this.texteWin = new Text("Le joueur rose a gagne !", police, 40);
 			this.texteWin.setPosition(650,150);
-		}
-		else if(monNiveau.getTerrain().getWinner()==1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
-		{
+		}else if(monNiveau.getTerrain().getWinner()==1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  ){
 			this.afficherWin=true;
 			this.texteWin = new Text("Le joueur violet a gagne !", police, 40);
 			this.texteWin.setPosition(650,150);
-		}
-		else if(monNiveau.getTerrain().getWinner()==-1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  )
-		{
+		}else if(monNiveau.getTerrain().getWinner()==-1 && action_deja_presente(new StructStringSprite(this.spriteSymboleAllumer, "allumerBattle"))  ){
 			this.afficherWin=true;
 			this.texteWin = new Text("Match nul !", police, 40);
 			this.texteWin.setPosition(780,150);
-		}
-		else 
-		{
+		}else{
 			this.afficherWin=true;
-			if(monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee())
-			{
-				this.texteWin = new Text("             Felicitations !\nClic pour passer au niveau suivant", police, 40);
+			if(monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee()){
+				int nbCoups=monNiveau.getTerrain().getNbActionsPossible()-monNiveau.getTerrain().getNbActionsRestantes();
+				this.texteWin = new Text("             Felicitations !\nNombre de d'actions utilisées : "+nbCoups+"\nClic pour passer au niveau suivant", police, 40);
 				this.texteWin.setPosition(400,150);
-			}
-			else
-			{
+			}else{
 				this.texteWin = new Text("Algorithme termine", police, 40);
 				this.texteWin.setPosition(650,150);
 			}	
@@ -1090,9 +951,8 @@ public class Afficher_niveau extends Menu_niveaux{
 	 * Méthode principale de la classe qui permet d'afficher tout un niveau avec les actions et procédures associée
 	 * @param niveauCharger Le niveau que l'on veut afficher
 	 */
-	public boolean afficher_niveau(Niveau niveauCharger,Mode_Jeu mj, int selection)
-	{		
-		int i=0,j=0;
+	public boolean afficher_niveau(Niveau niveauCharger,Mode_Jeu mj, int selection){		
+		int j=0;
 		boolean unSeulPlay=true;
 		boolean sortie=true;
 		StructStringSprite temp;
@@ -1109,8 +969,7 @@ public class Afficher_niveau extends Menu_niveaux{
 		afficher_carte();
 		this.nbRobotsInit=monNiveau.getPersonnages().size();
 
-		while (Menu_principal.fenetre.isOpen() && sortie ) 
-		{
+		while (Menu_principal.fenetre.isOpen() && sortie ){
 			pause(10);
 			for (Event event : Menu_principal.fenetre.pollEvents()) {					
 				if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) { 
@@ -1121,9 +980,7 @@ public class Afficher_niveau extends Menu_niveaux{
 						for (int k = 0; k < this.tabProgramme.get(indexRobot)[this.progSelect].size(); k++) {
 							temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);
 							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && event.asMouseButtonEvent().button == Button.RIGHT)
-							{
 								this.tabProgramme.get(indexRobot)[this.progSelect].remove(k);
-							}
 						}
 					}
 					
@@ -1131,8 +988,7 @@ public class Afficher_niveau extends Menu_niveaux{
 					if (!this.list_action_possible.isEmpty()) {
 						for (int k = 0; k < this.list_action_possible.size(); k++) {
 							temp = (StructStringSprite) this.list_action_possible.get(k);
-							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && !this.spritesProcedures[this.progSelect].getGlobalBounds().contains(pos.x,pos.y))
-							{
+							if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y) && !this.spritesProcedures[this.progSelect].getGlobalBounds().contains(pos.x,pos.y)){
 								StructStringSprite struct = new StructStringSprite(temp);
 								//monNiveau.getProgrammes().add(struct);
 								if(this.tabProgramme.get(indexRobot)[this.progSelect].size() < monNiveau.getProgrammes().get(this.progSelect).getNbMaxAction()){
@@ -1141,16 +997,11 @@ public class Afficher_niveau extends Menu_niveaux{
 							}
 						}
 					}
-					if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
-					{
-						sortie=false;
-					}
+					if(Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))	sortie=false;
 					
-					else if(this.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay)
-					{	
+					else if(this.spriteBoutonPlay.getGlobalBounds().contains(pos.x,pos.y) && unSeulPlay){	
 						int saveIndex = this.indexRobot;
-						for (j=0;j<this.tabProgramme.size();j++)
-						{
+						for (j=0;j<this.tabProgramme.size();j++){
 							this.indexRobot=j;
 							this.setProgramme(this.tabProgramme.get(indexRobot));
 							try {
@@ -1172,62 +1023,45 @@ public class Afficher_niveau extends Menu_niveaux{
 						
 						afficher_phrase_fin();				
 					}
-					else if(this.spritesProcedures[this.progSelect].getGlobalBounds().contains(pos.x,pos.y) )
-					{
+					else if(this.spritesProcedures[this.progSelect].getGlobalBounds().contains(pos.x,pos.y) ){
 						//Si clique droit sur un élément du main, on le supprime
 						if (!this.tabProgramme.get(indexRobot)[this.progSelect].isEmpty()) {
 							for (int k = 0; k < this.tabProgramme.get(indexRobot)[this.progSelect].size(); k++) {
 								temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);
-								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y))
-								{
+								if(temp.sprite.getGlobalBounds().contains(pos.x,pos.y)){
 									temp = (StructStringSprite) this.tabProgramme.get(indexRobot)[this.progSelect].get(k);	
 									temp.sprite.setColor(couleurUtilisee);
 								}
 							}
 						}
-					}
-					else if(this.spritePeinture.getGlobalBounds().contains(pos.x,pos.y) && this.conditionExiste)
-					{
+					}else if(this.spritePeinture.getGlobalBounds().contains(pos.x,pos.y) && this.conditionExiste){
 						this.setNextPeinture();
-					}
-					else if(this.spriteJoueurSuivant.getGlobalBounds().contains(pos.x,pos.y) && monNiveau.getPersonnages().size()>1)
-					{
+					}else if(this.spriteJoueurSuivant.getGlobalBounds().contains(pos.x,pos.y) && monNiveau.getPersonnages().size()>1){
 						reset_sprite_selectionne();
 						this.indexRobot=1-this.indexRobot;
-					}
-					else if(this.spriteBoutonReset.getGlobalBounds().contains(pos.x,pos.y))
-					{			
+					}else if(this.spriteBoutonReset.getGlobalBounds().contains(pos.x,pos.y)){			
 						reset_niveau(mj,selection);
 						unSeulPlay=true;
-					}
-					else if(monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee() )
-						{sortie=false;}
-					else if (Menu_principal.spriteSon[sonOn].getGlobalBounds().contains(pos.x,pos.y))
-					{
+					}else if(monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee() ){
+						sortie=false;
+					}else if (Menu_principal.spriteSon[sonOn].getGlobalBounds().contains(pos.x,pos.y)){
 						sonOn=1-sonOn;
 						music.setVolume((1-sonOn)*100);
-					}
-					else
+					}else{
 						sprite_selectionne(pos);
-					
-					if(!Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))
-					afficher_carte();
+					}
+					if(!Menu_principal.spriteRetour.getGlobalBounds().contains(pos.x,pos.y))  afficher_carte();
 				}
 
 				if (event.type == Event.Type.CLOSED) {
 					Menu_principal.fenetre.close();
 				}
 				 else if (event.type == Event.Type.KEY_PRESSED) {
-				 if (Keyboard.isKeyPressed(Key.ESCAPE))
-					{
-					 	//this.playMusic("Zarnakand.ogg");		//Relancement de la musique de menu.
-						sortie=false;
-					}	
+					 if (Keyboard.isKeyPressed(Key.ESCAPE))sortie=false;
 				}
 			}
 		}
-		if(selection<mj.getNbNiveaux()-1 && monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee())
-		{
+		if(selection<mj.getNbNiveaux()-1 && monNiveau.getTerrain().getMaxLampe() == monNiveau.getTerrain().getNbLampeAllumee()){
 			return true;
 		}
 		return false;
