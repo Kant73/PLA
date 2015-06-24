@@ -48,7 +48,7 @@ public class Utils {
 	}
 	
 	public static ArrayList<String> getListFiles(String path){
-    	final File jarFile = new File(Utils.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+    	final File jarFile = new File(Utils.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace("%20", " "));
     	ArrayList<String> listFiles=new ArrayList<String>();
     	try {
 	    	if(jarFile.isFile()) { //Lancement à partir d'un fichier jar
@@ -60,7 +60,7 @@ public class Utils {
 	    	    }
 	    	    jar.close();
 	    	}else{ // Lancement avec IDE
-	    	    final URL url = Utils.class.getResource("/" + path);
+	    	    final URL url = Utils.class.getResource("/" + path.replace("%20", " "));
 	    	    if (url != null) {
 	    	        try {
 	    	            final File apps = new File(url.toURI());
