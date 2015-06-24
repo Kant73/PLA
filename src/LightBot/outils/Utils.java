@@ -8,6 +8,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -72,7 +73,7 @@ public class Utils {
 	    	    }
 	    	}    	
     	} catch (IOException e) {}
-    	if(listFiles.size()!=0)listFiles.sort(String.CASE_INSENSITIVE_ORDER);
+    	if(listFiles.size()!=0)Collections.sort(listFiles);
     	return listFiles;
     }
 }
