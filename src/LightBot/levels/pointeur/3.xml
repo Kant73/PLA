@@ -26,8 +26,8 @@
 	<actions>
 		<action name="Avancer" />
 		<action name="Allumer" />
-		<action name="TournerDroite" />
 		<action name="TournerGauche" />
+		<action name="TournerDroite" />
 		<action name="Sauter" />
 	</actions>
 </niveau>
